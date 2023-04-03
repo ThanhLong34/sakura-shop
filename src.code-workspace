@@ -1,0 +1,17 @@
+{
+	"folders": [
+		{
+			"path": "src/app"
+		},
+		{
+			"path": "src/app/src/admin"
+		},
+		{
+			"path": "src/app/src/browser"
+		},
+		{
+			"path": "src/app/src/mobile"
+		}
+	],
+	"settings": {}
+}

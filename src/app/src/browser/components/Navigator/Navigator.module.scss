@@ -1,0 +1,18 @@
+@use "@/assets/styles/variables.scss" as *;
+
+.navigator {
+	display: flex;
+	width: 100%;
+	background-color: $backgroundColor;
+	box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+}
+
+.link {
+	padding: 8px 12px;
+	color: $textColor;
+	transition: all ease-in 0.2s;
+
+	&:hover {
+		color: $secondaryColor;
+	}
+}

@@ -1,14 +1,18 @@
-import { BrowserView, MobileView, isBrowser, isMobile } from "react-device-detect";
+import { BrowserView, MobileView } from "react-device-detect";
+import Mobile from "./mobile";
+import Browser from "./browser";
 
 function App() {
 	return (
 		<div className="App">
-			<h1>Welcome</h1>
+			{/* Browser */}
 			<BrowserView>
-				<h1>This is rendered only in browser</h1>
+				<Browser />
 			</BrowserView>
+
+			{/* Mobile */}
 			<MobileView>
-				<h1>This is rendered only on mobile</h1>
+				<Mobile />
 			</MobileView>
 		</div>
 	);
