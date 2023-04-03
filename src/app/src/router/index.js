@@ -17,7 +17,7 @@ import MobileNotFound from "@/mobile/pages/NotFound";
 
 const adminRoutes = [
 	{
-		path: "/admin/",
+		path: "/admin",
 		component: AdminDashboard,
 	},
 	{
@@ -46,11 +46,11 @@ const browserRoutes = [
 
 const mobileRoutes = [
 	{
-		path: "/app/",
+		path: "/",
 		component: MobileDashboard,
 	},
 	{
-		path: "/app/*",
+		path: "/*",
 		component: MobileNotFound,
 	},
 ];
