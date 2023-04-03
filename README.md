@@ -1,92 +1,49 @@
-# 🐧 Project created by Vite 🐧
-This is the base project for getting started with React with useful pre-installed libraries
+# 🐧 GALLERY APP 🐧
 
 ## 🤖 Author
 
 - [@DragonDev0304](https://github.com/ThanhLong34)
 
-## 🚀 Pre-installed libraries
+## 🚀 Features
+- Upload image to server
+- View image uploaded
+- Delete image uploaded
 
-- normalize.css
-	```bash
-	npm install normalize.css
-	```
-- sass
-	```bash
-	npm i -D sass
-	```
-- classnames
-	```bash
-	npm install classnames
-	```
-- prop-types
-	```bash
-	npm i prop-types
-	```
-- react-router-dom
-	```bash
-	npm i react-router-dom
-	```
-- redux
-	```bash
-	npm i redux
-	```
-- react-redux
-	```bash
-	npm i react-redux
-	```
-- redux-toolkit
-	```bash
-	npm install @reduxjs/toolkit
-	```
-- axios
-	```bash
-	npm install axios
-	```
-
-## 🛸 Pre-configured
-
-- .editorconfig
-- .prettierrc
-- path resolver
-- jsconfig.json (path autocomplete)
+## 🛸 Techs
+- Front-end: ReactJS
+- Backend: PHP (Allow call APIs)
+- DBMS: MySQL (XAMPP)
 
 ## ⚔️ Run Locally
 
-Clone the project
+1. Setup server:
 
-```bash
-git clone git@github.com:ThanhLong34/reactjs-base-project.git
-```
+	1.1. Import database from <span style="color: yellow;">gallery-app.sql</span> file in database folder
 
-Go to the project directory
+	1.2. Copy <span style="color: yellow;">gallery-app</span> folder from server folder to <span style="color: yellow;">htdocs/projects/</span> (XAMPP)
 
-```bash
-cd reactjs-base-project
-```
+2. Setup app
 
-Open in VSCode
+	2.1. Go to the project directory
 
-```bash
-code .
-```
+	```bash
+	cd app/gallery-app
+	```
 
-Install dependencies
+	2.2. Open in VSCode
 
-```bash
-npm install
-```
+	```bash
+	code .
+	```
 
-Start the server
+	2.3. Install dependencies
 
-```bash
-npm run dev
-```
+	```bash
+	npm install
+	```
 
-## 🌈 Colors Reference 
+	2.4. Start the server
 
-| Color             | Hex                                                                |
-| ----------------- | ------------------------------------------------------------------ |
-| Primary Color | ![#ff006f](https://via.placeholder.com/10/ff006f?text=+) #ff006f |
-| Secondary Color | ![#8800ff](https://via.placeholder.com/10/8800ff?text=+) #8800ff |
-| Tertiary Color | ![#00ffee](https://via.placeholder.com/10/00ffee?text=+) #00ffee |
+	```bash
+	npm run dev
+	```

@@ -1,0 +1,151 @@
+Table Admin {
+  id int [pk]
+  createdAt varchar(255) [default: NULL]
+  updatedAt varchar(255) [default: NULL]
+  deletedAt varchar(255) [default: NULL]
+  username varchar(255) [not null]
+  password varchar(255) [not null]
+  email varchar(255) [not null]
+  phone varchar(255) [not null]
+}
+
+Table Image {
+  id int [pk]
+  createdAt varchar(255) [default: NULL]
+  updatedAt varchar(255) [default: NULL]
+  deletedAt varchar(255) [default: NULL]
+  link varchar(255) [not null]
+  filename varchar(255) [not null]
+  size int [not null]
+}
+
+Table Player {
+  id int [pk]
+  createdAt varchar(255) [default: NULL]
+  updatedAt varchar(255) [default: NULL]
+  deletedAt varchar(255) [default: NULL]
+  lockedAt varchar(255) [default: NULL]
+  phone varchar(255) [not null]
+  password varchar(255) [not null]
+  email varchar(255) [default: NULL]
+  nickname varchar(255) [default: NULL]
+  star int [default: 0]
+  diamond int [default: 0]
+  experience int [default: 0]
+  level int [default: 0]
+  activeModeOption bool [default: 0]
+  activeModeRankOfWeek bool [default: 0]
+  scoreOfWeek int [default: 0]
+}
+
+Table Topic {
+  id int [pk]
+  createdAt varchar(255) [default: NULL]
+  updatedAt varchar(255) [default: NULL]
+  deletedAt varchar(255) [default: NULL]
+  imageId int [default: NULL]
+  name varchar(255) [default: NULL]
+}
+
+Table Card {
+  id int [pk]
+  createdAt varchar(255) [default: NULL]
+  updatedAt varchar(255) [default: NULL]
+  deletedAt varchar(255) [default: NULL]
+  imageId int [default: NULL]
+  title varchar(255) [default: NULL]
+  brand varchar(255) [default: NULL]
+  valueStar int [default: 0]
+  valueDiamond int [default: 0]
+  topicId int [ref: > Topic.id]
+}
+
+Table Gift {
+  id int [pk]
+  createdAt varchar(255) [default: NULL]
+  updatedAt varchar(255) [default: NULL]
+  deletedAt varchar(255) [default: NULL]
+  imageId int [default: NULL]
+  name varchar(255) [default: NULL]
+  brand varchar(255) [default: NULL]
+  description text [default: NULL]
+  starCost int [default: 0]
+  diamondCost int [default: 0]
+  allowToReceiveOnline bool [default: 0]
+  isShow bool [default: 1]
+}
+
+Table GiftForWeek {
+  id int [pk]
+  createdAt varchar(255) [default: NULL]
+  updatedAt varchar(255) [default: NULL]
+  deletedAt varchar(255) [default: NULL]
+  imageId int [default: NULL]
+  name varchar(255) [default: NULL]
+  brand varchar(255) [default: NULL]
+  description text [default: NULL]
+  allowToReceiveOnline bool [default: 0]
+  isShow bool [default: 1]
+}
+
+Table WeeklyRanking {
+  id int [pk]
+  createdAt varchar(255) [default: NULL]
+  updatedAt varchar(255) [default: NULL]
+  deletedAt varchar(255) [default: NULL]
+  Num int [not null]
+  giftForWeekIdOfPlayerTop1 int [ref: > GiftForWeek.id]
+  giftForWeekIdOfPlayerTop2 int [ref: > GiftForWeek.id]
+  giftForWeekIdOfPlayerTop3 int [ref: > GiftForWeek.id]
+}
+
+Table WeeklyRankingReport {
+  id int [pk]
+  createdAt varchar(255) [default: NULL]
+  updatedAt varchar(255) [default: NULL]
+  deletedAt varchar(255) [default: NULL]
+  playerId int [ref: > Player.id]
+  scoreOfWeek int [not null]
+  weeklyRankingId int [ref: > WeeklyRanking.id]
+}
+
+Table Answer {
+  id int [pk]
+  createdAt varchar(255) [default: NULL]
+  updatedAt varchar(255) [default: NULL]
+  deletedAt varchar(255) [default: NULL]
+  title varchar(1000) [not null]
+  questionId int [ref: > Question.id]
+}
+
+Table Question {
+  id int [pk]
+  createdAt varchar(255) [default: NULL]
+  updatedAt varchar(255) [default: NULL]
+  deletedAt varchar(255) [default: NULL]
+  title varchar(1000) [not null]
+  rightAnswerId int [ref: > Answer.id]
+  valueStar int [default: 0]
+  valueDiamond int [default: 0]
+}
+
+Table AdvertisementType {
+  id int [pk]
+  createdAt varchar(255) [default: NULL]
+  updatedAt varchar(255) [default: NULL]
+  deletedAt varchar(255) [default: NULL]
+  title varchar(255) [not null]
+}
+
+Table Advertisement {
+  id int [pk]
+  createdAt varchar(255) [default: NULL]
+  updatedAt varchar(255) [default: NULL]
+  deletedAt varchar(255) [default: NULL]
+  title varchar(255) [default: NULL]
+  description text [default: NULL]
+  duration int [not null]
+  valueStar int [default: 0]
+  valueDiamond int [default: 0]
+  advertisementTypeId int [ref: > AdvertisementType.id]
+}
