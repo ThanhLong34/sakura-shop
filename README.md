@@ -1,4 +1,4 @@
-# 🐧 GALLERY APP 🐧
+# 🐧 DEV SHOP 🐧
 
 ## 🤖 Author
 
