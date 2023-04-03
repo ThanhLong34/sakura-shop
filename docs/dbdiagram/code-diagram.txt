@@ -1,5 +1,5 @@
 Table Admin {
-  id int [pk]
+  id int [pk, increment]
   createdAt varchar(255) [default: NULL]
   updatedAt varchar(255) [default: NULL]
   deletedAt varchar(255) [default: NULL]
@@ -10,7 +10,7 @@ Table Admin {
 }
 
 Table Image {
-  id int [pk]
+  id int [pk, increment]
   createdAt varchar(255) [default: NULL]
   updatedAt varchar(255) [default: NULL]
   deletedAt varchar(255) [default: NULL]
@@ -20,7 +20,7 @@ Table Image {
 }
 
 Table Player {
-  id int [pk]
+  id int [pk, increment]
   createdAt varchar(255) [default: NULL]
   updatedAt varchar(255) [default: NULL]
   deletedAt varchar(255) [default: NULL]
@@ -39,7 +39,7 @@ Table Player {
 }
 
 Table Topic {
-  id int [pk]
+  id int [pk, increment]
   createdAt varchar(255) [default: NULL]
   updatedAt varchar(255) [default: NULL]
   deletedAt varchar(255) [default: NULL]
@@ -48,7 +48,7 @@ Table Topic {
 }
 
 Table Card {
-  id int [pk]
+  id int [pk, increment]
   createdAt varchar(255) [default: NULL]
   updatedAt varchar(255) [default: NULL]
   deletedAt varchar(255) [default: NULL]
@@ -60,8 +60,16 @@ Table Card {
   topicId int [ref: > Topic.id]
 }
 
+Table GiftType {
+  id int [pk, increment]
+  createdAt varchar(255) [default: NULL]
+  updatedAt varchar(255) [default: NULL]
+  deletedAt varchar(255) [default: NULL]
+  name varchar(255) [not null]
+}
+
 Table Gift {
-  id int [pk]
+  id int [pk, increment]
   createdAt varchar(255) [default: NULL]
   updatedAt varchar(255) [default: NULL]
   deletedAt varchar(255) [default: NULL]
@@ -73,44 +81,49 @@ Table Gift {
   diamondCost int [default: 0]
   allowToReceiveOnline bool [default: 0]
   isShow bool [default: 1]
+  giftTypeId int [ref: > GiftType.id]
 }
 
-Table GiftForWeek {
-  id int [pk]
+Table Player_Gift {
+  playerId int [ref: > Player.id]
+  giftId int [ref: > Gift.id]
+  amount int [default: 1]
+}
+
+// Lịch sử nhận thưởng
+// nhận kèm khi mua hàng
+Table RewardHistory {
+  id int [pk, increment]
   createdAt varchar(255) [default: NULL]
   updatedAt varchar(255) [default: NULL]
   deletedAt varchar(255) [default: NULL]
-  imageId int [default: NULL]
-  name varchar(255) [default: NULL]
-  brand varchar(255) [default: NULL]
-  description text [default: NULL]
-  allowToReceiveOnline bool [default: 0]
-  isShow bool [default: 1]
+  giftId int [ref: > Gift.id]
 }
 
 Table WeeklyRanking {
-  id int [pk]
+  id int [pk, increment]
   createdAt varchar(255) [default: NULL]
   updatedAt varchar(255) [default: NULL]
   deletedAt varchar(255) [default: NULL]
-  Num int [not null]
-  giftForWeekIdOfPlayerTop1 int [ref: > GiftForWeek.id]
-  giftForWeekIdOfPlayerTop2 int [ref: > GiftForWeek.id]
-  giftForWeekIdOfPlayerTop3 int [ref: > GiftForWeek.id]
+  weekNumber int [not null] // tuần thứ
+  giftOfPlayerTop1 int [ref: > Gift.id]
+  giftOfPlayerTop2 int [ref: > Gift.id]
+  giftOfPlayerTop3 int [ref: > Gift.id]
 }
 
 Table WeeklyRankingReport {
-  id int [pk]
+  id int [pk, increment]
   createdAt varchar(255) [default: NULL]
   updatedAt varchar(255) [default: NULL]
   deletedAt varchar(255) [default: NULL]
   playerId int [ref: > Player.id]
   scoreOfWeek int [not null]
+  topNumber int [not null]
   weeklyRankingId int [ref: > WeeklyRanking.id]
 }
 
 Table Answer {
-  id int [pk]
+  id int [pk, increment]
   createdAt varchar(255) [default: NULL]
   updatedAt varchar(255) [default: NULL]
   deletedAt varchar(255) [default: NULL]
@@ -119,7 +132,7 @@ Table Answer {
 }
 
 Table Question {
-  id int [pk]
+  id int [pk, increment]
   createdAt varchar(255) [default: NULL]
   updatedAt varchar(255) [default: NULL]
   deletedAt varchar(255) [default: NULL]
@@ -130,7 +143,7 @@ Table Question {
 }
 
 Table AdvertisementType {
-  id int [pk]
+  id int [pk, increment]
   createdAt varchar(255) [default: NULL]
   updatedAt varchar(255) [default: NULL]
   deletedAt varchar(255) [default: NULL]
@@ -138,7 +151,7 @@ Table AdvertisementType {
 }
 
 Table Advertisement {
-  id int [pk]
+  id int [pk, increment]
   createdAt varchar(255) [default: NULL]
   updatedAt varchar(255) [default: NULL]
   deletedAt varchar(255) [default: NULL]

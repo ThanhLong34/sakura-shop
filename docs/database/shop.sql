@@ -60,6 +60,14 @@ CREATE TABLE `Card` (
   `topicId` int
 );
 
+CREATE TABLE `GiftType` (
+  `id` int PRIMARY KEY AUTO_INCREMENT,
+  `createdAt` varchar(255) DEFAULT NULL,
+  `updatedAt` varchar(255) DEFAULT NULL,
+  `deletedAt` varchar(255) DEFAULT NULL,
+  `name` varchar(255) NOT NULL
+);
+
 CREATE TABLE `Gift` (
   `id` int PRIMARY KEY AUTO_INCREMENT,
   `createdAt` varchar(255) DEFAULT NULL,
@@ -72,20 +80,22 @@ CREATE TABLE `Gift` (
   `starCost` int DEFAULT 0,
   `diamondCost` int DEFAULT 0,
   `allowToReceiveOnline` bool DEFAULT 0,
-  `isShow` bool DEFAULT 1
+  `isShow` bool DEFAULT 1,
+  `giftTypeId` int
 );
 
-CREATE TABLE `GiftForWeek` (
+CREATE TABLE `Player_Gift` (
+  `playerId` int,
+  `giftId` int,
+  `amount` int DEFAULT 1
+);
+
+CREATE TABLE `RewardHistory` (
   `id` int PRIMARY KEY AUTO_INCREMENT,
   `createdAt` varchar(255) DEFAULT NULL,
   `updatedAt` varchar(255) DEFAULT NULL,
   `deletedAt` varchar(255) DEFAULT NULL,
-  `imageId` int DEFAULT NULL,
-  `name` varchar(255) DEFAULT NULL,
-  `brand` varchar(255) DEFAULT NULL,
-  `description` text DEFAULT NULL,
-  `allowToReceiveOnline` bool DEFAULT 0,
-  `isShow` bool DEFAULT 1
+  `giftId` int
 );
 
 CREATE TABLE `WeeklyRanking` (
@@ -93,10 +103,10 @@ CREATE TABLE `WeeklyRanking` (
   `createdAt` varchar(255) DEFAULT NULL,
   `updatedAt` varchar(255) DEFAULT NULL,
   `deletedAt` varchar(255) DEFAULT NULL,
-  `Num` int NOT NULL,
-  `giftForWeekIdOfPlayerTop1` int,
-  `giftForWeekIdOfPlayerTop2` int,
-  `giftForWeekIdOfPlayerTop3` int
+  `weekNumber` int NOT NULL,
+  `giftOfPlayerTop1` int,
+  `giftOfPlayerTop2` int,
+  `giftOfPlayerTop3` int
 );
 
 CREATE TABLE `WeeklyRankingReport` (
@@ -106,6 +116,7 @@ CREATE TABLE `WeeklyRankingReport` (
   `deletedAt` varchar(255) DEFAULT NULL,
   `playerId` int,
   `scoreOfWeek` int NOT NULL,
+  `topNumber` int NOT NULL,
   `weeklyRankingId` int
 );
 
@@ -152,11 +163,19 @@ CREATE TABLE `Advertisement` (
 
 ALTER TABLE `Card` ADD FOREIGN KEY (`topicId`) REFERENCES `Topic` (`id`);
 
-ALTER TABLE `WeeklyRanking` ADD FOREIGN KEY (`giftForWeekIdOfPlayerTop1`) REFERENCES `GiftForWeek` (`id`);
+ALTER TABLE `Gift` ADD FOREIGN KEY (`giftTypeId`) REFERENCES `GiftType` (`id`);
 
-ALTER TABLE `WeeklyRanking` ADD FOREIGN KEY (`giftForWeekIdOfPlayerTop2`) REFERENCES `GiftForWeek` (`id`);
+ALTER TABLE `Player_Gift` ADD FOREIGN KEY (`playerId`) REFERENCES `Player` (`id`);
 
-ALTER TABLE `WeeklyRanking` ADD FOREIGN KEY (`giftForWeekIdOfPlayerTop3`) REFERENCES `GiftForWeek` (`id`);
+ALTER TABLE `Player_Gift` ADD FOREIGN KEY (`giftId`) REFERENCES `Gift` (`id`);
+
+ALTER TABLE `RewardHistory` ADD FOREIGN KEY (`giftId`) REFERENCES `Gift` (`id`);
+
+ALTER TABLE `WeeklyRanking` ADD FOREIGN KEY (`giftOfPlayerTop1`) REFERENCES `Gift` (`id`);
+
+ALTER TABLE `WeeklyRanking` ADD FOREIGN KEY (`giftOfPlayerTop2`) REFERENCES `Gift` (`id`);
+
+ALTER TABLE `WeeklyRanking` ADD FOREIGN KEY (`giftOfPlayerTop3`) REFERENCES `Gift` (`id`);
 
 ALTER TABLE `WeeklyRankingReport` ADD FOREIGN KEY (`playerId`) REFERENCES `Player` (`id`);
 
