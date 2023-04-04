@@ -29,13 +29,12 @@ Table Player {
   password varchar(255) [not null]
   email varchar(255) [default: NULL]
   nickname varchar(255) [default: NULL]
+  health int [default: 1]
   star int [default: 0]
   diamond int [default: 0]
   experience int [default: 0]
   level int [default: 0]
   activeModeOption bool [default: 0]
-  activeModeRankOfWeek bool [default: 0]
-  scoreOfWeek int [default: 0]
 }
 
 Table Topic {
@@ -55,17 +54,10 @@ Table Card {
   imageId int [default: NULL]
   title varchar(255) [default: NULL]
   brand varchar(255) [default: NULL]
-  valueStar int [default: 0]
-  valueDiamond int [default: 0]
+  healthReward int [default: 0]
+  starReward int [default: 0]
+  diamondReward int [default: 0]
   topicId int [ref: > Topic.id]
-}
-
-Table GiftType {
-  id int [pk, increment]
-  createdAt varchar(255) [default: NULL]
-  updatedAt varchar(255) [default: NULL]
-  deletedAt varchar(255) [default: NULL]
-  name varchar(255) [not null]
 }
 
 Table Gift {
@@ -81,13 +73,16 @@ Table Gift {
   diamondCost int [default: 0]
   allowToReceiveOnline bool [default: 0]
   isShow bool [default: 1]
-  giftTypeId int [ref: > GiftType.id]
 }
 
-Table Player_Gift {
-  playerId int [ref: > Player.id]
-  giftId int [ref: > Gift.id]
-  amount int [default: 1]
+Table Level {
+  id int [pk, increment]
+  createdAt varchar(255) [default: NULL]
+  updatedAt varchar(255) [default: NULL]
+  deletedAt varchar(255) [default: NULL]
+  levelNumber int [not null]
+  starReward int [default: 0]
+  diamondReward int [default: 0]
 }
 
 // Lịch sử nhận thưởng
@@ -98,28 +93,7 @@ Table RewardHistory {
   updatedAt varchar(255) [default: NULL]
   deletedAt varchar(255) [default: NULL]
   giftId int [ref: > Gift.id]
-}
-
-Table WeeklyRanking {
-  id int [pk, increment]
-  createdAt varchar(255) [default: NULL]
-  updatedAt varchar(255) [default: NULL]
-  deletedAt varchar(255) [default: NULL]
-  weekNumber int [not null] // tuần thứ
-  giftOfPlayerTop1 int [ref: > Gift.id]
-  giftOfPlayerTop2 int [ref: > Gift.id]
-  giftOfPlayerTop3 int [ref: > Gift.id]
-}
-
-Table WeeklyRankingReport {
-  id int [pk, increment]
-  createdAt varchar(255) [default: NULL]
-  updatedAt varchar(255) [default: NULL]
-  deletedAt varchar(255) [default: NULL]
   playerId int [ref: > Player.id]
-  scoreOfWeek int [not null]
-  topNumber int [not null]
-  weeklyRankingId int [ref: > WeeklyRanking.id]
 }
 
 Table Answer {
@@ -138,8 +112,9 @@ Table Question {
   deletedAt varchar(255) [default: NULL]
   title varchar(1000) [not null]
   rightAnswerId int [ref: > Answer.id]
-  valueStar int [default: 0]
-  valueDiamond int [default: 0]
+  healthReward int [default: 0]
+  starReward int [default: 0]
+  diamondReward int [default: 0]
 }
 
 Table AdvertisementType {
@@ -147,7 +122,7 @@ Table AdvertisementType {
   createdAt varchar(255) [default: NULL]
   updatedAt varchar(255) [default: NULL]
   deletedAt varchar(255) [default: NULL]
-  title varchar(255) [not null]
+  name varchar(255) [not null]
 }
 
 Table Advertisement {
@@ -158,7 +133,8 @@ Table Advertisement {
   title varchar(255) [default: NULL]
   description text [default: NULL]
   duration int [not null]
-  valueStar int [default: 0]
-  valueDiamond int [default: 0]
+  healthReward int [default: 0]
+  starReward int [default: 0]
+  diamondReward int [default: 0]
   advertisementTypeId int [ref: > AdvertisementType.id]
 }

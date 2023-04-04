@@ -1,15 +1,15 @@
 import { createSlice } from "@reduxjs/toolkit";
-import * as LocalStorage from "@/helpers/localStorage";
+import * as SessionStorage from "@/helpers/sessionStorage";
 
 const admin = createSlice({
 	name: "admin",
 	initialState: {
-		account: null || LocalStorage.getAdminAccount(),
+		account: null || SessionStorage.getAdminAccount(),
 	},
 	reducers: {
 		setAdminAccount: (state, action) => {
 			const account = action.payload;
-			LocalStorage.setAdminAccount(account);
+			SessionStorage.setAdminAccount(account);
 			state.account = account;
 		},
 	},
