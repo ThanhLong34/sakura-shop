@@ -1,3 +1,5 @@
+import { useLocation } from "react-router-dom";
+import { adminRoutes } from "@/router";
 import classNames from "classnames/bind";
 import styles from "./Default.module.scss";
 
@@ -8,6 +10,9 @@ import MenuList from "@/admin/components/MenuList";
 const cx = classNames.bind(styles);
 
 function Default({ children }) {
+	const location = useLocation();
+	const breadcrumb = adminRoutes.find((route) => route.path === location.pathname)?.metadata.title ?? "Không xác định";
+
 	return (
 		<div className="layout-container layout-light layout-colorscheme-menu layout-static">
 			<div className="layout-sidebar">
@@ -25,7 +30,7 @@ function Default({ children }) {
 						<div className="topbar-breadcrumb">
 							<nav className="layout-breadcrumb">
 								<ol>
-									<li>Dashboards</li>
+									<li>{breadcrumb}</li>
 								</ol>
 							</nav>
 						</div>

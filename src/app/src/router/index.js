@@ -20,6 +20,9 @@ const adminRoutes = [
 	{
 		path: "/admin/dashboard",
 		component: AdminDashboard,
+		metadata: {
+			title: 'Dashboard'
+		}
 	},
 	{
 		path: "/*",
