@@ -1,15 +1,20 @@
-import { Routes, Route } from "react-router-dom";
-import { browserRoutes } from "@/router";
+import { Routes, Route, Navigate } from "react-router-dom";
+import { adminRoutes } from "@/router";
 import { DefaultLayout } from "./layouts";
 
 function renderRoutes() {
-	if (browserRoutes) {
-		return browserRoutes.map((route, idx) => {
+	if (adminRoutes) {
+		return adminRoutes.map((route, idx) => {
 			const Page = route.component;
 			let Layout = DefaultLayout;
+			let redirectTo;
 
 			if (route.layout) {
 				Layout = route.layout;
+			}
+
+			if (route.redirect) {
+				redirectTo = route.redirect;
 			}
 
 			return (
@@ -18,7 +23,7 @@ function renderRoutes() {
 					path={route.path}
 					element={
 						<Layout>
-							<Page />
+							{redirectTo ? <Navigate to={redirectTo} /> : <Page />}
 						</Layout>
 					}
 				/>
@@ -27,7 +32,7 @@ function renderRoutes() {
 	}
 }
 
-function Browser() {
+function Admin() {
 	return (
 		<>
 			<Routes>{renderRoutes()}</Routes>
@@ -35,4 +40,4 @@ function Browser() {
 	);
 }
 
-export default Browser;
+export default Admin;

@@ -6,10 +6,7 @@ import AdminNotFound from "@/admin/pages/NotFound";
 // Browser pages
 import BrowserDashboard from "@/browser/pages/Dashboard";
 import BrowserNotFound from "@/browser/pages/NotFound";
-import {
-	DefaultLayout as BrowserDefaultLayout,
-	EmptyLayout as BrowserEmptyLayout
-} from '@/browser/layouts'
+import { EmptyLayout as BrowserEmptyLayout } from "@/browser/layouts";
 
 // Mobile pages
 import MobileDashboard from "@/mobile/pages/Dashboard";
@@ -17,20 +14,23 @@ import MobileNotFound from "@/mobile/pages/NotFound";
 
 const adminRoutes = [
 	{
-		path: "/admin",
+		path: "/admin/login",
+		redirect: "/admin/dashboard",
+	},
+	{
+		path: "/admin/dashboard",
 		component: AdminDashboard,
 	},
 	{
-		path: "/admin/*",
+		path: "/*",
 		component: AdminNotFound,
 	},
-]
+];
 
 const browserRoutes = [
 	{
 		path: "/",
 		component: BrowserDashboard,
-		layout: BrowserDefaultLayout,
 	},
 	{
 		path: "/admin/login",
@@ -40,9 +40,8 @@ const browserRoutes = [
 	{
 		path: "/*",
 		component: BrowserNotFound,
-		layout: BrowserDefaultLayout,
 	},
-]
+];
 
 const mobileRoutes = [
 	{

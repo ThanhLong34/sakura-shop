@@ -1,4 +1,4 @@
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 import { useMobileOrientation } from "react-device-detect";
 import { mobileRoutes } from "@/router";
 import { PortraitLayout, LandscapeLayout } from "./layouts";
@@ -36,9 +36,9 @@ function Mobile() {
 	const routesRendered = useMemo(() => renderRoutes(() => isLandscape), [isLandscape]);
 
 	return (
-		<Router>
+		<>
 			<Routes>{routesRendered}</Routes>
-		</Router>
+		</>
 	);
 }
 

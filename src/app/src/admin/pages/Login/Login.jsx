@@ -1,10 +1,12 @@
+import { useDispatch } from "react-redux";
+import { setAdminAccount } from "@/store/adminSlice.js";
 import classNames from "classnames/bind";
 import styles from "./Login.module.scss";
 
 import { InputText } from "primereact/inputtext";
 import { Checkbox } from "primereact/checkbox";
-import { Button } from 'primereact/button';
-        
+import { Button } from "primereact/button";
+
 const cx = classNames.bind(styles);
 
 function BackgroundVector() {
@@ -37,6 +39,17 @@ function BackgroundVector() {
 }
 
 function Login() {
+	const dispatch = useDispatch();
+
+	function handleLogin() {
+		const account = {
+			id: 1,
+			username: "Thanh Long",
+		};
+		const action = setAdminAccount(account);
+		dispatch(action);
+	}
+
 	return (
 		<div className={cx("wrapper")}>
 			<BackgroundVector />
@@ -68,7 +81,7 @@ function Login() {
 								Reset mật khẩu
 							</a>
 						</div>
-						<Button className="w-full" label="Đăng nhập" raised />
+						<Button className="w-full" label="Đăng nhập" raised onClick={handleLogin} />
 					</div>
 				</div>
 			</div>

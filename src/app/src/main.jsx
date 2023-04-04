@@ -1,5 +1,8 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
+import { Provider } from "react-redux";
+import { BrowserRouter as Router } from "react-router-dom";
+import store from "./store";
 import App from "./App";
 
 // Prime React
@@ -14,6 +17,10 @@ import "./assets/styles/main.scss";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
 	<React.StrictMode>
-		<App />
+		<Provider store={store}>
+			<Router>
+				<App />
+			</Router>
+		</Provider>
 	</React.StrictMode>
 );
