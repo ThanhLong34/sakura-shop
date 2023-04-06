@@ -13,7 +13,7 @@ function MenuList() {
 				<div className="layout-menuitem-root-text">Quản lý</div>
 				<ul>
 					<MenuItem icon="pi pi-fw pi-home" label="Dashboard" redirectTo="/admin/dashboard" />
-					<MenuItem icon="pi pi-fw pi-image" label="Tệp hình ảnh" redirectTo="/admin/images" />
+					<MenuItem icon="pi pi-fw pi-image" label="Tệp hình ảnh" redirectTo="/admin/image-files" />
 					<MenuItem icon="pi pi-fw pi-user" label="Người chơi" redirectTo="/admin/players" />
 					<MenuItem icon="pi pi-fw pi-chart-line" label="Cấp độ" redirectTo="/admin/levels" />
 					<MenuItem icon="pi pi-fw pi-gift" label="Phần quà" redirectTo="/admin/gifts" />

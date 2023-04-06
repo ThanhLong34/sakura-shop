@@ -59,7 +59,7 @@
 	font-size: 0.857rem;
 	text-transform: uppercase;
 	font-weight: 700;
-	color: var(--root-menuitem-text-color);
+	color: #4f80ff;
 	padding: 1rem 2rem;
 }
 
@@ -695,5 +695,8 @@
 }
 
 .layout-content-wrapper {
+	min-height: 100vh;
 	padding: 2rem;
+	background: var(--surface-ground);
+	color: var(--text-color);
 }

@@ -11,7 +11,7 @@ const cx = classNames.bind(styles);
 
 function Default({ children }) {
 	const location = useLocation();
-	const breadcrumb = adminRoutes.find((route) => route.path === location.pathname)?.metadata.title ?? "Không xác định";
+	const breadcrumb = adminRoutes.find((route) => route.path === location.pathname)?.metadata?.title ?? "Không xác định";
 
 	return (
 		<div className="layout-container layout-light layout-colorscheme-menu layout-static">

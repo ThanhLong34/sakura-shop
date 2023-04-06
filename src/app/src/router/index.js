@@ -1,5 +1,6 @@
 // Admin pages
 import AdminDashboard from "@/admin/pages/Dashboard";
+import AdminImageFile from "@/admin/pages/ImageFile";
 import AdminLogin from "@/admin/pages/Login";
 import AdminNotFound from "@/admin/pages/NotFound";
 
@@ -22,6 +23,13 @@ const adminRoutes = [
 		component: AdminDashboard,
 		metadata: {
 			title: 'Dashboard'
+		}
+	},
+	{
+		path: "/admin/image-files",
+		component: AdminImageFile,
+		metadata: {
+			title: 'Tệp hình ảnh'
 		}
 	},
 	{
