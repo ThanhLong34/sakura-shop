@@ -1,11 +1,16 @@
+import { useState, useRef } from "react";
 import { useDispatch } from "react-redux";
 import { setAdminAccount } from "@/store/adminSlice.js";
+import adminApi from "@/apis/adminApi";
+
 import classNames from "classnames/bind";
 import styles from "./Login.module.scss";
 
 import { InputText } from "primereact/inputtext";
 import { Checkbox } from "primereact/checkbox";
 import { Button } from "primereact/button";
+import { Toast } from "primereact/toast";
+import { Dialog } from "primereact/dialog";
 
 const cx = classNames.bind(styles);
 
@@ -41,17 +46,114 @@ function BackgroundVector() {
 function Login() {
 	const dispatch = useDispatch();
 
-	function handleLogin() {
-		const account = {
-			id: 1,
-			username: "Thanh Long",
-		};
-		const action = setAdminAccount(account);
-		dispatch(action);
+	// States
+	const [dialogVisible, setDialogVisible] = useState(false);
+	const [resetPasswordLoading, setResetPasswordLoading] = useState(false);
+
+	// Refs
+	const toastRef = useRef(null);
+	const usernameRef = useRef(null);
+	const passwordRef = useRef(null);
+	const emailRef = useRef(null);
+
+	async function handleLogin(e) {
+		e.preventDefault();
+
+		const username = usernameRef.current?.value.trim();
+		const password = passwordRef.current?.value.trim();
+
+		if (!username) {
+			toastRef.current.show({
+				severity: "error",
+				summary: "Lỗi",
+				detail: "Bạn chưa nhập tên đăng nhập",
+				life: 3000,
+			});
+			return;
+		}
+
+		if (!password) {
+			toastRef.current.show({ severity: "error", summary: "Lỗi", detail: "Bạn chưa nhập mật khẩu", life: 3000 });
+			return;
+		}
+
+		const response = await adminApi.login({ username, password });
+
+		if (response.code === 1) {
+			toastRef.current.show({
+				severity: "success",
+				summary: "Thành công",
+				detail: "Đăng nhập thành công",
+				life: 3000,
+			});
+
+			const account = {
+				...response.data,
+				id: +response.data.id,
+			};
+
+			const action = setAdminAccount(account);
+			dispatch(action);
+		} else {
+			toastRef.current.show({ severity: "error", summary: "Lỗi", detail: response.message, life: 3000 });
+		}
+	}
+
+	function handleOpenResetPasswordDialog(e) {
+		e.preventDefault();
+		setDialogVisible(true);
+	}
+
+	async function handleResetPassword() {
+		const email = emailRef.current?.value.trim();
+
+		if (!email) {
+			toastRef.current.show({
+				severity: "error",
+				summary: "Lỗi",
+				detail: "Bạn chưa nhập email tài khoản",
+				life: 3000,
+			});
+			return;
+		}
+
+		// Show loading
+		setResetPasswordLoading(true);
+
+		const response = await adminApi.resetPassword({ email });
+
+		// Hide loading
+		setResetPasswordLoading(false);
+
+		if (response.code === 1) {
+			toastRef.current.show({
+				severity: "success",
+				summary: "Thành công",
+				detail: "Mật khẩu mới đã được tạo thành công, hãy kiểm tra email của bạn",
+				life: 3000,
+			});
+		} else {
+			toastRef.current.show({ severity: "error", summary: "Lỗi", detail: response.message, life: 3000 });
+		}
 	}
 
 	return (
 		<div className={cx("wrapper")}>
+			{/* Others */}
+			<Toast ref={toastRef} position="top-center" />
+			<Dialog
+				header="Reset mật khẩu"
+				visible={dialogVisible}
+				style={{ width: "50vw" }}
+				onHide={() => setDialogVisible(false)}
+			>
+				<span className="p-input-icon-left w-full mb-4">
+					<i className="pi pi-envelope"></i>
+					<InputText ref={emailRef} className="w-full" type="email" placeholder="Email tài khoản" />
+				</span>
+				<Button className="w-full" label="Gửi" severity="help" outlined loading={resetPasswordLoading} onClick={handleResetPassword} />
+			</Dialog>
+
 			<BackgroundVector />
 			<div className="px-5 min-h-screen flex justify-content-center align-items-center">
 				<div className="border-1 surface-border surface-card border-round py-7 px-4 md:px-7 z-1">
@@ -59,14 +161,14 @@ function Login() {
 						<div className="text-900 text-xl font-bold mb-2">HỆ THỐNG QUẢN TRỊ</div>
 						<span className="text-600 font-medium">Nhập thông tin đăng nhập</span>
 					</div>
-					<div className="flex flex-column md:w-25rem">
+					<form className="flex flex-column md:w-25rem" onSubmit={handleLogin}>
 						<span className="p-input-icon-left w-full mb-4">
 							<i className="pi pi-user"></i>
-							<InputText className="w-full" type="text" placeholder="Tên đăng nhập" />
+							<InputText ref={usernameRef} className="w-full" type="text" placeholder="Tên đăng nhập" />
 						</span>
 						<span className="p-input-icon-left w-full mb-4">
 							<i className="pi pi-lock"></i>
-							<InputText className="w-full" type="password" placeholder="Mật khẩu" />
+							<InputText ref={passwordRef} className="w-full" type="password" placeholder="Mật khẩu" />
 						</span>
 						<div className="mb-4 flex flex-wrap gap-3">
 							<div>
@@ -77,12 +179,15 @@ function Login() {
 									Ghi nhớ
 								</label>
 							</div>
-							<a className="text-600 cursor-pointer hover:text-primary cursor-pointer ml-auto transition-colors transition-duration-300">
+							<a
+								className="text-600 cursor-pointer hover:text-primary cursor-pointer ml-auto transition-colors transition-duration-300"
+								onClick={handleOpenResetPasswordDialog}
+							>
 								Reset mật khẩu
 							</a>
 						</div>
-						<Button className="w-full" label="Đăng nhập" raised onClick={handleLogin} />
-					</div>
+						<Button className="w-full" type="submit" label="Đăng nhập" raised />
+					</form>
 				</div>
 			</div>
 		</div>

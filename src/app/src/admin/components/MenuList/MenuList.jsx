@@ -1,12 +1,14 @@
-import PropTypes from "prop-types";
-import classNames from "classnames/bind";
-import styles from "./MenuList.module.scss";
-
+import { useDispatch } from "react-redux";
+import { resetAdminAccount } from "@/store/adminSlice";
 import MenuItem from "@/admin/components/MenuItem";
 
-const cx = classNames.bind(styles);
-
 function MenuList() {
+	const dispatch = useDispatch();
+
+	function handleLogout() {
+		dispatch(resetAdminAccount());
+	}
+
 	return (
 		<div className="layout-menu">
 			<li className="layout-root-menuitem active-menuitem">
@@ -28,7 +30,7 @@ function MenuList() {
 				<div className="layout-menuitem-root-text">Tài khoản</div>
 				<ul>
 					<MenuItem icon="pi pi-fw pi-cog" label="Hồ sơ" redirectTo="/admin/profile" />
-					<MenuItem icon="pi pi-fw pi-sign-in" label="Đăng xuất" redirectTo="/admin/logout" />
+					<MenuItem icon="pi pi-fw pi-sign-in" label="Đăng xuất" redirectTo="/admin/login" onClick={handleLogout} />
 				</ul>
 			</li>
 		</div>

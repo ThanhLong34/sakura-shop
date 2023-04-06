@@ -1,6 +1,6 @@
 import axiosClient from "./axiosClient";
 
-const group = "users"
+const group = "users";
 
 const userApi = {
 	getList(params) {

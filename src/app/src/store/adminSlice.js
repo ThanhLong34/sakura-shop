@@ -12,9 +12,13 @@ const admin = createSlice({
 			SessionStorage.setAdminAccount(account);
 			state.account = account;
 		},
+		resetAdminAccount: (state) => {
+			SessionStorage.resetAdminAccount();
+			state.account = null;
+		}
 	},
 });
 
 const { reducer, actions } = admin;
-export const { setAdminAccount } = actions;
+export const { setAdminAccount, resetAdminAccount } = actions;
 export default reducer;

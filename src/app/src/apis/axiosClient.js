@@ -1,9 +1,10 @@
 import axios from "axios";
 
 const axiosClient = axios.create({
-	baseURL: "https://jsonplaceholder.typicode.com/",
+	baseURL: "http://localhost/projects/sakura/apis/",
 	headers: {
 		"Content-Type": "application/json",
+		"role": 1 // required to check permission
 	},
 });
 
@@ -24,6 +25,10 @@ axiosClient.interceptors.response.use(
 	function (response) {
 		// Any status code that lie within the range of 2xx cause this function to trigger
 		// Do something with response data
+		if (response.data.code === 9 || response.data.code === 10) {
+			console.error(response.data.message);
+		}
+
 		return response.data;
 	},
 	function (error) {
