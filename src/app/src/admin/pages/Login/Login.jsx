@@ -1,4 +1,5 @@
 import { useState, useRef } from "react";
+import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { setAdminAccount } from "@/store/adminSlice.js";
 import adminApi from "@/apis/adminApi";
@@ -44,6 +45,7 @@ function BackgroundVector() {
 }
 
 function Login() {
+	const navigate = useNavigate();
 	const dispatch = useDispatch();
 
 	// States
@@ -104,6 +106,10 @@ function Login() {
 		setDialogVisible(true);
 	}
 
+	function handleBack() {
+		navigate("/");
+	}
+
 	async function handleResetPassword() {
 		const email = emailRef.current?.value.trim();
 
@@ -139,7 +145,6 @@ function Login() {
 
 	return (
 		<div className={cx("wrapper")}>
-			{/* Others */}
 			<Toast ref={toastRef} position="top-center" />
 			<Dialog
 				header="Reset mật khẩu"
@@ -151,7 +156,14 @@ function Login() {
 					<i className="pi pi-envelope"></i>
 					<InputText ref={emailRef} className="w-full" type="email" placeholder="Email tài khoản" />
 				</span>
-				<Button className="w-full" label="Gửi" severity="help" outlined loading={resetPasswordLoading} onClick={handleResetPassword} />
+				<Button
+					className="w-full"
+					label="Gửi"
+					severity="help"
+					outlined
+					loading={resetPasswordLoading}
+					onClick={handleResetPassword}
+				/>
 			</Dialog>
 
 			<BackgroundVector />
@@ -187,6 +199,7 @@ function Login() {
 							</a>
 						</div>
 						<Button className="w-full" type="submit" label="Đăng nhập" raised />
+						<Button className="w-full mt-3" label="Thoát" outlined raised onClick={handleBack} />
 					</form>
 				</div>
 			</div>

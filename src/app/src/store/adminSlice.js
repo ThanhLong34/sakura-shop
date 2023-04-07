@@ -9,16 +9,21 @@ const admin = createSlice({
 	reducers: {
 		setAdminAccount: (state, action) => {
 			const account = action.payload;
-			SessionStorage.setAdminAccount(account);
+
 			state.account = account;
+			SessionStorage.setAdminAccount(account);
 		},
 		resetAdminAccount: (state) => {
-			SessionStorage.resetAdminAccount();
 			state.account = null;
+			SessionStorage.resetAdminAccount();
+		},
+		updateAdminAccountEmail: (state, action) => {
+			state.account.email = action.payload;
+			SessionStorage.setAdminAccount(state.account);
 		},
 	},
 });
 
 const { reducer, actions } = admin;
-export const { setAdminAccount, resetAdminAccount } = actions;
+export const { setAdminAccount, resetAdminAccount, updateAdminAccountEmail } = actions;
 export default reducer;

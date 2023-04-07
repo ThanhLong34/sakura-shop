@@ -1,13 +1,19 @@
 import { useEffect, useRef } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { updateAdminAccountEmail } from "@/store/adminSlice";
+import adminApi from "@/apis/adminApi";
+
 import { Button } from "primereact/button";
 import { InputText } from "primereact/inputtext";
+import { Toast } from "primereact/toast";
 
 function Profile() {
 	// Store
+	const dispatch = useDispatch();
 	const adminAccount = useSelector((state) => state.admin.account);
 
 	// Refs
+	const toastRef = useRef(null);
 	const emailRef = useRef(null);
 	const phoneNumberRef = useRef(null);
 
@@ -16,8 +22,40 @@ function Profile() {
 		phoneNumberRef.current.value = adminAccount?.phoneNumber ?? "";
 	}, []);
 
+	async function handleUpdateEmail() {
+		const email = emailRef.current?.value;
+
+		if (!email) {
+			toastRef.current.show({
+				severity: "error",
+				summary: "Lỗi",
+				detail: "Email không được để trống",
+				life: 3000,
+			});
+			return;
+		}
+
+		const response = await adminApi.updateEmail({ id: adminAccount.id, email });
+
+		if (response.code === 1) {
+			toastRef.current.show({
+				severity: "success",
+				summary: "Thành công",
+				detail: "Cập nhật email thành công",
+				life: 3000,
+			});
+
+			const action = updateAdminAccountEmail(email);
+			dispatch(action);
+			
+		} else {
+			toastRef.current.show({ severity: "error", summary: "Lỗi", detail: response.message, life: 3000 });
+		}
+	}
+
 	return (
-		<div>
+		<>
+			<Toast ref={toastRef} position="top-center" />
 			<div className="card">
 				<h2 className="text-center">Hồ sơ Admin</h2>
 				<div className="grid mt-4">
@@ -28,7 +66,7 @@ function Profile() {
 								<i className="pi pi-envelope"></i>
 								<InputText ref={emailRef} className="w-full" type="email" placeholder="Nhập email" />
 							</span>
-							<Button className="w-full" label="Thay đổi email" outlined />
+							<Button className="w-full" label="Thay đổi email" outlined onClick={handleUpdateEmail} />
 						</div>
 						<div className="col-12 mt-4">
 							<h4 className="mb-2">Số điện thoại:</h4>
@@ -50,7 +88,7 @@ function Profile() {
 					</div>
 				</div>
 			</div>
-		</div>
+		</>
 	);
 }
 
