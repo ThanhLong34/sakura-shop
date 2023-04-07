@@ -15,7 +15,7 @@ const admin = createSlice({
 		resetAdminAccount: (state) => {
 			SessionStorage.resetAdminAccount();
 			state.account = null;
-		}
+		},
 	},
 });
 

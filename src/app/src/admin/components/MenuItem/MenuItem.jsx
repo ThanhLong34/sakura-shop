@@ -5,8 +5,8 @@ import styles from "./MenuItem.module.scss";
 
 const cx = classNames.bind(styles);
 
-function MenuItem({ label, icon, redirectTo, onClick }) {
-	function handleClick(e) {
+function MenuItem({ label, icon, redirectTo, onClick = () => {} }) {
+	function handleClick() {
 		onClick();
 	}
 
