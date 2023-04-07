@@ -101,11 +101,6 @@ function Login() {
 		}
 	}
 
-	function handleOpenResetPasswordDialog(e) {
-		e.preventDefault();
-		setDialogVisible(true);
-	}
-
 	function handleBack() {
 		navigate("/");
 	}
@@ -138,6 +133,8 @@ function Login() {
 				detail: "Mật khẩu mới đã được tạo thành công, hãy kiểm tra email của bạn",
 				life: 3000,
 			});
+
+			setDialogVisible(false);
 		} else {
 			toastRef.current.show({ severity: "error", summary: "Lỗi", detail: response.message, life: 3000 });
 		}
@@ -193,7 +190,9 @@ function Login() {
 							</div>
 							<a
 								className="text-600 cursor-pointer hover:text-primary cursor-pointer ml-auto transition-colors transition-duration-300"
-								onClick={handleOpenResetPasswordDialog}
+								onClick={(e) => {
+									e.preventDefault() || setDialogVisible(true);
+								}}
 							>
 								Reset mật khẩu
 							</a>
