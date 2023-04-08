@@ -15,15 +15,15 @@ function MenuList() {
 				<div className="layout-menuitem-root-text">Quản lý</div>
 				<ul>
 					<MenuItem icon="pi pi-fw pi-home" label="Dashboard" redirectTo="/admin/dashboard" />
-					<MenuItem icon="pi pi-fw pi-image" label="Tệp hình ảnh" redirectTo="/admin/image-files" />
-					<MenuItem icon="pi pi-fw pi-user" label="Người chơi" redirectTo="/admin/players" />
-					<MenuItem icon="pi pi-fw pi-chart-line" label="Cấp độ" redirectTo="/admin/levels" />
-					<MenuItem icon="pi pi-fw pi-gift" label="Phần quà" redirectTo="/admin/gifts" />
-					<MenuItem icon="pi pi-fw pi-th-large" label="Chủ đề" redirectTo="/admin/topics" />
-					<MenuItem icon="pi pi-fw pi-tablet" label="Thẻ bài" redirectTo="/admin/cards" />
-					<MenuItem icon="pi pi-fw pi-question-circle" label="Câu hỏi" redirectTo="/admin/questions" />
-					<MenuItem icon="pi pi-fw pi-bolt" label="Loại quảng cáo" redirectTo="/admin/advertisement-types" />
-					<MenuItem icon="pi pi-fw pi-verified" label="Quảng cáo" redirectTo="/admin/advertisements" />
+					<MenuItem icon="pi pi-fw pi-image" label="Tệp hình ảnh" redirectTo="/admin/image-file" />
+					<MenuItem icon="pi pi-fw pi-user" label="Người chơi" redirectTo="/admin/player" />
+					<MenuItem icon="pi pi-fw pi-chart-line" label="Cấp độ" redirectTo="/admin/level" />
+					<MenuItem icon="pi pi-fw pi-gift" label="Phần quà" redirectTo="/admin/gift" />
+					<MenuItem icon="pi pi-fw pi-th-large" label="Chủ đề" redirectTo="/admin/topic" />
+					<MenuItem icon="pi pi-fw pi-tablet" label="Thẻ bài" redirectTo="/admin/card" />
+					<MenuItem icon="pi pi-fw pi-question-circle" label="Câu hỏi" redirectTo="/admin/question" />
+					<MenuItem icon="pi pi-fw pi-bolt" label="Loại quảng cáo" redirectTo="/admin/advertisement-type" />
+					<MenuItem icon="pi pi-fw pi-verified" label="Quảng cáo" redirectTo="/admin/advertisement" />
 				</ul>
 			</li>
 			<li className="layout-root-menuitem active-menuitem">

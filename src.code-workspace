@@ -11,6 +11,12 @@
 		},
 		{
 			"path": "src/app/src/mobile"
+		},
+		{
+			"path": "src/app/src/router"
+		},
+		{
+			"path": "src/app/src/store"
 		}
 	],
 	"settings": {}

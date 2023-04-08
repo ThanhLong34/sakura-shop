@@ -7,7 +7,7 @@ import Mobile from "./mobile";
 
 function App() {
 	const adminAccount = useSelector((state) => state.admin.account);
-	const BrowserViewRendered = useMemo(() => {
+	const BrowserViewRender = useMemo(() => {
 		if (adminAccount) {
 			return Admin;
 		}
@@ -18,7 +18,7 @@ function App() {
 		<div className="App">
 			{/* Browser */}
 			<BrowserView>
-				<BrowserViewRendered />
+				<BrowserViewRender />
 			</BrowserView>
 
 			{/* Mobile */}

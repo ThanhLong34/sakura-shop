@@ -1,7 +1,8 @@
 // Admin pages
 import AdminLogin from "@/admin/pages/Login";
 import AdminDashboard from "@/admin/pages/Dashboard";
-import AdminImageFile from "@/admin/pages/ImageFile";
+import AdminImageFileManagement from "@/admin/pages/ImageFile";
+import AdminPlayerManagement from "@/admin/pages/Player";
 import AdminProfile from "@/admin/pages/Profile";
 import AdminNotFound from "@/admin/pages/NotFound";
 
@@ -27,10 +28,17 @@ const adminRoutes = [
 		}
 	},
 	{
-		path: "/admin/image-files",
-		component: AdminImageFile,
+		path: "/admin/image-file",
+		component: AdminImageFileManagement,
 		metadata: {
 			title: 'Tệp hình ảnh'
+		}
+	},
+	{
+		path: "/admin/player",
+		component: AdminPlayerManagement,
+		metadata: {
+			title: 'Người chơi'
 		}
 	},
 	{

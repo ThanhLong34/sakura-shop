@@ -9,14 +9,14 @@ import { Toast } from "primereact/toast";
 import { Dialog } from "primereact/dialog";
 
 function Profile() {
-	// Store
+	//? Store
 	const dispatch = useDispatch();
 	const adminAccount = useSelector((state) => state.admin.account);
 
-	// States
+	//? States
 	const [dialogVisible, setDialogVisible] = useState(false);
 
-	// Refs
+	//? Refs
 	const toastRef = useRef(null);
 	const emailRef = useRef(null);
 	const phoneNumberRef = useRef(null);
