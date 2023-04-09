@@ -1,34 +1,35 @@
-import { useRef, useState, memo } from "react";
+import { useRef, useState, memo, forwardRef, useImperativeHandle, useEffect } from "react";
 import PropTypes from "prop-types";
+import useDebounce from "@/hooks/useDebounce";
 
 import { Dropdown } from "primereact/dropdown";
 import { InputText } from "primereact/inputtext";
 
-TableSearch.propTypes = {
-	searchPlaceholder: PropTypes.string,
-	searchOptions: PropTypes.array,
-	onSearch: PropTypes.func,
-};
-
-TableSearch.defaultProps = {
-	searchPlaceholder: "Nhập thông tin cần tìm",
-	searchOptions: [],
-	onSearch: () => {},
-};
-
-function TableSearch({ searchPlaceholder, searchOptions, onSearch }) {
-	const searchRef = useRef(null);
+const TableSearch = forwardRef(({ searchPlaceholder, searchOptions, onSearch }, ref) => {
+	const [searchValue, setSearchValue] = useState("");
+	const searchValueDebounce = useDebounce(searchValue, 800);
 	const [searchType, setSearchType] = useState(null);
 
-	function handleSearch() {
-		const searchValue = searchRef.current?.value;
-
-		const searchData = {
-			searchValue,
+	useEffect(() => {
+		onSearch({
+			searchValue: searchValueDebounce,
 			searchType,
-		};
+		});
+	}, [searchValueDebounce]);
 
-		onSearch(searchData);
+	useImperativeHandle(ref, () => ({
+		onReset() {
+			reset();
+		},
+	}));
+
+	function handleChangeSearchValue(e) {
+		setSearchValue(e.target.value);
+	}
+
+	function reset() {
+		setSearchValue("");
+		setSearchType(null);
 	}
 
 	return (
@@ -36,7 +37,13 @@ function TableSearch({ searchPlaceholder, searchOptions, onSearch }) {
 			<div className="col-12 md:col-8">
 				<span className="p-input-icon-left w-full">
 					<i className="pi pi-search" />
-					<InputText ref={searchRef} className="w-full" type="search" placeholder={searchPlaceholder} />
+					<InputText
+						className="w-full"
+						type="search"
+						placeholder={searchPlaceholder}
+						value={searchValue}
+						onChange={handleChangeSearchValue}
+					/>
 				</span>
 			</div>
 			<div className="col-12 md:col-4">
@@ -53,6 +60,18 @@ function TableSearch({ searchPlaceholder, searchOptions, onSearch }) {
 			</div>
 		</div>
 	);
-}
+});
+
+TableSearch.propTypes = {
+	searchPlaceholder: PropTypes.string,
+	searchOptions: PropTypes.array,
+	onSearch: PropTypes.func,
+};
+
+TableSearch.defaultProps = {
+	searchPlaceholder: "Nhập thông tin cần tìm",
+	searchOptions: [],
+	onSearch: () => {},
+};
 
 export default memo(TableSearch);

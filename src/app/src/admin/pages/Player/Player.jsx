@@ -14,6 +14,16 @@ import { SplitButton } from "primereact/splitbutton";
 import { Paginator } from "primereact/paginator";
 
 //? Variables
+const initTableParams = {
+	limit: 10,
+	offset: 0,
+	searchType: null,
+	searchValue: null,
+	fillType: null,
+	fillValue: null,
+	orderby: null,
+	reverse: null,
+};
 const statuses = ["Hoạt động", "Bị khóa"];
 const rowsPerPageOptions = [10, 20, 30];
 const searchOptions = [
@@ -52,19 +62,13 @@ function Player() {
 	//? Variables
 	const fillValue = useRef(null);
 
+	//? Refs
+	const tableSearchRef = useRef(null);
+
 	//? States
 	const [totalItem, setTotalItem] = useState(0);
 	const [tableData, setTableData] = useState([]);
-	const [tableParams, setTableParams] = useState({
-		limit: 10,
-		offset: 0,
-		searchType: null,
-		searchValue: null,
-		fillType: null,
-		fillValue: null,
-		orderby: null,
-		reverse: null,
-	});
+	const [tableParams, setTableParams] = useState(initTableParams);
 
 	const [selectedItem, setSelectedItem] = useState(null);
 
@@ -108,8 +112,10 @@ function Player() {
 	}
 
 	//? Handles
-	const handleSearch = useCallback((searchData) => {
-		console.log(searchData);
+	const handleSearch = useCallback(({ searchValue, searchType }) => {
+		if (searchValue && searchType) {
+			console.log(searchValue, searchType);
+		}
 	}, []);
 	const handleSort = ({ field }) => {
 		console.log(field);
@@ -136,7 +142,10 @@ function Player() {
 			offset: e.first,
 		}));
 	};
-	const handleReload = useCallback(() => {}, []);
+	const handleReload = useCallback(() => {
+		setTableParams({ ...initTableParams });
+		tableSearchRef.current?.onReset();
+	}, []);
 
 	//? Templates
 	const headerTemplate = () => {
@@ -146,7 +155,7 @@ function Player() {
 					<TableHeader showAddItemButton={false} onReload={handleReload} />
 				</div>
 				<div className="col-12">
-					<TableSearch searchOptions={searchOptions} onSearch={handleSearch} />
+					<TableSearch ref={tableSearchRef} searchOptions={searchOptions} onSearch={handleSearch} />
 				</div>
 			</div>
 		);
