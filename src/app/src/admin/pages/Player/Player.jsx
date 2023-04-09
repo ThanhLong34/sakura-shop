@@ -1,15 +1,14 @@
 import { useState, useRef } from "react";
 
+import TableHeader from "@/admin/components/TableHeader";
 import TableSearch from "@/admin/components/TableSearch";
 import TableFilterPopup from "@/admin/components/TableFilterPopup";
 
 import { DataTable } from "primereact/datatable";
 import { Column } from "primereact/column";
-import { InputText } from "primereact/inputtext";
 import { Tag } from "primereact/tag";
 import { Button } from "primereact/button";
 import { SplitButton } from "primereact/splitbutton";
-import { Dropdown } from "primereact/dropdown";
 
 function ImageFile() {
 	//? Variables
@@ -30,7 +29,6 @@ function ImageFile() {
 			},
 		},
 	];
-	const searchType = useRef(null);
 	const searchOptions = [
 		{
 			title: "Tên người chơi",
@@ -49,7 +47,7 @@ function ImageFile() {
 
 	//? States
 
-	const [customers, setCustomers] = useState([
+	const [player, setPlayer] = useState([
 		{
 			id: 1,
 			avatar: "https://www.primefaces.org/apollo-react/demo/images/avatar/amyelsner.png",
@@ -118,10 +116,10 @@ function ImageFile() {
 		return (
 			<div className="grid">
 				<div className="col-12">
-					<TableSearch searchOptions={searchOptions} onSearch={handleSearch} />
+					<TableHeader showAddItemButton={false} />
 				</div>
 				<div className="col-12">
-					
+					<TableSearch searchOptions={searchOptions} onSearch={handleSearch} />
 				</div>
 			</div>
 		);
@@ -165,7 +163,7 @@ function ImageFile() {
 			<div className="card">
 				<h3 className="mb-3">Danh sách người chơi</h3>
 				<DataTable
-					value={customers}
+					value={player}
 					rows={10}
 					header={headerTemplate}
 					stripedRows

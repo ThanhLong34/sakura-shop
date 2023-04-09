@@ -3,7 +3,6 @@ import PropTypes from "prop-types";
 
 import { Dropdown } from "primereact/dropdown";
 import { InputText } from "primereact/inputtext";
-import { Button } from "primereact/button";
 
 TableSearch.propTypes = {
 	searchPlaceholder: PropTypes.string,
