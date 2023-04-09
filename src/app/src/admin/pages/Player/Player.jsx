@@ -6,6 +6,13 @@ import TableHeader from "@/admin/components/TableHeader";
 import TableSearch from "@/admin/components/TableSearch";
 import TableFilterPopup from "@/admin/components/TableFilterPopup";
 
+// Icons
+import HealthIcon from "@/assets/images/heart.png";
+import StarIcon from "@/assets/images/star.png";
+import DiamondIcon from "@/assets/images/diamond.png";
+import ExperienceIcon from "@/assets/images/experience.png";
+import LevelIcon from "@/assets/images/level.png";
+
 import { DataTable } from "primereact/datatable";
 import { Column } from "primereact/column";
 import { Tag } from "primereact/tag";
@@ -170,7 +177,47 @@ function Player() {
 			</div>
 		);
 	};
-	const statusTemplate = (rowData) => {
+	const healthDataTemplate = (rowData) => {
+		return (
+			<span className="data-template">
+				<span className="data-template-value">{rowData.health}</span>
+				<img className="data-template-icon" src={HealthIcon} alt="health icon" />
+			</span>
+		);
+	};
+	const starDataTemplate = (rowData) => {
+		return (
+			<span className="data-template">
+				<span className="data-template-value">{rowData.star}</span>
+				<img className="data-template-icon" src={StarIcon} alt="star icon" />
+			</span>
+		);
+	};
+	const diamondDataTemplate = (rowData) => {
+		return (
+			<span className="data-template">
+				<span className="data-template-value">{rowData.diamond}</span>
+				<img className="data-template-icon" src={DiamondIcon} alt="diamond icon" />
+			</span>
+		);
+	};
+	const experienceDataTemplate = (rowData) => {
+		return (
+			<span className="data-template">
+				<span className="data-template-value">{rowData.experience}</span>
+				<img className="data-template-icon" src={ExperienceIcon} alt="experience icon" />
+			</span>
+		);
+	};
+	const levelDataTemplate = (rowData) => {
+		return (
+			<span className="data-template">
+				<span className="data-template-value">{rowData.level}</span>
+				<img className="data-template-icon" src={LevelIcon} alt="level icon" />
+			</span>
+		);
+	};
+	const statusDataTemplate = (rowData) => {
 		return <Tag value={rowData.status} severity={getSeverity(rowData.status)} />;
 	};
 	const statusFilterTemplate = (options) => {
@@ -189,7 +236,7 @@ function Player() {
 	const filterClearButtonTemplate = () => {
 		return <Button icon="pi pi-refresh" severity="warning" onClick={handleClearFilter} />;
 	};
-	const actionTemplate = (rowData) => {
+	const actionsTemplate = (rowData) => {
 		return (
 			<SplitButton label="Tùy chọn" icon="pi pi-th-large" model={actions} severity="info" size="small" outlined />
 		);
@@ -226,15 +273,39 @@ function Player() {
 					<Column field="nickname" header="Tên người chơi" frozen sortable sortFunction={getSortedTableData} />
 					<Column field="phoneNumber" header="Số điện thoại" />
 					<Column field="email" header="Email" />
-					<Column field="health" header="Sức khỏe" sortable sortFunction={getSortedTableData} />
-					<Column field="star" header="Sao" sortable sortFunction={getSortedTableData} />
-					<Column field="diamond" header="Kim cương" sortable sortFunction={getSortedTableData} />
-					<Column field="experience" header="Kinh nghiệm" sortable sortFunction={getSortedTableData} />
-					<Column field="level" header="Cấp độ" sortable sortFunction={getSortedTableData} />
+					<Column
+						field="health"
+						header="Sức khỏe"
+						body={healthDataTemplate}
+						sortable
+						sortFunction={getSortedTableData}
+					/>
+					<Column field="star" header="Sao" body={starDataTemplate} sortable sortFunction={getSortedTableData} />
+					<Column
+						field="diamond"
+						header="Kim cương"
+						body={diamondDataTemplate}
+						sortable
+						sortFunction={getSortedTableData}
+					/>
+					<Column
+						field="experience"
+						header="Kinh nghiệm"
+						body={experienceDataTemplate}
+						sortable
+						sortFunction={getSortedTableData}
+					/>
+					<Column
+						field="level"
+						header="Cấp độ"
+						sortable
+						body={levelDataTemplate}
+						sortFunction={getSortedTableData}
+					/>
 					<Column
 						field="status"
 						header="Trạng thái"
-						body={statusTemplate}
+						body={statusDataTemplate}
 						filter
 						filterElement={statusFilterTemplate}
 						filterApply={filterApplyButtonTemplate}
@@ -247,7 +318,7 @@ function Player() {
 					<Column
 						headerStyle={{ textAlign: "center" }}
 						bodyStyle={{ textAlign: "center", overflow: "visible" }}
-						body={actionTemplate}
+						body={actionsTemplate}
 						frozen
 						alignFrozen="right"
 					/>
