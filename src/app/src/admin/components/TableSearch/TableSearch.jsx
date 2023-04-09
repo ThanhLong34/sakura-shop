@@ -20,6 +20,8 @@ function TableSearch({ searchPlaceholder, searchOptions, onSearch }) {
 	const searchRef = useRef(null);
 	const [searchType, setSearchType] = useState(null);
 
+	console.log(searchOptions);
+
 	function handleSearch() {
 		const searchValue = searchRef.current?.value;
 
@@ -48,6 +50,7 @@ function TableSearch({ searchPlaceholder, searchOptions, onSearch }) {
 					optionValue="value"
 					placeholder="Chọn kiểu tìm kiếm"
 					className="w-full"
+					defaultValue={searchOptions[0]?.value ?? 'undefined'}
 				/>
 			</div>
 		</div>

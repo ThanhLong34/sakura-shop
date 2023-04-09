@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect, useCallback } from "react";
+import { useState, useRef, useEffect, useCallback, useMemo } from "react";
 
 import playerApi from "@/apis/playerApi";
 
@@ -11,50 +11,67 @@ import { Column } from "primereact/column";
 import { Tag } from "primereact/tag";
 import { Button } from "primereact/button";
 import { SplitButton } from "primereact/splitbutton";
+import { Paginator } from "primereact/paginator";
 
-function ImageFile() {
+//? Variables
+const statuses = ["Hoạt động", "Bị khóa"];
+const rowsPerPageOptions = [10, 20, 30];
+const searchOptions = [
+	{
+		title: "Tên người chơi",
+		value: "nickname",
+	},
+	{
+		title: "Số điện thoại",
+		value: "phoneNumber",
+	},
+	{
+		title: "Email",
+		value: "email",
+	},
+];
+const actions = [
+	{
+		label: "Xem chi tiết",
+		icon: "pi pi-eye",
+		command: () => {
+			console.log("Xem chi tiết");
+		},
+	},
+	{
+		label: "Xóa tài khoản",
+		icon: "pi pi-trash",
+		command: () => {
+			console.log("Xóa tài khoản");
+		},
+	},
+];
+
+//? Component
+function Player() {
 	//? Variables
-	const statuses = ["Hoạt động", "Bị khóa"];
-	const actions = [
-		{
-			label: "Xem chi tiết",
-			icon: "pi pi-eye",
-			command: () => {
-				console.log("Xem chi tiết");
-			},
-		},
-		{
-			label: "Xóa tài khoản",
-			icon: "pi pi-trash",
-			command: () => {
-				console.log("Xóa tài khoản");
-			},
-		},
-	];
-	const searchOptions = [
-		{
-			title: "Tên người chơi",
-			value: "nickname",
-		},
-		{
-			title: "Số điện thoại",
-			value: "phoneNumber",
-		},
-		{
-			title: "Email",
-			value: "email",
-		},
-	];
 	const fillValue = useRef(null);
 
 	//? States
+	const [totalItem, setTotalItem] = useState(0);
+	const [tableData, setTableData] = useState([]);
+	const [tableParams, setTableParams] = useState({
+		limit: 10,
+		offset: 0,
+		searchType: null,
+		searchValue: null,
+		fillType: null,
+		fillValue: null,
+		orderby: null,
+		reverse: null,
+	});
 
-	const [players, setPlayers] = useState([]);
-	const [selectedCustomer, setSelectedCustomer] = useState(null);
+	const [selectedItem, setSelectedItem] = useState(null);
 
 	//? Effects
+	// Get table data
 	useEffect(() => {
-		playerApi.getAll().then((response) => {
+		playerApi.getAll(tableParams).then((response) => {
 			const data = response.data.map((player) => ({
 				...player,
 				id: +player.id,
@@ -66,12 +83,21 @@ function ImageFile() {
 				status: player.lockedAt ? "Bị khóa" : "Hoạt động",
 			}));
 
-			setPlayers(data);
+			setTableData(data);
+			setTotalItem(response.totalItem);
 		});
-	}, []);
+	}, [
+		tableParams.limit,
+		tableParams.offset,
+		tableParams.searchType,
+		tableParams.searchValue,
+		tableParams.fillType,
+		tableParams.fillValue,
+		tableParams.orderby,
+		tableParams.reverse,
+	]);
 
 	//? Functions
-
 	const getSeverity = useCallback((status) => {
 		switch (status) {
 			case "Bị khóa":
@@ -85,28 +111,33 @@ function ImageFile() {
 	function handleSearch(searchData) {
 		console.log(searchData);
 	}
-
 	function handleSort({ field }) {
 		console.log(field);
 	}
-
-	const handleChangeFilter = useCallback((value) => {
-		fillValue.current = value;
-	}, [fillValue]);
-
+	const handleChangeFilter = useCallback(
+		(value) => {
+			fillValue.current = value;
+		},
+		[fillValue]
+	);
 	function handleApplyFilter({ field }) {
 		console.log({
 			fillType: field,
 			fillValue: fillValue.current,
 		});
 	}
-
 	function handleClearFilter() {
 		console.log("Clear");
 	}
+	function handleChangePage(e) {
+		setTableParams((prevState) => ({
+			...prevState,
+			limit: e.rows,
+			offset: e.first,
+		}));
+	}
 
 	//? Templates
-
 	const headerTemplate = () => {
 		return (
 			<div className="grid">
@@ -119,11 +150,9 @@ function ImageFile() {
 			</div>
 		);
 	};
-
 	const statusTemplate = (rowData) => {
 		return <Tag value={rowData.status} severity={getSeverity(rowData.status)} />;
 	};
-
 	const statusFilterTemplate = (options) => {
 		return (
 			<TableFilterPopup
@@ -134,15 +163,12 @@ function ImageFile() {
 			/>
 		);
 	};
-
 	const filterApplyButtonTemplate = (filter) => {
 		return <Button icon="pi pi-check" onClick={() => handleApplyFilter(filter)} />;
 	};
-
 	const filterClearButtonTemplate = () => {
 		return <Button icon="pi pi-refresh" severity="warning" onClick={handleClearFilter} />;
 	};
-
 	const actionTemplate = (rowData) => {
 		return (
 			<SplitButton label="Tùy chọn" icon="pi pi-th-large" model={actions} severity="info" size="small" outlined />
@@ -152,17 +178,24 @@ function ImageFile() {
 	return (
 		<div>
 			<div className="card">
-				<h3 className="mb-3">Danh sách người chơi</h3>
+				<div className="grid mb-3">
+					<div className="col-6">
+						<h3 className="">Danh sách người chơi</h3>
+					</div>
+					<div className="col-6 text-right">
+						<h3>{`(${tableData.length} trên tổng ${totalItem})`}</h3>
+					</div>
+				</div>
 				<DataTable
-					value={players}
+					value={tableData}
 					rows={10}
 					header={headerTemplate}
 					stripedRows
 					showGridlines
 					removableSort
 					scrollable
-					selection={selectedCustomer}
-					onSelectionChange={(e) => setSelectedCustomer(e.value)}
+					selection={selectedItem}
+					onSelectionChange={(e) => setSelectedItem(e.value)}
 					selectionMode="single"
 					dataKey="id"
 					emptyMessage="Không có kết quả"
@@ -197,9 +230,16 @@ function ImageFile() {
 						alignFrozen="right"
 					/>
 				</DataTable>
+				<Paginator
+					first={tableParams.offset}
+					rows={tableParams.limit}
+					totalRecords={totalItem}
+					rowsPerPageOptions={rowsPerPageOptions}
+					onPageChange={handleChangePage}
+				/>
 			</div>
 		</div>
 	);
 }
 
-export default ImageFile;
+export default Player;

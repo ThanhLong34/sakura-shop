@@ -3,9 +3,9 @@ import axiosClient from "./axiosClient";
 const group = "player";
 
 const playerApi = {
-	getAll() {
-		const url = `${group}/getAll.php`;
-		return axiosClient.get(url);
+	getAll(params) {
+		const url = `${group}/getAll.php?`;
+		return axiosClient.get(url, { params });
 	},
 };
 
