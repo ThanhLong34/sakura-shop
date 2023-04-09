@@ -1,6 +1,7 @@
 import { useState, useRef } from "react";
 
-import FilterPopup from "@/admin/components/FilterPopup";
+import TableSearch from "@/admin/components/TableSearch";
+import TableFilterPopup from "@/admin/components/TableFilterPopup";
 
 import { DataTable } from "primereact/datatable";
 import { Column } from "primereact/column";
@@ -8,6 +9,7 @@ import { InputText } from "primereact/inputtext";
 import { Tag } from "primereact/tag";
 import { Button } from "primereact/button";
 import { SplitButton } from "primereact/splitbutton";
+import { Dropdown } from "primereact/dropdown";
 
 function ImageFile() {
 	//? Variables
@@ -28,8 +30,22 @@ function ImageFile() {
 			},
 		},
 	];
+	const searchType = useRef(null);
+	const searchOptions = [
+		{
+			title: "Tên người chơi",
+			value: "nickname",
+		},
+		{
+			title: "Số điện thoại",
+			value: "phoneNumber",
+		},
+		{
+			title: "Email",
+			value: "email",
+		},
+	];
 	const fillValue = useRef(null);
-
 
 	//? States
 
@@ -77,15 +93,18 @@ function ImageFile() {
 	}
 
 	//? Handles
+	function handleSearch(searchData) {
+		console.log(searchData);
+	}
 
-	function handleSortTest({ field }) {
+	function handleSort({ field }) {
 		console.log(field);
 	}
 
 	function handleApplyFilter({ field }) {
 		console.log({
 			fillType: field,
-			fillValue: fillValue.current
+			fillValue: fillValue.current,
 		});
 	}
 
@@ -98,29 +117,17 @@ function ImageFile() {
 	const headerTemplate = () => {
 		return (
 			<div className="grid">
-				<div className="col-12 md:col-4">
-					<span className="p-input-icon-left w-full">
-						<i className="pi pi-search" />
-						<InputText className="w-full" type="search" placeholder="Nhập thông tin cần tìm" />
-					</span>
+				<div className="col-12">
+					<TableSearch searchOptions={searchOptions} onSearch={handleSearch} />
 				</div>
-				<div className="col-12 md:col-4">
-					<span className="p-input-icon-left w-full">
-						<i className="pi pi-search" />
-						<InputText className="w-full" type="search" placeholder="Nhập thông tin cần tìm" />
-					</span>
-				</div>
-				<div className="col-12 md:col-4">
-					<span className="p-input-icon-left w-full">
-						<i className="pi pi-search" />
-						<InputText className="w-full" type="search" placeholder="Nhập thông tin cần tìm" />
-					</span>
+				<div className="col-12">
+					
 				</div>
 			</div>
 		);
 	};
 
-	const customerTemplate = (rowData) => {
+	const playerTemplate = (rowData) => {
 		return <span>{rowData.fullname}</span>;
 	};
 
@@ -130,7 +137,7 @@ function ImageFile() {
 
 	const statusFilterTemplate = (options) => {
 		return (
-			<FilterPopup
+			<TableFilterPopup
 				label="Chọn trạng thái"
 				options={statuses}
 				getSeverity={getSeverity}
@@ -175,18 +182,18 @@ function ImageFile() {
 					<Column
 						field="fullname"
 						header="Tên người chơi"
-						body={customerTemplate}
+						body={playerTemplate}
 						frozen
 						sortable
-						sortFunction={handleSortTest}
+						sortFunction={handleSort}
 					/>
-					<Column field="fullname" header="Số điện thoại" body={customerTemplate} />
-					<Column field="fullname" header="Email" body={customerTemplate} />
-					<Column field="age" header="Sức khỏe" sortable sortFunction={handleSortTest} />
-					<Column field="age" header="Sao" sortable sortFunction={handleSortTest} />
-					<Column field="age" header="Kim cương" sortable sortFunction={handleSortTest} />
-					<Column field="age" header="Kinh nghiệm" sortable sortFunction={handleSortTest} />
-					<Column field="age" header="Cấp độ" sortable sortFunction={handleSortTest} />
+					<Column field="fullname" header="Số điện thoại" body={playerTemplate} />
+					<Column field="fullname" header="Email" body={playerTemplate} />
+					<Column field="age" header="Sức khỏe" sortable sortFunction={handleSort} />
+					<Column field="age" header="Sao" sortable sortFunction={handleSort} />
+					<Column field="age" header="Kim cương" sortable sortFunction={handleSort} />
+					<Column field="age" header="Kinh nghiệm" sortable sortFunction={handleSort} />
+					<Column field="age" header="Cấp độ" sortable sortFunction={handleSort} />
 					<Column
 						field="status"
 						header="Trạng thái"
