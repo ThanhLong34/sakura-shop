@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { useRef, useState, memo } from "react";
 import PropTypes from "prop-types";
 
 import { Dropdown } from "primereact/dropdown";
@@ -19,8 +19,6 @@ TableSearch.defaultProps = {
 function TableSearch({ searchPlaceholder, searchOptions, onSearch }) {
 	const searchRef = useRef(null);
 	const [searchType, setSearchType] = useState(null);
-
-	console.log(searchOptions);
 
 	function handleSearch() {
 		const searchValue = searchRef.current?.value;
@@ -50,11 +48,11 @@ function TableSearch({ searchPlaceholder, searchOptions, onSearch }) {
 					optionValue="value"
 					placeholder="Chọn kiểu tìm kiếm"
 					className="w-full"
-					defaultValue={searchOptions[0]?.value ?? 'undefined'}
+					defaultValue={searchOptions[0]?.value ?? "undefined"}
 				/>
 			</div>
 		</div>
 	);
 }
 
-export default TableSearch;
+export default memo(TableSearch);

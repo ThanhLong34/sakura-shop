@@ -98,51 +98,52 @@ function Player() {
 	]);
 
 	//? Functions
-	const getSeverity = useCallback((status) => {
+	function getSeverity(status) {
 		switch (status) {
 			case "Bị khóa":
 				return "danger";
 			case "Hoạt động":
 				return "success";
 		}
-	}, []);
+	}
 
 	//? Handles
-	function handleSearch(searchData) {
+	const handleSearch = useCallback((searchData) => {
 		console.log(searchData);
-	}
-	function handleSort({ field }) {
+	}, []);
+	const handleSort = ({ field }) => {
 		console.log(field);
-	}
+	};
 	const handleChangeFilter = useCallback(
 		(value) => {
 			fillValue.current = value;
 		},
 		[fillValue]
 	);
-	function handleApplyFilter({ field }) {
+	const handleApplyFilter = ({ field }) => {
 		console.log({
 			fillType: field,
 			fillValue: fillValue.current,
 		});
-	}
-	function handleClearFilter() {
+	};
+	const handleClearFilter = () => {
 		console.log("Clear");
-	}
-	function handleChangePage(e) {
+	};
+	const handleChangePage = (e) => {
 		setTableParams((prevState) => ({
 			...prevState,
 			limit: e.rows,
 			offset: e.first,
 		}));
-	}
+	};
+	const handleReload = useCallback(() => {}, []);
 
 	//? Templates
 	const headerTemplate = () => {
 		return (
 			<div className="grid">
 				<div className="col-12">
-					<TableHeader showAddItemButton={false} />
+					<TableHeader showAddItemButton={false} onReload={handleReload} />
 				</div>
 				<div className="col-12">
 					<TableSearch searchOptions={searchOptions} onSearch={handleSearch} />
@@ -231,6 +232,7 @@ function Player() {
 					/>
 				</DataTable>
 				<Paginator
+					className="mt-4"
 					first={tableParams.offset}
 					rows={tableParams.limit}
 					totalRecords={totalItem}

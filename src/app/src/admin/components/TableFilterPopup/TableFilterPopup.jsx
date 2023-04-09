@@ -4,21 +4,21 @@ import PropTypes from 'prop-types';
 import { Dropdown } from "primereact/dropdown";
 import { Tag } from "primereact/tag";
 
-FilterPopup.propTypes = {
+TableFilterPopup.propTypes = {
 	label: PropTypes.string,
 	options: PropTypes.array,
 	getSeverity: PropTypes.func,
 	onChange: PropTypes.func,
 }
 
-FilterPopup.defaultProps = {
+TableFilterPopup.defaultProps = {
 	label: "Chọn",
 	options: [],
 	getSeverity: () => {},
 	onChange: () => {},
 }
 
-function FilterPopup({ label, options, getSeverity, onChange }) {
+function TableFilterPopup({ label, options, getSeverity, onChange }) {
 	const [value, setValue] = useState(null);
 
 	const statusItemTemplate = (option) => {
@@ -43,4 +43,4 @@ function FilterPopup({ label, options, getSeverity, onChange }) {
 	);
 }
 
-export default memo(FilterPopup);
+export default memo(TableFilterPopup);
