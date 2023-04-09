@@ -69,7 +69,6 @@ function Player() {
 	const [totalItem, setTotalItem] = useState(0);
 	const [tableData, setTableData] = useState([]);
 	const [tableParams, setTableParams] = useState(initTableParams);
-
 	const [selectedItem, setSelectedItem] = useState(null);
 
 	//? Effects
@@ -90,16 +89,7 @@ function Player() {
 			setTableData(data);
 			setTotalItem(response.totalItem);
 		});
-	}, [
-		tableParams.limit,
-		tableParams.offset,
-		tableParams.searchType,
-		tableParams.searchValue,
-		tableParams.fillType,
-		tableParams.fillValue,
-		tableParams.orderby,
-		tableParams.reverse,
-	]);
+	}, [tableParams]);
 
 	//? Functions
 	function getSeverity(status) {
@@ -109,6 +99,17 @@ function Player() {
 			case "Hoạt động":
 				return "success";
 		}
+	}
+	function getFillValue(status) {
+		switch (status) {
+			case "Bị khóa":
+				return "not_null";
+			case "Hoạt động":
+				return "is_null";
+		}
+	}
+	function getSortedTableData(e) {
+		return tableData;
 	}
 
 	//? Handles
@@ -121,8 +122,12 @@ function Player() {
 			}));
 		}
 	}, []);
-	const handleSort = ({ field }) => {
-		console.log(field);
+	const handleSort = ({ sortField, sortOrder }) => {
+		setTableParams((prevState) => ({
+			...prevState,
+			orderby: sortField,
+			reverse: sortOrder === -1,
+		}));
 	};
 	const handleChangeFilter = useCallback(
 		(value) => {
@@ -131,10 +136,11 @@ function Player() {
 		[fillValue]
 	);
 	const handleApplyFilter = ({ field }) => {
-		console.log({
-			fillType: field,
-			fillValue: fillValue.current,
-		});
+		setTableParams((prevState) => ({
+			...prevState,
+			fillType: field === "status" ? "lockedAt" : field,
+			fillValue: getFillValue(fillValue.current),
+		}));
 	};
 	const handleClearFilter = () => {
 		console.log("Clear");
@@ -206,23 +212,25 @@ function Player() {
 					header={headerTemplate}
 					stripedRows
 					showGridlines
-					removableSort
 					scrollable
 					selection={selectedItem}
 					onSelectionChange={(e) => setSelectedItem(e.value)}
 					selectionMode="single"
 					dataKey="id"
+					sortField={tableParams.orderby}
+					sortOrder={tableParams.reverse ? -1 : 1}
+					onSort={handleSort}
 					emptyMessage="Không có kết quả"
 					tableStyle={{ minWidth: "max-content" }}
 				>
-					<Column field="nickname" header="Tên người chơi" frozen sortable sortFunction={handleSort} />
+					<Column field="nickname" header="Tên người chơi" frozen sortable sortFunction={getSortedTableData} />
 					<Column field="phoneNumber" header="Số điện thoại" />
 					<Column field="email" header="Email" />
-					<Column field="health" header="Sức khỏe" sortable sortFunction={handleSort} />
-					<Column field="star" header="Sao" sortable sortFunction={handleSort} />
-					<Column field="diamond" header="Kim cương" sortable sortFunction={handleSort} />
-					<Column field="experience" header="Kinh nghiệm" sortable sortFunction={handleSort} />
-					<Column field="level" header="Cấp độ" sortable sortFunction={handleSort} />
+					<Column field="health" header="Sức khỏe" sortable sortFunction={getSortedTableData} />
+					<Column field="star" header="Sao" sortable sortFunction={getSortedTableData} />
+					<Column field="diamond" header="Kim cương" sortable sortFunction={getSortedTableData} />
+					<Column field="experience" header="Kinh nghiệm" sortable sortFunction={getSortedTableData} />
+					<Column field="level" header="Cấp độ" sortable sortFunction={getSortedTableData} />
 					<Column
 						field="status"
 						header="Trạng thái"
