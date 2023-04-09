@@ -1,4 +1,6 @@
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
+
+import playerApi from "@/apis/playerApi";
 
 import TableHeader from "@/admin/components/TableHeader";
 import TableSearch from "@/admin/components/TableSearch";
@@ -47,46 +49,35 @@ function ImageFile() {
 
 	//? States
 
-	const [player, setPlayer] = useState([
-		{
-			id: 1,
-			avatar: "https://www.primefaces.org/apollo-react/demo/images/avatar/amyelsner.png",
-			fullname: "Nguyễn Thành Long",
-			age: 21,
-			status: "Hoạt động",
-		},
-		{
-			id: 2,
-			avatar: "https://www.primefaces.org/apollo-react/demo/images/avatar/amyelsner.png",
-			fullname: "Nguyễn Thị Huế",
-			age: 21,
-			status: "Bị khóa",
-		},
-		{
-			id: 3,
-			avatar: "https://www.primefaces.org/apollo-react/demo/images/avatar/amyelsner.png",
-			fullname: "Dương Mỹ Lộc",
-			age: 22,
-			status: "Hoạt động",
-		},
-		{
-			id: 4,
-			avatar: "https://www.primefaces.org/apollo-react/demo/images/avatar/amyelsner.png",
-			fullname: "Trần Thị Ngọc Ánh",
-			age: 20,
-			status: "Hoạt động",
-		},
-	]);
+	const [players, setPlayers] = useState([]);
 	const [selectedCustomer, setSelectedCustomer] = useState(null);
+
+	//? Effects
+	useEffect(() => {
+		playerApi.getAll().then((response) => {
+			const data = response.data.map(player => ({
+				...player,
+				id: +player.id,
+				health: +player.health,
+				star: +player.star,
+				diamond: +player.diamond,
+				experience: +player.experience,
+				level: +player.level,
+				status: player.lockedAt ? 'Bị khóa' : 'Hoạt động'
+			}));
+
+			setPlayers(data);
+		});
+	}, []);
 
 	//? Functions
 
 	function getSeverity(status) {
 		switch (status) {
-			case "Hoạt động":
-				return "success";
 			case "Bị khóa":
 				return "danger";
+			case "Hoạt động":
+				return "success";
 		}
 	}
 
@@ -125,10 +116,6 @@ function ImageFile() {
 		);
 	};
 
-	const playerTemplate = (rowData) => {
-		return <span>{rowData.fullname}</span>;
-	};
-
 	const statusTemplate = (rowData) => {
 		return <Tag value={rowData.status} severity={getSeverity(rowData.status)} />;
 	};
@@ -163,7 +150,7 @@ function ImageFile() {
 			<div className="card">
 				<h3 className="mb-3">Danh sách người chơi</h3>
 				<DataTable
-					value={player}
+					value={players}
 					rows={10}
 					header={headerTemplate}
 					stripedRows
@@ -175,23 +162,22 @@ function ImageFile() {
 					selectionMode="single"
 					dataKey="id"
 					emptyMessage="Không có kết quả"
-					tableStyle={{ minWidth: "100rem" }}
+					tableStyle={{ minWidth: "max-content" }}
 				>
 					<Column
-						field="fullname"
+						field="nickname"
 						header="Tên người chơi"
-						body={playerTemplate}
 						frozen
 						sortable
 						sortFunction={handleSort}
 					/>
-					<Column field="fullname" header="Số điện thoại" body={playerTemplate} />
-					<Column field="fullname" header="Email" body={playerTemplate} />
-					<Column field="age" header="Sức khỏe" sortable sortFunction={handleSort} />
-					<Column field="age" header="Sao" sortable sortFunction={handleSort} />
-					<Column field="age" header="Kim cương" sortable sortFunction={handleSort} />
-					<Column field="age" header="Kinh nghiệm" sortable sortFunction={handleSort} />
-					<Column field="age" header="Cấp độ" sortable sortFunction={handleSort} />
+					<Column field="phoneNumber" header="Số điện thoại"/>
+					<Column field="email" header="Email"/>
+					<Column field="health" header="Sức khỏe" sortable sortFunction={handleSort} />
+					<Column field="star" header="Sao" sortable sortFunction={handleSort} />
+					<Column field="diamond" header="Kim cương" sortable sortFunction={handleSort} />
+					<Column field="experience" header="Kinh nghiệm" sortable sortFunction={handleSort} />
+					<Column field="level" header="Cấp độ" sortable sortFunction={handleSort} />
 					<Column
 						field="status"
 						header="Trạng thái"
