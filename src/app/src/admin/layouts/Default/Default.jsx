@@ -1,13 +1,8 @@
 import { useLocation } from "react-router-dom";
 import { adminRoutes } from "@/router";
-import classNames from "classnames/bind";
-import styles from "./Default.module.scss";
 
 import "@/assets/styles/adminLayout.css";
-import logo from "@/assets/images/LogoDark.png";
-import MenuList from "@/admin/components/MenuList";
-
-const cx = classNames.bind(styles);
+import Sidebar from "@/admin/components/Sidebar";
 
 function Default({ children }) {
 	const location = useLocation();
@@ -15,12 +10,7 @@ function Default({ children }) {
 
 	return (
 		<div className="layout-container layout-light layout-colorscheme-menu layout-static">
-			<div className="layout-sidebar">
-				<img className="app-logo" src={logo} alt="logo brand" />
-				<div className="layout-menu-container">
-					<MenuList />
-				</div>
-			</div>
+			<Sidebar />
 			<div className="layout-content-wrapper">
 				<div className="layout-topbar">
 					<div className="topbar-start">
