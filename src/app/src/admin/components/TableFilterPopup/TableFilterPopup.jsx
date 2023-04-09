@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, memo } from "react";
 import PropTypes from 'prop-types';
 
 import { Dropdown } from "primereact/dropdown";
@@ -43,4 +43,4 @@ function FilterPopup({ label, options, getSeverity, onChange }) {
 	);
 }
 
-export default FilterPopup;
+export default memo(FilterPopup);

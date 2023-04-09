@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect, useCallback } from "react";
 
 import playerApi from "@/apis/playerApi";
 
@@ -55,7 +55,7 @@ function ImageFile() {
 	//? Effects
 	useEffect(() => {
 		playerApi.getAll().then((response) => {
-			const data = response.data.map(player => ({
+			const data = response.data.map((player) => ({
 				...player,
 				id: +player.id,
 				health: +player.health,
@@ -63,7 +63,7 @@ function ImageFile() {
 				diamond: +player.diamond,
 				experience: +player.experience,
 				level: +player.level,
-				status: player.lockedAt ? 'Bị khóa' : 'Hoạt động'
+				status: player.lockedAt ? "Bị khóa" : "Hoạt động",
 			}));
 
 			setPlayers(data);
@@ -72,14 +72,14 @@ function ImageFile() {
 
 	//? Functions
 
-	function getSeverity(status) {
+	const getSeverity = useCallback((status) => {
 		switch (status) {
 			case "Bị khóa":
 				return "danger";
 			case "Hoạt động":
 				return "success";
 		}
-	}
+	}, []);
 
 	//? Handles
 	function handleSearch(searchData) {
@@ -89,6 +89,10 @@ function ImageFile() {
 	function handleSort({ field }) {
 		console.log(field);
 	}
+
+	const handleChangeFilter = useCallback((value) => {
+		fillValue.current = value;
+	}, [fillValue]);
 
 	function handleApplyFilter({ field }) {
 		console.log({
@@ -126,7 +130,7 @@ function ImageFile() {
 				label="Chọn trạng thái"
 				options={statuses}
 				getSeverity={getSeverity}
-				onChange={(value) => (fillValue.current = value)}
+				onChange={handleChangeFilter}
 			/>
 		);
 	};
@@ -164,15 +168,9 @@ function ImageFile() {
 					emptyMessage="Không có kết quả"
 					tableStyle={{ minWidth: "max-content" }}
 				>
-					<Column
-						field="nickname"
-						header="Tên người chơi"
-						frozen
-						sortable
-						sortFunction={handleSort}
-					/>
-					<Column field="phoneNumber" header="Số điện thoại"/>
-					<Column field="email" header="Email"/>
+					<Column field="nickname" header="Tên người chơi" frozen sortable sortFunction={handleSort} />
+					<Column field="phoneNumber" header="Số điện thoại" />
+					<Column field="email" header="Email" />
 					<Column field="health" header="Sức khỏe" sortable sortFunction={handleSort} />
 					<Column field="star" header="Sao" sortable sortFunction={handleSort} />
 					<Column field="diamond" header="Kim cương" sortable sortFunction={handleSort} />
