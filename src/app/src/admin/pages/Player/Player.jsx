@@ -114,7 +114,11 @@ function Player() {
 	//? Handles
 	const handleSearch = useCallback(({ searchValue, searchType }) => {
 		if (searchValue && searchType) {
-			console.log(searchValue, searchType);
+			setTableParams((prevState) => ({
+				...prevState,
+				searchValue,
+				searchType,
+			}));
 		}
 	}, []);
 	const handleSort = ({ field }) => {
