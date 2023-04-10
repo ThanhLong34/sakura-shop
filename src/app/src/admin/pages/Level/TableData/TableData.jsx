@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect, useCallback, memo } from "react";
+import { useState, useRef, useEffect, useCallback, useImperativeHandle, memo, forwardRef } from "react";
 import PropTypes from "prop-types";
 
 import levelApi from "@/apis/levelApi";
@@ -39,16 +39,15 @@ const searchOptions = [
 	},
 ];
 
-TableData.propTypes = {
-	onOpenDialog: PropTypes.func,
-};
-
-TableData.defaultProps = {
-	onOpenDialog: () => {},
-};
-
 //? Component
-function TableData({ onOpenDialog }) {
+const TableData = forwardRef(({ onOpenDialog }, ref) => {
+	//? Imperative
+	useImperativeHandle(ref, () => ({
+		onRefreshPage() {
+			handleRefreshPage();
+		}
+	}), []);
+
 	//? Refs
 	const tableSearchRef = useRef(null);
 	const toastRef = useRef(null);
@@ -76,7 +75,6 @@ function TableData({ onOpenDialog }) {
 			setTableData(data);
 			setTotalItem(response.totalItem);
 		});
-		
 	}, [tableParams]);
 
 	//? Functions
@@ -90,7 +88,7 @@ function TableData({ onOpenDialog }) {
 		tableSearchRef.current?.onReset();
 	}, []);
 	const handleAddItem = useCallback(() => {
-		onOpenDialog('AddItemDialog');
+		onOpenDialog("AddItemDialog");
 	}, []);
 	const handleSearch = useCallback(({ searchValue, searchType }) => {
 		if (searchValue && searchType) {
@@ -188,7 +186,7 @@ function TableData({ onOpenDialog }) {
 				label: "Thay đổi",
 				icon: "pi pi-eye",
 				command: () => {
-					onOpenDialog('UpdateItemDialog', rowData);
+					onOpenDialog("UpdateItemDialog", rowData);
 				},
 			},
 			{
@@ -297,6 +295,14 @@ function TableData({ onOpenDialog }) {
 			/>
 		</div>
 	);
-}
+});
+
+TableData.propTypes = {
+	onOpenDialog: PropTypes.func,
+};
+
+TableData.defaultProps = {
+	onOpenDialog: () => {},
+};
 
 export default memo(TableData);

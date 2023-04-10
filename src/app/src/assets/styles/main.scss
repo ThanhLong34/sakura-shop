@@ -5,10 +5,6 @@
 	font-family: "Lexend", sans-serif;
 }
 
-.p-component, .p-dropdown-label {
-	font-family: "Lexend", sans-serif;
-}
-
 body,
 div,
 aside {
@@ -53,4 +49,9 @@ aside {
 		width: 14px;
 		margin-bottom: 2px;
 	}
+}
+
+// Override Prime styles
+.p-component, .p-dropdown-label {
+	font-family: "Lexend", sans-serif;
 }

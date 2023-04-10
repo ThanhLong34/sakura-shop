@@ -1,10 +1,13 @@
-import { useState, useCallback } from "react";
+import { useState, useRef, useCallback } from "react";
 
 import AddItemDialog from "./AddItemDialog";
 import UpdateItemDialog from "./UpdateItemDialog";
 import TableData from "./TableData";
 
 function Level() {
+	//? Refs
+	const tableDataRef = useRef(null);
+
 	//? States
 	const [selectedItem, setSelectedItem] = useState(null);
 	const [addItemDialogVisible, setAddItemDialogVisible] = useState(false);
@@ -26,13 +29,24 @@ function Level() {
 				break;
 		}
 	}, []);
+	const handleRefreshPageTableData = useCallback(() => {
+		tableDataRef.current.onRefreshPage();
+	}, []);
 
 	return (
 		<div>
-			<AddItemDialog visible={addItemDialogVisible} setVisible={setAddItemDialogVisible} />
-			<UpdateItemDialog visible={updateItemDialogVisible} setVisible={setUpdateItemDialogVisible} item={selectedItem} />
+			<AddItemDialog
+				visible={addItemDialogVisible}
+				setVisible={setAddItemDialogVisible}
+				onSubmitted={handleRefreshPageTableData}
+			/>
+			<UpdateItemDialog
+				visible={updateItemDialogVisible}
+				setVisible={setUpdateItemDialogVisible}
+				item={selectedItem}
+			/>
 			<div className="card">
-				<TableData onOpenDialog={handleOpenDialog} />
+				<TableData ref={tableDataRef} onOpenDialog={handleOpenDialog} />
 			</div>
 		</div>
 	);
