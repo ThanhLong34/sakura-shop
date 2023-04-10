@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 07, 2023 at 04:22 PM
+-- Generation Time: Apr 10, 2023 at 04:24 PM
 -- Server version: 10.4.27-MariaDB
 -- PHP Version: 8.2.0
 
@@ -43,7 +43,7 @@ CREATE TABLE `admin` (
 --
 
 INSERT INTO `admin` (`id`, `createdAt`, `updatedAt`, `deletedAt`, `username`, `password`, `email`, `phoneNumber`) VALUES
-(1, '10:58:48 06/04/2023', '15:46:46 07/04/2023', NULL, 'dragondev0304', '4c79273eed3d095e55d1224f6524ae92', 'thanhlongedu0304@gmail.com', '0353292241'),
+(1, '10:58:48 06/04/2023', '21:06:48 10/04/2023', NULL, 'dragondev0304', '4c79273eed3d095e55d1224f6524ae92', 'thanhlongedu0304@gmail.com', '0353292241'),
 (4, '13:44:55 06/04/2023', '14:18:16 06/04/2023', NULL, 'tester01', '5a734ecdd0295bfc196a1d740bf3921f', 'thanhlongedu0304@gmail.com', '0123456789'),
 (5, '13:45:00 06/04/2023', '16:09:26 07/04/2023', NULL, 'tester02', '0192023a7bbd73250516f069df18b500', 'nguyenlong0304tester2@gmail.com', '0123456789');
 
@@ -179,7 +179,15 @@ INSERT INTO `level` (`id`, `createdAt`, `updatedAt`, `deletedAt`, `levelNumber`,
 (1, '21:13:00 07/04/2023', NULL, NULL, 2, 120, 0, 5, 0),
 (2, '21:13:31 07/04/2023', NULL, NULL, 3, 250, 0, 10, 0),
 (3, '21:13:53 07/04/2023', NULL, NULL, 4, 350, 0, 12, 0),
-(4, '21:14:03 07/04/2023', NULL, NULL, 5, 500, 0, 15, 0);
+(4, '21:14:03 07/04/2023', NULL, NULL, 5, 500, 0, 15, 0),
+(6, '21:19:47 10/04/2023', NULL, NULL, 6, 600, 0, 0, 0),
+(7, '21:20:35 10/04/2023', NULL, NULL, 7, 750, 2, 5, 1),
+(8, '21:21:00 10/04/2023', NULL, NULL, 8, 820, 2, 2, 1),
+(9, '21:21:15 10/04/2023', NULL, NULL, 9, 950, 3, 2, 2),
+(10, '21:21:30 10/04/2023', NULL, NULL, 10, 1020, 2, 2, 2),
+(11, '21:21:39 10/04/2023', NULL, NULL, 11, 1200, 2, 2, 1),
+(12, '21:21:51 10/04/2023', NULL, NULL, 12, 1300, 2, 1, 2),
+(13, '21:22:01 10/04/2023', NULL, NULL, 13, 1350, 2, 1, 2);
 
 -- --------------------------------------------------------
 
@@ -210,7 +218,7 @@ CREATE TABLE `player` (
 --
 
 INSERT INTO `player` (`id`, `createdAt`, `updatedAt`, `deletedAt`, `lockedAt`, `phoneNumber`, `password`, `email`, `nickname`, `health`, `star`, `diamond`, `experience`, `level`, `activeOptionMode`) VALUES
-(5, '20:05:31 07/04/2023', NULL, NULL, NULL, '0353292241', '4c79273eed3d095e55d1224f6524ae92', 'thanhlongedu0304@gmail.com', 'player_yP7Ty2', 3, 0, 0, 0, 1, 0),
+(5, '20:05:31 07/04/2023', NULL, NULL, NULL, '0353292241', '4c79273eed3d095e55d1224f6524ae92', 'thanhlongedu0304@gmail.com', 'player_yP7Ty2', 3, 0, 0, 0, 1, 1),
 (6, '20:05:52 07/04/2023', NULL, NULL, NULL, '0123456789', '4c79273eed3d095e55d1224f6524ae92', '2014468@dlu.edu.vn', 'player_eECGaf', 3, 0, 0, 0, 1, 0),
 (7, '20:06:33 07/04/2023', NULL, NULL, NULL, '0123456781', '4c79273eed3d095e55d1224f6524ae92', 'nguyenlong0304tester1@gmail.com', 'player_YzvXFT', 3, 0, 0, 0, 1, 0),
 (8, '20:06:37 07/04/2023', '20:32:19 07/04/2023', NULL, NULL, '0123456782', '4c79273eed3d095e55d1224f6524ae92', 'nguyenlong0304tester2@gmail.com', 'player_op7UUD', 5, 5, 2, 102, 3, 0);
@@ -260,7 +268,7 @@ CREATE TABLE `topic` (
   `updatedAt` varchar(255) DEFAULT NULL,
   `deletedAt` varchar(255) DEFAULT NULL,
   `imageId` int(11) DEFAULT NULL,
-  `name` varchar(255) DEFAULT NULL
+  `name` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -349,7 +357,8 @@ ALTER TABLE `rewardhistory`
 -- Indexes for table `topic`
 --
 ALTER TABLE `topic`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `name` (`name`);
 
 --
 -- AUTO_INCREMENT for dumped tables
@@ -401,13 +410,13 @@ ALTER TABLE `image`
 -- AUTO_INCREMENT for table `level`
 --
 ALTER TABLE `level`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT for table `player`
 --
 ALTER TABLE `player`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
 -- AUTO_INCREMENT for table `question`
@@ -425,7 +434,7 @@ ALTER TABLE `rewardhistory`
 -- AUTO_INCREMENT for table `topic`
 --
 ALTER TABLE `topic`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- Constraints for dumped tables
