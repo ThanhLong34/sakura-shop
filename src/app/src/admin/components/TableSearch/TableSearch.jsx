@@ -6,6 +6,14 @@ import { Dropdown } from "primereact/dropdown";
 import { InputText } from "primereact/inputtext";
 
 const TableSearch = forwardRef(({ searchPlaceholder, searchOptions, onSearch }, ref) => {
+	useImperativeHandle(ref, () => {
+		return {
+			onReset() {
+				reset();
+			},
+		};
+	}, []);
+
 	const [searchValue, setSearchValue] = useState("");
 	const searchValueDebounce = useDebounce(searchValue, 800);
 	const [searchType, setSearchType] = useState(null);
@@ -16,12 +24,6 @@ const TableSearch = forwardRef(({ searchPlaceholder, searchOptions, onSearch }, 
 			searchType,
 		});
 	}, [searchValueDebounce]);
-
-	useImperativeHandle(ref, () => ({
-		onReset() {
-			reset();
-		},
-	}));
 
 	function handleChangeSearchValue(e) {
 		setSearchValue(e.target.value);

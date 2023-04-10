@@ -1,5 +1,5 @@
 import { useState, useRef, useEffect, useCallback, memo } from "react";
-import PropTypes from 'prop-types';
+import PropTypes from "prop-types";
 
 import playerApi from "@/apis/playerApi";
 
@@ -20,6 +20,8 @@ import { Tag } from "primereact/tag";
 import { Button } from "primereact/button";
 import { SplitButton } from "primereact/splitbutton";
 import { Paginator } from "primereact/paginator";
+import { ConfirmPopup, confirmPopup } from "primereact/confirmpopup";
+import { Toast } from "primereact/toast";
 
 //? Variables
 const initialTableParams = {
@@ -69,21 +71,21 @@ function getFillValue(status) {
 
 TableData.propTypes = {
 	onView: PropTypes.func,
-	onDelete: PropTypes.func,
-}
+};
 
 TableData.defaultProps = {
 	onView: () => {},
-	onDelete: () => {},
-}
+};
 
 //? Component
-function TableData({ onView, onDelete }) {
+function TableData({ onView }) {
 	//? Variables
 	const fillValue = useRef(null);
 
 	//? Refs
 	const tableSearchRef = useRef(null);
+	const toastRef = useRef(null);
+	const actionSplitButton = useRef(null);
 
 	//? States
 	const [totalItem, setTotalItem] = useState(0);
@@ -163,6 +165,54 @@ function TableData({ onView, onDelete }) {
 			limit: e.rows,
 			offset: e.first,
 		}));
+	};
+	const handleDeleteItem = (item) => {
+		playerApi.trashById(item.id).then((response) => {
+			if (response.code === 1) {
+				toastRef.current.show({ severity: "success", summary: "Thành công", detail: "Xóa thành công", life: 3000 });
+				handleRefreshPage();
+			} else {
+				toastRef.current.show({ severity: "error", summary: "Lỗi", detail: response.message, life: 3000 });
+			}
+		});
+	};
+	const handleRefreshPage = () => {
+		setTableParams((prevState) => ({ ...prevState }));
+	};
+	const handleLockAccount = (item) => {
+		playerApi.lockById(item.id).then((response) => {
+			if (response.code === 1) {
+				toastRef.current.show({
+					severity: "success",
+					summary: "Thành công",
+					detail: "Khóa tài khoản thành công",
+					life: 3000,
+				});
+				handleRefreshPage();
+			} else {
+				toastRef.current.show({ severity: "error", summary: "Lỗi", detail: response.message, life: 3000 });
+			}
+		});
+	};
+	const handleUnlockAccount = (item) => {
+		playerApi.unlockById(item.id).then((response) => {
+			if (response.code === 1) {
+				toastRef.current.show({
+					severity: "success",
+					summary: "Thành công",
+					detail: "Mở khóa tài khoản thành công",
+					life: 3000,
+				});
+				handleRefreshPage();
+			} else {
+				toastRef.current.show({
+					severity: "error",
+					summary: "Lỗi",
+					detail: response.message,
+					life: 3000,
+				});
+			}
+		});
 	};
 
 	//? Templates
@@ -247,29 +297,46 @@ function TableData({ onView, onDelete }) {
 				},
 			},
 			{
+				label: rowData.lockedAt ? "Mở khóa" : "Khóa tài khoản",
+				icon: "pi pi-lock",
+				command: (e) => {
+					confirmPopup({
+						target: e.originalEvent.currentTarget,
+						message: `Bạn có chắn chắc muốn ${rowData.lockedAt ? "mở khóa" : "khóa"} tài khoản người chơi này?`,
+						icon: "pi pi-info-circle",
+						acceptClassName: "p-button-danger",
+						acceptLabel: "Có",
+						rejectLabel: "Không",
+						accept: rowData.lockedAt ? () => handleUnlockAccount(rowData) : () => handleLockAccount(rowData),
+					});
+				},
+			},
+			{
 				label: "Xóa tài khoản",
 				icon: "pi pi-trash",
-				command: () => {
-					onDelete(rowData);
+				command: (e) => {
+					confirmPopup({
+						target: e.originalEvent.currentTarget,
+						message: "Bạn có chắn chắc muốn xóa?",
+						icon: "pi pi-info-circle",
+						acceptClassName: "p-button-danger",
+						acceptLabel: "Có",
+						rejectLabel: "Không",
+						accept: () => handleDeleteItem(rowData),
+					});
 				},
 			},
 		];
 
 		return (
-			<SplitButton
-				label="Tùy chọn"
-				icon="pi pi-th-large"
-				model={actions}
-				severity="info"
-				size="small"
-				outlined
-				value={rowData.id}
-			/>
+			<SplitButton label="Tùy chọn" icon="pi pi-th-large" model={actions} severity="info" size="small" outlined />
 		);
 	};
 
 	return (
 		<div>
+			<Toast ref={toastRef} />
+			<ConfirmPopup />
 			<div className="grid mb-3">
 				<div className="col-6">
 					<h3 className="">DANH SÁCH NGƯỜI CHƠI</h3>
@@ -289,6 +356,7 @@ function TableData({ onView, onDelete }) {
 				onSelectionChange={(e) => setSelectedItem(e.value)}
 				selectionMode="single"
 				dataKey="id"
+				removableSort
 				sortField={tableParams.orderby}
 				sortOrder={tableParams.reverse ? -1 : 1}
 				onSort={handleSort}

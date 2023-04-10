@@ -13,16 +13,12 @@ function Player() {
 		setViewDialogVisible(true);
 		setSelectedItem(item);
 	}, []);
-	const handleDelete = useCallback((item) => {
-		console.log(item);
-		setSelectedItem(item);
-	}, []);
-	
+
 	return (
 		<div>
 			<ViewDialog visible={viewDialogVisible} setVisible={setViewDialogVisible} item={selectedItem} />
 			<div className="card">
-				<TableData onView={handleView} onDelete={handleDelete} />
+				<TableData onView={handleView} />
 			</div>
 		</div>
 	);
