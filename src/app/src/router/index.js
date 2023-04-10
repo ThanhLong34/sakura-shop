@@ -3,6 +3,7 @@ import AdminLogin from "@/admin/pages/Login";
 import AdminDashboard from "@/admin/pages/Dashboard";
 import AdminImageFileManagement from "@/admin/pages/ImageFile";
 import AdminPlayerManagement from "@/admin/pages/Player";
+import AdminLevelManagement from "@/admin/pages/Level";
 import AdminProfile from "@/admin/pages/Profile";
 import AdminNotFound from "@/admin/pages/NotFound";
 
@@ -39,6 +40,13 @@ const adminRoutes = [
 		component: AdminPlayerManagement,
 		metadata: {
 			title: 'Người chơi'
+		}
+	},
+	{
+		path: "/admin/level",
+		component: AdminLevelManagement,
+		metadata: {
+			title: 'Cấp độ'
 		}
 	},
 	{

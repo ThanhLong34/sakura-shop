@@ -1,9 +1,9 @@
 import { useState, useCallback } from "react";
 
-import ViewDialog from "./ViewDialog";
+// import ViewDialog from "./ViewDialog";
 import TableData from "./TableData";
 
-function Player() {
+function Level() {
 	//? States
 	const [viewDialogVisible, setViewDialogVisible] = useState(false);
 	const [selectedItem, setSelectedItem] = useState(null);
@@ -16,7 +16,7 @@ function Player() {
 
 	return (
 		<div>
-			<ViewDialog visible={viewDialogVisible} setVisible={setViewDialogVisible} item={selectedItem} />
+			{/* <ViewDialog visible={viewDialogVisible} setVisible={setViewDialogVisible} item={selectedItem} /> */}
 			<div className="card">
 				<TableData onViewItem={handleViewItem} />
 			</div>
@@ -24,4 +24,4 @@ function Player() {
 	);
 }
 
-export default Player;
+export default Level;

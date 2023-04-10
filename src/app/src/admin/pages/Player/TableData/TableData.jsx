@@ -70,22 +70,21 @@ function getFillValue(status) {
 }
 
 TableData.propTypes = {
-	onView: PropTypes.func,
+	onViewItem: PropTypes.func,
 };
 
 TableData.defaultProps = {
-	onView: () => {},
+	onViewItem: () => {},
 };
 
 //? Component
-function TableData({ onView }) {
+function TableData({ onViewItem }) {
 	//? Variables
 	const fillValue = useRef(null);
 
 	//? Refs
 	const tableSearchRef = useRef(null);
 	const toastRef = useRef(null);
-	const actionSplitButton = useRef(null);
 
 	//? States
 	const [totalItem, setTotalItem] = useState(0);
@@ -112,6 +111,7 @@ function TableData({ onView }) {
 			setTableData(data);
 			setTotalItem(response.totalItem);
 		});
+		
 	}, [tableParams]);
 
 	//? Functions
@@ -293,7 +293,7 @@ function TableData({ onView }) {
 				label: "Xem chi tiết",
 				icon: "pi pi-eye",
 				command: () => {
-					onView(rowData);
+					onViewItem(rowData);
 				},
 			},
 			{
@@ -365,7 +365,7 @@ function TableData({ onView }) {
 			>
 				<Column field="nickname" header="Tên người chơi" frozen sortable sortFunction={getSortedTableData} />
 				<Column field="phoneNumber" header="Số điện thoại" />
-				<Column field="email" header="Email" />
+				<Column field="email" header="Email" sortable sortFunction={getSortedTableData} />
 				<Column
 					field="health"
 					header="Sức khỏe"
