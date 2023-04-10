@@ -70,15 +70,15 @@ function getFillValue(status) {
 }
 
 TableData.propTypes = {
-	onViewItem: PropTypes.func,
+	onOpenDialog: PropTypes.func,
 };
 
 TableData.defaultProps = {
-	onViewItem: () => {},
+	onOpenDialog: () => {},
 };
 
 //? Component
-function TableData({ onViewItem }) {
+function TableData({ onOpenDialog }) {
 	//? Variables
 	const fillValue = useRef(null);
 
@@ -293,7 +293,7 @@ function TableData({ onViewItem }) {
 				label: "Xem chi tiết",
 				icon: "pi pi-eye",
 				command: () => {
-					onViewItem(rowData);
+					onOpenDialog('ViewItemDialog', rowData);
 				},
 			},
 			{

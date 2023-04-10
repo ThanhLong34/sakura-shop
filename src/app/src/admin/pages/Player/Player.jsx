@@ -1,24 +1,32 @@
 import { useState, useCallback } from "react";
 
-import ViewDialog from "./ViewDialog";
+import ViewItemDialog from "./ViewItemDialog";
 import TableData from "./TableData";
 
 function Player() {
 	//? States
-	const [viewDialogVisible, setViewDialogVisible] = useState(false);
 	const [selectedItem, setSelectedItem] = useState(null);
+	const [viewItemDialogVisible, setViewItemDialogVisible] = useState(false);
 
 	//? Handles
-	const handleViewItem = useCallback((item) => {
-		setViewDialogVisible(true);
-		setSelectedItem(item);
+	const handleOpenDialog = useCallback((type, payload) => {
+		switch (type) {
+			case "ViewItemDialog": {
+				setViewItemDialogVisible(true);
+				setSelectedItem(payload);
+				break;
+			}
+
+			default:
+				break;
+		}
 	}, []);
 
 	return (
 		<div>
-			<ViewDialog visible={viewDialogVisible} setVisible={setViewDialogVisible} item={selectedItem} />
+			<ViewItemDialog visible={viewItemDialogVisible} setVisible={setViewItemDialogVisible} item={selectedItem} />
 			<div className="card">
-				<TableData onViewItem={handleViewItem} />
+				<TableData onOpenDialog={handleOpenDialog} />
 			</div>
 		</div>
 	);

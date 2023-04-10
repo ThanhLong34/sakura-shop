@@ -40,17 +40,17 @@ const searchOptions = [
 ];
 
 TableData.propTypes = {
-	onAddItem: PropTypes.func,
-	onUpdateItem: PropTypes.func,
+	onOpenAddItemDialog: PropTypes.func,
+	onOpenUpdateItemDialog: PropTypes.func,
 };
 
 TableData.defaultProps = {
-	onAddItem: () => {},
-	onUpdateItem: () => {},
+	onOpenAddItemDialog: () => {},
+	onOpenUpdateItemDialog: () => {},
 };
 
 //? Component
-function TableData({ onAddItem, onUpdateItem }) {
+function TableData({ onOpenAddItemDialog, onOpenUpdateItemDialog }) {
 	//? Refs
 	const tableSearchRef = useRef(null);
 	const toastRef = useRef(null);
@@ -91,7 +91,7 @@ function TableData({ onAddItem, onUpdateItem }) {
 		tableSearchRef.current?.onReset();
 	}, []);
 	const handleAddItem = useCallback(() => {
-		// ...
+		onOpenAddItemDialog();
 	}, []);
 	const handleSearch = useCallback(({ searchValue, searchType }) => {
 		if (searchValue && searchType) {
@@ -135,7 +135,7 @@ function TableData({ onAddItem, onUpdateItem }) {
 		return (
 			<div className="grid">
 				<div className="col-12">
-					<TableHeader addItemButtonLabel="Thêm cấp độ" onReload={handleReload} onAddItem={handleAddItem} />
+					<TableHeader addItemButtonLabel="Thêm cấp độ" onReload={handleReload} onOpenAddItemDialog={handleAddItem} />
 				</div>
 				<div className="col-12">
 					<TableSearch ref={tableSearchRef} searchOptions={searchOptions} onSearch={handleSearch} />
@@ -189,7 +189,7 @@ function TableData({ onAddItem, onUpdateItem }) {
 				label: "Thay đổi",
 				icon: "pi pi-eye",
 				command: () => {
-					onUpdateItem(rowData);
+					onOpenUpdateItemDialog(rowData);
 				},
 			},
 			{

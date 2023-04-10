@@ -1,6 +1,6 @@
 import PropTypes from "prop-types";
 import classNames from "classnames/bind";
-import styles from "./ViewDialog.module.scss";
+import styles from "./AddDialog.module.scss";
 
 // Icons
 import HealthIcon from "@/assets/images/heart.png";
@@ -15,22 +15,13 @@ import { Tag } from "primereact/tag";
 
 const cx = classNames.bind(styles);
 
-function getSeverity(status) {
-	switch (status) {
-		case "Bị khóa":
-			return "danger";
-		case "Hoạt động":
-			return "success";
-	}
-}
-
-ViewDialog.propTypes = {
+AddDialog.propTypes = {
 	visible: PropTypes.bool.isRequired,
 	setVisible: PropTypes.func.isRequired,
 	item: PropTypes.object,
 };
 
-ViewDialog.defaultProps = {
+AddDialog.defaultProps = {
 	item: {},
 };
 
@@ -38,7 +29,7 @@ ViewDialog.defaultProps = {
 // visible & item là các State
 // Nên không cần dùng memo, useCallback, useMemo
 
-function ViewDialog({ visible, setVisible, item }) {
+function AddDialog({ visible, setVisible, item }) {
 	let status;
 	if (item) {
 		status = item.lockedAt ? "Bị khóa" : "Hoạt động";
@@ -138,4 +129,4 @@ function ViewDialog({ visible, setVisible, item }) {
 	);
 }
 
-export default ViewDialog;
+export default AddDialog;
