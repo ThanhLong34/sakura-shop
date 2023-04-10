@@ -16,7 +16,6 @@ function Player() {
 				setSelectedItem(payload);
 				break;
 			}
-
 			default:
 				break;
 		}
