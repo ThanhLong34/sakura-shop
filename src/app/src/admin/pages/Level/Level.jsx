@@ -1,27 +1,31 @@
 import { useState, useCallback } from "react";
 
-import AddDialog from "./AddDialog";
+import AddItemDialog from "./AddItemDialog";
 import TableData from "./TableData";
 
 function Level() {
 	//? States
-	const [addDialogVisible, setAddDialogVisible] = useState(false);
 	const [selectedItem, setSelectedItem] = useState(null);
+	const [addItemDialogVisible, setAddItemDialogVisible] = useState(false);
 
 	//? Handles
-	const handleAddItem = useCallback(() => {
-		setAddDialogVisible(true);
-	}, []);
-	const handleUpdateItem = useCallback((item) => {
-		setAddDialogVisible(true);
-		setSelectedItem(item);
+	const handleOpenDialog = useCallback((type, payload) => {
+		switch (type) {
+			case "AddItemDialog": {
+				setAddItemDialogVisible(true);
+				break;
+			}
+
+			default:
+				break;
+		}
 	}, []);
 
 	return (
 		<div>
-			<AddDialog visible={addDialogVisible} setVisible={setAddDialogVisible} item={selectedItem} />
+			<AddItemDialog visible={addItemDialogVisible} setVisible={setAddItemDialogVisible} />
 			<div className="card">
-				<TableData onOpenAddItemDialog={handleAddItem} onOpenUpdateItemDialog={handleUpdateItem} />
+				<TableData onOpenDialog={handleOpenDialog} />
 			</div>
 		</div>
 	);

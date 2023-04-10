@@ -40,17 +40,15 @@ const searchOptions = [
 ];
 
 TableData.propTypes = {
-	onOpenAddItemDialog: PropTypes.func,
-	onOpenUpdateItemDialog: PropTypes.func,
+	onOpenDialog: PropTypes.func,
 };
 
 TableData.defaultProps = {
-	onOpenAddItemDialog: () => {},
-	onOpenUpdateItemDialog: () => {},
+	onOpenDialog: () => {},
 };
 
 //? Component
-function TableData({ onOpenAddItemDialog, onOpenUpdateItemDialog }) {
+function TableData({ onOpenDialog }) {
 	//? Refs
 	const tableSearchRef = useRef(null);
 	const toastRef = useRef(null);
@@ -78,6 +76,7 @@ function TableData({ onOpenAddItemDialog, onOpenUpdateItemDialog }) {
 			setTableData(data);
 			setTotalItem(response.totalItem);
 		});
+		
 	}, [tableParams]);
 
 	//? Functions
@@ -91,7 +90,7 @@ function TableData({ onOpenAddItemDialog, onOpenUpdateItemDialog }) {
 		tableSearchRef.current?.onReset();
 	}, []);
 	const handleAddItem = useCallback(() => {
-		onOpenAddItemDialog();
+		onOpenDialog('AddItemDialog');
 	}, []);
 	const handleSearch = useCallback(({ searchValue, searchType }) => {
 		if (searchValue && searchType) {
@@ -135,7 +134,7 @@ function TableData({ onOpenAddItemDialog, onOpenUpdateItemDialog }) {
 		return (
 			<div className="grid">
 				<div className="col-12">
-					<TableHeader addItemButtonLabel="Thêm cấp độ" onReload={handleReload} onOpenAddItemDialog={handleAddItem} />
+					<TableHeader addItemButtonLabel="Thêm cấp độ" onReload={handleReload} onAddItem={handleAddItem} />
 				</div>
 				<div className="col-12">
 					<TableSearch ref={tableSearchRef} searchOptions={searchOptions} onSearch={handleSearch} />
@@ -189,7 +188,7 @@ function TableData({ onOpenAddItemDialog, onOpenUpdateItemDialog }) {
 				label: "Thay đổi",
 				icon: "pi pi-eye",
 				command: () => {
-					onOpenUpdateItemDialog(rowData);
+					onOpenDialog('UpdateItemDialog', rowData);
 				},
 			},
 			{
