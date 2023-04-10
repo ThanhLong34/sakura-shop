@@ -103,6 +103,7 @@ function TableData({ onView, onDelete }) {
 				diamond: +player.diamond,
 				experience: +player.experience,
 				level: +player.level,
+				activeOptionMode: +player.activeOptionMode === 1,
 				status: player.lockedAt ? "Bị khóa" : "Hoạt động",
 			}));
 
@@ -274,7 +275,7 @@ function TableData({ onView, onDelete }) {
 					<h3 className="">DANH SÁCH NGƯỜI CHƠI</h3>
 				</div>
 				<div className="col-6 text-right">
-					<h3 className="text-400">{`(${tableData.length} trên tổng ${totalItem})`}</h3>
+					<h3 className="text-400 text-sm">{`(${tableData.length} trên tổng ${totalItem})`}</h3>
 				</div>
 			</div>
 			<DataTable
