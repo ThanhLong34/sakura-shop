@@ -32,7 +32,6 @@ const initialTableParams = {
 	orderby: null,
 	reverse: null,
 };
-const statuses = ["Hoạt động", "Bị khóa"];
 const rowsPerPageOptions = [10, 20, 30];
 const searchOptions = [
 	{
@@ -48,6 +47,25 @@ const searchOptions = [
 		value: "email",
 	},
 ];
+const statuses = ["Hoạt động", "Bị khóa"];
+
+//? Functions
+function getSeverity(status) {
+	switch (status) {
+		case "Bị khóa":
+			return "danger";
+		case "Hoạt động":
+			return "success";
+	}
+}
+function getFillValue(status) {
+	switch (status) {
+		case "Bị khóa":
+			return "not_null";
+		case "Hoạt động":
+			return "is_null";
+	}
+}
 
 TableData.propTypes = {
 	onView: PropTypes.func,
@@ -94,27 +112,18 @@ function TableData({ onView, onDelete }) {
 	}, [tableParams]);
 
 	//? Functions
-	function getSeverity(status) {
-		switch (status) {
-			case "Bị khóa":
-				return "danger";
-			case "Hoạt động":
-				return "success";
-		}
-	}
-	function getFillValue(status) {
-		switch (status) {
-			case "Bị khóa":
-				return "not_null";
-			case "Hoạt động":
-				return "is_null";
-		}
-	}
 	function getSortedTableData(e) {
 		return tableData;
 	}
 
 	//? Handles
+	const handleReload = useCallback(() => {
+		setTableParams({ ...initialTableParams });
+		tableSearchRef.current?.onReset();
+	}, []);
+	const handleAddItem = useCallback(() => {
+		// ...
+	}, []);
 	const handleSearch = useCallback(({ searchValue, searchType }) => {
 		if (searchValue && searchType) {
 			setTableParams((prevState) => ({
@@ -154,10 +163,6 @@ function TableData({ onView, onDelete }) {
 			offset: e.first,
 		}));
 	};
-	const handleReload = useCallback(() => {
-		setTableParams({ ...initialTableParams });
-		tableSearchRef.current?.onReset();
-	}, []);
 
 	//? Templates
 	const headerTemplate = () => {
@@ -266,10 +271,10 @@ function TableData({ onView, onDelete }) {
 		<div>
 			<div className="grid mb-3">
 				<div className="col-6">
-					<h3 className="">Danh sách người chơi</h3>
+					<h3 className="">DANH SÁCH NGƯỜI CHƠI</h3>
 				</div>
 				<div className="col-6 text-right">
-					<h3>{`(${tableData.length} trên tổng ${totalItem})`}</h3>
+					<h3 className="text-400">{`(${tableData.length} trên tổng ${totalItem})`}</h3>
 				</div>
 			</div>
 			<DataTable
