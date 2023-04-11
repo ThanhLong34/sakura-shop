@@ -80,7 +80,7 @@ function AddItemDialog({ visible, setVisible, onSubmitted }) {
 				});
 				
 				handleCloseDialog();
-				onSubmitted(data);
+				onSubmitted();
 			} else {
 				toastRef.current.show({
 					severity: "error",

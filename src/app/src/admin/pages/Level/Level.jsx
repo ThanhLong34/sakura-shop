@@ -44,6 +44,7 @@ function Level() {
 				visible={updateItemDialogVisible}
 				setVisible={setUpdateItemDialogVisible}
 				item={selectedItem}
+				onSubmitted={handleRefreshPageTableData}
 			/>
 			<div className="card">
 				<TableData ref={tableDataRef} onOpenDialog={handleOpenDialog} />
