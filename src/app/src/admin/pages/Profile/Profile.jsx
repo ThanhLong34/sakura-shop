@@ -125,7 +125,7 @@ function Profile() {
 			<Dialog
 				header="Thay đổi mật khẩu"
 				visible={dialogVisible}
-				style={{ width: "50vw" }}
+				style={{ width: "320px" }}
 				onHide={() => setDialogVisible(false)}
 			>
 				<span className="p-input-icon-left w-full mb-4">

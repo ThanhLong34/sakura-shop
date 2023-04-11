@@ -52,7 +52,7 @@ function ViewItemDialog({ visible, setVisible, item }) {
 		<Dialog
 			header="CHI TIẾT TÀI KHOẢN NGƯỜI CHƠI"
 			visible={visible}
-			style={{ width: "50vw" }}
+			style={{ width: "650px" }}
 			onHide={() => setVisible(false)}
 		>
 			{item && (

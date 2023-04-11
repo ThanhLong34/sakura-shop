@@ -95,7 +95,7 @@ function AddItemDialog({ visible, setVisible, onSubmitted }) {
 	return (
 		<>
 			<Toast ref={toastRef} />
-			<Dialog header="THÊM CẤP ĐỘ NGƯỜI CHƠI" visible={visible} style={{ width: "42vw" }} onHide={handleCloseDialog}>
+			<Dialog header="THÊM CẤP ĐỘ NGƯỜI CHƠI" visible={visible} style={{ width: "420px" }} onHide={handleCloseDialog}>
 				<div className="mb-4 flex">
 					<span className={cx("item-icon")}>
 						<img src={LevelIcon} alt="level icon" />

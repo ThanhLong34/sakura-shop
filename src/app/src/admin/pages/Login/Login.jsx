@@ -147,7 +147,7 @@ function Login() {
 			<Dialog
 				header="Reset mật khẩu"
 				visible={dialogVisible}
-				style={{ width: "50vw" }}
+				style={{ width: "500px" }}
 				onHide={() => setDialogVisible(false)}
 			>
 				<span className="p-input-icon-left w-full mb-4">

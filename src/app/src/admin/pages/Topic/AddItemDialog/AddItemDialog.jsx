@@ -1,21 +1,18 @@
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import PropTypes from "prop-types";
 import classNames from "classnames/bind";
 import styles from "./AddItemDialog.module.scss";
 import { getInputNumberValue } from "@/helpers/converter";
 import topicApi from "@/apis/topicApi";
 
-// Icons
-import HealthIcon from "@/assets/images/heart.png";
-import StarIcon from "@/assets/images/star.png";
-import DiamondIcon from "@/assets/images/diamond.png";
-import ExperienceIcon from "@/assets/images/experience.png";
-import LevelIcon from "@/assets/images/level.png";
-
 import { Dialog } from "primereact/dialog";
 import { Button } from "primereact/button";
-import { InputNumber } from "primereact/inputnumber";
 import { Toast } from "primereact/toast";
+import { InputText } from "primereact/inputtext";
+import { FileUpload } from "primereact/fileupload";
+import { ProgressBar } from "primereact/progressbar";
+import { Tooltip } from "primereact/tooltip";
+import { Tag } from "primereact/tag";
 
 const cx = classNames.bind(styles);
 
@@ -36,12 +33,18 @@ function AddItemDialog({ visible, setVisible, onSubmitted }) {
 	const healthRef = useRef(null);
 	const starRef = useRef(null);
 	const diamondRef = useRef(null);
+	const fileUploadRef = useRef(null);
+
+	//? States
+	const [totalSize, setTotalSize] = useState(0);
 
 	//? Handles
 	const handleCloseDialog = () => {
 		setVisible(false);
 	};
 	const handleSubmit = () => {
+		return;
+
 		const data = {
 			levelNumber: getInputNumberValue(levelRef.current.getInput().value),
 			experienceRequired: getInputNumberValue(experienceRef.current.getInput().value),
@@ -78,7 +81,7 @@ function AddItemDialog({ visible, setVisible, onSubmitted }) {
 					detail: "Tạo cấp độ thành công",
 					life: 3000,
 				});
-				
+
 				handleCloseDialog();
 				onSubmitted();
 			} else {
@@ -92,56 +95,148 @@ function AddItemDialog({ visible, setVisible, onSubmitted }) {
 		});
 	};
 
+	//? Templates
+	const handleSelectFile = (e) => {
+		let _totalSize = totalSize;
+		let files = e.files;
+
+		Object.keys(files).forEach((key) => {
+			_totalSize += files[key].size || 0;
+		});
+
+		setTotalSize(_totalSize);
+	};
+
+	const handleUploadFile = (e) => {
+		let _totalSize = 0;
+
+		e.files.forEach((file) => {
+			_totalSize += file.size || 0;
+		});
+
+		setTotalSize(_totalSize);
+		toastRef.current.show({ severity: "success", summary: "Thành công", detail: "Tải ảnh lên máy chủ thành công" });
+	};
+
+	const handleRemoveFile = (file, callback) => {
+		setTotalSize(totalSize - file.size);
+		callback();
+	};
+
+	const handleClearFile = () => {
+		setTotalSize(0);
+	};
+
+	const handleErrorFile = (e) => {
+		console.log(e);
+	};
+
+	const headerUploadTemplate = (options) => {
+		const { className, chooseButton, uploadButton, cancelButton } = options;
+		const value = totalSize / 10000;
+		const formatedValue =
+			fileUploadRef && fileUploadRef.current ? fileUploadRef.current.formatSize(totalSize) : "0 B";
+
+		return (
+			<div className={className} style={{ backgroundColor: "transparent", display: "flex", alignItems: "center" }}>
+				{chooseButton}
+				{uploadButton}
+				{cancelButton}
+				<div className="flex align-items-center gap-3 ml-auto">
+					<span>{formatedValue} / 2 MB</span>
+					<ProgressBar value={value} showValue={false} style={{ width: "10rem", height: "12px" }}></ProgressBar>
+				</div>
+			</div>
+		);
+	};
+
+	const itemUploadTemplate = (file, props) => {
+		return (
+			<div className="flex align-items-center flex-wrap">
+				<div className="flex align-items-center" style={{ width: "40%" }}>
+					<img className="" alt={file.name} role="presentation" src={file.objectURL} width={100} />
+					<span className="flex flex-column text-left ml-3">
+						{file.name}
+						<small>{new Date().toLocaleDateString()}</small>
+					</span>
+				</div>
+				<Tag value={props.formatSize} severity="warning" className="px-3 py-2" />
+				<Button
+					type="button"
+					icon="pi pi-times"
+					className="p-button-outlined p-button-rounded p-button-danger ml-auto"
+					onClick={() => handleRemoveFile(file, props.onRemove)}
+				/>
+			</div>
+		);
+	};
+
+	const emptyUploadTemplate = () => {
+		return (
+			<div className="flex align-items-center flex-column">
+				<i
+					className="pi pi-image mt-3 p-5"
+					style={{
+						fontSize: "5em",
+						borderRadius: "50%",
+						backgroundColor: "var(--surface-b)",
+						color: "var(--surface-d)",
+					}}
+				></i>
+				<span style={{ fontSize: "1.2em", color: "var(--text-color-secondary)" }} className="my-5">
+					Kéo thả hình ảnh vào đây
+				</span>
+			</div>
+		);
+	};
+	const chooseOptions = {
+		icon: "pi pi-fw pi-images",
+		iconOnly: true,
+		className: "custom-choose-btn p-button-rounded p-button-outlined",
+	};
+	const uploadOptions = {
+		icon: "pi pi-fw pi-cloud-upload",
+		iconOnly: true,
+		className: "custom-upload-btn p-button-success p-button-rounded p-button-outlined",
+	};
+	const cancelOptions = {
+		icon: "pi pi-fw pi-times",
+		iconOnly: true,
+		className: "custom-cancel-btn p-button-danger p-button-rounded p-button-outlined",
+	};
+
 	return (
 		<>
 			<Toast ref={toastRef} />
-			<Dialog header="THÊM CẤP ĐỘ NGƯỜI CHƠI" visible={visible} style={{ width: "42vw" }} onHide={handleCloseDialog}>
-				<div className="mb-4 flex">
-					<span className={cx("item-icon")}>
-						<img src={LevelIcon} alt="level icon" />
-					</span>
-					<InputNumber ref={levelRef} className="w-full" mode="decimal" placeholder="Nhập cấp độ *" showButtons />
+			<Dialog header="THÊM CHỦ ĐỀ" visible={visible} style={{ width: "500px" }} onHide={handleCloseDialog}>
+				<div className="mb-4">
+					<span className="block mb-2">Tên chủ đề *</span>
+					<InputText ref={levelRef} className="w-full" placeholder="Nhập tên chủ đề *" />
 				</div>
-				<div className="mb-4 flex">
-					<span className={cx("item-icon")}>
-						<img src={ExperienceIcon} alt="experience icon" />
-					</span>
-					<InputNumber
-						ref={experienceRef}
-						className="w-full"
-						mode="decimal"
-						placeholder="Nhập điểm kinh nghiệm yêu cầu *"
-						showButtons
-					/>
-				</div>
-				<div className="mb-4 flex">
-					<span className={cx("item-icon")}>
-						<img src={HealthIcon} alt="health icon" />
-					</span>
-					<InputNumber
-						ref={healthRef}
-						className="w-full"
-						mode="decimal"
-						placeholder="Nhập thưởng sức khỏe"
-						showButtons
-					/>
-				</div>
-				<div className="mb-4 flex">
-					<span className={cx("item-icon")}>
-						<img src={StarIcon} alt="start icon" />
-					</span>
-					<InputNumber ref={starRef} className="w-full" mode="decimal" placeholder="Nhập thưởng sao" showButtons />
-				</div>
-				<div className="mb-4 flex">
-					<span className={cx("item-icon")}>
-						<img src={DiamondIcon} alt="diamond icon" />
-					</span>
-					<InputNumber
-						ref={diamondRef}
-						className="w-full"
-						mode="decimal"
-						placeholder="Nhập thưởng kim cương"
-						showButtons
+				<div className="mb-4">
+					<span className="block mb-2">Hình ảnh *</span>
+
+					<Tooltip target=".custom-choose-btn" content="Choose" position="bottom" />
+					<Tooltip target=".custom-upload-btn" content="Upload" position="bottom" />
+					<Tooltip target=".custom-cancel-btn" content="Clear" position="bottom" />
+
+					<FileUpload
+						ref={fileUploadRef}
+						name="image"
+						url="/api/upload"
+						multiple
+						accept="image/*"
+						maxFileSize={2000000}
+						onUpload={handleUploadFile}
+						onSelect={handleSelectFile}
+						onError={handleErrorFile}
+						onClear={handleClearFile}
+						headerTemplate={headerUploadTemplate}
+						itemTemplate={itemUploadTemplate}
+						emptyTemplate={emptyUploadTemplate}
+						chooseOptions={chooseOptions}
+						uploadOptions={uploadOptions}
+						cancelOptions={cancelOptions}
 					/>
 				</div>
 				<div className="flex justify-content-end pt-2">

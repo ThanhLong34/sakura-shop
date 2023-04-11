@@ -120,7 +120,7 @@ function UpdateItemDialog({ visible, setVisible, item, onSubmitted }) {
 				header="THAY ĐỔI CẤP ĐỘ NGƯỜI CHƠI"
 				visible={visible}
 				onShow={handleBindingData}
-				style={{ width: "42vw" }}
+				style={{ width: "500px" }}
 				onHide={handleCloseDialog}
 			>
 				<div className="mb-4 flex">
