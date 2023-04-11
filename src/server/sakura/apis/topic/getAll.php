@@ -26,7 +26,7 @@ if (!checkPermissionFunction()) exit;
 //? ====================
 //? PARAMETERS & PAYLOAD
 //? ====================
-$tableName = "player";
+$tableName = "topic";
 
 $limit = $_GET["limit"] ?? ""; // int, limit = "", hoặc không có payload để lấy tất cả
 $offset = $_GET["offset"] ?? ""; // int
@@ -60,10 +60,13 @@ function getAll($limit, $offset, $searchType, $searchValue, $fillType, $fillValu
    }
 
    //! Thêm tùy chỉnh Code ở đây
-   $baseQuery = "SELECT `$tableName`.*
+   $baseQuery = "SELECT COUNT(`card`.`id`) AS 'quantityCard', `$tableName`.*, `image`.`link` AS 'imageUrl'
       FROM `$tableName`
+      LEFT JOIN `image` ON `image`.`id` = `$tableName`.`imageId`
+      LEFT JOIN `card` ON `card`.`topicId` = `$tableName`.`id` AND `card`.`deletedAt` IS NULL
       WHERE `$tableName`.`deletedAt` IS NULL";
    $optionQuery = "";
+   $groupbyQuery = "GROUP BY `$tableName`.`id`";
 
 
    //! Cẩn thận khi sửa Code ở đây
@@ -76,26 +79,20 @@ function getAll($limit, $offset, $searchType, $searchValue, $fillType, $fillValu
    $limitQuery = "LIMIT $limit OFFSET $offset";
 
    if ($limit === "") {
-      $query = $querySelectAllRecord . " " . $orderbyQuery;
+      $query = $querySelectAllRecord . " " . $groupbyQuery . " " . $orderbyQuery;
    } else {
       if ($searchType !== "" && $searchValue !== "" && $fillType !== "" && $fillValue !== "") {
          $querySelectAllRecord .= " AND `$tableName`.`$searchType` LIKE '%$searchValue%' AND `$tableName`.`$fillType` = '$fillValue'";
       } else if ($searchType !== "" && $searchValue !== "") {
          $querySelectAllRecord .= " AND `$tableName`.`$searchType` LIKE '%$searchValue%'";
       } else if ($fillType !== "" && $fillValue !== "") {
-
-         if ($fillValue === "is_null") {
-            $querySelectAllRecord .= " AND `$tableName`.`$fillType` IS NULL";
-         } else if ($fillValue === "not_null") {
-            $querySelectAllRecord .= " AND `$tableName`.`$fillType` IS NOT NULL";
-         } else {
-            $querySelectAllRecord .= " AND `$tableName`.`$fillType` = '$fillValue'";
-         }
+         $querySelectAllRecord .= " AND `$tableName`.`$fillType` = '$fillValue'";
       }
 
-      $query = $querySelectAllRecord . " " . $orderbyQuery . " " . $limitQuery;
+      $query = $querySelectAllRecord . " " . $groupbyQuery . " " . $orderbyQuery . " " . $limitQuery;
    }
 
+   $querySelectAllRecord .= " " . $groupbyQuery;
 
    // Thực thi truy vấn
    performsQueryAndResponseToClient($query, $querySelectAllRecord);

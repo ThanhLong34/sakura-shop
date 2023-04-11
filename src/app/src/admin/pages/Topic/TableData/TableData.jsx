@@ -1,17 +1,10 @@
 import { useState, useRef, useEffect, useCallback, useImperativeHandle, memo, forwardRef } from "react";
 import PropTypes from "prop-types";
 
-import levelApi from "@/apis/levelApi";
+import topicApi from "@/apis/topicApi";
 
 import TableHeader from "@/admin/components/TableHeader";
 import TableSearch from "@/admin/components/TableSearch";
-
-// Icons
-import HealthIcon from "@/assets/images/heart.png";
-import StarIcon from "@/assets/images/star.png";
-import DiamondIcon from "@/assets/images/diamond.png";
-import ExperienceIcon from "@/assets/images/experience.png";
-import LevelIcon from "@/assets/images/level.png";
 
 import { DataTable } from "primereact/datatable";
 import { Column } from "primereact/column";
@@ -34,19 +27,23 @@ const initialTableParams = {
 const rowsPerPageOptions = [10, 20, 30];
 const searchOptions = [
 	{
-		title: "Cấp độ",
-		value: "levelNumber",
+		title: "Tên chủ đề",
+		value: "name",
 	},
 ];
 
 //? Component
 const TableData = forwardRef(({ onOpenDialog }, ref) => {
 	//? Imperative
-	useImperativeHandle(ref, () => ({
-		onRefreshPage() {
-			handleRefreshPage();
-		}
-	}), []);
+	useImperativeHandle(
+		ref,
+		() => ({
+			onRefreshPage() {
+				handleRefreshPage();
+			},
+		}),
+		[]
+	);
 
 	//? Refs
 	const tableSearchRef = useRef(null);
@@ -61,15 +58,11 @@ const TableData = forwardRef(({ onOpenDialog }, ref) => {
 	//? Effects
 	// Get table data
 	useEffect(() => {
-		levelApi.getAll(tableParams).then((response) => {
+		topicApi.getAll(tableParams).then((response) => {
 			const data = response.data.map((level) => ({
 				...level,
 				id: +level.id,
-				levelNumber: +level.levelNumber,
-				experienceRequired: +level.experienceRequired,
-				healthReward: +level.healthReward,
-				starReward: +level.starReward,
-				diamondReward: +level.diamondReward,
+				quantityCard: +level.quantityCard,
 			}));
 
 			setTableData(data);
@@ -114,7 +107,7 @@ const TableData = forwardRef(({ onOpenDialog }, ref) => {
 		}));
 	};
 	const handleDeleteItem = (item) => {
-		levelApi.trashById(item.id).then((response) => {
+		topicApi.trashById(item.id).then((response) => {
 			if (response.code === 1) {
 				toastRef.current.show({ severity: "success", summary: "Thành công", detail: "Xóa thành công", life: 3000 });
 				handleRefreshPage();
@@ -132,7 +125,7 @@ const TableData = forwardRef(({ onOpenDialog }, ref) => {
 		return (
 			<div className="grid">
 				<div className="col-12">
-					<TableHeader addItemButtonLabel="Thêm cấp độ" onReload={handleReload} onAddItem={handleAddItem} />
+					<TableHeader addItemButtonLabel="Thêm chủ đề" onReload={handleReload} onAddItem={handleAddItem} />
 				</div>
 				<div className="col-12">
 					<TableSearch ref={tableSearchRef} searchOptions={searchOptions} onSearch={handleSearch} />
@@ -140,44 +133,11 @@ const TableData = forwardRef(({ onOpenDialog }, ref) => {
 			</div>
 		);
 	};
-	const levelNumberDataTemplate = (rowData) => {
+	const imageDataTemplate = (rowData) => {
 		return (
-			<span className="data-template">
-				<span className="data-template-value">{rowData.levelNumber}</span>
-				<img className="data-template-icon" src={LevelIcon} alt="level icon" />
-			</span>
-		);
-	};
-	const experienceRequiredDataTemplate = (rowData) => {
-		return (
-			<span className="data-template">
-				<span className="data-template-value">{rowData.experienceRequired}</span>
-				<img className="data-template-icon" src={ExperienceIcon} alt="experience icon" />
-			</span>
-		);
-	};
-	const healthRewardDataTemplate = (rowData) => {
-		return (
-			<span className="data-template">
-				<span className="data-template-value">{rowData.healthReward}</span>
-				<img className="data-template-icon" src={HealthIcon} alt="health icon" />
-			</span>
-		);
-	};
-	const starRewardDataTemplate = (rowData) => {
-		return (
-			<span className="data-template">
-				<span className="data-template-value">{rowData.starReward}</span>
-				<img className="data-template-icon" src={StarIcon} alt="star icon" />
-			</span>
-		);
-	};
-	const diamondRewardDataTemplate = (rowData) => {
-		return (
-			<span className="data-template">
-				<span className="data-template-value">{rowData.diamondReward}</span>
-				<img className="data-template-icon" src={DiamondIcon} alt="diamond icon" />
-			</span>
+			<div className="w-5rem">
+				<img src={rowData.imageUrl} alt="image url" />
+			</div>
 		);
 	};
 	const actionsTemplate = (rowData) => {
@@ -190,7 +150,7 @@ const TableData = forwardRef(({ onOpenDialog }, ref) => {
 				},
 			},
 			{
-				label: "Xóa cấp độ",
+				label: "Xóa chủ đề",
 				icon: "pi pi-trash",
 				command: (e) => {
 					confirmPopup({
@@ -217,7 +177,7 @@ const TableData = forwardRef(({ onOpenDialog }, ref) => {
 			<ConfirmPopup />
 			<div className="grid mb-3">
 				<div className="col-6">
-					<h3 className="">DANH SÁCH CẤP ĐỘ</h3>
+					<h3 className="">DANH SÁCH CHỦ ĐỀ</h3>
 				</div>
 				<div className="col-6 text-right">
 					<h3 className="text-400 text-sm">{`(${tableData.length} trên tổng ${totalItem})`}</h3>
@@ -242,38 +202,19 @@ const TableData = forwardRef(({ onOpenDialog }, ref) => {
 				tableStyle={{ minWidth: "max-content" }}
 			>
 				<Column
-					field="levelNumber"
-					header="Cấp độ"
-					body={levelNumberDataTemplate}
-					sortable
-					sortFunction={getSortedTableData}
-					frozen
+					field="imageUrl"
+					header="Hình ảnh"
+					body={imageDataTemplate}
 				/>
 				<Column
-					field="experienceRequired"
-					header="Yêu cầu kinh nghiệm"
-					body={experienceRequiredDataTemplate}
+					field="name"
+					header="Tên chủ đề"
 					sortable
 					sortFunction={getSortedTableData}
 				/>
 				<Column
-					field="healthReward"
-					header="Sức khỏe"
-					body={healthRewardDataTemplate}
-					sortable
-					sortFunction={getSortedTableData}
-				/>
-				<Column
-					field="starReward"
-					header="Sao"
-					body={starRewardDataTemplate}
-					sortable
-					sortFunction={getSortedTableData}
-				/>
-				<Column
-					field="diamondReward"
-					header="Kim cương"
-					body={diamondRewardDataTemplate}
+					field="quantityCard"
+					header="Số lượng thẻ"
 					sortable
 					sortFunction={getSortedTableData}
 				/>

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 10, 2023 at 04:24 PM
+-- Generation Time: Apr 11, 2023 at 06:19 AM
 -- Server version: 10.4.27-MariaDB
 -- PHP Version: 8.2.0
 
@@ -153,6 +153,14 @@ CREATE TABLE `image` (
   `size` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Dumping data for table `image`
+--
+
+INSERT INTO `image` (`id`, `createdAt`, `updatedAt`, `deletedAt`, `link`, `filename`, `size`) VALUES
+(1, '10:52:15 11/04/2023', NULL, NULL, 'http://localhost/projects/sakura/upload/images/imagefile6434d96f305ea.png', 'imagefile6434d96f305ea.png', 9893),
+(2, '10:52:52 11/04/2023', NULL, NULL, 'http://localhost/projects/sakura/upload/images/imagefile6434d994ba712.png', 'imagefile6434d994ba712.png', 17903);
+
 -- --------------------------------------------------------
 
 --
@@ -185,9 +193,10 @@ INSERT INTO `level` (`id`, `createdAt`, `updatedAt`, `deletedAt`, `levelNumber`,
 (8, '21:21:00 10/04/2023', NULL, NULL, 8, 820, 2, 2, 1),
 (9, '21:21:15 10/04/2023', NULL, NULL, 9, 950, 3, 2, 2),
 (10, '21:21:30 10/04/2023', NULL, NULL, 10, 1020, 2, 2, 2),
-(11, '21:21:39 10/04/2023', NULL, NULL, 11, 1200, 2, 2, 1),
+(11, '21:21:39 10/04/2023', '10:24:05 11/04/2023', NULL, 11, 1235, 3, 2, 3),
 (12, '21:21:51 10/04/2023', NULL, NULL, 12, 1300, 2, 1, 2),
-(13, '21:22:01 10/04/2023', NULL, NULL, 13, 1350, 2, 1, 2);
+(13, '21:22:01 10/04/2023', NULL, NULL, 13, 1350, 2, 1, 2),
+(14, '10:25:05 11/04/2023', NULL, NULL, 14, 1420, 2, 2, 2);
 
 -- --------------------------------------------------------
 
@@ -270,6 +279,14 @@ CREATE TABLE `topic` (
   `imageId` int(11) DEFAULT NULL,
   `name` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `topic`
+--
+
+INSERT INTO `topic` (`id`, `createdAt`, `updatedAt`, `deletedAt`, `imageId`, `name`) VALUES
+(3, '10:52:40 11/04/2023', NULL, NULL, 1, 'Son môi'),
+(4, '10:53:33 11/04/2023', NULL, NULL, 2, 'Giày Sneaker');
 
 --
 -- Indexes for dumped tables
@@ -404,13 +421,13 @@ ALTER TABLE `gift`
 -- AUTO_INCREMENT for table `image`
 --
 ALTER TABLE `image`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `level`
 --
 ALTER TABLE `level`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT for table `player`
@@ -434,7 +451,7 @@ ALTER TABLE `rewardhistory`
 -- AUTO_INCREMENT for table `topic`
 --
 ALTER TABLE `topic`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- Constraints for dumped tables

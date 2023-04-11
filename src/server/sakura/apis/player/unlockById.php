@@ -35,14 +35,14 @@ $id = $data["id"] ?? ""; // int
 //? ====================
 //? START
 //? ====================
-// ✅ Khóa tài khoản
-lockById($id);
+// ✅ Mở khóa tài khoản
+unlockById($id);
 
 
 //? ====================
 //? FUNCTIONS
 //? ====================
-function lockById($id)
+function unlockById($id)
 {
    global $connect, $tableName;
 
@@ -57,7 +57,7 @@ function lockById($id)
    $lockedAt = getCurrentDatetime();
 
    // Các chuỗi truy vấn
-   $baseQuery = "UPDATE `$tableName` SET `lockedAt` = '$lockedAt'";
+   $baseQuery = "UPDATE `$tableName` SET `lockedAt` = NULL";
    $mainQuery = "";
    $endQuery = "WHERE `id` = '$id' AND `deletedAt` IS NULL";
 

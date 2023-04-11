@@ -26,7 +26,7 @@ if (!checkPermissionFunction()) exit;
 //? ====================
 //? PARAMETERS & PAYLOAD
 //? ====================
-$tableName = "player";
+$tableName = "topic";
 $data = getJSONPayloadRequest();
 
 $id = $data["id"] ?? ""; // int
@@ -35,14 +35,14 @@ $id = $data["id"] ?? ""; // int
 //? ====================
 //? START
 //? ====================
-// ✅ Khóa tài khoản
-lockById($id);
+// ✅ Chuyển record vào thùng rác
+trashById($id);
 
 
 //? ====================
 //? FUNCTIONS
 //? ====================
-function lockById($id)
+function trashById($id)
 {
    global $connect, $tableName;
 
@@ -53,11 +53,11 @@ function lockById($id)
       return;
    }
 
-   // lockedAt
-   $lockedAt = getCurrentDatetime();
+   // createdAt, updateAt, deletedAt
+   $deletedAt = getCurrentDatetime();
 
    // Các chuỗi truy vấn
-   $baseQuery = "UPDATE `$tableName` SET `lockedAt` = '$lockedAt'";
+   $baseQuery = "UPDATE `$tableName` SET `deletedAt` = '$deletedAt'";
    $mainQuery = "";
    $endQuery = "WHERE `id` = '$id' AND `deletedAt` IS NULL";
 

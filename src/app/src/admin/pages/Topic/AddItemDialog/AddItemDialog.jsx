@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import classNames from "classnames/bind";
 import styles from "./AddItemDialog.module.scss";
 import { getInputNumberValue } from "@/helpers/converter";
-import levelApi from "@/apis/levelApi";
+import topicApi from "@/apis/topicApi";
 
 // Icons
 import HealthIcon from "@/assets/images/heart.png";
@@ -70,7 +70,7 @@ function AddItemDialog({ visible, setVisible, onSubmitted }) {
 			return;
 		}
 
-		levelApi.add(data).then((response) => {
+		topicApi.add(data).then((response) => {
 			if (response.code === 1) {
 				toastRef.current.show({
 					severity: "success",

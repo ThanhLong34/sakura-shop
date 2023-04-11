@@ -4,6 +4,7 @@ import AdminDashboard from "@/admin/pages/Dashboard";
 import AdminImageFileManagement from "@/admin/pages/ImageFile";
 import AdminPlayerManagement from "@/admin/pages/Player";
 import AdminLevelManagement from "@/admin/pages/Level";
+import AdminTopicManagement from "@/admin/pages/Topic";
 import AdminProfile from "@/admin/pages/Profile";
 import AdminNotFound from "@/admin/pages/NotFound";
 
@@ -51,7 +52,7 @@ const adminRoutes = [
 	},
 	{
 		path: "/admin/topic",
-		component: AdminLevelManagement,
+		component: AdminTopicManagement,
 		metadata: {
 			title: 'Chủ đề'
 		}

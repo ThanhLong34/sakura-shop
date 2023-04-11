@@ -26,23 +26,25 @@ if (!checkPermissionFunction()) exit;
 //? ====================
 //? PARAMETERS & PAYLOAD
 //? ====================
-$tableName = "player";
+$tableName = "topic";
 $data = getJSONPayloadRequest();
 
 $id = $data["id"] ?? ""; // int
+$imageId = $data["imageId"] ?? ""; // int
+$name = trim($data["name"] ?? ""); // string
 
 
 //? ====================
 //? START
 //? ====================
-// ✅ Khóa tài khoản
-lockById($id);
+// ✅ Cập nhật
+update($id, $imageId, $name);
 
 
 //? ====================
 //? FUNCTIONS
 //? ====================
-function lockById($id)
+function update($id, $imageId, $name)
 {
    global $connect, $tableName;
 
@@ -53,13 +55,31 @@ function lockById($id)
       return;
    }
 
-   // lockedAt
-   $lockedAt = getCurrentDatetime();
+   // createdAt, updateAt, deletedAt
+   $updatedAt = getCurrentDatetime();
 
    // Các chuỗi truy vấn
-   $baseQuery = "UPDATE `$tableName` SET `lockedAt` = '$lockedAt'";
+   $baseQuery = "UPDATE `$tableName` SET `updatedAt` = '$updatedAt'";
    $mainQuery = "";
    $endQuery = "WHERE `id` = '$id' AND `deletedAt` IS NULL";
+
+   // Cập nhật imageId
+   if ($imageId !== "" && is_numeric($imageId)) {
+      $mainQuery .= "," . "`imageId` = '$imageId'";
+   }
+
+   // Cập nhật name
+   if ($name !== "") {
+
+      // Kiểm tra item tồn tại trong CSDL theo các tiêu chí
+      if (checkItemExist($name)) {
+         $response = new ResponseAPI(3, "Tên chủ đề đã tồn tại");
+         $response->send();
+         return;
+      }
+
+      $mainQuery .= "," . "`name` = '$name'";
+   }
 
    // Thực thi query
    $query = $baseQuery . " " . $mainQuery . " " . $endQuery;
@@ -83,4 +103,19 @@ function performsQueryAndResponseToClient($query)
       $response = new ResponseAPI(2, "Thất bại");
       $response->send();
    }
+}
+
+// Kiểm tra item tồn tại trong CSDL theo các tiêu chí
+function checkItemExist($name)
+{
+   global $connect, $tableName;
+
+   $query = "SELECT * FROM `$tableName` WHERE `deletedAt` IS NULL AND `name` = '$name' LIMIT 1";
+   $result = mysqli_query($connect, $query);
+
+   if ($result && mysqli_num_rows($result) > 0) {
+      return true;
+   }
+
+   return false;
 }
