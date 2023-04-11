@@ -1,8 +1,7 @@
 import { useRef, useState } from "react";
 import PropTypes from "prop-types";
-import classNames from "classnames/bind";
-import styles from "./AddItemDialog.module.scss";
 import { getInputNumberValue } from "@/helpers/converter";
+
 import topicApi from "@/apis/topicApi";
 
 import { Dialog } from "primereact/dialog";
@@ -14,7 +13,22 @@ import { ProgressBar } from "primereact/progressbar";
 import { Tooltip } from "primereact/tooltip";
 import { Tag } from "primereact/tag";
 
-const cx = classNames.bind(styles);
+//? Templates
+const chooseOptions = {
+	icon: "pi pi-fw pi-images",
+	iconOnly: true,
+	className: "custom-choose-btn p-button-rounded p-button-outlined",
+};
+const uploadOptions = {
+	icon: "pi pi-fw pi-cloud-upload",
+	iconOnly: true,
+	className: "custom-upload-btn p-button-success p-button-rounded p-button-outlined",
+};
+const cancelOptions = {
+	icon: "pi pi-fw pi-times",
+	iconOnly: true,
+	className: "custom-cancel-btn p-button-danger p-button-rounded p-button-outlined",
+};
 
 AddItemDialog.propTypes = {
 	visible: PropTypes.bool.isRequired,
@@ -39,6 +53,35 @@ function AddItemDialog({ visible, setVisible, onSubmitted }) {
 	const [totalSize, setTotalSize] = useState(0);
 
 	//? Handles
+	const handleSelectFile = (e) => {
+		let _totalSize = 0;
+		let files = e.files;
+
+		Object.keys(files).forEach((key) => {
+			_totalSize += files[key].size || 0;
+		});
+
+		setTotalSize(_totalSize);
+	};
+	const handleUploadTest = (e) => {
+		const imageFile = e.files[0];
+		// toastRef.current.show({ severity: "success", summary: "Thành công", detail: "Tải ảnh lên máy chủ thành công" });
+	};
+	const handleRemoveFile = (file, callback) => {
+		setTotalSize(totalSize - file.size);
+		callback();
+	};
+	const handleClearFile = () => {
+		setTotalSize(0);
+	};
+	const handleValidationFailFile = () => {
+		toastRef.current.show({
+			severity: "error",
+			summary: "Lỗi",
+			detail: "Kích thước hình ảnh không hợp lệ",
+			life: 3000,
+		});
+	};
 	const handleCloseDialog = () => {
 		setVisible(false);
 	};
@@ -96,41 +139,6 @@ function AddItemDialog({ visible, setVisible, onSubmitted }) {
 	};
 
 	//? Templates
-	const handleSelectFile = (e) => {
-		let _totalSize = totalSize;
-		let files = e.files;
-
-		Object.keys(files).forEach((key) => {
-			_totalSize += files[key].size || 0;
-		});
-
-		setTotalSize(_totalSize);
-	};
-
-	const handleUploadFile = (e) => {
-		let _totalSize = 0;
-
-		e.files.forEach((file) => {
-			_totalSize += file.size || 0;
-		});
-
-		setTotalSize(_totalSize);
-		toastRef.current.show({ severity: "success", summary: "Thành công", detail: "Tải ảnh lên máy chủ thành công" });
-	};
-
-	const handleRemoveFile = (file, callback) => {
-		setTotalSize(totalSize - file.size);
-		callback();
-	};
-
-	const handleClearFile = () => {
-		setTotalSize(0);
-	};
-
-	const handleErrorFile = (e) => {
-		console.log(e);
-	};
-
 	const headerUploadTemplate = (options) => {
 		const { className, chooseButton, uploadButton, cancelButton } = options;
 		const value = totalSize / 10000;
@@ -149,28 +157,31 @@ function AddItemDialog({ visible, setVisible, onSubmitted }) {
 			</div>
 		);
 	};
-
 	const itemUploadTemplate = (file, props) => {
 		return (
-			<div className="flex align-items-center flex-wrap">
-				<div className="flex align-items-center" style={{ width: "40%" }}>
-					<img className="" alt={file.name} role="presentation" src={file.objectURL} width={100} />
-					<span className="flex flex-column text-left ml-3">
+			<div className="flex flex-column">
+				<div
+					className="flex justify-content-center justify-content-center mb-2"
+					style={{ width: "100%", maxHeight: "200px" }}
+				>
+					<img className="" alt={file.name} role="presentation" src={file.objectURL} />
+				</div>
+				<div className="flex align-items-center align-items-center">
+					<span className="flex flex-column text-left mr-5">
 						{file.name}
 						<small>{new Date().toLocaleDateString()}</small>
 					</span>
+					<Tag value={props.formatSize} severity="warning" className="px-3 py-2" />
+					<Button
+						type="button"
+						icon="pi pi-times"
+						className="p-button-outlined p-button-rounded p-button-danger ml-auto"
+						onClick={() => handleRemoveFile(file, props.onRemove)}
+					/>
 				</div>
-				<Tag value={props.formatSize} severity="warning" className="px-3 py-2" />
-				<Button
-					type="button"
-					icon="pi pi-times"
-					className="p-button-outlined p-button-rounded p-button-danger ml-auto"
-					onClick={() => handleRemoveFile(file, props.onRemove)}
-				/>
 			</div>
 		);
 	};
-
 	const emptyUploadTemplate = () => {
 		return (
 			<div className="flex align-items-center flex-column">
@@ -189,26 +200,11 @@ function AddItemDialog({ visible, setVisible, onSubmitted }) {
 			</div>
 		);
 	};
-	const chooseOptions = {
-		icon: "pi pi-fw pi-images",
-		iconOnly: true,
-		className: "custom-choose-btn p-button-rounded p-button-outlined",
-	};
-	const uploadOptions = {
-		icon: "pi pi-fw pi-cloud-upload",
-		iconOnly: true,
-		className: "custom-upload-btn p-button-success p-button-rounded p-button-outlined",
-	};
-	const cancelOptions = {
-		icon: "pi pi-fw pi-times",
-		iconOnly: true,
-		className: "custom-cancel-btn p-button-danger p-button-rounded p-button-outlined",
-	};
 
 	return (
 		<>
 			<Toast ref={toastRef} />
-			<Dialog header="THÊM CHỦ ĐỀ" visible={visible} style={{ width: "500px" }} onHide={handleCloseDialog}>
+			<Dialog header="THÊM CHỦ ĐỀ" visible={visible} style={{ width: "620px" }} onHide={handleCloseDialog}>
 				<div className="mb-4">
 					<span className="block mb-2">Tên chủ đề *</span>
 					<InputText ref={levelRef} className="w-full" placeholder="Nhập tên chủ đề *" />
@@ -216,21 +212,22 @@ function AddItemDialog({ visible, setVisible, onSubmitted }) {
 				<div className="mb-4">
 					<span className="block mb-2">Hình ảnh *</span>
 
-					<Tooltip target=".custom-choose-btn" content="Choose" position="bottom" />
-					<Tooltip target=".custom-upload-btn" content="Upload" position="bottom" />
-					<Tooltip target=".custom-cancel-btn" content="Clear" position="bottom" />
+					<Tooltip target=".custom-choose-btn" content="Chọn ảnh" position="bottom" />
+					<Tooltip target=".custom-upload-btn" content="Tải ảnh lên máy chủ" position="bottom" />
+					<Tooltip target=".custom-cancel-btn" content="Xóa" position="bottom" />
 
 					<FileUpload
 						ref={fileUploadRef}
 						name="image"
-						url="/api/upload"
-						multiple
 						accept="image/*"
+						invalidFileSizeMessageDetail="Kích thước hình ảnh vượt quá quy định"
+						invalidFileSizeMessageSummary="Kích thước hình ảnh không hợp lệ"
 						maxFileSize={2000000}
-						onUpload={handleUploadFile}
 						onSelect={handleSelectFile}
-						onError={handleErrorFile}
 						onClear={handleClearFile}
+						onValidationFail={ handleValidationFailFile }
+						customUpload
+						uploadHandler={handleUploadTest}
 						headerTemplate={headerUploadTemplate}
 						itemTemplate={itemUploadTemplate}
 						emptyTemplate={emptyUploadTemplate}
