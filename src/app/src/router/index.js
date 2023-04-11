@@ -50,6 +50,13 @@ const adminRoutes = [
 		}
 	},
 	{
+		path: "/admin/topic",
+		component: AdminLevelManagement,
+		metadata: {
+			title: 'Chủ đề'
+		}
+	},
+	{
 		path: "/admin/profile",
 		component: AdminProfile,
 		metadata: {
