@@ -73,11 +73,10 @@ function getAll($limit, $offset, $searchType, $searchValue, $fillType, $fillValu
 
       // Lấy danh sách id hình ảnh đang sử dụng
       $queries = [
-         "SELECT `featureImageId` FROM `blog` WHERE `featureImageId` IS NOT NULL AND `deletedAt` IS NULL",
-         "SELECT `featureImageId` FROM `productcategory` WHERE `featureImageId` IS NOT NULL AND `deletedAt` IS NULL",
-         "SELECT `featureImageId` FROM `product` WHERE `featureImageId` IS NOT NULL AND `deletedAt` IS NULL",
-         "SELECT `imageId` FROM `product_image`, `product` WHERE `imageId` IS NOT NULL AND `product`.`deletedAt` IS NULL",
-         "SELECT `avatarId` FROM `systemadmin` WHERE `avatarId` IS NOT NULL AND `deletedAt` IS NULL"
+         "SELECT `imageId` FROM `topic` WHERE `imageId` IS NOT NULL AND `deletedAt` IS NULL",
+         "SELECT `imageId` FROM `card` WHERE `imageId` IS NOT NULL AND `deletedAt` IS NULL",
+         "SELECT `imageId` FROM `gift` WHERE `imageId` IS NOT NULL AND `deletedAt` IS NULL",
+         "SELECT `imageId` FROM `advertisement` WHERE `imageId` IS NOT NULL AND `deletedAt` IS NULL"
       ];
       foreach ($queries as $key => $value) {
          $result = mysqli_query($connect, $value);
