@@ -214,7 +214,7 @@ const TableData = forwardRef(({ onOpenDialog }, ref) => {
 				/>
 				<Column
 					field="quantityCard"
-					header="Số lượng thẻ"
+					header="Số lượng thẻ bài"
 					sortable
 					sortFunction={getSortedTableData}
 				/>
