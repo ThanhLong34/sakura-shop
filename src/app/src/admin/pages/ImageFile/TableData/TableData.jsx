@@ -1,16 +1,20 @@
-import { useState, useRef, useEffect, useCallback, useImperativeHandle, memo, forwardRef } from "react";
+import { useState, useRef, useEffect, useCallback, memo } from "react";
 import PropTypes from "prop-types";
 
-import topicApi from "@/apis/topicApi";
+import imageFileApi from "@/apis/imageFileApi";
+import { getKbFromFileSize } from "@/helpers/converter";
 
 import TableHeader from "@/admin/components/TableHeader";
 import TableSearch from "@/admin/components/TableSearch";
+import TableFilterPopup from "@/admin/components/TableFilterPopup";
 
 import { DataTable } from "primereact/datatable";
 import { Column } from "primereact/column";
 import { SplitButton } from "primereact/splitbutton";
 import { Paginator } from "primereact/paginator";
 import { ConfirmPopup, confirmPopup } from "primereact/confirmpopup";
+import { Tag } from "primereact/tag";
+import { Button } from "primereact/button";
 import { Toast } from "primereact/toast";
 
 //? Variables
@@ -23,27 +27,40 @@ const initialTableParams = {
 	fillValue: null,
 	orderby: null,
 	reverse: null,
+	target: "all",
 };
 const rowsPerPageOptions = [10, 20, 30];
 const searchOptions = [
 	{
-		title: "Tên chủ đề",
-		value: "name",
+		title: "Tên tệp",
+		value: "filename",
 	},
 ];
+const statuses = ["Đang sử dụng", "Không sử dụng"];
+
+//? Functions
+function getSeverity(status) {
+	switch (status) {
+		case "Đang sử dụng":
+			return "success";
+		case "Không sử dụng":
+			return "danger";
+	}
+}
+function getFillValue(status) {
+	switch (status) {
+		case "Đang sử dụng":
+			return "using";
+		case "Không sử dụng":
+			return "dont_using";
+	}
+}
 
 //? Component
-const TableData = forwardRef(({ onOpenDialog }, ref) => {
-	//? Imperative
-	useImperativeHandle(
-		ref,
-		() => ({
-			onRefreshPage() {
-				handleRefreshPage();
-			},
-		}),
-		[]
-	);
+const TableData = ({ onOpenDialog }) => {
+	//? Variables
+	const fillValue = useRef(null);
+	const imageFileDontUsingIds = useRef([]);
 
 	//? Refs
 	const tableSearchRef = useRef(null);
@@ -58,16 +75,23 @@ const TableData = forwardRef(({ onOpenDialog }, ref) => {
 	//? Effects
 	// Get table data
 	useEffect(() => {
-		topicApi.getAll(tableParams).then((response) => {
-			const data = response.data.map((level) => ({
-				...level,
-				id: +level.id,
-				quantityCard: +level.quantityCard,
+		(async () => {
+			// Only get image files dont using
+			const getImageFileDontUsingResponse = await imageFileApi.getAll({ target: "dont_using" });
+			imageFileDontUsingIds.current = getImageFileDontUsingResponse.data.map((i) => +i.id);
+
+			// Get all image files
+			const response = await imageFileApi.getAll(tableParams);
+			const data = response.data.map((imageFile) => ({
+				...imageFile,
+				id: +imageFile.id,
+				size: +imageFile.size,
+				status: imageFileDontUsingIds.current.find((id) => id === +imageFile.id) ? "Không sử dụng" : "Đang sử dụng",
 			}));
 
 			setTableData(data);
 			setTotalItem(response.totalItem);
-		});
+		})();
 	}, [tableParams]);
 
 	//? Functions
@@ -79,9 +103,6 @@ const TableData = forwardRef(({ onOpenDialog }, ref) => {
 	const handleReload = useCallback(() => {
 		setTableParams({ ...initialTableParams });
 		tableSearchRef.current?.onReset();
-	}, []);
-	const handleAddItem = useCallback(() => {
-		onOpenDialog("AddItemDialog");
 	}, []);
 	const handleSearch = useCallback(({ searchValue, searchType }) => {
 		if (searchValue && searchType) {
@@ -99,6 +120,29 @@ const TableData = forwardRef(({ onOpenDialog }, ref) => {
 			reverse: sortOrder === -1,
 		}));
 	};
+	const handleChangeFilter = useCallback(
+		(value) => {
+			fillValue.current = value;
+		},
+		[fillValue]
+	);
+	const handleApplyFilter = ({ field }) => {
+		if (field === "status") {
+			setTableParams((prevState) => ({
+				...prevState,
+				target: getFillValue(fillValue.current),
+			}));
+		} else {
+			setTableParams((prevState) => ({
+				...prevState,
+				fillType: field,
+				fillValue: getFillValue(fillValue.current),
+			}));
+		}
+	};
+	const handleClearFilter = () => {
+		handleReload();
+	};
 	const handleChangePage = (e) => {
 		setTableParams((prevState) => ({
 			...prevState,
@@ -106,26 +150,25 @@ const TableData = forwardRef(({ onOpenDialog }, ref) => {
 			offset: e.first,
 		}));
 	};
-	const handleDeleteItem = (item) => {
-		topicApi.trashById(item.id).then((response) => {
-			if (response.code === 1) {
-				toastRef.current.show({ severity: "success", summary: "Thành công", detail: "Xóa thành công", life: 3000 });
-				handleRefreshPage();
-			} else {
-				toastRef.current.show({ severity: "error", summary: "Lỗi", detail: response.message, life: 3000 });
-			}
-		});
-	};
 	const handleRefreshPage = () => {
 		setTableParams((prevState) => ({ ...prevState }));
 	};
+	const handleDeleteImageFilesDontUsing = () => {};
 
 	//? Templates
 	const headerTemplate = () => {
 		return (
 			<div className="grid">
 				<div className="col-12">
-					<TableHeader addItemButtonLabel="Thêm chủ đề" onReload={handleReload} onAddItem={handleAddItem} />
+					<TableHeader
+						showAddItemButton={false}
+						showCustomizeButton
+						customizeButtonLabel="Xóa các hình ảnh không sử dụng"
+						customizeButtonSeverity="warning"
+						customizeButtonIcon="pi pi-trash"
+						onReload={handleReload}
+						onCustomizeButtonClick={handleDeleteImageFilesDontUsing}
+					/>
 				</div>
 				<div className="col-12">
 					<TableSearch ref={tableSearchRef} searchOptions={searchOptions} onSearch={handleSearch} />
@@ -136,32 +179,39 @@ const TableData = forwardRef(({ onOpenDialog }, ref) => {
 	const imageDataTemplate = (rowData) => {
 		return (
 			<div className="w-5rem">
-				<img src={rowData.imageUrl} alt="image url" />
+				<img src={rowData.link} alt="image url" />
 			</div>
 		);
+	};
+	const sizeDataTemplate = (rowData) => {
+		return <span>{getKbFromFileSize(rowData.size)} KB</span>;
+	};
+	const statusDataTemplate = (rowData) => {
+		return <Tag value={rowData.status} severity={getSeverity(rowData.status)} />;
+	};
+	const statusFilterTemplate = (options) => {
+		return (
+			<TableFilterPopup
+				label="Chọn trạng thái"
+				options={statuses}
+				getSeverity={getSeverity}
+				onChange={handleChangeFilter}
+			/>
+		);
+	};
+	const filterApplyButtonTemplate = (filter) => {
+		return <Button icon="pi pi-check" onClick={() => handleApplyFilter(filter)} />;
+	};
+	const filterClearButtonTemplate = () => {
+		return <Button icon="pi pi-refresh" severity="warning" onClick={handleClearFilter} />;
 	};
 	const actionsTemplate = (rowData) => {
 		const actions = [
 			{
-				label: "Thay đổi",
+				label: "Xem hình ảnh",
 				icon: "pi pi-eye",
 				command: () => {
-					onOpenDialog("UpdateItemDialog", rowData);
-				},
-			},
-			{
-				label: "Xóa chủ đề",
-				icon: "pi pi-trash",
-				command: (e) => {
-					confirmPopup({
-						target: e.originalEvent.currentTarget,
-						message: "Bạn có chắn chắc muốn xóa?",
-						icon: "pi pi-info-circle",
-						acceptClassName: "p-button-danger",
-						acceptLabel: "Có",
-						rejectLabel: "Không",
-						accept: () => handleDeleteItem(rowData),
-					});
+					onOpenDialog("PreviewImageDialog", rowData.link);
 				},
 			},
 		];
@@ -177,7 +227,7 @@ const TableData = forwardRef(({ onOpenDialog }, ref) => {
 			<ConfirmPopup />
 			<div className="grid mb-3">
 				<div className="col-6">
-					<h3 className="">DANH SÁCH CHỦ ĐỀ</h3>
+					<h3 className="">DANH SÁCH TỆP HÌNH ẢNH LƯU TRÊN MÁY CHỦ</h3>
 				</div>
 				<div className="col-6 text-right">
 					<h3 className="text-400 text-sm">{`(${tableData.length} trên tổng ${totalItem})`}</h3>
@@ -201,22 +251,27 @@ const TableData = forwardRef(({ onOpenDialog }, ref) => {
 				emptyMessage="Không có kết quả"
 				tableStyle={{ minWidth: "max-content" }}
 			>
+				<Column field="imageUrl" header="Hình ảnh" body={imageDataTemplate} />
+				<Column field="filename" header="Tên tệp" sortable sortFunction={getSortedTableData} />
 				<Column
-					field="imageUrl"
-					header="Hình ảnh"
-					body={imageDataTemplate}
-				/>
-				<Column
-					field="name"
-					header="Tên chủ đề"
+					field="size"
+					header="Kích thước tệp"
+					body={sizeDataTemplate}
 					sortable
 					sortFunction={getSortedTableData}
 				/>
 				<Column
-					field="quantityCard"
-					header="Số lượng thẻ"
-					sortable
-					sortFunction={getSortedTableData}
+					field="status"
+					header="Trạng thái"
+					body={statusDataTemplate}
+					filter
+					filterElement={statusFilterTemplate}
+					filterApply={filterApplyButtonTemplate}
+					filterClear={filterClearButtonTemplate}
+					showFilterMatchModes={false}
+					showFilterOperator={false}
+					showFilterMenuOptions={false}
+					filterMatchMode="equals"
 				/>
 				<Column
 					headerStyle={{ textAlign: "center" }}
@@ -236,7 +291,7 @@ const TableData = forwardRef(({ onOpenDialog }, ref) => {
 			/>
 		</div>
 	);
-});
+};
 
 TableData.propTypes = {
 	onOpenDialog: PropTypes.func,

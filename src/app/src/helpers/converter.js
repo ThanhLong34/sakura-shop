@@ -19,3 +19,11 @@ export async function createImageFileFromUrl(url) {
 	
 	return file;
 }
+
+export function getMbFromFileSize(fileSize) {
+	return (fileSize / (1024 * 1024)).toFixed(2);
+}
+
+export function getKbFromFileSize(fileSize) {
+	return (fileSize / (1024)).toFixed(2);
+}

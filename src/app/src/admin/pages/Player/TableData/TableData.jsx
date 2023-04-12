@@ -124,9 +124,6 @@ function TableData({ onOpenDialog }) {
 		setTableParams({ ...initialTableParams });
 		tableSearchRef.current?.onReset();
 	}, []);
-	const handleAddItem = useCallback(() => {
-		// ...
-	}, []);
 	const handleSearch = useCallback(({ searchValue, searchType }) => {
 		if (searchValue && searchType) {
 			setTableParams((prevState) => ({
