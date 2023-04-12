@@ -61,7 +61,6 @@ function UpdateItemDialog({ visible, setVisible, item, onSubmitted }) {
 	const handleSelectFile = (e) => {
 		let _totalSize = 0;
 		let files = e.files;
-		console.log(files[0]);
 
 		Object.keys(files).forEach((key) => {
 			_totalSize += files[key].size || 0;
@@ -108,11 +107,11 @@ function UpdateItemDialog({ visible, setVisible, item, onSubmitted }) {
 	const handleBindingData = () => {
 		if (item) {
 			nameRef.current.value = item.name;
+			imageIdUploaded.current = item.imageId;
 
-			createImageFileFromUrl(
-				item.imageUrl
-			).then((file) => {
+			createImageFileFromUrl(item.imageUrl).then((file) => {
 				fileUploadRef.current.setFiles([file]);
+				setTotalSize(file.size);
 			});
 		}
 	};
@@ -123,13 +122,7 @@ function UpdateItemDialog({ visible, setVisible, item, onSubmitted }) {
 		const name = nameRef.current?.value.trim();
 		const imageId = imageIdUploaded.current;
 
-		const data = {
-			id: item.id,
-			name: name !== item.name ? name : null,
-			imageId: imageId !== item.imageId ? imageId : null,
-		};
-
-		if (!data.name) {
+		if (!name) {
 			toastRef.current.show({
 				severity: "warn",
 				summary: "Cảnh báo",
@@ -139,7 +132,7 @@ function UpdateItemDialog({ visible, setVisible, item, onSubmitted }) {
 			return;
 		}
 
-		if (!data.imageId) {
+		if (!imageId) {
 			toastRef.current.show({
 				severity: "warn",
 				summary: "Cảnh báo",
@@ -148,6 +141,12 @@ function UpdateItemDialog({ visible, setVisible, item, onSubmitted }) {
 			});
 			return;
 		}
+
+		const data = {
+			id: item.id,
+			name: name !== item.name ? name : null,
+			imageId: imageId !== item.imageId ? imageId : null,
+		};
 
 		topicApi.update(data).then((response) => {
 			if (response.code === 1) {

@@ -62,16 +62,7 @@ function UpdateItemDialog({ visible, setVisible, item, onSubmitted }) {
 		const starReward = getInputNumberValue(starRef.current.getInput().value);
 		const diamondReward = getInputNumberValue(diamondRef.current.getInput().value);
 
-		const data = {
-			id: item.id,
-			levelNumber: levelNumber !== item.levelNumber ? levelNumber : null,
-			experienceRequired: experienceRequired !== item.experienceRequired ? experienceRequired : null,
-			healthReward: healthReward !== item.healthReward ? healthReward : null,
-			starReward: starReward !== item.starReward ? starReward : null,
-			diamondReward: diamondReward !== item.diamondReward ? diamondReward : null,
-		};
-
-		if (isNaN(data.levelNumber)) {
+		if (isNaN(levelNumber)) {
 			toastRef.current.show({
 				severity: "warn",
 				summary: "Cảnh báo",
@@ -81,7 +72,7 @@ function UpdateItemDialog({ visible, setVisible, item, onSubmitted }) {
 			return;
 		}
 
-		if (isNaN(data.experienceRequired)) {
+		if (isNaN(experienceRequired)) {
 			toastRef.current.show({
 				severity: "warn",
 				summary: "Cảnh báo",
@@ -90,6 +81,15 @@ function UpdateItemDialog({ visible, setVisible, item, onSubmitted }) {
 			});
 			return;
 		}
+
+		const data = {
+			id: item.id,
+			levelNumber: levelNumber !== item.levelNumber ? levelNumber : null,
+			experienceRequired: experienceRequired !== item.experienceRequired ? experienceRequired : null,
+			healthReward: healthReward !== item.healthReward ? healthReward : null,
+			starReward: starReward !== item.starReward ? starReward : null,
+			diamondReward: diamondReward !== item.diamondReward ? diamondReward : null,
+		};
 
 		levelApi.update(data).then((response) => {
 			if (response.code === 1) {
