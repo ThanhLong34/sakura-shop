@@ -153,7 +153,32 @@ const TableData = ({ onOpenDialog }) => {
 	const handleRefreshPage = () => {
 		setTableParams((prevState) => ({ ...prevState }));
 	};
-	const handleDeleteImageFilesDontUsing = () => {};
+	const handleDeleteImageFilesDontUsing = (e) => {
+		confirmPopup({
+			target: e.currentTarget,
+			message: "Bạn có chắn chắc muốn xóa?",
+			icon: "pi pi-info-circle",
+			acceptClassName: "p-button-danger",
+			acceptLabel: "Có",
+			rejectLabel: "Không",
+			accept: () => {
+				imageFileDontUsingIds.current.forEach(async (id, idx, array) => {
+
+					await imageFileApi.deleteById(id);
+
+					if (idx >= array.length - 1) {
+						toastRef.current.show({
+							severity: "success",
+							summary: "Thành công",
+							detail: "Xóa thành công",
+							life: 3000,
+						});
+						handleRefreshPage();
+					}
+				});
+			},
+		});
+	};
 
 	//? Templates
 	const headerTemplate = () => {
@@ -162,7 +187,7 @@ const TableData = ({ onOpenDialog }) => {
 				<div className="col-12">
 					<TableHeader
 						showAddItemButton={false}
-						showCustomizeButton
+						showCustomizeButton={imageFileDontUsingIds.current.length > 0}
 						customizeButtonLabel="Xóa các hình ảnh không sử dụng"
 						customizeButtonSeverity="warning"
 						customizeButtonIcon="pi pi-trash"
