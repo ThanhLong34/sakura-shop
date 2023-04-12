@@ -1,0 +1,2 @@
+# Fix error has been blocked by CORS policy: No 'Access-Control-Allow-Origin' when fetch image URL
+Header set Access-Control-Allow-Origin "*"

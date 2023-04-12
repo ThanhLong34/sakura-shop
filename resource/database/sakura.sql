@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 11, 2023 at 06:19 AM
+-- Generation Time: Apr 12, 2023 at 10:06 AM
 -- Server version: 10.4.27-MariaDB
 -- PHP Version: 8.2.0
 
@@ -159,7 +159,15 @@ CREATE TABLE `image` (
 
 INSERT INTO `image` (`id`, `createdAt`, `updatedAt`, `deletedAt`, `link`, `filename`, `size`) VALUES
 (1, '10:52:15 11/04/2023', NULL, NULL, 'http://localhost/projects/sakura/upload/images/imagefile6434d96f305ea.png', 'imagefile6434d96f305ea.png', 9893),
-(2, '10:52:52 11/04/2023', NULL, NULL, 'http://localhost/projects/sakura/upload/images/imagefile6434d994ba712.png', 'imagefile6434d994ba712.png', 17903);
+(2, '10:52:52 11/04/2023', NULL, NULL, 'http://localhost/projects/sakura/upload/images/imagefile6434d994ba712.png', 'imagefile6434d994ba712.png', 17903),
+(3, '10:04:53 12/04/2023', NULL, NULL, 'http://localhost/projects/sakura/upload/images/imagefile64361fd58519e.png', 'imagefile64361fd58519e.png', 17903),
+(4, '10:06:55 12/04/2023', NULL, NULL, 'http://localhost/projects/sakura/upload/images/imagefile6436204f0e5d7.png', 'imagefile6436204f0e5d7.png', 17903),
+(5, '10:11:56 12/04/2023', NULL, NULL, 'http://localhost/projects/sakura/upload/images/imagefile6436217c5b4f4.png', 'imagefile6436217c5b4f4.png', 17903),
+(6, '10:20:56 12/04/2023', NULL, NULL, 'http://localhost/projects/sakura/upload/images/imagefile64362398a6793.png', 'imagefile64362398a6793.png', 17903),
+(7, '10:24:47 12/04/2023', NULL, NULL, 'http://localhost/projects/sakura/upload/images/imagefile6436247f42514.png', 'imagefile6436247f42514.png', 17903),
+(8, '10:24:59 12/04/2023', NULL, NULL, 'http://localhost/projects/sakura/upload/images/imagefile6436248b5a70d.png', 'imagefile6436248b5a70d.png', 9893),
+(9, '10:25:08 12/04/2023', NULL, NULL, 'http://localhost/projects/sakura/upload/images/imagefile64362494287e5.png', 'imagefile64362494287e5.png', 9893),
+(10, '10:32:35 12/04/2023', NULL, NULL, 'http://localhost/projects/sakura/upload/images/imagefile6436265339224.png', 'imagefile6436265339224.png', 17903);
 
 -- --------------------------------------------------------
 
@@ -286,7 +294,8 @@ CREATE TABLE `topic` (
 
 INSERT INTO `topic` (`id`, `createdAt`, `updatedAt`, `deletedAt`, `imageId`, `name`) VALUES
 (3, '10:52:40 11/04/2023', NULL, NULL, 1, 'Son môi'),
-(4, '10:53:33 11/04/2023', NULL, NULL, 2, 'Giày Sneaker');
+(4, '10:53:33 11/04/2023', NULL, NULL, 2, 'Giày Sneaker'),
+(5, '10:25:09 12/04/2023', NULL, NULL, 9, 'Hello tét');
 
 --
 -- Indexes for dumped tables
@@ -421,7 +430,7 @@ ALTER TABLE `gift`
 -- AUTO_INCREMENT for table `image`
 --
 ALTER TABLE `image`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT for table `level`
@@ -451,7 +460,7 @@ ALTER TABLE `rewardhistory`
 -- AUTO_INCREMENT for table `topic`
 --
 ALTER TABLE `topic`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- Constraints for dumped tables

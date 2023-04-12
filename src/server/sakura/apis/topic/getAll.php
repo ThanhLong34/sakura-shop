@@ -60,7 +60,8 @@ function getAll($limit, $offset, $searchType, $searchValue, $fillType, $fillValu
    }
 
    //! Thêm tùy chỉnh Code ở đây
-   $baseQuery = "SELECT COUNT(`card`.`id`) AS 'quantityCard', `$tableName`.*, `image`.`link` AS 'imageUrl'
+   $baseQuery = "SELECT COUNT(`card`.`id`) AS 'quantityCard', 
+      `$tableName`.*, `image`.`link` AS 'imageUrl'
       FROM `$tableName`
       LEFT JOIN `image` ON `image`.`id` = `$tableName`.`imageId`
       LEFT JOIN `card` ON `card`.`topicId` = `$tableName`.`id` AND `card`.`deletedAt` IS NULL

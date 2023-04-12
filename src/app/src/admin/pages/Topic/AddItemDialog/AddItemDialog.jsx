@@ -1,6 +1,5 @@
 import { useRef, useState } from "react";
 import PropTypes from "prop-types";
-import { getInputNumberValue } from "@/helpers/converter";
 
 import topicApi from "@/apis/topicApi";
 import imageApi from "@/apis/imageApi";
