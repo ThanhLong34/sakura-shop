@@ -17,8 +17,10 @@ const imageApi = {
 	},
 	upload(file) {
 		const url = `${group}/upload.php?`;
+
 		const formData = new FormData();
 		formData.append("image", file);
+		
 		return axiosClient.post(url, formData);
 	},
 };

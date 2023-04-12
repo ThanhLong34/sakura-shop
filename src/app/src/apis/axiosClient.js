@@ -3,7 +3,6 @@ import axios from "axios";
 const axiosClient = axios.create({
 	baseURL: "http://localhost/projects/sakura/apis/",
 	headers: {
-		"Content-Type": "application/json",
 		"role": 1 // required to check permission
 	},
 });

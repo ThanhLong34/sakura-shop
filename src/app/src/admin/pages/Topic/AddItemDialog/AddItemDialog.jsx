@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import { getInputNumberValue } from "@/helpers/converter";
 
 import topicApi from "@/apis/topicApi";
+import imageApi from "@/apis/imageApi";
 
 import { Dialog } from "primereact/dialog";
 import { Button } from "primereact/button";
@@ -40,13 +41,12 @@ AddItemDialog.propTypes = {
 // Nên không cần dùng memo, useCallback, useMemo
 
 function AddItemDialog({ visible, setVisible, onSubmitted }) {
+	//? Variables
+	const imageIdUploaded = useRef(null);
+
 	//? Refs
 	const toastRef = useRef(null);
-	const levelRef = useRef(null);
-	const experienceRef = useRef(null);
-	const healthRef = useRef(null);
-	const starRef = useRef(null);
-	const diamondRef = useRef(null);
+	const nameRef = useRef(null);
 	const fileUploadRef = useRef(null);
 
 	//? States
@@ -63,16 +63,33 @@ function AddItemDialog({ visible, setVisible, onSubmitted }) {
 
 		setTotalSize(_totalSize);
 	};
-	const handleUploadTest = (e) => {
+	const handleUploadFile = (e) => {
 		const imageFile = e.files[0];
-		// toastRef.current.show({ severity: "success", summary: "Thành công", detail: "Tải ảnh lên máy chủ thành công" });
+
+		imageApi.upload(imageFile).then((response) => {
+			if (response.code === 1) {
+				toastRef.current.show({
+					severity: "success",
+					summary: "Thành công",
+					detail: "Tải ảnh lên máy chủ thành công",
+				});
+
+				imageIdUploaded.current = +response.data.id;
+			} else {
+				toastRef.current.show({ severity: "error", summary: "Lỗi", detail: "Tải ảnh lên máy chủ thất bại" });
+			}
+		});
 	};
 	const handleRemoveFile = (file, callback) => {
 		setTotalSize(totalSize - file.size);
 		callback();
+
+		imageIdUploaded.current = null;
 	};
 	const handleClearFile = () => {
 		setTotalSize(0);
+
+		imageIdUploaded.current = null;
 	};
 	const handleValidationFailFile = () => {
 		toastRef.current.show({
@@ -86,31 +103,26 @@ function AddItemDialog({ visible, setVisible, onSubmitted }) {
 		setVisible(false);
 	};
 	const handleSubmit = () => {
-		return;
-
 		const data = {
-			levelNumber: getInputNumberValue(levelRef.current.getInput().value),
-			experienceRequired: getInputNumberValue(experienceRef.current.getInput().value),
-			healthReward: getInputNumberValue(healthRef.current.getInput().value),
-			starReward: getInputNumberValue(starRef.current.getInput().value),
-			diamondReward: getInputNumberValue(diamondRef.current.getInput().value),
+			name: nameRef.current?.value.trim(),
+			imageId: imageIdUploaded.current,
 		};
 
-		if (isNaN(data.levelNumber)) {
+		if (!data.name) {
 			toastRef.current.show({
 				severity: "warn",
 				summary: "Cảnh báo",
-				detail: "Bạn chưa nhập cấp độ (bắt buộc)",
+				detail: "Bạn chưa nhập tên chủ đề (bắt buộc)",
 				life: 3000,
 			});
 			return;
 		}
 
-		if (isNaN(data.experienceRequired)) {
+		if (!data.imageId) {
 			toastRef.current.show({
 				severity: "warn",
 				summary: "Cảnh báo",
-				detail: "Bạn chưa nhập điểm kinh nghiệm yêu cầu (bắt buộc)",
+				detail: "Bạn chưa tải ảnh lên máy chủ (bắt buộc)",
 				life: 3000,
 			});
 			return;
@@ -121,7 +133,7 @@ function AddItemDialog({ visible, setVisible, onSubmitted }) {
 				toastRef.current.show({
 					severity: "success",
 					summary: "Thành Công",
-					detail: "Tạo cấp độ thành công",
+					detail: "Tạo chủ đề thành công",
 					life: 3000,
 				});
 
@@ -207,7 +219,7 @@ function AddItemDialog({ visible, setVisible, onSubmitted }) {
 			<Dialog header="THÊM CHỦ ĐỀ" visible={visible} style={{ width: "620px" }} onHide={handleCloseDialog}>
 				<div className="mb-4">
 					<span className="block mb-2">Tên chủ đề *</span>
-					<InputText ref={levelRef} className="w-full" placeholder="Nhập tên chủ đề *" />
+					<InputText ref={nameRef} className="w-full" placeholder="Nhập tên chủ đề *" />
 				</div>
 				<div className="mb-4">
 					<span className="block mb-2">Hình ảnh *</span>
@@ -218,16 +230,15 @@ function AddItemDialog({ visible, setVisible, onSubmitted }) {
 
 					<FileUpload
 						ref={fileUploadRef}
-						name="image"
 						accept="image/*"
 						invalidFileSizeMessageDetail="Kích thước hình ảnh vượt quá quy định"
 						invalidFileSizeMessageSummary="Kích thước hình ảnh không hợp lệ"
 						maxFileSize={2000000}
 						onSelect={handleSelectFile}
 						onClear={handleClearFile}
-						onValidationFail={ handleValidationFailFile }
+						onValidationFail={handleValidationFailFile}
 						customUpload
-						uploadHandler={handleUploadTest}
+						uploadHandler={handleUploadFile}
 						headerTemplate={headerUploadTemplate}
 						itemTemplate={itemUploadTemplate}
 						emptyTemplate={emptyUploadTemplate}
