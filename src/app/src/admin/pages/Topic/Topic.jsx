@@ -4,7 +4,7 @@ import AddItemDialog from "./AddItemDialog";
 import UpdateItemDialog from "./UpdateItemDialog";
 import TableData from "./TableData";
 
-function Level() {
+function Topic() {
 	//? Refs
 	const tableDataRef = useRef(null);
 
@@ -53,4 +53,4 @@ function Level() {
 	);
 }
 
-export default Level;
+export default Topic;
