@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import { createImageFileFromUrl } from "@/helpers/converter";
 
 import topicApi from "@/apis/topicApi";
-import imageApi from "@/apis/imageApi";
+import imageFileApi from "@/apis/imageFileApi";
 
 import { Dialog } from "primereact/dialog";
 import { Button } from "primereact/button";
@@ -71,7 +71,7 @@ function UpdateItemDialog({ visible, setVisible, item, onSubmitted }) {
 	const handleUploadFile = (e) => {
 		const imageFile = e.files[0];
 
-		imageApi.upload(imageFile).then((response) => {
+		imageFileApi.upload(imageFile).then((response) => {
 			if (response.code === 1) {
 				toastRef.current.show({
 					severity: "success",

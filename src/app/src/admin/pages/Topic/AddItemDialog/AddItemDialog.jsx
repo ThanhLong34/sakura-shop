@@ -2,7 +2,7 @@ import { useRef, useState } from "react";
 import PropTypes from "prop-types";
 
 import topicApi from "@/apis/topicApi";
-import imageApi from "@/apis/imageApi";
+import imageFileApi from "@/apis/imageFileApi";
 
 import { Dialog } from "primereact/dialog";
 import { Button } from "primereact/button";
@@ -65,7 +65,7 @@ function AddItemDialog({ visible, setVisible, onSubmitted }) {
 	const handleUploadFile = (e) => {
 		const imageFile = e.files[0];
 
-		imageApi.upload(imageFile).then((response) => {
+		imageFileApi.upload(imageFile).then((response) => {
 			if (response.code === 1) {
 				toastRef.current.show({
 					severity: "success",

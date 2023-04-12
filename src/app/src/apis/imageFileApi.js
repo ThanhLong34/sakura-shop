@@ -2,7 +2,7 @@ import axiosClient from "./axiosClient";
 
 const group = "image";
 
-const imageApi = {
+const imageFileApi = {
 	getAll(params) {
 		const url = `${group}/getAll.php?`;
 		return axiosClient.get(url, { params });
@@ -25,4 +25,4 @@ const imageApi = {
 	},
 };
 
-export default imageApi;
+export default imageFileApi;
