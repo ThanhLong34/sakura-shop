@@ -225,6 +225,22 @@ function TableData({ onOpenDialog }) {
 			</div>
 		);
 	};
+	const levelDataTemplate = (rowData) => {
+		return (
+			<span className="data-template">
+				<span className="data-template-value">{rowData.level}</span>
+				<img className="data-template-icon" src={LevelIcon} alt="level icon" />
+			</span>
+		);
+	};
+	const experienceDataTemplate = (rowData) => {
+		return (
+			<span className="data-template">
+				<span className="data-template-value">{rowData.experience}</span>
+				<img className="data-template-icon" src={ExperienceIcon} alt="experience icon" />
+			</span>
+		);
+	};
 	const healthDataTemplate = (rowData) => {
 		return (
 			<span className="data-template">
@@ -246,22 +262,6 @@ function TableData({ onOpenDialog }) {
 			<span className="data-template">
 				<span className="data-template-value">{rowData.diamond}</span>
 				<img className="data-template-icon" src={DiamondIcon} alt="diamond icon" />
-			</span>
-		);
-	};
-	const experienceDataTemplate = (rowData) => {
-		return (
-			<span className="data-template">
-				<span className="data-template-value">{rowData.experience}</span>
-				<img className="data-template-icon" src={ExperienceIcon} alt="experience icon" />
-			</span>
-		);
-	};
-	const levelDataTemplate = (rowData) => {
-		return (
-			<span className="data-template">
-				<span className="data-template-value">{rowData.level}</span>
-				<img className="data-template-icon" src={LevelIcon} alt="level icon" />
 			</span>
 		);
 	};

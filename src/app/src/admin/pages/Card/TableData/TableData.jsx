@@ -2,12 +2,20 @@ import { useState, useRef, useEffect, useCallback, useImperativeHandle, memo, fo
 import PropTypes from "prop-types";
 
 import topicApi from "@/apis/topicApi";
+import cardApi from "@/apis/cardApi";
 
 import TableHeader from "@/admin/components/TableHeader";
 import TableSearch from "@/admin/components/TableSearch";
+import TableFilterPopup from "@/admin/components/TableFilterPopup";
+
+// Icons
+import HealthIcon from "@/assets/images/heart.png";
+import StarIcon from "@/assets/images/star.png";
+import DiamondIcon from "@/assets/images/diamond.png";
 
 import { DataTable } from "primereact/datatable";
 import { Column } from "primereact/column";
+import { Button } from "primereact/button";
 import { SplitButton } from "primereact/splitbutton";
 import { Paginator } from "primereact/paginator";
 import { ConfirmPopup, confirmPopup } from "primereact/confirmpopup";
@@ -27,8 +35,12 @@ const initialTableParams = {
 const rowsPerPageOptions = [10, 20, 30];
 const searchOptions = [
 	{
-		title: "Tên chủ đề",
-		value: "name",
+		title: "Tiêu đề",
+		value: "title",
+	},
+	{
+		title: "Thương hiệu",
+		value: "brand",
 	},
 ];
 
@@ -45,6 +57,11 @@ const TableData = forwardRef(({ onOpenDialog }, ref) => {
 		[]
 	);
 
+	//? Variables
+	const fillValue = useRef(null);
+	const topics = useRef([]);
+	const topicOptions = useRef([]);
+
 	//? Refs
 	const tableSearchRef = useRef(null);
 	const toastRef = useRef(null);
@@ -58,21 +75,32 @@ const TableData = forwardRef(({ onOpenDialog }, ref) => {
 	//? Effects
 	// Get table data
 	useEffect(() => {
-		topicApi.getAll(tableParams).then((response) => {
+		(async () => {
+			const getTopicResponse = await topicApi.getAll();
+			topics.current = getTopicResponse.data;
+			topicOptions.current = topics.current.map((i) => i.name);
+
+			const response = await cardApi.getAll(tableParams);
 			const data = response.data.map((level) => ({
 				...level,
 				id: +level.id,
-				quantityCard: +level.quantityCard,
+				healthReward: +level.healthReward,
+				starReward: +level.starReward,
+				diamondReward: +level.diamondReward,
+				topicId: +level.topicId,
 			}));
 
 			setTableData(data);
 			setTotalItem(response.totalItem);
-		});
+		})();
 	}, [tableParams]);
 
 	//? Functions
 	function getSortedTableData(e) {
 		return tableData;
+	}
+	function getFillValue(option) {
+		return parseInt(topics.current.find((topic) => topic.name === option).id);
 	}
 
 	//? Handles
@@ -99,6 +127,22 @@ const TableData = forwardRef(({ onOpenDialog }, ref) => {
 			reverse: sortOrder === -1,
 		}));
 	};
+	const handleChangeFilter = useCallback(
+		(value) => {
+			fillValue.current = value;
+		},
+		[fillValue]
+	);
+	const handleApplyFilter = ({ field }) => {
+		setTableParams((prevState) => ({
+			...prevState,
+			fillType: field === "topicName" ? "topicId" : field,
+			fillValue: getFillValue(fillValue.current),
+		}));
+	};
+	const handleClearFilter = () => {
+		handleReload();
+	};
 	const handleChangePage = (e) => {
 		setTableParams((prevState) => ({
 			...prevState,
@@ -107,7 +151,7 @@ const TableData = forwardRef(({ onOpenDialog }, ref) => {
 		}));
 	};
 	const handleDeleteItem = (item) => {
-		topicApi.trashById(item.id).then((response) => {
+		cardApi.trashById(item.id).then((response) => {
 			if (response.code === 1) {
 				toastRef.current.show({ severity: "success", summary: "Thành công", detail: "Xóa thành công", life: 3000 });
 				handleRefreshPage();
@@ -125,7 +169,7 @@ const TableData = forwardRef(({ onOpenDialog }, ref) => {
 		return (
 			<div className="grid">
 				<div className="col-12">
-					<TableHeader addItemButtonLabel="Thêm chủ đề" onReload={handleReload} onAddItem={handleAddItem} />
+					<TableHeader addItemButtonLabel="Thêm thẻ bài" onReload={handleReload} onAddItem={handleAddItem} />
 				</div>
 				<div className="col-12">
 					<TableSearch ref={tableSearchRef} searchOptions={searchOptions} onSearch={handleSearch} />
@@ -140,6 +184,41 @@ const TableData = forwardRef(({ onOpenDialog }, ref) => {
 			</div>
 		);
 	};
+	const healthRewardDataTemplate = (rowData) => {
+		return (
+			<span className="data-template">
+				<span className="data-template-value">{rowData.healthReward}</span>
+				<img className="data-template-icon" src={HealthIcon} alt="health icon" />
+			</span>
+		);
+	};
+	const starRewardDataTemplate = (rowData) => {
+		return (
+			<span className="data-template">
+				<span className="data-template-value">{rowData.starReward}</span>
+				<img className="data-template-icon" src={StarIcon} alt="star icon" />
+			</span>
+		);
+	};
+	const diamondRewardDataTemplate = (rowData) => {
+		return (
+			<span className="data-template">
+				<span className="data-template-value">{rowData.diamondReward}</span>
+				<img className="data-template-icon" src={DiamondIcon} alt="diamond icon" />
+			</span>
+		);
+	};
+	const topicFilterTemplate = (options) => {
+		return (
+			<TableFilterPopup label="Chọn chủ đề" options={topicOptions.current} isText onChange={handleChangeFilter} />
+		);
+	};
+	const filterApplyButtonTemplate = (filter) => {
+		return <Button icon="pi pi-check" onClick={() => handleApplyFilter(filter)} />;
+	};
+	const filterClearButtonTemplate = () => {
+		return <Button icon="pi pi-refresh" severity="warning" onClick={handleClearFilter} />;
+	};
 	const actionsTemplate = (rowData) => {
 		const actions = [
 			{
@@ -150,7 +229,7 @@ const TableData = forwardRef(({ onOpenDialog }, ref) => {
 				},
 			},
 			{
-				label: "Xóa chủ đề",
+				label: "Xóa thẻ bài",
 				icon: "pi pi-trash",
 				command: (e) => {
 					confirmPopup({
@@ -177,7 +256,7 @@ const TableData = forwardRef(({ onOpenDialog }, ref) => {
 			<ConfirmPopup />
 			<div className="grid mb-3">
 				<div className="col-6">
-					<h3 className="">DANH SÁCH CHỦ ĐỀ</h3>
+					<h3 className="">DANH SÁCH THẺ BÀI</h3>
 				</div>
 				<div className="col-6 text-right">
 					<h3 className="text-400 text-sm">{`(${tableData.length} trên tổng ${totalItem})`}</h3>
@@ -201,22 +280,41 @@ const TableData = forwardRef(({ onOpenDialog }, ref) => {
 				emptyMessage="Không có kết quả"
 				tableStyle={{ minWidth: "max-content" }}
 			>
+				<Column field="imageUrl" header="Hình ảnh" body={imageDataTemplate} frozen />
+				<Column field="title" header="Tiêu đề" sortable sortFunction={getSortedTableData} frozen />
+				<Column field="brand" header="Thương hiệu" sortable sortFunction={getSortedTableData} />
 				<Column
-					field="imageUrl"
-					header="Hình ảnh"
-					body={imageDataTemplate}
-				/>
-				<Column
-					field="name"
-					header="Tên chủ đề"
+					field="healthReward"
+					header="Phần thưởng sức khỏe"
+					body={healthRewardDataTemplate}
 					sortable
 					sortFunction={getSortedTableData}
 				/>
 				<Column
-					field="quantityCard"
-					header="Số lượng thẻ bài"
+					field="starReward"
+					header="Phần thưởng sao"
+					body={starRewardDataTemplate}
 					sortable
 					sortFunction={getSortedTableData}
+				/>
+				<Column
+					field="diamondReward"
+					header="Phần thưởng kim cương"
+					body={diamondRewardDataTemplate}
+					sortable
+					sortFunction={getSortedTableData}
+				/>
+				<Column
+					field="topicName"
+					header="Chủ đề"
+					filter
+					filterElement={topicFilterTemplate}
+					filterApply={filterApplyButtonTemplate}
+					filterClear={filterClearButtonTemplate}
+					showFilterMatchModes={false}
+					showFilterOperator={false}
+					showFilterMenuOptions={false}
+					filterMatchMode="equals"
 				/>
 				<Column
 					headerStyle={{ textAlign: "center" }}

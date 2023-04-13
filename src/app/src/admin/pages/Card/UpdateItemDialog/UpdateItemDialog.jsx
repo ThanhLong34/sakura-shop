@@ -2,7 +2,7 @@ import { useRef, useState } from "react";
 import PropTypes from "prop-types";
 import { createImageFileFromUrl } from "@/helpers/converter";
 
-import topicApi from "@/apis/topicApi";
+import cardApi from "@/apis/cardApi";
 import imageFileApi from "@/apis/imageFileApi";
 
 import { Dialog } from "primereact/dialog";
@@ -148,7 +148,7 @@ function UpdateItemDialog({ visible, setVisible, item, onSubmitted }) {
 			imageId: imageId !== item.imageId ? imageId : null,
 		};
 
-		topicApi.update(data).then((response) => {
+		cardApi.update(data).then((response) => {
 			if (response.code === 1) {
 				toastRef.current.show({
 					severity: "success",
