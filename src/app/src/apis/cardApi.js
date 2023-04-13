@@ -11,6 +11,10 @@ const cardApi = {
 		const url = `${group}/trashById.php?`;
 		return axiosClient.put(url, { id });
 	},
+	trashByTopicId(topicId) {
+		const url = `${group}/trashByTopicId.php?`;
+		return axiosClient.put(url, { topicId });
+	},
 	add(data) {
 		const url = `${group}/add.php?`;
 		return axiosClient.post(url, data);
