@@ -177,7 +177,7 @@ function AddItemDialog({ visible, setVisible, onSubmitted }) {
 				>
 					<img className="" alt={file.name} role="presentation" src={file.objectURL} />
 				</div>
-				<div className="flex align-items-center align-items-center">
+				<div className="flex align-items-center align-items-center flex-wrap">
 					<span className="flex flex-column text-left mr-5">
 						{file.name}
 						<small>{new Date().toLocaleDateString()}</small>

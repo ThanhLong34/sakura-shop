@@ -62,7 +62,7 @@ const adminRoutes = [
 		path: "/admin/card",
 		component: AdminCardManagement,
 		metadata: {
-			title: 'Chủ đề'
+			title: 'Thẻ bài'
 		}
 	},
 	{

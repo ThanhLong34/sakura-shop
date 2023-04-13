@@ -214,7 +214,7 @@ function AddItemDialog({ visible, setVisible, onSubmitted }) {
 				>
 					<img className="" alt={file.name} role="presentation" src={file.objectURL} />
 				</div>
-				<div className="flex align-items-center align-items-center">
+				<div className="flex align-items-center align-items-center flex-wrap">
 					<span className="flex flex-column text-left mr-5">
 						{file.name}
 						<small>{new Date().toLocaleDateString()}</small>
@@ -283,6 +283,7 @@ function AddItemDialog({ visible, setVisible, onSubmitted }) {
 						mode="decimal"
 						placeholder="Nhập thưởng sức khỏe"
 						showButtons
+						min={0}
 					/>
 				</div>
 				<div className="mb-4 flex">
@@ -295,6 +296,7 @@ function AddItemDialog({ visible, setVisible, onSubmitted }) {
 						mode="decimal"
 						placeholder="Nhập thưởng sao"
 						showButtons
+						min={0}
 					/>
 				</div>
 				<div className="mb-4 flex">
@@ -307,6 +309,7 @@ function AddItemDialog({ visible, setVisible, onSubmitted }) {
 						mode="decimal"
 						placeholder="Nhập thưởng kim cương"
 						showButtons
+						min={0}
 					/>
 				</div>
 				<div className="mb-4">

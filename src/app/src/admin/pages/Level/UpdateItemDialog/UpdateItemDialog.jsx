@@ -127,7 +127,14 @@ function UpdateItemDialog({ visible, setVisible, item, onSubmitted }) {
 					<span className={cx("item-icon")}>
 						<img src={LevelIcon} alt="level icon" />
 					</span>
-					<InputNumber ref={levelRef} className="w-full" mode="decimal" placeholder="Nhập cấp độ *" showButtons />
+					<InputNumber
+						ref={levelRef}
+						className="w-full"
+						mode="decimal"
+						placeholder="Nhập cấp độ *"
+						showButtons
+						min={0}
+					/>
 				</div>
 				<div className="mb-4 flex">
 					<span className={cx("item-icon")}>
@@ -139,6 +146,7 @@ function UpdateItemDialog({ visible, setVisible, item, onSubmitted }) {
 						mode="decimal"
 						placeholder="Nhập điểm kinh nghiệm yêu cầu *"
 						showButtons
+						min={0}
 					/>
 				</div>
 				<div className="mb-4 flex">
@@ -151,13 +159,21 @@ function UpdateItemDialog({ visible, setVisible, item, onSubmitted }) {
 						mode="decimal"
 						placeholder="Nhập thưởng sức khỏe"
 						showButtons
+						min={0}
 					/>
 				</div>
 				<div className="mb-4 flex">
 					<span className={cx("item-icon")}>
 						<img src={StarIcon} alt="start icon" />
 					</span>
-					<InputNumber ref={starRef} className="w-full" mode="decimal" placeholder="Nhập thưởng sao" showButtons />
+					<InputNumber
+						ref={starRef}
+						className="w-full"
+						mode="decimal"
+						placeholder="Nhập thưởng sao"
+						showButtons
+						min={0}
+					/>
 				</div>
 				<div className="mb-4 flex">
 					<span className={cx("item-icon")}>
@@ -169,6 +185,7 @@ function UpdateItemDialog({ visible, setVisible, item, onSubmitted }) {
 						mode="decimal"
 						placeholder="Nhập thưởng kim cương"
 						showButtons
+						min={0}
 					/>
 				</div>
 				<div className="flex justify-content-end pt-2">

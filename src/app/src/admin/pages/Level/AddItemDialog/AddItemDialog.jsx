@@ -79,7 +79,7 @@ function AddItemDialog({ visible, setVisible, onSubmitted }) {
 					detail: "Tạo cấp độ thành công",
 					life: 3000,
 				});
-				
+
 				handleCloseDialog();
 				onSubmitted();
 			} else {
@@ -96,12 +96,24 @@ function AddItemDialog({ visible, setVisible, onSubmitted }) {
 	return (
 		<>
 			<Toast ref={toastRef} />
-			<Dialog header="THÊM CẤP ĐỘ NGƯỜI CHƠI" visible={visible} style={{ width: "420px" }} onHide={handleCloseDialog}>
+			<Dialog
+				header="THÊM CẤP ĐỘ NGƯỜI CHƠI"
+				visible={visible}
+				style={{ width: "420px" }}
+				onHide={handleCloseDialog}
+			>
 				<div className="mb-4 flex">
 					<span className={cx("item-icon")}>
 						<img src={LevelIcon} alt="level icon" />
 					</span>
-					<InputNumber ref={levelRef} className="w-full" mode="decimal" placeholder="Nhập cấp độ *" showButtons />
+					<InputNumber
+						ref={levelRef}
+						className="w-full"
+						mode="decimal"
+						placeholder="Nhập cấp độ *"
+						showButtons
+						min={0}
+					/>
 				</div>
 				<div className="mb-4 flex">
 					<span className={cx("item-icon")}>
@@ -113,6 +125,7 @@ function AddItemDialog({ visible, setVisible, onSubmitted }) {
 						mode="decimal"
 						placeholder="Nhập điểm kinh nghiệm yêu cầu *"
 						showButtons
+						min={0}
 					/>
 				</div>
 				<div className="mb-4 flex">
@@ -125,13 +138,21 @@ function AddItemDialog({ visible, setVisible, onSubmitted }) {
 						mode="decimal"
 						placeholder="Nhập thưởng sức khỏe"
 						showButtons
+						min={0}
 					/>
 				</div>
 				<div className="mb-4 flex">
 					<span className={cx("item-icon")}>
 						<img src={StarIcon} alt="start icon" />
 					</span>
-					<InputNumber ref={starRef} className="w-full" mode="decimal" placeholder="Nhập thưởng sao" showButtons />
+					<InputNumber
+						ref={starRef}
+						className="w-full"
+						mode="decimal"
+						placeholder="Nhập thưởng sao"
+						showButtons
+						min={0}
+					/>
 				</div>
 				<div className="mb-4 flex">
 					<span className={cx("item-icon")}>
@@ -143,6 +164,7 @@ function AddItemDialog({ visible, setVisible, onSubmitted }) {
 						mode="decimal"
 						placeholder="Nhập thưởng kim cương"
 						showButtons
+						min={0}
 					/>
 				</div>
 				<div className="flex justify-content-end pt-2">
