@@ -4,16 +4,11 @@ import { useDispatch } from "react-redux";
 import { setAdminAccount } from "@/store/adminSlice.js";
 import adminApi from "@/apis/adminApi";
 
-import classNames from "classnames/bind";
-import styles from "./Login.module.scss";
-
 import { InputText } from "primereact/inputtext";
 import { Checkbox } from "primereact/checkbox";
 import { Button } from "primereact/button";
 import { Toast } from "primereact/toast";
 import { Dialog } from "primereact/dialog";
-
-const cx = classNames.bind(styles);
 
 function BackgroundVector() {
 	return (
@@ -142,7 +137,7 @@ function Login() {
 	}
 
 	return (
-		<div className={cx("wrapper")}>
+		<div>
 			<Toast ref={toastRef} position="top-center" />
 			<Dialog
 				header="Reset mật khẩu"

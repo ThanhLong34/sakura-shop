@@ -1,17 +1,27 @@
 import { useRef, useState } from "react";
 import PropTypes from "prop-types";
+import classNames from "classnames/bind";
+import styles from "./AddItemDialog.module.scss";
 
-import topicApi from "@/apis/topicApi";
+import cardApi from "@/apis/cardApi";
 import imageFileApi from "@/apis/imageFileApi";
+
+// Icons
+import HealthIcon from "@/assets/images/heart.png";
+import StarIcon from "@/assets/images/star.png";
+import DiamondIcon from "@/assets/images/diamond.png";
 
 import { Dialog } from "primereact/dialog";
 import { Button } from "primereact/button";
 import { Toast } from "primereact/toast";
 import { InputText } from "primereact/inputtext";
+import { InputNumber } from "primereact/inputnumber";
 import { FileUpload } from "primereact/fileupload";
 import { ProgressBar } from "primereact/progressbar";
 import { Tooltip } from "primereact/tooltip";
 import { Tag } from "primereact/tag";
+
+const cx = classNames.bind(styles);
 
 //? Templates
 const chooseOptions = {
@@ -45,7 +55,11 @@ function AddItemDialog({ visible, setVisible, onSubmitted }) {
 
 	//? Refs
 	const toastRef = useRef(null);
-	const nameRef = useRef(null);
+	const titleRef = useRef(null);
+	const brandRef = useRef(null);
+	const healthRewardRef = useRef(null);
+	const starRewardRef = useRef(null);
+	const diamondRewardRef = useRef(null);
 	const fileUploadRef = useRef(null);
 
 	//? States
@@ -103,19 +117,10 @@ function AddItemDialog({ visible, setVisible, onSubmitted }) {
 	};
 	const handleSubmit = () => {
 		const data = {
-			name: nameRef.current?.value.trim(),
+			title: titleRef.current?.value.trim(),
+			brand: brandRef.current?.value.trim(),
 			imageId: imageIdUploaded.current,
 		};
-
-		if (!data.name) {
-			toastRef.current.show({
-				severity: "warn",
-				summary: "Cảnh báo",
-				detail: "Bạn chưa nhập tên chủ đề (bắt buộc)",
-				life: 3000,
-			});
-			return;
-		}
 
 		if (!data.imageId) {
 			toastRef.current.show({
@@ -127,12 +132,12 @@ function AddItemDialog({ visible, setVisible, onSubmitted }) {
 			return;
 		}
 
-		topicApi.add(data).then((response) => {
+		cardApi.add(data).then((response) => {
 			if (response.code === 1) {
 				toastRef.current.show({
 					severity: "success",
 					summary: "Thành Công",
-					detail: "Tạo chủ đề thành công",
+					detail: "Tạo thẻ bài thành công",
 					life: 3000,
 				});
 
@@ -215,10 +220,50 @@ function AddItemDialog({ visible, setVisible, onSubmitted }) {
 	return (
 		<>
 			<Toast ref={toastRef} />
-			<Dialog header="THÊM CHỦ ĐỀ" visible={visible} style={{ width: "620px" }} onHide={handleCloseDialog}>
+			<Dialog header="THÊM THẺ BÀI" visible={visible} style={{ width: "620px" }} onHide={handleCloseDialog}>
 				<div className="mb-4">
-					<span className="block mb-2">Tên chủ đề *</span>
-					<InputText ref={nameRef} className="w-full" placeholder="Nhập tên chủ đề *" />
+					<span className="block mb-2">Tiêu đề</span>
+					<InputText ref={titleRef} className="w-full" placeholder="Nhập tiêu đề" />
+				</div>
+				<div className="mb-4">
+					<span className="block mb-2">Thương hiệu</span>
+					<InputText ref={brandRef} className="w-full" placeholder="Nhập thương hiệu" />
+				</div>
+				<div className="mb-4 flex">
+					<span className={cx("item-icon")}>
+						<img src={HealthIcon} alt="health icon" />
+					</span>
+					<InputNumber
+						ref={healthRewardRef}
+						className="w-full"
+						mode="decimal"
+						placeholder="Nhập thưởng sức khỏe"
+						showButtons
+					/>
+				</div>
+				<div className="mb-4 flex">
+					<span className={cx("item-icon")}>
+						<img src={StarIcon} alt="start icon" />
+					</span>
+					<InputNumber
+						ref={starRewardRef}
+						className="w-full"
+						mode="decimal"
+						placeholder="Nhập thưởng sao"
+						showButtons
+					/>
+				</div>
+				<div className="mb-4 flex">
+					<span className={cx("item-icon")}>
+						<img src={DiamondIcon} alt="diamond icon" />
+					</span>
+					<InputNumber
+						ref={diamondRewardRef}
+						className="w-full"
+						mode="decimal"
+						placeholder="Nhập thưởng kim cương"
+						showButtons
+					/>
 				</div>
 				<div className="mb-4">
 					<span className="block mb-2">Hình ảnh *</span>

@@ -285,21 +285,21 @@ const TableData = forwardRef(({ onOpenDialog }, ref) => {
 				<Column field="brand" header="Thương hiệu" sortable sortFunction={getSortedTableData} />
 				<Column
 					field="healthReward"
-					header="Phần thưởng sức khỏe"
+					header="Thưởng sức khỏe"
 					body={healthRewardDataTemplate}
 					sortable
 					sortFunction={getSortedTableData}
 				/>
 				<Column
 					field="starReward"
-					header="Phần thưởng sao"
+					header="Thưởng sao"
 					body={starRewardDataTemplate}
 					sortable
 					sortFunction={getSortedTableData}
 				/>
 				<Column
 					field="diamondReward"
-					header="Phần thưởng kim cương"
+					header="Thưởng kim cương"
 					body={diamondRewardDataTemplate}
 					sortable
 					sortFunction={getSortedTableData}
