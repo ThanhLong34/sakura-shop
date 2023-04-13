@@ -74,14 +74,10 @@ function update($id, $imageId, $title, $brand, $healthReward, $starReward, $diam
    }
 
    // Cập nhật title
-   if ($title !== "") {
-      $mainQuery .= "," . "`title` = '$title'";
-   }
+   $mainQuery .= "," . "`title` = '$title'";
 
    // Cập nhật brand
-   if ($brand !== "") {
-      $mainQuery .= "," . "`brand` = '$brand'";
-   }
+   $mainQuery .= "," . "`brand` = '$brand'";
 
    // Cập nhật healthReward
    if ($healthReward !== "" && is_numeric($healthReward)) {
