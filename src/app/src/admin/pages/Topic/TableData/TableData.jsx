@@ -2,6 +2,7 @@ import { useState, useRef, useEffect, useCallback, useImperativeHandle, memo, fo
 import PropTypes from "prop-types";
 
 import topicApi from "@/apis/topicApi";
+import cardApi from "@/apis/cardApi";
 
 import TableHeader from "@/admin/components/TableHeader";
 import TableSearch from "@/admin/components/TableSearch";
@@ -107,14 +108,26 @@ const TableData = forwardRef(({ onOpenDialog }, ref) => {
 		}));
 	};
 	const handleDeleteItem = (item) => {
-		topicApi.trashById(item.id).then((response) => {
+		(async () => {
+			const response = await topicApi.trashById(item.id);
 			if (response.code === 1) {
-				toastRef.current.show({ severity: "success", summary: "Thành công", detail: "Xóa thành công", life: 3000 });
-				handleRefreshPage();
+				// Delete cards of the topic
+				const trashCardsByTopicId = await cardApi.trashByTopicId(item.id);
+				if (trashCardsByTopicId.code === 1) {
+					toastRef.current.show({
+						severity: "success",
+						summary: "Thành công",
+						detail: "Xóa thành công",
+						life: 3000,
+					});
+					handleRefreshPage();
+				} else {
+					toastRef.current.show({ severity: "error", summary: "Lỗi", detail: response.message, life: 3000 });
+				}
 			} else {
 				toastRef.current.show({ severity: "error", summary: "Lỗi", detail: response.message, life: 3000 });
 			}
-		});
+		})();
 	};
 	const handleRefreshPage = () => {
 		setTableParams((prevState) => ({ ...prevState }));
@@ -201,23 +214,9 @@ const TableData = forwardRef(({ onOpenDialog }, ref) => {
 				emptyMessage="Không có kết quả"
 				tableStyle={{ minWidth: "max-content" }}
 			>
-				<Column
-					field="imageUrl"
-					header="Hình ảnh"
-					body={imageDataTemplate}
-				/>
-				<Column
-					field="name"
-					header="Tên chủ đề"
-					sortable
-					sortFunction={getSortedTableData}
-				/>
-				<Column
-					field="quantityCard"
-					header="Số lượng thẻ bài"
-					sortable
-					sortFunction={getSortedTableData}
-				/>
+				<Column field="imageUrl" header="Hình ảnh" body={imageDataTemplate} />
+				<Column field="name" header="Tên chủ đề" sortable sortFunction={getSortedTableData} />
+				<Column field="quantityCard" header="Số lượng thẻ bài" sortable sortFunction={getSortedTableData} />
 				<Column
 					headerStyle={{ textAlign: "center" }}
 					bodyStyle={{ textAlign: "center", overflow: "visible" }}
