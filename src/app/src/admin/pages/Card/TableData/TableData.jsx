@@ -81,13 +81,14 @@ const TableData = forwardRef(({ onOpenDialog }, ref) => {
 			topicOptions.current = topics.current.map((i) => i.name);
 
 			const response = await cardApi.getAll(tableParams);
-			const data = response.data.map((level) => ({
-				...level,
-				id: +level.id,
-				healthReward: +level.healthReward,
-				starReward: +level.starReward,
-				diamondReward: +level.diamondReward,
-				topicId: +level.topicId,
+			const data = response.data.map((card) => ({
+				...card,
+				id: +card.id,
+				imageId: +card.imageId,
+				healthReward: +card.healthReward,
+				starReward: +card.starReward,
+				diamondReward: +card.diamondReward,
+				topicId: +card.topicId,
 			}));
 
 			setTableData(data);

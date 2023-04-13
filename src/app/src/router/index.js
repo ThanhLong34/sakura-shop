@@ -4,6 +4,7 @@ import AdminDashboard from "@/admin/pages/Dashboard";
 import AdminImageFileManagement from "@/admin/pages/ImageFile";
 import AdminPlayerManagement from "@/admin/pages/Player";
 import AdminLevelManagement from "@/admin/pages/Level";
+import AdminGiftManagement from "@/admin/pages/Gift";
 import AdminTopicManagement from "@/admin/pages/Topic";
 import AdminCardManagement from "@/admin/pages/Card";
 import AdminProfile from "@/admin/pages/Profile";
@@ -49,6 +50,13 @@ const adminRoutes = [
 		component: AdminLevelManagement,
 		metadata: {
 			title: 'Cấp độ'
+		}
+	},
+	{
+		path: "/admin/gift",
+		component: AdminGiftManagement,
+		metadata: {
+			title: 'Phần quà'
 		}
 	},
 	{

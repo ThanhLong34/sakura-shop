@@ -60,10 +60,11 @@ const TableData = forwardRef(({ onOpenDialog }, ref) => {
 	// Get table data
 	useEffect(() => {
 		topicApi.getAll(tableParams).then((response) => {
-			const data = response.data.map((level) => ({
-				...level,
-				id: +level.id,
-				quantityCard: +level.quantityCard,
+			const data = response.data.map((topic) => ({
+				...topic,
+				id: +topic.id,
+				imageId: +topic.imageId,
+				quantityCard: +topic.quantityCard,
 			}));
 
 			setTableData(data);

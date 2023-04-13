@@ -1,1 +1,1 @@
-export { default } from "./Gift.jsx/index.js";
+export { default } from "./Gift.jsx";
