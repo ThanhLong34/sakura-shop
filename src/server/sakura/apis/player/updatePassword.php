@@ -36,14 +36,14 @@ $newPassword = trim($data["newPassword"] ?? ""); // string
 //? ====================
 //? START
 //? ====================
-// ✅ Cập nhật item
-updateItem($id, $newPassword);
+// ✅ Cập nhật mật khẩu người chơi
+updatePassword($id, $newPassword);
 
 
 //? ====================
 //? FUNCTIONS
 //? ====================
-function updateItem($id, $newPassword)
+function updatePassword($id, $newPassword)
 {
    global $connect, $tableName;
 

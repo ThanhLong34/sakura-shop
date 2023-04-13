@@ -37,7 +37,7 @@ $name = trim($data["name"] ?? ""); // string
 //? ====================
 //? START
 //? ====================
-// ✅ Cập nhật
+// ✅ Cập nhật record
 update($id, $imageId, $name);
 
 

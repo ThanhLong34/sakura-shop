@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 12, 2023 at 03:28 PM
+-- Generation Time: Apr 13, 2023 at 08:05 AM
 -- Server version: 10.4.27-MariaDB
 -- PHP Version: 8.2.0
 
@@ -118,6 +118,14 @@ CREATE TABLE `card` (
   `topicId` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Dumping data for table `card`
+--
+
+INSERT INTO `card` (`id`, `createdAt`, `updatedAt`, `deletedAt`, `imageId`, `title`, `brand`, `healthReward`, `starReward`, `diamondReward`, `topicId`) VALUES
+(1, '09:59:46 13/04/2023', NULL, NULL, 16, 'Sức khỏe', NULL, 3, 0, 0, 1),
+(3, '10:13:28 13/04/2023', NULL, NULL, 17, 'Son abc', 'bran1', 0, 0, 0, 3);
+
 -- --------------------------------------------------------
 
 --
@@ -161,7 +169,10 @@ CREATE TABLE `image` (
 
 INSERT INTO `image` (`id`, `createdAt`, `updatedAt`, `deletedAt`, `link`, `filename`, `size`) VALUES
 (1, '10:52:15 11/04/2023', NULL, NULL, 'http://localhost/projects/sakura/upload/images/imagefile6434d96f305ea.png', 'imagefile6434d96f305ea.png', 9893),
-(2, '10:52:52 11/04/2023', NULL, NULL, 'http://localhost/projects/sakura/upload/images/imagefile6434d994ba712.png', 'imagefile6434d994ba712.png', 17903);
+(2, '10:52:52 11/04/2023', NULL, NULL, 'http://localhost/projects/sakura/upload/images/imagefile6434d994ba712.png', 'imagefile6434d994ba712.png', 17903),
+(16, '09:57:35 13/04/2023', NULL, NULL, 'http://localhost/projects/sakura/upload/images/imagefile64376f9fd3d24.png', 'imagefile64376f9fd3d24.png', 9660),
+(17, '10:01:08 13/04/2023', NULL, NULL, 'http://localhost/projects/sakura/upload/images/imagefile64377074d6dfb.png', 'imagefile64377074d6dfb.png', 73137),
+(18, '10:07:41 13/04/2023', NULL, NULL, 'http://localhost/projects/sakura/upload/images/imagefile643771fdc31f7.png', 'imagefile643771fdc31f7.png', 38968);
 
 -- --------------------------------------------------------
 
@@ -287,6 +298,7 @@ CREATE TABLE `topic` (
 --
 
 INSERT INTO `topic` (`id`, `createdAt`, `updatedAt`, `deletedAt`, `imageId`, `name`) VALUES
+(1, '10:07:42 13/04/2023', NULL, NULL, 18, 'Phần thưởng trong lượt chơi'),
 (3, '10:52:40 11/04/2023', NULL, NULL, 1, 'Son môi'),
 (4, '10:53:33 11/04/2023', NULL, NULL, 2, 'Giày Sneaker');
 
@@ -411,19 +423,19 @@ ALTER TABLE `answer`
 -- AUTO_INCREMENT for table `card`
 --
 ALTER TABLE `card`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `gift`
 --
 ALTER TABLE `gift`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `image`
 --
 ALTER TABLE `image`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 
 --
 -- AUTO_INCREMENT for table `level`
@@ -453,7 +465,7 @@ ALTER TABLE `rewardhistory`
 -- AUTO_INCREMENT for table `topic`
 --
 ALTER TABLE `topic`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- Constraints for dumped tables

@@ -13,7 +13,7 @@ require("../../classes/ResponseAPI.php");
 //? ====================
 header("Access-Control-Allow-Origin: " . ACCESS_CONTROL_ALLOW_ORIGIN);
 header("Access-Control-Allow-Headers: " . ACCESS_CONTROL_ALLOW_HEADERS);
-header("Access-Control-Allow-Methods: PUT");
+header("Access-Control-Allow-Methods: POST");
 header("Content-Type: application/json");
 
 
@@ -26,47 +26,50 @@ if (!checkPermissionFunction()) exit;
 //? ====================
 //? PARAMETERS & PAYLOAD
 //? ====================
-$tableName = "admin";
+$tableName = "card";
 $data = getJSONPayloadRequest();
 
-$id = $data["id"] ?? ""; // int
-$newPassword = trim($data["newPassword"] ?? ""); // string
+$imageId = $data["imageId"] ?? ""; // int
+$title = trim($data["title"] ?? ""); // string
+$brand = trim($data["brand"] ?? ""); // string
+$healthReward = $data["healthReward"] ?? ""; // int
+$starReward = $data["starReward"] ?? ""; // int
+$diamondReward = $data["diamondReward"] ?? ""; // int
+$topicId = $data["topicId"] ?? ""; // int
 
 
 //? ====================
 //? START
 //? ====================
-// ✅ Cập nhật mật khẩu admin
-updatePassword($id, $newPassword);
+// ✅ Thêm record 
+add($imageId, $title, $brand, $healthReward, $starReward, $diamondReward, $topicId);
 
 
 //? ====================
 //? FUNCTIONS
 //? ====================
-function updatePassword($id, $newPassword)
+function add($imageId, $title, $brand, $healthReward, $starReward, $diamondReward, $topicId)
 {
    global $connect, $tableName;
 
    // Kiểm tra dữ liệu payload
-   if ($id === "" || !is_numeric($id) || $newPassword === "") {
+   if (($imageId !== "" && !is_numeric($imageId)) || // option
+      ($healthReward !== "" && !is_numeric($healthReward)) || // option
+      ($starReward !== "" && !is_numeric($starReward)) || // option
+      ($diamondReward !== "" && !is_numeric($diamondReward)) || // option
+      $topicId === "" || !is_numeric($topicId) // require
+   ) {
       $response = new ResponseAPI(9, "Không đủ payload để thực hiện");
       $response->send();
       return;
    }
 
    // createdAt, updateAt, deletedAt
-   $updatedAt = getCurrentDatetime();
-
-   // MD5 mật khẩu
-   $newPassword = md5($newPassword);
-
-   // Các chuỗi truy vấn
-   $baseQuery = "UPDATE `$tableName` SET `updatedAt` = '$updatedAt'";
-   $mainQuery = "," . "`password` = '$newPassword'";
-   $endQuery = "WHERE `id` = '$id' AND `deletedAt` IS NULL";
+   $createdAt = getCurrentDatetime();
 
    // Thực thi query
-   $query = $baseQuery . " " . $mainQuery . " " . $endQuery;
+   $query = "INSERT INTO `$tableName`(`createdAt`, `imageId`, `title`, `brand`, `healthReward`, `starReward`, `diamondReward`, `topicId`) 
+               VALUES('$createdAt', '$imageId', '$title', '$brand', '$healthReward', '$starReward', '$diamondReward', '$topicId')";
    performsQueryAndResponseToClient($query);
 
    // Đóng kết nối

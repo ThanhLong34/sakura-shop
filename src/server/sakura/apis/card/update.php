@@ -26,28 +26,30 @@ if (!checkPermissionFunction()) exit;
 //? ====================
 //? PARAMETERS & PAYLOAD
 //? ====================
-$tableName = "level";
+$tableName = "card";
 $data = getJSONPayloadRequest();
 
 $id = $data["id"] ?? ""; // int
-$levelNumber = $data["levelNumber"] ?? ""; // int
-$experienceRequired = $data["experienceRequired"] ?? ""; // int
+$imageId = $data["imageId"] ?? ""; // int
+$title = trim($data["title"] ?? ""); // string
+$brand = trim($data["brand"] ?? ""); // string
 $healthReward = $data["healthReward"] ?? ""; // int
 $starReward = $data["starReward"] ?? ""; // int
 $diamondReward = $data["diamondReward"] ?? ""; // int
+$topicId = $data["topicId"] ?? ""; // int
 
 
 //? ====================
 //? START
 //? ====================
 // ✅ Cập nhật record
-update($id, $levelNumber, $experienceRequired, $healthReward, $starReward, $diamondReward);
+update($id, $imageId, $title, $brand, $healthReward, $starReward, $diamondReward, $topicId);
 
 
 //? ====================
 //? FUNCTIONS
 //? ====================
-function update($id, $levelNumber, $experienceRequired, $healthReward, $starReward, $diamondReward)
+function update($id, $imageId, $title, $brand, $healthReward, $starReward, $diamondReward, $topicId)
 {
    global $connect, $tableName;
 
@@ -66,22 +68,19 @@ function update($id, $levelNumber, $experienceRequired, $healthReward, $starRewa
    $mainQuery = "";
    $endQuery = "WHERE `id` = '$id' AND `deletedAt` IS NULL";
 
-   // Cập nhật levelNumber
-   if ($levelNumber !== "" && is_numeric($levelNumber)) {
-
-      // Kiểm tra item tồn tại trong CSDL theo các tiêu chí
-      if (checkItemExist($levelNumber)) {
-         $response = new ResponseAPI(3, "Cấp độ đã tồn tại");
-         $response->send();
-         return;
-      }
-
-      $mainQuery .= "," . "`levelNumber` = '$levelNumber'";
+   // Cập nhật imageId
+   if ($imageId !== "" && is_numeric($imageId)) {
+      $mainQuery .= "," . "`imageId` = '$imageId'";
    }
 
-   // Cập nhật experienceRequired
-   if ($experienceRequired !== "" && is_numeric($experienceRequired)) {
-      $mainQuery .= "," . "`experienceRequired` = '$experienceRequired'";
+   // Cập nhật title
+   if ($title !== "") {
+      $mainQuery .= "," . "`title` = '$title'";
+   }
+
+   // Cập nhật brand
+   if ($brand !== "") {
+      $mainQuery .= "," . "`brand` = '$brand'";
    }
 
    // Cập nhật healthReward
@@ -97,6 +96,11 @@ function update($id, $levelNumber, $experienceRequired, $healthReward, $starRewa
    // Cập nhật diamondReward
    if ($diamondReward !== "" && is_numeric($diamondReward)) {
       $mainQuery .= "," . "`diamondReward` = '$diamondReward'";
+   }
+
+   // Cập nhật topicId
+   if ($topicId !== "" && is_numeric($topicId)) {
+      $mainQuery .= "," . "`topicId` = '$topicId'";
    }
 
    // Thực thi query
@@ -121,19 +125,4 @@ function performsQueryAndResponseToClient($query)
       $response = new ResponseAPI(2, "Thất bại");
       $response->send();
    }
-}
-
-// Kiểm tra item tồn tại trong CSDL theo các tiêu chí
-function checkItemExist($levelNumber)
-{
-   global $connect, $tableName;
-
-   $query = "SELECT * FROM `$tableName` WHERE `deletedAt` IS NULL AND `levelNumber` = '$levelNumber' LIMIT 1";
-   $result = mysqli_query($connect, $query);
-
-   if ($result && mysqli_num_rows($result) > 0) {
-      return true;
-   }
-
-   return false;
 }

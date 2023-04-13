@@ -26,28 +26,31 @@ if (!checkPermissionFunction()) exit;
 //? ====================
 //? PARAMETERS & PAYLOAD
 //? ====================
-$tableName = "level";
+$tableName = "gift";
 $data = getJSONPayloadRequest();
 
 $id = $data["id"] ?? ""; // int
-$levelNumber = $data["levelNumber"] ?? ""; // int
-$experienceRequired = $data["experienceRequired"] ?? ""; // int
-$healthReward = $data["healthReward"] ?? ""; // int
-$starReward = $data["starReward"] ?? ""; // int
-$diamondReward = $data["diamondReward"] ?? ""; // int
+$imageId = $data["imageId"] ?? ""; // int
+$name = trim($data["name"] ?? ""); // string
+$brand = trim($data["brand"] ?? ""); // string
+$description = trim($data["description"] ?? ""); // string
+$starCost = $data["starCost"] ?? ""; // int
+$diamondCost = $data["diamondCost"] ?? ""; // int
+$allowToReceiveOnline = (bool)$data["allowToReceiveOnline"]; // bool
+$isShow = (bool)$data["isShow"]; // bool
 
 
 //? ====================
 //? START
 //? ====================
 // ✅ Cập nhật record
-update($id, $levelNumber, $experienceRequired, $healthReward, $starReward, $diamondReward);
+update($id, $imageId, $name, $brand, $description, $starCost, $diamondCost, $allowToReceiveOnline, $isShow);
 
 
 //? ====================
 //? FUNCTIONS
 //? ====================
-function update($id, $levelNumber, $experienceRequired, $healthReward, $starReward, $diamondReward)
+function update($id, $imageId, $name, $brand, $description, $starCost, $diamondCost, $allowToReceiveOnline, $isShow)
 {
    global $connect, $tableName;
 
@@ -66,37 +69,44 @@ function update($id, $levelNumber, $experienceRequired, $healthReward, $starRewa
    $mainQuery = "";
    $endQuery = "WHERE `id` = '$id' AND `deletedAt` IS NULL";
 
-   // Cập nhật levelNumber
-   if ($levelNumber !== "" && is_numeric($levelNumber)) {
-
-      // Kiểm tra item tồn tại trong CSDL theo các tiêu chí
-      if (checkItemExist($levelNumber)) {
-         $response = new ResponseAPI(3, "Cấp độ đã tồn tại");
-         $response->send();
-         return;
-      }
-
-      $mainQuery .= "," . "`levelNumber` = '$levelNumber'";
+   // Cập nhật imageId
+   if ($imageId !== "" && is_numeric($imageId)) {
+      $mainQuery .= "," . "`imageId` = '$imageId'";
    }
 
-   // Cập nhật experienceRequired
-   if ($experienceRequired !== "" && is_numeric($experienceRequired)) {
-      $mainQuery .= "," . "`experienceRequired` = '$experienceRequired'";
+   // Cập nhật name
+   if ($name !== "") {
+      $mainQuery .= "," . "`name` = '$name'";
    }
 
-   // Cập nhật healthReward
-   if ($healthReward !== "" && is_numeric($healthReward)) {
-      $mainQuery .= "," . "`healthReward` = '$healthReward'";
+   // Cập nhật brand
+   if ($brand !== "") {
+      $mainQuery .= "," . "`brand` = '$brand'";
    }
 
-   // Cập nhật starReward
-   if ($starReward !== "" && is_numeric($starReward)) {
-      $mainQuery .= "," . "`starReward` = '$starReward'";
+   // Cập nhật description
+   if ($description !== "") {
+      $mainQuery .= "," . "`description` = '$description'";
    }
 
-   // Cập nhật diamondReward
-   if ($diamondReward !== "" && is_numeric($diamondReward)) {
-      $mainQuery .= "," . "`diamondReward` = '$diamondReward'";
+   // Cập nhật starCost
+   if ($starCost !== "" && is_numeric($starCost)) {
+      $mainQuery .= "," . "`starCost` = '$starCost'";
+   }
+
+   // Cập nhật diamondCost
+   if ($diamondCost !== "" && is_numeric($diamondCost)) {
+      $mainQuery .= "," . "`diamondCost` = '$diamondCost'";
+   }
+
+   // Cập nhật allowToReceiveOnline
+   if (is_bool($allowToReceiveOnline)) {
+      $mainQuery .= "," . "`allowToReceiveOnline` = '$allowToReceiveOnline'";
+   }
+
+   // Cập nhật isShow
+   if (is_bool($isShow)) {
+      $mainQuery .= "," . "`isShow` = '$isShow'";
    }
 
    // Thực thi query
@@ -121,19 +131,4 @@ function performsQueryAndResponseToClient($query)
       $response = new ResponseAPI(2, "Thất bại");
       $response->send();
    }
-}
-
-// Kiểm tra item tồn tại trong CSDL theo các tiêu chí
-function checkItemExist($levelNumber)
-{
-   global $connect, $tableName;
-
-   $query = "SELECT * FROM `$tableName` WHERE `deletedAt` IS NULL AND `levelNumber` = '$levelNumber' LIMIT 1";
-   $result = mysqli_query($connect, $query);
-
-   if ($result && mysqli_num_rows($result) > 0) {
-      return true;
-   }
-
-   return false;
 }
