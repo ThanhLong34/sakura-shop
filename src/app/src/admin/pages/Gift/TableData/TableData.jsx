@@ -8,7 +8,6 @@ import TableSearch from "@/admin/components/TableSearch";
 import TableFilterPopup from "@/admin/components/TableFilterPopup";
 
 // Icons
-import HealthIcon from "@/assets/images/heart.png";
 import StarIcon from "@/assets/images/star.png";
 import DiamondIcon from "@/assets/images/diamond.png";
 
@@ -19,6 +18,7 @@ import { SplitButton } from "primereact/splitbutton";
 import { Paginator } from "primereact/paginator";
 import { ConfirmPopup, confirmPopup } from "primereact/confirmpopup";
 import { Toast } from "primereact/toast";
+import { Tag } from "primereact/tag";
 
 //? Variables
 const initialTableParams = {
@@ -56,10 +56,16 @@ function getIsShowSeverity(option) {
 }
 function getFillValue(option) {
 	switch (option) {
+		// allowToReceiveOnlineOptions
+		case "Có":
+			return 1;
+		case "Không":
+			return 0;
+		//isShowOptions
 		case "Hiển thị":
-			return true;
+			return 1;
 		case "Ẩn":
-			return false;
+			return 0;
 	}
 }
 
@@ -145,11 +151,10 @@ const TableData = forwardRef(({ onOpenDialog }, ref) => {
 		[fillValue]
 	);
 	const handleApplyFilter = ({ field }) => {
-		console.log(fillValue.current);
 		setTableParams((prevState) => ({
 			...prevState,
 			fillType: field,
-			fillValue: fillValue.current,
+			fillValue: getFillValue(fillValue.current),
 		}));
 	};
 	const handleClearFilter = () => {
@@ -213,8 +218,11 @@ const TableData = forwardRef(({ onOpenDialog }, ref) => {
 		);
 	};
 	const allowToReceiveOnlineDataTemplate = (rowData) => {
+		return <span>{rowData.allowToReceiveOnline ? "Có" : "Không"}</span>;
+	};
+	const isShowDataTemplate = (rowData) => {
 		return (
-			<span>{rowData.allowToReceiveOnline ? 'Có' : 'Không'}</span>
+			<Tag value={rowData.isShow ? "Hiển thị" : "Ẩn"} severity={getIsShowSeverity(rowData.isShow ? "Hiển thị" : "Ẩn")} />
 		);
 	};
 	const allowToReceiveOnlineFilterTemplate = (options) => {
@@ -337,8 +345,9 @@ const TableData = forwardRef(({ onOpenDialog }, ref) => {
 				<Column
 					field="isShow"
 					header="Hiển thị"
+					body={isShowDataTemplate}
 					filter
-					filterElement={allowToReceiveOnlineFilterTemplate}
+					filterElement={isShowFilterTemplate}
 					filterApply={filterApplyButtonTemplate}
 					filterClear={filterClearButtonTemplate}
 					showFilterMatchModes={false}
