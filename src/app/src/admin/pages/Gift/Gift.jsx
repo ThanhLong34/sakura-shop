@@ -4,7 +4,7 @@ import AddItemDialog from "./AddItemDialog";
 import UpdateItemDialog from "./UpdateItemDialog";
 import TableData from "./TableData";
 
-function Card() {
+function Gift() {
 	//? Refs
 	const tableDataRef = useRef(null);
 
@@ -53,4 +53,4 @@ function Card() {
 	);
 }
 
-export default Card;
+export default Gift;
