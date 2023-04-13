@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 13, 2023 at 09:59 AM
+-- Generation Time: Apr 13, 2023 at 10:51 AM
 -- Server version: 10.4.27-MariaDB
 -- PHP Version: 8.2.0
 
@@ -141,7 +141,7 @@ CREATE TABLE `gift` (
   `updatedAt` varchar(255) DEFAULT NULL,
   `deletedAt` varchar(255) DEFAULT NULL,
   `imageId` int(11) DEFAULT NULL,
-  `name` varchar(255) DEFAULT NULL,
+  `name` varchar(255) NOT NULL,
   `brand` varchar(255) DEFAULT NULL,
   `description` text DEFAULT NULL,
   `starCost` int(11) DEFAULT 0,
@@ -149,6 +149,15 @@ CREATE TABLE `gift` (
   `allowToReceiveOnline` tinyint(1) DEFAULT 0,
   `isShow` tinyint(1) DEFAULT 1
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `gift`
+--
+
+INSERT INTO `gift` (`id`, `createdAt`, `updatedAt`, `deletedAt`, `imageId`, `name`, `brand`, `description`, `starCost`, `diamondCost`, `allowToReceiveOnline`, `isShow`) VALUES
+(4, '15:18:59 13/04/2023', NULL, NULL, 27, 'Mứt dâu', '', '', 120, 0, 0, 0),
+(5, '15:20:11 13/04/2023', NULL, NULL, 28, 'Yomost cam', 'Yomost', 'Hương cam', 250, 0, 1, 1),
+(6, '15:20:35 13/04/2023', NULL, NULL, 29, 'Yomost việt quất', 'Yomost', 'Hương viết quất', 0, 3, 1, 1);
 
 -- --------------------------------------------------------
 
@@ -177,7 +186,10 @@ INSERT INTO `image` (`id`, `createdAt`, `updatedAt`, `deletedAt`, `link`, `filen
 (18, '10:07:41 13/04/2023', NULL, NULL, 'http://localhost/projects/sakura/upload/images/imagefile643771fdc31f7.png', 'imagefile643771fdc31f7.png', 38968),
 (24, '14:49:40 13/04/2023', NULL, NULL, 'http://localhost/projects/sakura/upload/images/imagefile6437b41407f43.png', 'imagefile6437b41407f43.png', 11548),
 (25, '14:50:01 13/04/2023', NULL, NULL, 'http://localhost/projects/sakura/upload/images/imagefile6437b42942b39.png', 'imagefile6437b42942b39.png', 11492),
-(26, '14:50:41 13/04/2023', NULL, NULL, 'http://localhost/projects/sakura/upload/images/imagefile6437b4514dca3.png', 'imagefile6437b4514dca3.png', 73137);
+(26, '14:50:41 13/04/2023', NULL, NULL, 'http://localhost/projects/sakura/upload/images/imagefile6437b4514dca3.png', 'imagefile6437b4514dca3.png', 73137),
+(27, '15:16:20 13/04/2023', NULL, NULL, 'http://localhost/projects/sakura/upload/images/imagefile6437ba54917bf.png', 'imagefile6437ba54917bf.png', 116809),
+(28, '15:20:03 13/04/2023', NULL, NULL, 'http://localhost/projects/sakura/upload/images/imagefile6437bb33a03a4.png', 'imagefile6437bb33a03a4.png', 228661),
+(29, '15:20:33 13/04/2023', NULL, NULL, 'http://localhost/projects/sakura/upload/images/imagefile6437bb513c765.png', 'imagefile6437bb513c765.png', 245066);
 
 -- --------------------------------------------------------
 
@@ -434,13 +446,13 @@ ALTER TABLE `card`
 -- AUTO_INCREMENT for table `gift`
 --
 ALTER TABLE `gift`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `image`
 --
 ALTER TABLE `image`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
 
 --
 -- AUTO_INCREMENT for table `level`

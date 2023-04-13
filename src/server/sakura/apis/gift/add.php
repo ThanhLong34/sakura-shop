@@ -55,7 +55,8 @@ function add($imageId, $name, $brand, $description, $starCost, $diamondCost, $al
    // Kiểm tra dữ liệu payload
    if (($imageId !== "" && !is_numeric($imageId)) || // option
       ($starCost !== "" && !is_numeric($starCost)) || // option
-      ($diamondCost !== "" && !is_numeric($diamondCost)) // option
+      ($diamondCost !== "" && !is_numeric($diamondCost)) || // option
+	  $name === "" // require
    ) {
       $response = new ResponseAPI(9, "Không đủ payload để thực hiện");
       $response->send();

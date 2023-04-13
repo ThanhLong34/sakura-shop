@@ -80,14 +80,10 @@ function update($id, $imageId, $name, $brand, $description, $starCost, $diamondC
    }
 
    // Cập nhật brand
-   if ($brand !== "") {
-      $mainQuery .= "," . "`brand` = '$brand'";
-   }
+   $mainQuery .= "," . "`brand` = '$brand'";
 
    // Cập nhật description
-   if ($description !== "") {
-      $mainQuery .= "," . "`description` = '$description'";
-   }
+   $mainQuery .= "," . "`description` = '$description'";
 
    // Cập nhật starCost
    if ($starCost !== "" && is_numeric($starCost)) {
