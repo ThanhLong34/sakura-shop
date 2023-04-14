@@ -301,14 +301,16 @@ function UpdateItemDialog({ visible, setVisible, item, onSubmitted }) {
 					<InputText ref={brandRef} className="w-full" placeholder="Nhập thương hiệu" />
 				</div>
 				<div className="mb-4">
-					<span className="block mb-2">Chủ đề *</span>
+					<span className="block mb-2">
+						Chủ đề <span className="text-red-500">*</span>
+					</span>
 					<Dropdown
 						value={selectedTopicId}
 						onChange={(e) => setSelectedTopicId(e.value)}
 						options={topics}
 						optionLabel="name"
 						optionValue="id"
-						placeholder="Chọn chủ đề (bắt buộc)"
+						placeholder="Chọn chủ đề *"
 						className="w-full"
 					/>
 				</div>
@@ -352,7 +354,9 @@ function UpdateItemDialog({ visible, setVisible, item, onSubmitted }) {
 					/>
 				</div>
 				<div className="mb-4">
-					<span className="block mb-2">Hình ảnh *</span>
+					<span className="block mb-2">
+						Hình ảnh <span className="text-red-500">*</span>
+					</span>
 
 					<Tooltip target=".custom-choose-btn" content="Chọn ảnh" position="bottom" />
 					<Tooltip target=".custom-upload-btn" content="Tải ảnh lên máy chủ" position="bottom" />

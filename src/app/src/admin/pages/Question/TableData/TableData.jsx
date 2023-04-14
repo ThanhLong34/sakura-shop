@@ -69,13 +69,13 @@ const TableData = forwardRef(({ onOpenDialog }, ref) => {
 	useEffect(() => {
 		(async () => {
 			const response = await questionApi.getAll(tableParams);
-			const data = response.data.map((card) => ({
-				...card,
-				id: +card.id,
-				healthReward: +card.healthReward,
-				starReward: +card.starReward,
-				diamondReward: +card.diamondReward,
-				rightAnswerId: +card.rightAnswerId,
+			const data = response.data.map((question) => ({
+				...question,
+				id: +question.id,
+				healthReward: +question.healthReward,
+				starReward: +question.starReward,
+				diamondReward: +question.diamondReward,
+				rightAnswerId: +question.rightAnswerId,
 			}));
 
 			setTableData(data);

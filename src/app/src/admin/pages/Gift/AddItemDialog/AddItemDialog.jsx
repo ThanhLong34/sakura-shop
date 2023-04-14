@@ -241,7 +241,9 @@ function AddItemDialog({ visible, setVisible, onSubmitted }) {
 			<Toast ref={toastRef} />
 			<Dialog header="THÊM PHẦN THƯỞNG" visible={visible} style={{ width: "620px" }} onHide={handleCloseDialog}>
 				<div className="mb-4">
-					<span className="block mb-2">Tên phần thưởng *</span>
+					<span className="block mb-2">
+						Tên phần thưởng <span className="text-red-500">*</span>
+					</span>
 					<InputText ref={nameRef} className="w-full" placeholder="Nhập tên phần thưởng *" />
 				</div>
 				<div className="mb-4">
@@ -293,7 +295,9 @@ function AddItemDialog({ visible, setVisible, onSubmitted }) {
 					/>
 				</div>
 				<div className="mb-4">
-					<span className="block mb-2">Hình ảnh *</span>
+					<span className="block mb-2">
+						Hình ảnh <span className="text-red-500">*</span>
+					</span>
 
 					<Tooltip target=".custom-choose-btn" content="Chọn ảnh" position="bottom" />
 					<Tooltip target=".custom-upload-btn" content="Tải ảnh lên máy chủ" position="bottom" />

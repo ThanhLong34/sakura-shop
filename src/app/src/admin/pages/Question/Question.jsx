@@ -46,7 +46,7 @@ function Question() {
 				item={selectedItem}
 				onSubmitted={handleRefreshPageTableData}
 			/>
-			<div className="Question">
+			<div className="card">
 				<TableData ref={tableDataRef} onOpenDialog={handleOpenDialog} />
 			</div>
 		</div>

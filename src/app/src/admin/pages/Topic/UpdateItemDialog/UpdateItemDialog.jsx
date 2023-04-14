@@ -107,7 +107,7 @@ function UpdateItemDialog({ visible, setVisible, item, onSubmitted }) {
 	const handleBindingData = () => {
 		if (item) {
 			nameRef.current.value = item.name;
-			
+
 			imageIdUploaded.current = item.imageId;
 			createImageFileFromUrl(item.imageUrl).then((file) => {
 				fileUploadRef.current.setFiles([file]);
@@ -244,11 +244,15 @@ function UpdateItemDialog({ visible, setVisible, item, onSubmitted }) {
 				onHide={handleCloseDialog}
 			>
 				<div className="mb-4">
-					<span className="block mb-2">Tên chủ đề *</span>
+					<span className="block mb-2">
+						Tên chủ đề <span className="text-red-500">*</span>
+					</span>
 					<InputText ref={nameRef} className="w-full" placeholder="Nhập tên chủ đề *" />
 				</div>
 				<div className="mb-4">
-					<span className="block mb-2">Hình ảnh *</span>
+					<span className="block mb-2">
+						Hình ảnh <span className="text-red-500">*</span>
+					</span>
 
 					<Tooltip target=".custom-choose-btn" content="Chọn ảnh" position="bottom" />
 					<Tooltip target=".custom-upload-btn" content="Tải ảnh lên máy chủ" position="bottom" />
