@@ -4,7 +4,7 @@ import classNames from "classnames/bind";
 import styles from "./AddItemDialog.module.scss";
 import { getInputNumberValue } from "@/helpers/converter";
 
-import cardApi from "@/apis/cardApi";
+import giftApi from "@/apis/giftApi";
 import imageFileApi from "@/apis/imageFileApi";
 
 // Icons
@@ -67,7 +67,7 @@ function AddItemDialog({ visible, setVisible, onSubmitted }) {
 	//? States
 	const [totalSize, setTotalSize] = useState(0);
 	const [allowToReceiveOnline, setAllowToReceiveOnline] = useState(false);
-	const [isShow, setIsShow] = useState(false);
+	const [isShow, setIsShow] = useState(true);
 
 	//? Handles
 	const handleSelectFile = (e) => {
@@ -121,24 +121,15 @@ function AddItemDialog({ visible, setVisible, onSubmitted }) {
 	};
 	const handleSubmit = () => {
 		const data = {
-			title: nameRef.current?.value.trim(),
+			name: nameRef.current?.value.trim(),
 			brand: brandRef.current?.value.trim(),
-			healthReward: getInputNumberValue(healthRewardRef.current.getInput().value),
-			starReward: getInputNumberValue(starCostRef.current.getInput().value),
-			diamondReward: getInputNumberValue(diamondCostRef.current.getInput().value),
-			topicId: selectedTopicId,
+			description: descriptionRef.current?.value.trim(),
+			allowToReceiveOnline,
+			isShow,
+			starCost: getInputNumberValue(starCostRef.current.getInput().value),
+			diamondCost: getInputNumberValue(diamondCostRef.current.getInput().value),
 			imageId: imageIdUploaded.current,
 		};
-
-		if (!data.topicId) {
-			toastRef.current.show({
-				severity: "warn",
-				summary: "Cảnh báo",
-				detail: "Bạn chưa chọn chủ đề (bắt buộc)",
-				life: 3000,
-			});
-			return;
-		}
 
 		if (!data.imageId) {
 			toastRef.current.show({
@@ -150,12 +141,12 @@ function AddItemDialog({ visible, setVisible, onSubmitted }) {
 			return;
 		}
 
-		cardApi.add(data).then((response) => {
+		giftApi.add(data).then((response) => {
 			if (response.code === 1) {
 				toastRef.current.show({
 					severity: "success",
 					summary: "Thành Công",
-					detail: "Tạo thẻ bài thành công",
+					detail: "Tạo phần thưởng thành công",
 					life: 3000,
 				});
 
