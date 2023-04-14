@@ -48,7 +48,7 @@ function updateEmail($id, $email)
    global $connect, $tableName;
 
    // Kiểm tra dữ liệu payload
-   if ($id === "" || !is_numeric($id) || $email === "") {
+   if (!is_numeric($id) || $email === "") {
       $response = new ResponseAPI(9, "Không đủ payload để thực hiện");
       $response->send();
       return;

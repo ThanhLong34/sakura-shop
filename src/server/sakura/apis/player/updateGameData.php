@@ -52,7 +52,7 @@ function updateGameData($id, $health, $star, $diamond, $experience, $level)
    global $connect, $tableName;
 
    // Kiểm tra dữ liệu payload
-   if ($id === "" || !is_numeric($id)) {
+   if (!is_numeric($id)) {
       $response = new ResponseAPI(9, "Không đủ payload để thực hiện");
       $response->send();
       return;
@@ -67,27 +67,27 @@ function updateGameData($id, $health, $star, $diamond, $experience, $level)
    $endQuery = "WHERE `id` = '$id' AND `deletedAt` IS NULL";
 
    // Cập nhật health
-   if ($health !== "" && is_numeric($health)) {
+   if (is_numeric($health)) {
       $mainQuery .= "," . "`health` = '$health'";
    }
 
    // Cập nhật star
-   if ($star !== "" && is_numeric($star)) {
+   if (is_numeric($star)) {
       $mainQuery .= "," . "`star` = '$star'";
    }
 
    // Cập nhật diamond
-   if ($diamond !== "" && is_numeric($diamond)) {
+   if (is_numeric($diamond)) {
       $mainQuery .= "," . "`diamond` = '$diamond'";
    }
 
    // Cập nhật experience
-   if ($experience !== "" && is_numeric($experience)) {
+   if (is_numeric($experience)) {
       $mainQuery .= "," . "`experience` = '$experience'";
    }
 
    // Cập nhật level
-   if ($level !== "" && is_numeric($level)) {
+   if (is_numeric($level)) {
       $mainQuery .= "," . "`level` = '$level'";
    }
 

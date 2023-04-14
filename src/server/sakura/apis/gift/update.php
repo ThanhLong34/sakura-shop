@@ -36,8 +36,8 @@ $brand = trim($data["brand"] ?? ""); // string
 $description = trim($data["description"] ?? ""); // string
 $starCost = $data["starCost"] ?? ""; // int
 $diamondCost = $data["diamondCost"] ?? ""; // int
-$allowToReceiveOnline = (bool)$data["allowToReceiveOnline"]; // bool
-$isShow = (bool)$data["isShow"]; // bool
+$allowToReceiveOnline = $data["allowToReceiveOnline"] ?? ""; // bool
+$isShow = $data["isShow"] ?? ""; // bool
 
 
 //? ====================
@@ -55,7 +55,7 @@ function update($id, $imageId, $name, $brand, $description, $starCost, $diamondC
    global $connect, $tableName;
 
    // Kiểm tra dữ liệu payload
-   if ($id === "" || !is_numeric($id)) {
+   if (!is_numeric($id)) {
       $response = new ResponseAPI(9, "Không đủ payload để thực hiện");
       $response->send();
       return;
@@ -70,7 +70,7 @@ function update($id, $imageId, $name, $brand, $description, $starCost, $diamondC
    $endQuery = "WHERE `id` = '$id' AND `deletedAt` IS NULL";
 
    // Cập nhật imageId
-   if ($imageId !== "" && is_numeric($imageId)) {
+   if (is_numeric($imageId)) {
       $mainQuery .= "," . "`imageId` = '$imageId'";
    }
 
@@ -86,12 +86,12 @@ function update($id, $imageId, $name, $brand, $description, $starCost, $diamondC
    $mainQuery .= "," . "`description` = '$description'";
 
    // Cập nhật starCost
-   if ($starCost !== "" && is_numeric($starCost)) {
+   if (is_numeric($starCost)) {
       $mainQuery .= "," . "`starCost` = '$starCost'";
    }
 
    // Cập nhật diamondCost
-   if ($diamondCost !== "" && is_numeric($diamondCost)) {
+   if (is_numeric($diamondCost)) {
       $mainQuery .= "," . "`diamondCost` = '$diamondCost'";
    }
 

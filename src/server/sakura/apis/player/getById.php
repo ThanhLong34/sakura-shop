@@ -46,7 +46,7 @@ function getById($id)
    global $connect, $tableName;
 
    // Kiểm tra dữ liệu payload
-   if ($id === "" || !is_numeric($id)) {
+   if (!is_numeric($id)) {
       $response = new ResponseAPI(9, "Không đủ payload để thực hiện");
       $response->send();
       return;

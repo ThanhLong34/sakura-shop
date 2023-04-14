@@ -13,7 +13,7 @@ require("../../classes/ResponseAPI.php");
 //? ====================
 header("Access-Control-Allow-Origin: " . ACCESS_CONTROL_ALLOW_ORIGIN);
 header("Access-Control-Allow-Headers: " . ACCESS_CONTROL_ALLOW_HEADERS);
-header("Access-Control-Allow-Methods: POST");
+header("Access-Control-Allow-Methods: GET");
 header("Content-Type: application/json");
 
 
@@ -26,50 +26,37 @@ if (!checkPermissionFunction()) exit;
 //? ====================
 //? PARAMETERS & PAYLOAD
 //? ====================
-$tableName = "gift";
-$data = getJSONPayloadRequest();
+$tableName = "answer";
 
-$imageId = $data["imageId"] ?? ""; // int
-$name = trim($data["name"] ?? ""); // string
-$brand = trim($data["brand"] ?? ""); // string
-$description = trim($data["description"] ?? ""); // string
-$starCost = $data["starCost"] ?? ""; // int
-$diamondCost = $data["diamondCost"] ?? ""; // int
-$allowToReceiveOnline = (bool)$data["allowToReceiveOnline"]; // bool
-$isShow = (bool)$data["isShow"]; // bool
+$questionId = $_GET["questionId"] ?? ""; // int
+
 
 //? ====================
 //? START
 //? ====================
-// ✅ Thêm record 
-add($imageId, $name, $brand, $description, $starCost, $diamondCost, $allowToReceiveOnline, $isShow);
+// ✅ Lấy records theo questionId
+getByQuestionId($questionId);
 
 
 //? ====================
 //? FUNCTIONS
 //? ====================
-function add($imageId, $name, $brand, $description, $starCost, $diamondCost, $allowToReceiveOnline, $isShow)
+function getByQuestionId($questionId)
 {
    global $connect, $tableName;
 
    // Kiểm tra dữ liệu payload
-   if (
-      ($imageId !== "" && !is_numeric($imageId)) || // option
-      ($starCost !== "" && !is_numeric($starCost)) || // option
-      ($diamondCost !== "" && !is_numeric($diamondCost)) || // option
-	   $name === "" // require
-   ) {
+   if (!is_numeric($questionId)) {
       $response = new ResponseAPI(9, "Không đủ payload để thực hiện");
       $response->send();
       return;
    }
 
-   // createdAt, updateAt, deletedAt
-   $createdAt = getCurrentDatetime();
-
    // Thực thi query
-   $query = "INSERT INTO `$tableName`(`createdAt`, `imageId`, `name`, `brand`, `description`, `starCost`, `diamondCost`, `allowToReceiveOnline`, `isShow`) 
-               VALUES('$createdAt', '$imageId', '$name', '$brand', '$description', '$starCost', '$diamondCost', '$allowToReceiveOnline', '$isShow')";
+   $query = "SELECT `$tableName`.*
+      FROM `$tableName`
+      WHERE `$tableName`.`deletedAt` IS NULL
+      AND `$tableName`.`questionId` = '$questionId'";
    performsQueryAndResponseToClient($query);
 
    // Đóng kết nối
@@ -84,7 +71,13 @@ function performsQueryAndResponseToClient($query)
    $result = mysqli_query($connect, $query);
 
    if ($result) {
-      $response = new ResponseAPI(1, "Thành công");
+      $list = [];
+
+      while ($obj = $result->fetch_object()) {
+         array_push($list, $obj);
+      }
+
+      $response = new ResponseAPI(1, "Thành công", $list, mysqli_num_rows($result));
       $response->send();
    } else {
       $response = new ResponseAPI(2, "Thất bại");

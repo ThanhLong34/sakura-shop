@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 13, 2023 at 10:51 AM
+-- Generation Time: Apr 14, 2023 at 03:54 PM
 -- Server version: 10.4.27-MariaDB
 -- PHP Version: 8.2.0
 
@@ -43,7 +43,7 @@ CREATE TABLE `admin` (
 --
 
 INSERT INTO `admin` (`id`, `createdAt`, `updatedAt`, `deletedAt`, `username`, `password`, `email`, `phoneNumber`) VALUES
-(1, '10:58:48 06/04/2023', '21:06:48 10/04/2023', NULL, 'dragondev0304', '4c79273eed3d095e55d1224f6524ae92', 'thanhlongedu0304@gmail.com', '0353292241'),
+(1, '10:58:48 06/04/2023', '14:34:38 14/04/2023', NULL, 'dragondev0304', '4c79273eed3d095e55d1224f6524ae92', 'thanhlongedu0304@gmail.com', '0353292241'),
 (4, '13:44:55 06/04/2023', '14:18:16 06/04/2023', NULL, 'tester01', '5a734ecdd0295bfc196a1d740bf3921f', 'thanhlongedu0304@gmail.com', '0123456789'),
 (5, '13:45:00 06/04/2023', '16:09:26 07/04/2023', NULL, 'tester02', '0192023a7bbd73250516f069df18b500', 'nguyenlong0304tester2@gmail.com', '0123456789');
 
@@ -94,9 +94,28 @@ CREATE TABLE `answer` (
   `createdAt` varchar(255) DEFAULT NULL,
   `updatedAt` varchar(255) DEFAULT NULL,
   `deletedAt` varchar(255) DEFAULT NULL,
-  `title` varchar(1000) NOT NULL,
+  `content` varchar(1000) NOT NULL,
+  `isRight` tinyint(1) NOT NULL DEFAULT 0,
   `questionId` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `answer`
+--
+
+INSERT INTO `answer` (`id`, `createdAt`, `updatedAt`, `deletedAt`, `content`, `isRight`, `questionId`) VALUES
+(21, '20:43:08 14/04/2023', NULL, NULL, '24 tháng', 1, 1),
+(22, '20:43:13 14/04/2023', NULL, NULL, '8 tháng', 0, 1),
+(23, '20:43:19 14/04/2023', NULL, NULL, '12 tháng', 0, 1),
+(24, '20:43:28 14/04/2023', NULL, NULL, '30 tháng', 0, 1),
+(25, '20:44:35 14/04/2023', NULL, NULL, '3 - 5 tháng', 0, 2),
+(26, '20:44:38 14/04/2023', NULL, NULL, '8 - 12 tháng', 1, 2),
+(27, '20:44:42 14/04/2023', NULL, NULL, '15 - 17 tháng', 0, 2),
+(28, '20:44:45 14/04/2023', NULL, NULL, '20 - 24 tháng', 0, 2),
+(33, '20:51:20 14/04/2023', NULL, NULL, 'L’Oreal', 1, 8),
+(34, '20:51:23 14/04/2023', NULL, NULL, 'Hermès', 0, 8),
+(35, '20:51:27 14/04/2023', NULL, NULL, 'Guerlain', 0, 8),
+(36, '20:51:30 14/04/2023', NULL, NULL, 'YSL', 0, 8);
 
 -- --------------------------------------------------------
 
@@ -126,8 +145,7 @@ INSERT INTO `card` (`id`, `createdAt`, `updatedAt`, `deletedAt`, `imageId`, `tit
 (1, '09:59:46 13/04/2023', NULL, NULL, 16, 'Sức khỏe', NULL, 3, 0, 0, 1),
 (3, '10:13:28 13/04/2023', '14:49:40 13/04/2023', NULL, 24, 'Sao', '', 0, 3, 0, 1),
 (5, '14:09:42 13/04/2023', '14:50:03 13/04/2023', NULL, 25, 'Kim cương', '', 0, 0, 1, 1),
-(6, '14:10:07 13/04/2023', '14:47:48 13/04/2023', '14:48:24 13/04/2023', 23, '', '', 1, 4, 4, 4),
-(8, '14:51:57 13/04/2023', '14:57:27 13/04/2023', NULL, 26, '', '', 0, 0, 0, 3);
+(8, '14:51:57 13/04/2023', '12:16:19 14/04/2023', NULL, 45, 'Son abc', 'Son Sakura', 0, 0, 0, 3);
 
 -- --------------------------------------------------------
 
@@ -157,7 +175,9 @@ CREATE TABLE `gift` (
 INSERT INTO `gift` (`id`, `createdAt`, `updatedAt`, `deletedAt`, `imageId`, `name`, `brand`, `description`, `starCost`, `diamondCost`, `allowToReceiveOnline`, `isShow`) VALUES
 (4, '15:18:59 13/04/2023', NULL, NULL, 27, 'Mứt dâu', '', '', 120, 0, 0, 0),
 (5, '15:20:11 13/04/2023', NULL, NULL, 28, 'Yomost cam', 'Yomost', 'Hương cam', 250, 0, 1, 1),
-(6, '15:20:35 13/04/2023', NULL, NULL, 29, 'Yomost việt quất', 'Yomost', 'Hương viết quất', 0, 3, 1, 1);
+(6, '15:20:35 13/04/2023', NULL, NULL, 29, 'Yomost việt quất', 'Yomost', 'Hương viết quất', 0, 3, 1, 1),
+(7, '11:17:32 14/04/2023', '12:12:52 14/04/2023', NULL, 42, 'Yomost lựu đỏ', 'Yomost', 'Hương lựu đỏ', 300, 0, 1, 1),
+(9, '14:39:53 14/04/2023', '14:52:35 14/04/2023', NULL, 53, 'Yomost dâu', 'Yomost', 'Hương dâu tây', 202, 5, 1, 1);
 
 -- --------------------------------------------------------
 
@@ -186,10 +206,12 @@ INSERT INTO `image` (`id`, `createdAt`, `updatedAt`, `deletedAt`, `link`, `filen
 (18, '10:07:41 13/04/2023', NULL, NULL, 'http://localhost/projects/sakura/upload/images/imagefile643771fdc31f7.png', 'imagefile643771fdc31f7.png', 38968),
 (24, '14:49:40 13/04/2023', NULL, NULL, 'http://localhost/projects/sakura/upload/images/imagefile6437b41407f43.png', 'imagefile6437b41407f43.png', 11548),
 (25, '14:50:01 13/04/2023', NULL, NULL, 'http://localhost/projects/sakura/upload/images/imagefile6437b42942b39.png', 'imagefile6437b42942b39.png', 11492),
-(26, '14:50:41 13/04/2023', NULL, NULL, 'http://localhost/projects/sakura/upload/images/imagefile6437b4514dca3.png', 'imagefile6437b4514dca3.png', 73137),
 (27, '15:16:20 13/04/2023', NULL, NULL, 'http://localhost/projects/sakura/upload/images/imagefile6437ba54917bf.png', 'imagefile6437ba54917bf.png', 116809),
 (28, '15:20:03 13/04/2023', NULL, NULL, 'http://localhost/projects/sakura/upload/images/imagefile6437bb33a03a4.png', 'imagefile6437bb33a03a4.png', 228661),
-(29, '15:20:33 13/04/2023', NULL, NULL, 'http://localhost/projects/sakura/upload/images/imagefile6437bb513c765.png', 'imagefile6437bb513c765.png', 245066);
+(29, '15:20:33 13/04/2023', NULL, NULL, 'http://localhost/projects/sakura/upload/images/imagefile6437bb513c765.png', 'imagefile6437bb513c765.png', 245066),
+(42, '12:12:51 14/04/2023', NULL, NULL, 'http://localhost/projects/sakura/upload/images/imagefile6438e0d374b91.png', 'imagefile6438e0d374b91.png', 242887),
+(45, '12:15:54 14/04/2023', NULL, NULL, 'http://localhost/projects/sakura/upload/images/imagefile6438e18a02efb.png', 'imagefile6438e18a02efb.png', 73137),
+(53, '14:41:02 14/04/2023', NULL, NULL, 'http://localhost/projects/sakura/upload/images/imagefile6439038e3abea.png', 'imagefile6439038e3abea.png', 237473);
 
 -- --------------------------------------------------------
 
@@ -214,7 +236,7 @@ CREATE TABLE `level` (
 --
 
 INSERT INTO `level` (`id`, `createdAt`, `updatedAt`, `deletedAt`, `levelNumber`, `experienceRequired`, `healthReward`, `starReward`, `diamondReward`) VALUES
-(1, '21:13:00 07/04/2023', NULL, NULL, 2, 120, 0, 5, 0),
+(1, '21:13:00 07/04/2023', '14:36:52 14/04/2023', NULL, 2, 122, 1, 3, 1),
 (2, '21:13:31 07/04/2023', NULL, NULL, 3, 250, 0, 10, 0),
 (3, '21:13:53 07/04/2023', NULL, NULL, 4, 350, 0, 12, 0),
 (4, '21:14:03 07/04/2023', NULL, NULL, 5, 500, 0, 15, 0),
@@ -226,7 +248,9 @@ INSERT INTO `level` (`id`, `createdAt`, `updatedAt`, `deletedAt`, `levelNumber`,
 (11, '21:21:39 10/04/2023', '10:24:05 11/04/2023', NULL, 11, 1235, 3, 2, 3),
 (12, '21:21:51 10/04/2023', NULL, NULL, 12, 1300, 2, 1, 2),
 (13, '21:22:01 10/04/2023', NULL, NULL, 13, 1350, 2, 1, 2),
-(14, '10:25:05 11/04/2023', '17:48:19 12/04/2023', NULL, 14, 1450, 3, 2, 1);
+(14, '10:25:05 11/04/2023', '17:48:19 12/04/2023', NULL, 14, 1450, 3, 2, 1),
+(15, '14:37:07 14/04/2023', '14:37:15 14/04/2023', NULL, 15, 1550, 1, 1, 1),
+(16, '14:37:23 14/04/2023', NULL, NULL, 16, 1680, 2, 1, 2);
 
 -- --------------------------------------------------------
 
@@ -273,12 +297,20 @@ CREATE TABLE `question` (
   `createdAt` varchar(255) DEFAULT NULL,
   `updatedAt` varchar(255) DEFAULT NULL,
   `deletedAt` varchar(255) DEFAULT NULL,
-  `title` varchar(1000) NOT NULL,
-  `rightAnswerId` int(11) DEFAULT NULL,
+  `content` varchar(1000) NOT NULL,
   `healthReward` int(11) DEFAULT 0,
   `starReward` int(11) DEFAULT 0,
   `diamondReward` int(11) DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `question`
+--
+
+INSERT INTO `question` (`id`, `createdAt`, `updatedAt`, `deletedAt`, `content`, `healthReward`, `starReward`, `diamondReward`) VALUES
+(1, '13:45:10 14/04/2023', '20:42:14 14/04/2023', NULL, 'Sau khi mở nắp thì son dạng thỏi có thể sử dụng an toàn trong khoảng thời gian bao lâu?', 2, 0, 0),
+(2, '13:46:07 14/04/2023', '20:44:16 14/04/2023', NULL, 'Vậy còn đối với son dạng kem, dạng nước thì bạn nên dùng trong bao lâu sau khi mở nắp?', 3, 0, 0),
+(8, '20:50:53 14/04/2023', NULL, NULL, 'Đố bạn biết, thỏi son đắt nhất thế giới hiện tại đến từ thương hiệu nào?', 3, 2, 0);
 
 -- --------------------------------------------------------
 
@@ -390,8 +422,7 @@ ALTER TABLE `player`
 -- Indexes for table `question`
 --
 ALTER TABLE `question`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `rightAnswerId` (`rightAnswerId`);
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `rewardhistory`
@@ -434,31 +465,31 @@ ALTER TABLE `advertisementtype`
 -- AUTO_INCREMENT for table `answer`
 --
 ALTER TABLE `answer`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=37;
 
 --
 -- AUTO_INCREMENT for table `card`
 --
 ALTER TABLE `card`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `gift`
 --
 ALTER TABLE `gift`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `image`
 --
 ALTER TABLE `image`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=60;
 
 --
 -- AUTO_INCREMENT for table `level`
 --
 ALTER TABLE `level`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- AUTO_INCREMENT for table `player`
@@ -470,7 +501,7 @@ ALTER TABLE `player`
 -- AUTO_INCREMENT for table `question`
 --
 ALTER TABLE `question`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `rewardhistory`
@@ -482,7 +513,7 @@ ALTER TABLE `rewardhistory`
 -- AUTO_INCREMENT for table `topic`
 --
 ALTER TABLE `topic`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- Constraints for dumped tables
@@ -505,12 +536,6 @@ ALTER TABLE `answer`
 --
 ALTER TABLE `card`
   ADD CONSTRAINT `card_ibfk_1` FOREIGN KEY (`topicId`) REFERENCES `topic` (`id`);
-
---
--- Constraints for table `question`
---
-ALTER TABLE `question`
-  ADD CONSTRAINT `question_ibfk_1` FOREIGN KEY (`rightAnswerId`) REFERENCES `answer` (`id`);
 
 --
 -- Constraints for table `rewardhistory`

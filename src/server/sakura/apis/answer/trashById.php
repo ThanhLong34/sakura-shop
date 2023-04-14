@@ -13,7 +13,7 @@ require("../../classes/ResponseAPI.php");
 //? ====================
 header("Access-Control-Allow-Origin: " . ACCESS_CONTROL_ALLOW_ORIGIN);
 header("Access-Control-Allow-Headers: " . ACCESS_CONTROL_ALLOW_HEADERS);
-header("Access-Control-Allow-Methods: POST");
+header("Access-Control-Allow-Methods: PUT");
 header("Content-Type: application/json");
 
 
@@ -26,50 +26,43 @@ if (!checkPermissionFunction()) exit;
 //? ====================
 //? PARAMETERS & PAYLOAD
 //? ====================
-$tableName = "gift";
+$tableName = "answer";
 $data = getJSONPayloadRequest();
 
-$imageId = $data["imageId"] ?? ""; // int
-$name = trim($data["name"] ?? ""); // string
-$brand = trim($data["brand"] ?? ""); // string
-$description = trim($data["description"] ?? ""); // string
-$starCost = $data["starCost"] ?? ""; // int
-$diamondCost = $data["diamondCost"] ?? ""; // int
-$allowToReceiveOnline = (bool)$data["allowToReceiveOnline"]; // bool
-$isShow = (bool)$data["isShow"]; // bool
+$id = $data["id"] ?? ""; // int
+
 
 //? ====================
 //? START
 //? ====================
-// ✅ Thêm record 
-add($imageId, $name, $brand, $description, $starCost, $diamondCost, $allowToReceiveOnline, $isShow);
+// ✅ Chuyển record vào thùng rác
+trashById($id);
 
 
 //? ====================
 //? FUNCTIONS
 //? ====================
-function add($imageId, $name, $brand, $description, $starCost, $diamondCost, $allowToReceiveOnline, $isShow)
+function trashById($id)
 {
    global $connect, $tableName;
 
    // Kiểm tra dữ liệu payload
-   if (
-      ($imageId !== "" && !is_numeric($imageId)) || // option
-      ($starCost !== "" && !is_numeric($starCost)) || // option
-      ($diamondCost !== "" && !is_numeric($diamondCost)) || // option
-	   $name === "" // require
-   ) {
+   if (!is_numeric($id)) {
       $response = new ResponseAPI(9, "Không đủ payload để thực hiện");
       $response->send();
       return;
    }
 
    // createdAt, updateAt, deletedAt
-   $createdAt = getCurrentDatetime();
+   $deletedAt = getCurrentDatetime();
+
+   // Các chuỗi truy vấn
+   $baseQuery = "UPDATE `$tableName` SET `deletedAt` = '$deletedAt'";
+   $mainQuery = "";
+   $endQuery = "WHERE `id` = '$id' AND `deletedAt` IS NULL";
 
    // Thực thi query
-   $query = "INSERT INTO `$tableName`(`createdAt`, `imageId`, `name`, `brand`, `description`, `starCost`, `diamondCost`, `allowToReceiveOnline`, `isShow`) 
-               VALUES('$createdAt', '$imageId', '$name', '$brand', '$description', '$starCost', '$diamondCost', '$allowToReceiveOnline', '$isShow')";
+   $query = $baseQuery . " " . $mainQuery . " " . $endQuery;
    performsQueryAndResponseToClient($query);
 
    // Đóng kết nối

@@ -47,7 +47,7 @@ function trashByTopicId($topicId)
    global $connect, $tableName;
 
    // Kiểm tra dữ liệu payload
-   if ($topicId === "" || !is_numeric($topicId)) {
+   if (!is_numeric($topicId)) {
       $response = new ResponseAPI(9, "Không đủ payload để thực hiện");
       $response->send();
       return;

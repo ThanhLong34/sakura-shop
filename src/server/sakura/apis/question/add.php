@@ -26,39 +26,31 @@ if (!checkPermissionFunction()) exit;
 //? ====================
 //? PARAMETERS & PAYLOAD
 //? ====================
-$tableName = "gift";
+$tableName = "question";
 $data = getJSONPayloadRequest();
 
-$imageId = $data["imageId"] ?? ""; // int
-$name = trim($data["name"] ?? ""); // string
-$brand = trim($data["brand"] ?? ""); // string
-$description = trim($data["description"] ?? ""); // string
-$starCost = $data["starCost"] ?? ""; // int
-$diamondCost = $data["diamondCost"] ?? ""; // int
-$allowToReceiveOnline = (bool)$data["allowToReceiveOnline"]; // bool
-$isShow = (bool)$data["isShow"]; // bool
+$content = trim($data["content"] ?? ""); // string
+$healthReward = $data["healthReward"] ?? ""; // int
+$starReward = $data["starReward"] ?? ""; // int
+$diamondReward = $data["diamondReward"] ?? ""; // int
+
 
 //? ====================
 //? START
 //? ====================
 // ✅ Thêm record 
-add($imageId, $name, $brand, $description, $starCost, $diamondCost, $allowToReceiveOnline, $isShow);
+add($content, $healthReward, $starReward, $diamondReward);
 
 
 //? ====================
 //? FUNCTIONS
 //? ====================
-function add($imageId, $name, $brand, $description, $starCost, $diamondCost, $allowToReceiveOnline, $isShow)
+function add($content, $healthReward, $starReward, $diamondReward)
 {
    global $connect, $tableName;
 
    // Kiểm tra dữ liệu payload
-   if (
-      ($imageId !== "" && !is_numeric($imageId)) || // option
-      ($starCost !== "" && !is_numeric($starCost)) || // option
-      ($diamondCost !== "" && !is_numeric($diamondCost)) || // option
-	   $name === "" // require
-   ) {
+   if ($content === "") {
       $response = new ResponseAPI(9, "Không đủ payload để thực hiện");
       $response->send();
       return;
@@ -68,8 +60,8 @@ function add($imageId, $name, $brand, $description, $starCost, $diamondCost, $al
    $createdAt = getCurrentDatetime();
 
    // Thực thi query
-   $query = "INSERT INTO `$tableName`(`createdAt`, `imageId`, `name`, `brand`, `description`, `starCost`, `diamondCost`, `allowToReceiveOnline`, `isShow`) 
-               VALUES('$createdAt', '$imageId', '$name', '$brand', '$description', '$starCost', '$diamondCost', '$allowToReceiveOnline', '$isShow')";
+   $query = "INSERT INTO `$tableName`(`createdAt`, `content`, `healthReward`, `starReward`, `diamondReward`) 
+               VALUES('$createdAt', '$content', '$healthReward', '$starReward', '$diamondReward')";
    performsQueryAndResponseToClient($query);
 
    // Đóng kết nối

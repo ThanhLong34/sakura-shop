@@ -48,7 +48,7 @@ function updatePassword($id, $newPassword)
    global $connect, $tableName;
 
    // Kiểm tra dữ liệu payload
-   if ($id === "" || !is_numeric($id) || $newPassword === "") {
+   if (!is_numeric($id) || $newPassword === "") {
       $response = new ResponseAPI(9, "Không đủ payload để thực hiện");
       $response->send();
       return;

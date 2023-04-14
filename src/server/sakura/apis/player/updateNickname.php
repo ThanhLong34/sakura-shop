@@ -48,7 +48,7 @@ function updatePhoneNumber($id, $nickname)
    global $connect, $tableName;
 
    // Kiểm tra dữ liệu payload
-   if ($id === "" || !is_numeric($id) || $nickname === "") {
+   if (!is_numeric($id) || $nickname === "") {
       $response = new ResponseAPI(9, "Không đủ payload để thực hiện");
       $response->send();
       return;

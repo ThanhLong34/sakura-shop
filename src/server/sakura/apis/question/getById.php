@@ -13,7 +13,7 @@ require("../../classes/ResponseAPI.php");
 //? ====================
 header("Access-Control-Allow-Origin: " . ACCESS_CONTROL_ALLOW_ORIGIN);
 header("Access-Control-Allow-Headers: " . ACCESS_CONTROL_ALLOW_HEADERS);
-header("Access-Control-Allow-Methods: PUT");
+header("Access-Control-Allow-Methods: GET");
 header("Content-Type: application/json");
 
 
@@ -26,51 +26,38 @@ if (!checkPermissionFunction()) exit;
 //? ====================
 //? PARAMETERS & PAYLOAD
 //? ====================
-$tableName = "player";
-$data = getJSONPayloadRequest();
+$tableName = "question";
 
-$id = $data["id"] ?? ""; // int
-$email = trim($data["email"] ?? ""); // string
+$id = $_GET["id"] ?? ""; // int
 
 
 //? ====================
 //? START
 //? ====================
-// ✅ Cập nhật email
-updateEmail($id, $email);
+// ✅ Lấy record theo id
+getById($id);
 
 
 //? ====================
 //? FUNCTIONS
 //? ====================
-function updateEmail($id, $email)
+function getById($id)
 {
    global $connect, $tableName;
 
    // Kiểm tra dữ liệu payload
-   if (!is_numeric($id) || $email === "") {
+   if (!is_numeric($id)) {
       $response = new ResponseAPI(9, "Không đủ payload để thực hiện");
       $response->send();
       return;
    }
 
-   // Kiểm tra định dạng email
-   if (!validateEmail($email)) {
-      $response = new ResponseAPI(3, "Không đúng định dạng email");
-      $response->send();
-      return;
-   }
-
-   // createdAt, updateAt, deletedAt
-   $updatedAt = getCurrentDatetime();
-
-   // Các chuỗi truy vấn
-   $baseQuery = "UPDATE `$tableName` SET `updatedAt` = '$updatedAt'";
-   $mainQuery = "," . "`email` = '$email'";
-   $endQuery = "WHERE `id` = '$id' AND `deletedAt` IS NULL";
-
    // Thực thi query
-   $query = $baseQuery . " " . $mainQuery . " " . $endQuery;
+   $query = "SELECT `$tableName`.*
+      FROM `$tableName`
+      WHERE `$tableName`.`deletedAt` IS NULL
+      AND `$tableName`.`id` = '$id'
+      LIMIT 1";
    performsQueryAndResponseToClient($query);
 
    // Đóng kết nối
@@ -85,10 +72,38 @@ function performsQueryAndResponseToClient($query)
    $result = mysqli_query($connect, $query);
 
    if ($result) {
-      $response = new ResponseAPI(1, "Thành công");
-      $response->send();
+      $item = $result->fetch_object();
+      if ($item != null) {
+         // Lấy danh sách câu trả lời
+         $item->answers = getAnswersByQuestionId($item->id);
+
+         $response = new ResponseAPI(1, "Thành công", $item, 1);
+         $response->send();
+      } else {
+         $response = new ResponseAPI(2, "Không tìm thấy");
+         $response->send();
+      }
    } else {
-      $response = new ResponseAPI(2, "Thất bại");
+      $response = new ResponseAPI(3, "Thất bại");
       $response->send();
    }
+}
+
+// Lấy danh sách câu trả lời
+function getAnswersByQuestionId($questionId)
+{
+   global $connect;
+
+   $query = "SELECT * FROM `answer` WHERE `questionId` = '$questionId'";
+   $result = mysqli_query($connect, $query);
+
+   $list = [];
+
+   if ($result) {
+      while ($obj = $result->fetch_object()) {
+         array_push($list, $obj);
+      }
+   }
+
+   return $list;
 }

@@ -52,7 +52,7 @@ function update($id, $levelNumber, $experienceRequired, $healthReward, $starRewa
    global $connect, $tableName;
 
    // Kiểm tra dữ liệu payload
-   if ($id === "" || !is_numeric($id)) {
+   if (!is_numeric($id)) {
       $response = new ResponseAPI(9, "Không đủ payload để thực hiện");
       $response->send();
       return;
@@ -67,7 +67,7 @@ function update($id, $levelNumber, $experienceRequired, $healthReward, $starRewa
    $endQuery = "WHERE `id` = '$id' AND `deletedAt` IS NULL";
 
    // Cập nhật levelNumber
-   if ($levelNumber !== "" && is_numeric($levelNumber)) {
+   if (is_numeric($levelNumber)) {
 
       // Kiểm tra item tồn tại trong CSDL theo các tiêu chí
       if (checkItemExist($levelNumber)) {
@@ -80,22 +80,22 @@ function update($id, $levelNumber, $experienceRequired, $healthReward, $starRewa
    }
 
    // Cập nhật experienceRequired
-   if ($experienceRequired !== "" && is_numeric($experienceRequired)) {
+   if (is_numeric($experienceRequired)) {
       $mainQuery .= "," . "`experienceRequired` = '$experienceRequired'";
    }
 
    // Cập nhật healthReward
-   if ($healthReward !== "" && is_numeric($healthReward)) {
+   if (is_numeric($healthReward)) {
       $mainQuery .= "," . "`healthReward` = '$healthReward'";
    }
 
    // Cập nhật starReward
-   if ($starReward !== "" && is_numeric($starReward)) {
+   if (is_numeric($starReward)) {
       $mainQuery .= "," . "`starReward` = '$starReward'";
    }
 
    // Cập nhật diamondReward
-   if ($diamondReward !== "" && is_numeric($diamondReward)) {
+   if (is_numeric($diamondReward)) {
       $mainQuery .= "," . "`diamondReward` = '$diamondReward'";
    }
 

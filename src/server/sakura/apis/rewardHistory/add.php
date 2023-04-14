@@ -48,10 +48,7 @@ function add($giftId, $playerId)
    global $connect, $tableName;
 
    // Kiểm tra dữ liệu payload
-   if (
-      $giftId === "" || !is_numeric($giftId) || 
-      $playerId === "" || !is_numeric($playerId)
-   ) {
+   if (!is_numeric($giftId) || !is_numeric($playerId)) {
       $response = new ResponseAPI(9, "Không đủ payload để thực hiện");
       $response->send();
       return;

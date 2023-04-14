@@ -57,7 +57,7 @@ function add($imageId, $title, $brand, $healthReward, $starReward, $diamondRewar
       ($healthReward !== "" && !is_numeric($healthReward)) || // option
       ($starReward !== "" && !is_numeric($starReward)) || // option
       ($diamondReward !== "" && !is_numeric($diamondReward)) || // option
-      $topicId === "" || !is_numeric($topicId) // require
+      !is_numeric($topicId) // require
    ) {
       $response = new ResponseAPI(9, "Không đủ payload để thực hiện");
       $response->send();

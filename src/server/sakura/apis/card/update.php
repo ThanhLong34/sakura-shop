@@ -54,7 +54,7 @@ function update($id, $imageId, $title, $brand, $healthReward, $starReward, $diam
    global $connect, $tableName;
 
    // Kiểm tra dữ liệu payload
-   if ($id === "" || !is_numeric($id)) {
+   if (!is_numeric($id)) {
       $response = new ResponseAPI(9, "Không đủ payload để thực hiện");
       $response->send();
       return;
@@ -69,7 +69,7 @@ function update($id, $imageId, $title, $brand, $healthReward, $starReward, $diam
    $endQuery = "WHERE `id` = '$id' AND `deletedAt` IS NULL";
 
    // Cập nhật imageId
-   if ($imageId !== "" && is_numeric($imageId)) {
+   if (is_numeric($imageId)) {
       $mainQuery .= "," . "`imageId` = '$imageId'";
    }
 
@@ -80,22 +80,22 @@ function update($id, $imageId, $title, $brand, $healthReward, $starReward, $diam
    $mainQuery .= "," . "`brand` = '$brand'";
 
    // Cập nhật healthReward
-   if ($healthReward !== "" && is_numeric($healthReward)) {
+   if (is_numeric($healthReward)) {
       $mainQuery .= "," . "`healthReward` = '$healthReward'";
    }
 
    // Cập nhật starReward
-   if ($starReward !== "" && is_numeric($starReward)) {
+   if (is_numeric($starReward)) {
       $mainQuery .= "," . "`starReward` = '$starReward'";
    }
 
    // Cập nhật diamondReward
-   if ($diamondReward !== "" && is_numeric($diamondReward)) {
+   if (is_numeric($diamondReward)) {
       $mainQuery .= "," . "`diamondReward` = '$diamondReward'";
    }
 
    // Cập nhật topicId
-   if ($topicId !== "" && is_numeric($topicId)) {
+   if (is_numeric($topicId)) {
       $mainQuery .= "," . "`topicId` = '$topicId'";
    }
 

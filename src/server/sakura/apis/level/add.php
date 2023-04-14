@@ -52,11 +52,11 @@ function add($levelNumber, $experienceRequired, $healthReward, $starReward, $dia
 
    // Kiểm tra dữ liệu payload
    if (
-      $levelNumber === "" || !is_numeric($levelNumber) || 
-      $experienceRequired === "" || !is_numeric($experienceRequired) ||
-      $healthReward !== "" && !is_numeric($healthReward) ||
-      $starReward !== "" && !is_numeric($starReward) ||
-      $diamondReward !== "" && !is_numeric($diamondReward)
+      !is_numeric($levelNumber) || 
+      !is_numeric($experienceRequired) ||
+      ($healthReward !== "" && !is_numeric($healthReward)) ||
+      ($starReward !== "" && !is_numeric($starReward)) ||
+      ($diamondReward !== "" && !is_numeric($diamondReward))
    ) {
       $response = new ResponseAPI(9, "Không đủ payload để thực hiện");
       $response->send();

@@ -49,7 +49,7 @@ function update($id, $imageId, $name)
    global $connect, $tableName;
 
    // Kiểm tra dữ liệu payload
-   if ($id === "" || !is_numeric($id)) {
+   if (!is_numeric($id)) {
       $response = new ResponseAPI(9, "Không đủ payload để thực hiện");
       $response->send();
       return;
@@ -64,7 +64,7 @@ function update($id, $imageId, $name)
    $endQuery = "WHERE `id` = '$id' AND `deletedAt` IS NULL";
 
    // Cập nhật imageId
-   if ($imageId !== "" && is_numeric($imageId)) {
+   if (is_numeric($imageId)) {
       $mainQuery .= "," . "`imageId` = '$imageId'";
    }
 
