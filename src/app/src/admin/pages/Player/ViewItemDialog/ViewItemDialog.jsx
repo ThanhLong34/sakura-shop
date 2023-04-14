@@ -34,10 +34,6 @@ ViewItemDialog.defaultProps = {
 	item: {},
 };
 
-// setVisible là 1 SetStateAction
-// visible & item là các State
-// Nên không cần dùng memo, useCallback, useMemo
-
 function ViewItemDialog({ visible, setVisible, item }) {
 	let status;
 	if (item) {

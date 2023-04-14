@@ -24,10 +24,6 @@ AddItemDialog.propTypes = {
 	setVisible: PropTypes.func.isRequired,
 };
 
-// setVisible là 1 SetStateAction
-// visible & item là các State
-// Nên không cần dùng memo, useCallback, useMemo
-
 function AddItemDialog({ visible, setVisible, onSubmitted }) {
 	//? Refs
 	const toastRef = useRef(null);

@@ -29,10 +29,6 @@ UpdateItemDialog.defaultProps = {
 	item: {},
 };
 
-// setVisible là 1 SetStateAction
-// visible & item là các State
-// Nên không cần dùng memo, useCallback, useMemo
-
 function UpdateItemDialog({ visible, setVisible, item, onSubmitted }) {
 	//? Refs
 	const toastRef = useRef(null);
