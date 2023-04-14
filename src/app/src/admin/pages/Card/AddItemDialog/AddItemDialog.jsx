@@ -46,6 +46,11 @@ const cancelOptions = {
 AddItemDialog.propTypes = {
 	visible: PropTypes.bool.isRequired,
 	setVisible: PropTypes.func.isRequired,
+	onSubmitted: PropTypes.func,
+};
+
+AddItemDialog.defaultProps = {
+	onSubmitted: () => {},
 };
 
 function AddItemDialog({ visible, setVisible, onSubmitted }) {

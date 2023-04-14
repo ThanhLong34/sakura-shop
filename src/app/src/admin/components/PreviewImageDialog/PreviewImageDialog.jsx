@@ -5,12 +5,8 @@ import { Dialog } from "primereact/dialog";
 PreviewImageDialog.propTypes = {
 	visible: PropTypes.bool.isRequired,
 	setVisible: PropTypes.func.isRequired,
-	item: PropTypes.string,
+	url: PropTypes.string,
 };
-
-// setVisible là 1 SetStateAction
-// visible & url là các State
-// Nên không cần dùng memo, useCallback, useMemo
 
 function PreviewImageDialog({ visible, setVisible, url }) {
 	return (

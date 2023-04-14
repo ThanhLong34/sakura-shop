@@ -23,10 +23,12 @@ UpdateItemDialog.propTypes = {
 	visible: PropTypes.bool.isRequired,
 	setVisible: PropTypes.func.isRequired,
 	item: PropTypes.object,
+	onSubmitted: PropTypes.func,
 };
 
 UpdateItemDialog.defaultProps = {
 	item: {},
+	onSubmitted: () => {},
 };
 
 function UpdateItemDialog({ visible, setVisible, item, onSubmitted }) {
