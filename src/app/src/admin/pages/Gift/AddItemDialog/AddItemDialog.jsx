@@ -8,7 +8,6 @@ import cardApi from "@/apis/cardApi";
 import imageFileApi from "@/apis/imageFileApi";
 
 // Icons
-import HealthIcon from "@/assets/images/heart.png";
 import StarIcon from "@/assets/images/star.png";
 import DiamondIcon from "@/assets/images/diamond.png";
 
@@ -21,8 +20,8 @@ import { FileUpload } from "primereact/fileupload";
 import { ProgressBar } from "primereact/progressbar";
 import { Tooltip } from "primereact/tooltip";
 import { Tag } from "primereact/tag";
-import { Dropdown } from "primereact/dropdown";
 import { InputTextarea } from "primereact/inputtextarea";
+import { InputSwitch } from "primereact/inputswitch";
 
 const cx = classNames.bind(styles);
 
@@ -61,13 +60,14 @@ function AddItemDialog({ visible, setVisible, onSubmitted }) {
 	const nameRef = useRef(null);
 	const brandRef = useRef(null);
 	const descriptionRef = useRef(null);
-	const healthRewardRef = useRef(null);
-	const starRewardRef = useRef(null);
-	const diamondRewardRef = useRef(null);
+	const starCostRef = useRef(null);
+	const diamondCostRef = useRef(null);
 	const fileUploadRef = useRef(null);
 
 	//? States
 	const [totalSize, setTotalSize] = useState(0);
+	const [allowToReceiveOnline, setAllowToReceiveOnline] = useState(false);
+	const [isShow, setIsShow] = useState(false);
 
 	//? Handles
 	const handleSelectFile = (e) => {
@@ -124,8 +124,8 @@ function AddItemDialog({ visible, setVisible, onSubmitted }) {
 			title: nameRef.current?.value.trim(),
 			brand: brandRef.current?.value.trim(),
 			healthReward: getInputNumberValue(healthRewardRef.current.getInput().value),
-			starReward: getInputNumberValue(starRewardRef.current.getInput().value),
-			diamondReward: getInputNumberValue(diamondRewardRef.current.getInput().value),
+			starReward: getInputNumberValue(starCostRef.current.getInput().value),
+			diamondReward: getInputNumberValue(diamondCostRef.current.getInput().value),
 			topicId: selectedTopicId,
 			imageId: imageIdUploaded.current,
 		};
@@ -249,30 +249,31 @@ function AddItemDialog({ visible, setVisible, onSubmitted }) {
 				</div>
 				<div className="mb-4">
 					<span className="block mb-2">Mô tả</span>
-					<InputTextarea ref={descriptionRef} className="w-full" autoResize rows={5} />
+					<InputTextarea ref={descriptionRef} className="w-full" placeholder="Nhập mô tả" autoResize rows={5} />
 				</div>
-				<div className="mb-4 flex">
-					<span className={cx("item-icon")}>
-						<img src={HealthIcon} alt="health icon" />
-					</span>
-					<InputNumber
-						ref={healthRewardRef}
-						className="w-full"
-						mode="decimal"
-						placeholder="Nhập thưởng sức khỏe"
-						showButtons
-						min={0}
-					/>
+				<div className="grid">
+					<div className="col-6">
+						<div className="mb-4">
+							<span className="block mb-2">Có thể nhận Online</span>
+							<InputSwitch checked={allowToReceiveOnline} onChange={(e) => setAllowToReceiveOnline(e.value)} />
+						</div>
+					</div>
+					<div className="col-6">
+						<div className="mb-4">
+							<span className="block mb-2">Hiển thị</span>
+							<InputSwitch checked={isShow} onChange={(e) => setIsShow(e.value)} />
+						</div>
+					</div>
 				</div>
 				<div className="mb-4 flex">
 					<span className={cx("item-icon")}>
 						<img src={StarIcon} alt="start icon" />
 					</span>
 					<InputNumber
-						ref={starRewardRef}
+						ref={starCostRef}
 						className="w-full"
 						mode="decimal"
-						placeholder="Nhập thưởng sao"
+						placeholder="Nhập chi phí sao"
 						showButtons
 						min={0}
 					/>
@@ -282,10 +283,10 @@ function AddItemDialog({ visible, setVisible, onSubmitted }) {
 						<img src={DiamondIcon} alt="diamond icon" />
 					</span>
 					<InputNumber
-						ref={diamondRewardRef}
+						ref={diamondCostRef}
 						className="w-full"
 						mode="decimal"
-						placeholder="Nhập thưởng kim cương"
+						placeholder="Nhập chi phí kim cương"
 						showButtons
 						min={0}
 					/>
