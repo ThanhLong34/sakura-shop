@@ -48,7 +48,7 @@ function AddItemDialog({ visible, setVisible, onSubmitted }) {
 			toastRef.current.show({
 				severity: "warn",
 				summary: "Cảnh báo",
-				detail: "Bạn chưa nhập nội dung câu hỏi",
+				detail: "Bạn chưa nhập nội dung câu hỏi (bắt buộc)",
 				life: 3000,
 			});
 			return;

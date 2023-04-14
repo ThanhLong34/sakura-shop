@@ -7,6 +7,10 @@ const answerApi = {
 		const url = `${group}/getAll.php?`;
 		return axiosClient.get(url, { params });
 	},
+	getByQuestionId(questionId) {
+		const url = `${group}/getByQuestionId.php?`;
+		return axiosClient.get(url, { questionId });
+	},
 	trashById(id) {
 		const url = `${group}/trashById.php?`;
 		return axiosClient.put(url, { id });
