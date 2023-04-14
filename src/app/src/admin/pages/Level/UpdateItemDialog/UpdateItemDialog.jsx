@@ -58,9 +58,6 @@ function UpdateItemDialog({ visible, setVisible, item, onSubmitted }) {
 	const handleSubmit = () => {
 		const levelNumber = getInputNumberValue(levelRef.current.getInput().value);
 		const experienceRequired = getInputNumberValue(experienceRef.current.getInput().value);
-		const healthReward = getInputNumberValue(healthRef.current.getInput().value);
-		const starReward = getInputNumberValue(starRef.current.getInput().value);
-		const diamondReward = getInputNumberValue(diamondRef.current.getInput().value);
 
 		if (isNaN(levelNumber)) {
 			toastRef.current.show({
@@ -86,9 +83,9 @@ function UpdateItemDialog({ visible, setVisible, item, onSubmitted }) {
 			id: item.id,
 			levelNumber: levelNumber !== item.levelNumber ? levelNumber : null,
 			experienceRequired: experienceRequired !== item.experienceRequired ? experienceRequired : null,
-			healthReward: healthReward !== item.healthReward ? healthReward : null,
-			starReward: starReward !== item.starReward ? starReward : null,
-			diamondReward: diamondReward !== item.diamondReward ? diamondReward : null,
+			healthReward: getInputNumberValue(healthRef.current.getInput().value),
+			starReward: getInputNumberValue(starRef.current.getInput().value),
+			diamondReward: getInputNumberValue(diamondRef.current.getInput().value),
 		};
 
 		levelApi.update(data).then((response) => {
