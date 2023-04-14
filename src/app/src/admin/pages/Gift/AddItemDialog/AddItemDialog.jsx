@@ -131,6 +131,16 @@ function AddItemDialog({ visible, setVisible, onSubmitted }) {
 			imageId: imageIdUploaded.current,
 		};
 
+		if (!data.name) {
+			toastRef.current.show({
+				severity: "warn",
+				summary: "Cảnh báo",
+				detail: "Bạn chưa nhập tên phần thưởng (bắt buộc)",
+				life: 3000,
+			});
+			return;
+		}
+
 		if (!data.imageId) {
 			toastRef.current.show({
 				severity: "warn",
@@ -231,8 +241,8 @@ function AddItemDialog({ visible, setVisible, onSubmitted }) {
 			<Toast ref={toastRef} />
 			<Dialog header="THÊM PHẦN THƯỞNG" visible={visible} style={{ width: "620px" }} onHide={handleCloseDialog}>
 				<div className="mb-4">
-					<span className="block mb-2">Tên phần thưởng</span>
-					<InputText ref={nameRef} className="w-full" placeholder="Nhập tên phần thưởng" />
+					<span className="block mb-2">Tên phần thưởng *</span>
+					<InputText ref={nameRef} className="w-full" placeholder="Nhập tên phần thưởng *" />
 				</div>
 				<div className="mb-4">
 					<span className="block mb-2">Thương hiệu</span>

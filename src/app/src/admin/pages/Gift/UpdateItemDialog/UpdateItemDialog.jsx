@@ -5,12 +5,10 @@ import styles from "./UpdateItemDialog.module.scss";
 import { createImageFileFromUrl } from "@/helpers/converter";
 import { getInputNumberValue } from "@/helpers/converter";
 
-import cardApi from "@/apis/cardApi";
-import topicApi from "@/apis/topicApi";
+import giftApi from "@/apis/giftApi";
 import imageFileApi from "@/apis/imageFileApi";
 
 // Icons
-import HealthIcon from "@/assets/images/heart.png";
 import StarIcon from "@/assets/images/star.png";
 import DiamondIcon from "@/assets/images/diamond.png";
 
@@ -23,7 +21,8 @@ import { FileUpload } from "primereact/fileupload";
 import { ProgressBar } from "primereact/progressbar";
 import { Tooltip } from "primereact/tooltip";
 import { Tag } from "primereact/tag";
-import { Dropdown } from "primereact/dropdown";
+import { InputTextarea } from "primereact/inputtextarea";
+import { InputSwitch } from "primereact/inputswitch";
 
 const cx = classNames.bind(styles);
 
@@ -64,17 +63,17 @@ function UpdateItemDialog({ visible, setVisible, item, onSubmitted }) {
 
 	//? Refs
 	const toastRef = useRef(null);
-	const titleRef = useRef(null);
+	const nameRef = useRef(null);
 	const brandRef = useRef(null);
-	const healthRewardRef = useRef(null);
-	const starRewardRef = useRef(null);
-	const diamondRewardRef = useRef(null);
+	const descriptionRef = useRef(null);
+	const starCostRef = useRef(null);
+	const diamondCostRef = useRef(null);
 	const fileUploadRef = useRef(null);
 
 	//? States
 	const [totalSize, setTotalSize] = useState(0);
-	const [selectedTopicId, setSelectedTopicId] = useState(null);
-	const [topics, setTopics] = useState([]);
+	const [allowToReceiveOnline, setAllowToReceiveOnline] = useState(false);
+	const [isShow, setIsShow] = useState(true);
 
 	//? Handles
 	const handleSelectFile = (e) => {
@@ -86,6 +85,7 @@ function UpdateItemDialog({ visible, setVisible, item, onSubmitted }) {
 		});
 
 		setTotalSize(_totalSize);
+		imageIdUploaded.current = null;
 	};
 	const handleUploadFile = (e) => {
 		const imageFile = e.files[0];
@@ -124,58 +124,35 @@ function UpdateItemDialog({ visible, setVisible, item, onSubmitted }) {
 		});
 	};
 	const handleBindingData = () => {
-		(async () => {
-			const getTopicsResponse = await topicApi.getAll();
-			if (getTopicsResponse.code === 1) {
-				if (item) {
-					titleRef.current.value = item.title;
-					brandRef.current.value = item.brand;
-					healthRewardRef.current.getInput().value = item.healthReward;
-					starRewardRef.current.getInput().value = item.starReward;
-					diamondRewardRef.current.getInput().value = item.diamondReward;
+		if (item) {
+			nameRef.current.value = item.name;
+			brandRef.current.value = item.brand;
+			descriptionRef.current.value = item.description;
+			starCostRef.current.getInput().value = item.starCost;
+			diamondCostRef.current.getInput().value = item.diamondCost;
 
-					imageIdUploaded.current = item.imageId;
-					createImageFileFromUrl(item.imageUrl).then((file) => {
-						fileUploadRef.current.setFiles([file]);
-						setTotalSize(file.size);
-					});
+			imageIdUploaded.current = item.imageId;
+			createImageFileFromUrl(item.imageUrl).then((file) => {
+				fileUploadRef.current.setFiles([file]);
+				setTotalSize(file.size);
+			});
 
-					setTopics(
-						getTopicsResponse.data.map((topic) => ({
-							...topic,
-							id: +topic.id,
-							quantityCard: +topic.quantityCard,
-						}))
-					);
-					setSelectedTopicId(item.topicId);
-				}
-			} else {
-				toastRef.current.show({
-					severity: "error",
-					summary: "Lỗi",
-					detail: getTopicsResponse.message,
-					life: 3000,
-				});
-			}
-		})();
+			setAllowToReceiveOnline(item.allowToReceiveOnline);
+			setIsShow(item.isShow);
+		}
 	};
 	const handleCloseDialog = () => {
 		setVisible(false);
 	};
 	const handleSubmit = () => {
-		const title = titleRef.current?.value.trim();
-		const brand = brandRef.current?.value.trim();
-		const healthReward = getInputNumberValue(healthRewardRef.current.getInput().value);
-		const starReward = getInputNumberValue(starRewardRef.current.getInput().value);
-		const diamondReward = getInputNumberValue(diamondRewardRef.current.getInput().value);
-		const topicId = selectedTopicId;
+		const name = nameRef.current?.value.trim();
 		const imageId = imageIdUploaded.current;
 
-		if (!topicId) {
+		if (!name) {
 			toastRef.current.show({
 				severity: "warn",
 				summary: "Cảnh báo",
-				detail: "Bạn chưa chọn chủ đề (bắt buộc)",
+				detail: "Bạn chưa nhập tên phần thưởng (bắt buộc)",
 				life: 3000,
 			});
 			return;
@@ -193,21 +170,22 @@ function UpdateItemDialog({ visible, setVisible, item, onSubmitted }) {
 
 		const data = {
 			id: item.id,
-			title: title !== item.title ? title : null,
-			brand: brand !== item.brand ? brand : null,
-			healthReward: healthReward !== item.healthReward ? healthReward : null,
-			starReward: starReward !== item.starReward ? starReward : null,
-			diamondReward: diamondReward !== item.diamondReward ? diamondReward : null,
-			topicId: topicId !== item.topicId ? topicId : null,
-			imageId: imageId !== item.imageId ? imageId : null,
+			name: name !== item.name ? name : null,
+			brand: brandRef.current?.value.trim(),
+			description: descriptionRef.current?.value.trim(),
+			allowToReceiveOnline,
+			isShow,
+			starCost: getInputNumberValue(starCostRef.current.getInput().value),
+			diamondCost: getInputNumberValue(diamondCostRef.current.getInput().value),
+			imageId,
 		};
 
-		cardApi.update(data).then((response) => {
+		giftApi.update(data).then((response) => {
 			if (response.code === 1) {
 				toastRef.current.show({
 					severity: "success",
 					summary: "Thành Công",
-					detail: "Cập nhật thẻ bài thành công",
+					detail: "Cập nhật phần thưởng thành công",
 					life: 3000,
 				});
 
@@ -291,54 +269,47 @@ function UpdateItemDialog({ visible, setVisible, item, onSubmitted }) {
 		<>
 			<Toast ref={toastRef} />
 			<Dialog
-				header="THAY ĐỔI THẺ BÀI"
+				header="THAY ĐỔI PHẦN THƯỞNG"
 				visible={visible}
 				onShow={handleBindingData}
 				style={{ width: "620px" }}
 				onHide={handleCloseDialog}
 			>
 				<div className="mb-4">
-					<span className="block mb-2">Tiêu đề</span>
-					<InputText ref={titleRef} className="w-full" placeholder="Nhập tiêu đề" />
+					<span className="block mb-2">Tên phần thưởng *</span>
+					<InputText ref={nameRef} className="w-full" placeholder="Nhập tên phần thưởng *" />
 				</div>
 				<div className="mb-4">
 					<span className="block mb-2">Thương hiệu</span>
 					<InputText ref={brandRef} className="w-full" placeholder="Nhập thương hiệu" />
 				</div>
 				<div className="mb-4">
-					<span className="block mb-2">Chủ đề *</span>
-					<Dropdown
-						value={selectedTopicId}
-						onChange={(e) => setSelectedTopicId(e.value)}
-						options={topics}
-						optionLabel="name"
-						optionValue="id"
-						placeholder="Chọn chủ đề (bắt buộc)"
-						className="w-full"
-					/>
+					<span className="block mb-2">Mô tả</span>
+					<InputTextarea ref={descriptionRef} className="w-full" placeholder="Nhập mô tả" autoResize rows={5} />
 				</div>
-				<div className="mb-4 flex">
-					<span className={cx("item-icon")}>
-						<img src={HealthIcon} alt="health icon" />
-					</span>
-					<InputNumber
-						ref={healthRewardRef}
-						className="w-full"
-						mode="decimal"
-						placeholder="Nhập thưởng sức khỏe"
-						showButtons
-						min={0}
-					/>
+				<div className="grid">
+					<div className="col-6">
+						<div className="mb-4">
+							<span className="block mb-2">Có thể nhận Online</span>
+							<InputSwitch checked={allowToReceiveOnline} onChange={(e) => setAllowToReceiveOnline(e.value)} />
+						</div>
+					</div>
+					<div className="col-6">
+						<div className="mb-4">
+							<span className="block mb-2">Hiển thị</span>
+							<InputSwitch checked={isShow} onChange={(e) => setIsShow(e.value)} />
+						</div>
+					</div>
 				</div>
 				<div className="mb-4 flex">
 					<span className={cx("item-icon")}>
 						<img src={StarIcon} alt="start icon" />
 					</span>
 					<InputNumber
-						ref={starRewardRef}
+						ref={starCostRef}
 						className="w-full"
 						mode="decimal"
-						placeholder="Nhập thưởng sao"
+						placeholder="Nhập chi phí sao"
 						showButtons
 						min={0}
 					/>
@@ -348,10 +319,10 @@ function UpdateItemDialog({ visible, setVisible, item, onSubmitted }) {
 						<img src={DiamondIcon} alt="diamond icon" />
 					</span>
 					<InputNumber
-						ref={diamondRewardRef}
+						ref={diamondCostRef}
 						className="w-full"
 						mode="decimal"
-						placeholder="Nhập thưởng kim cương"
+						placeholder="Nhập chi phí kim cương"
 						showButtons
 						min={0}
 					/>
