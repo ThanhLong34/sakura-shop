@@ -112,7 +112,7 @@ const TableData = forwardRef(({ onOpenDialog }, ref) => {
 		(async () => {
 			const response = await topicApi.trashById(item.id);
 			if (response.code === 1) {
-				// Delete cards of the topic
+				// Trash cards of the topic
 				const trashCardsByTopicId = await cardApi.trashByTopicId(item.id);
 				if (trashCardsByTopicId.code === 1) {
 					toastRef.current.show({

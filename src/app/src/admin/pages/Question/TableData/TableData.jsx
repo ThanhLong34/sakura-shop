@@ -51,9 +51,6 @@ const TableData = forwardRef(({ onOpenDialog }, ref) => {
 		[]
 	);
 
-	//? Variables
-
-
 	//? Refs
 	const tableSearchRef = useRef(null);
 	const toastRef = useRef(null);
@@ -119,14 +116,26 @@ const TableData = forwardRef(({ onOpenDialog }, ref) => {
 		}));
 	};
 	const handleDeleteItem = (item) => {
-		questionApi.trashById(item.id).then((response) => {
+		(async () => {
+			const response = await questionApi.trashById(item.id);
 			if (response.code === 1) {
-				toastRef.current.show({ severity: "success", summary: "Thành công", detail: "Xóa thành công", life: 3000 });
-				handleRefreshPage();
+				// Trash answers of the question
+				const trashAnswersByQuestionId = await answerApi.trashByQuestionId(item.id);
+				if (trashAnswersByQuestionId.code === 1) {
+					toastRef.current.show({
+						severity: "success",
+						summary: "Thành công",
+						detail: "Xóa thành công",
+						life: 3000,
+					});
+					handleRefreshPage();
+				} else {
+					toastRef.current.show({ severity: "error", summary: "Lỗi", detail: response.message, life: 3000 });
+				}
 			} else {
 				toastRef.current.show({ severity: "error", summary: "Lỗi", detail: response.message, life: 3000 });
 			}
-		});
+		})();
 	};
 	const handleRefreshPage = () => {
 		setTableParams((prevState) => ({ ...prevState }));
@@ -237,7 +246,7 @@ const TableData = forwardRef(({ onOpenDialog }, ref) => {
 				emptyMessage="Không có kết quả"
 				tableStyle={{ minWidth: "max-content" }}
 			>
-				<Column field="content" header="Nội dung" sortable sortFunction={getSortedTableData} frozen />
+				<Column field="content" header="Nội dung" frozen />
 				<Column
 					field="healthReward"
 					header="Thưởng sức khỏe"
