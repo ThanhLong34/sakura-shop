@@ -56,7 +56,7 @@ const adminRoutes = [
 		path: "/admin/gift",
 		component: AdminGiftManagement,
 		metadata: {
-			title: 'Phần quà'
+			title: 'Phần thưởng'
 		}
 	},
 	{

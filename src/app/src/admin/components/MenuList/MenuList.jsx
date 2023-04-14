@@ -18,7 +18,7 @@ function MenuList() {
 					<MenuItem icon="pi pi-fw pi-image" label="Tệp hình ảnh" redirectTo="/admin/image-file" />
 					<MenuItem icon="pi pi-fw pi-user" label="Người chơi" redirectTo="/admin/player" />
 					<MenuItem icon="pi pi-fw pi-chart-line" label="Cấp độ" redirectTo="/admin/level" />
-					<MenuItem icon="pi pi-fw pi-gift" label="Phần quà" redirectTo="/admin/gift" />
+					<MenuItem icon="pi pi-fw pi-gift" label="Phần thưởng" redirectTo="/admin/gift" />
 					<MenuItem icon="pi pi-fw pi-th-large" label="Chủ đề" redirectTo="/admin/topic" />
 					<MenuItem icon="pi pi-fw pi-tablet" label="Thẻ bài" redirectTo="/admin/card" />
 					<MenuItem icon="pi pi-fw pi-question-circle" label="Câu hỏi" redirectTo="/admin/question" />

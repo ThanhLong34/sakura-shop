@@ -34,7 +34,7 @@ const initialTableParams = {
 const rowsPerPageOptions = [10, 20, 30];
 const searchOptions = [
 	{
-		title: "Tên quà",
+		title: "Tên phần thưởng",
 		value: "name",
 	},
 	{
@@ -186,7 +186,7 @@ const TableData = forwardRef(({ onOpenDialog }, ref) => {
 		return (
 			<div className="grid">
 				<div className="col-12">
-					<TableHeader addItemButtonLabel="Thêm thẻ bài" onReload={handleReload} onAddItem={handleAddItem} />
+					<TableHeader addItemButtonLabel="Thêm phần thưởng" onReload={handleReload} onAddItem={handleAddItem} />
 				</div>
 				<div className="col-12">
 					<TableSearch ref={tableSearchRef} searchOptions={searchOptions} onSearch={handleSearch} />
@@ -261,7 +261,7 @@ const TableData = forwardRef(({ onOpenDialog }, ref) => {
 				},
 			},
 			{
-				label: "Xóa thẻ bài",
+				label: "Xóa phần thưởng",
 				icon: "pi pi-trash",
 				command: (e) => {
 					confirmPopup({
@@ -288,7 +288,7 @@ const TableData = forwardRef(({ onOpenDialog }, ref) => {
 			<ConfirmPopup />
 			<div className="grid mb-3">
 				<div className="col-6">
-					<h3 className="">DANH SÁCH THẺ BÀI</h3>
+					<h3 className="">DANH SÁCH PHẦN THƯỞNG</h3>
 				</div>
 				<div className="col-6 text-right">
 					<h3 className="text-400 text-sm">{`(${tableData.length} trên tổng ${totalItem})`}</h3>
@@ -313,7 +313,7 @@ const TableData = forwardRef(({ onOpenDialog }, ref) => {
 				tableStyle={{ minWidth: "max-content" }}
 			>
 				<Column field="imageUrl" header="Hình ảnh" body={imageDataTemplate} frozen />
-				<Column field="name" header="Tên quà" sortable sortFunction={getSortedTableData} frozen />
+				<Column field="name" header="Tên phần thưởng" sortable sortFunction={getSortedTableData} frozen />
 				<Column field="brand" header="Thương hiệu" sortable sortFunction={getSortedTableData} />
 				<Column
 					field="starCost"

@@ -1,11 +1,10 @@
-import { useRef, useState, useEffect } from "react";
+import { useRef, useState } from "react";
 import PropTypes from "prop-types";
 import classNames from "classnames/bind";
 import styles from "./AddItemDialog.module.scss";
 import { getInputNumberValue } from "@/helpers/converter";
 
 import cardApi from "@/apis/cardApi";
-import topicApi from "@/apis/topicApi";
 import imageFileApi from "@/apis/imageFileApi";
 
 // Icons
@@ -23,6 +22,7 @@ import { ProgressBar } from "primereact/progressbar";
 import { Tooltip } from "primereact/tooltip";
 import { Tag } from "primereact/tag";
 import { Dropdown } from "primereact/dropdown";
+import { InputTextarea } from "primereact/inputtextarea";
 
 const cx = classNames.bind(styles);
 
@@ -58,8 +58,9 @@ function AddItemDialog({ visible, setVisible, onSubmitted }) {
 
 	//? Refs
 	const toastRef = useRef(null);
-	const titleRef = useRef(null);
+	const nameRef = useRef(null);
 	const brandRef = useRef(null);
+	const descriptionRef = useRef(null);
 	const healthRewardRef = useRef(null);
 	const starRewardRef = useRef(null);
 	const diamondRewardRef = useRef(null);
@@ -67,21 +68,6 @@ function AddItemDialog({ visible, setVisible, onSubmitted }) {
 
 	//? States
 	const [totalSize, setTotalSize] = useState(0);
-	const [selectedTopicId, setSelectedTopicId] = useState(null);
-	const [topics, setTopics] = useState([]);
-
-	//? Effects
-	useEffect(() => {
-		topicApi.getAll().then((response) => {
-			setTopics(
-				response.data.map((topic) => ({
-					...topic,
-					id: +topic.id,
-					quantityCard: +topic.quantityCard,
-				}))
-			);
-		});
-	}, []);
 
 	//? Handles
 	const handleSelectFile = (e) => {
@@ -135,7 +121,7 @@ function AddItemDialog({ visible, setVisible, onSubmitted }) {
 	};
 	const handleSubmit = () => {
 		const data = {
-			title: titleRef.current?.value.trim(),
+			title: nameRef.current?.value.trim(),
 			brand: brandRef.current?.value.trim(),
 			healthReward: getInputNumberValue(healthRewardRef.current.getInput().value),
 			starReward: getInputNumberValue(starRewardRef.current.getInput().value),
@@ -252,26 +238,18 @@ function AddItemDialog({ visible, setVisible, onSubmitted }) {
 	return (
 		<>
 			<Toast ref={toastRef} />
-			<Dialog header="THÊM THẺ BÀI" visible={visible} style={{ width: "620px" }} onHide={handleCloseDialog}>
+			<Dialog header="THÊM PHẦN THƯỞNG" visible={visible} style={{ width: "620px" }} onHide={handleCloseDialog}>
 				<div className="mb-4">
-					<span className="block mb-2">Tiêu đề</span>
-					<InputText ref={titleRef} className="w-full" placeholder="Nhập tiêu đề" />
+					<span className="block mb-2">Tên phần thưởng</span>
+					<InputText ref={nameRef} className="w-full" placeholder="Nhập tên phần thưởng" />
 				</div>
 				<div className="mb-4">
 					<span className="block mb-2">Thương hiệu</span>
 					<InputText ref={brandRef} className="w-full" placeholder="Nhập thương hiệu" />
 				</div>
 				<div className="mb-4">
-					<span className="block mb-2">Chủ đề *</span>
-					<Dropdown
-						value={selectedTopicId}
-						onChange={(e) => setSelectedTopicId(e.value)}
-						options={topics}
-						optionLabel="name"
-						optionValue="id"
-						placeholder="Chọn chủ đề (bắt buộc)"
-						className="w-full"
-					/>
+					<span className="block mb-2">Mô tả</span>
+					<InputTextarea ref={descriptionRef} className="w-full" autoResize rows={5} />
 				</div>
 				<div className="mb-4 flex">
 					<span className={cx("item-icon")}>
