@@ -7,6 +7,7 @@ import AdminLevelManagement from "@/admin/pages/Level";
 import AdminGiftManagement from "@/admin/pages/Gift";
 import AdminTopicManagement from "@/admin/pages/Topic";
 import AdminCardManagement from "@/admin/pages/Card";
+import AdminQuestionManagement from "@/admin/pages/Question";
 import AdminProfile from "@/admin/pages/Profile";
 import AdminNotFound from "@/admin/pages/NotFound";
 
@@ -71,6 +72,13 @@ const adminRoutes = [
 		component: AdminCardManagement,
 		metadata: {
 			title: 'Thẻ bài'
+		}
+	},
+	{
+		path: "/admin/question",
+		component: AdminQuestionManagement,
+		metadata: {
+			title: 'Câu hỏi'
 		}
 	},
 	{
