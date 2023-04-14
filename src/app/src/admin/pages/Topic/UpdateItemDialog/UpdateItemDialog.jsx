@@ -67,6 +67,7 @@ function UpdateItemDialog({ visible, setVisible, item, onSubmitted }) {
 		});
 
 		setTotalSize(_totalSize);
+		imageIdUploaded.current = null;
 	};
 	const handleUploadFile = (e) => {
 		const imageFile = e.files[0];
@@ -93,7 +94,6 @@ function UpdateItemDialog({ visible, setVisible, item, onSubmitted }) {
 	};
 	const handleClearFile = () => {
 		setTotalSize(0);
-
 		imageIdUploaded.current = null;
 	};
 	const handleValidationFailFile = () => {

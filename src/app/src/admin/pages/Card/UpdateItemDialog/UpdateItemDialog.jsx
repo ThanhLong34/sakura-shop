@@ -86,6 +86,7 @@ function UpdateItemDialog({ visible, setVisible, item, onSubmitted }) {
 		});
 
 		setTotalSize(_totalSize);
+		imageIdUploaded.current = null;
 	};
 	const handleUploadFile = (e) => {
 		const imageFile = e.files[0];
@@ -112,7 +113,6 @@ function UpdateItemDialog({ visible, setVisible, item, onSubmitted }) {
 	};
 	const handleClearFile = () => {
 		setTotalSize(0);
-
 		imageIdUploaded.current = null;
 	};
 	const handleValidationFailFile = () => {
@@ -163,11 +163,6 @@ function UpdateItemDialog({ visible, setVisible, item, onSubmitted }) {
 		setVisible(false);
 	};
 	const handleSubmit = () => {
-		const title = titleRef.current?.value.trim();
-		const brand = brandRef.current?.value.trim();
-		const healthReward = getInputNumberValue(healthRewardRef.current.getInput().value);
-		const starReward = getInputNumberValue(starRewardRef.current.getInput().value);
-		const diamondReward = getInputNumberValue(diamondRewardRef.current.getInput().value);
 		const topicId = selectedTopicId;
 		const imageId = imageIdUploaded.current;
 
@@ -193,11 +188,11 @@ function UpdateItemDialog({ visible, setVisible, item, onSubmitted }) {
 
 		const data = {
 			id: item.id,
-			title: title !== item.title ? title : null,
-			brand: brand !== item.brand ? brand : null,
-			healthReward: healthReward !== item.healthReward ? healthReward : null,
-			starReward: starReward !== item.starReward ? starReward : null,
-			diamondReward: diamondReward !== item.diamondReward ? diamondReward : null,
+			title: titleRef.current?.value.trim(),
+			brand: brandRef.current?.value.trim(),
+			healthReward: getInputNumberValue(healthRewardRef.current.getInput().value),
+			starReward: getInputNumberValue(starRewardRef.current.getInput().value),
+			diamondReward: getInputNumberValue(diamondRewardRef.current.getInput().value),
 			topicId: topicId !== item.topicId ? topicId : null,
 			imageId: imageId !== item.imageId ? imageId : null,
 		};

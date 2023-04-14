@@ -112,7 +112,6 @@ function UpdateItemDialog({ visible, setVisible, item, onSubmitted }) {
 	};
 	const handleClearFile = () => {
 		setTotalSize(0);
-
 		imageIdUploaded.current = null;
 	};
 	const handleValidationFailFile = () => {
@@ -177,7 +176,7 @@ function UpdateItemDialog({ visible, setVisible, item, onSubmitted }) {
 			isShow,
 			starCost: getInputNumberValue(starCostRef.current.getInput().value),
 			diamondCost: getInputNumberValue(diamondCostRef.current.getInput().value),
-			imageId,
+			imageId: imageId !== item.imageId ? imageId : null,
 		};
 
 		giftApi.update(data).then((response) => {
