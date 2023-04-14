@@ -9,11 +9,18 @@ const answerApi = {
 	},
 	getByQuestionId(questionId) {
 		const url = `${group}/getByQuestionId.php?`;
-		return axiosClient.get(url, { questionId });
+		const params = {
+			questionId,
+		};
+		return axiosClient.get(url, { params });
 	},
 	trashById(id) {
 		const url = `${group}/trashById.php?`;
 		return axiosClient.put(url, { id });
+	},
+	trashByQuestionId(questionId) {
+		const url = `${group}/trashByQuestionId.php?`;
+		return axiosClient.put(url, { questionId });
 	},
 	add(data) {
 		const url = `${group}/add.php?`;

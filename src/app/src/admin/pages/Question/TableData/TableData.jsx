@@ -75,7 +75,6 @@ const TableData = forwardRef(({ onOpenDialog }, ref) => {
 				healthReward: +question.healthReward,
 				starReward: +question.starReward,
 				diamondReward: +question.diamondReward,
-				rightAnswerId: +question.rightAnswerId,
 			}));
 
 			setTableData(data);
@@ -176,7 +175,7 @@ const TableData = forwardRef(({ onOpenDialog }, ref) => {
 				label: "Câu trả lời",
 				icon: "pi pi-sitemap",
 				command: () => {
-					onOpenDialog("UpdateItemDialog", rowData);
+					onOpenDialog("AnswerManagementDialog", rowData);
 				},
 			},
 			{

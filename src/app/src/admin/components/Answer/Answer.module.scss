@@ -1,0 +1,41 @@
+.wrapper {
+	display: flex;
+	align-items: center;
+	padding: 1.25rem;
+	margin: 0.8rem 0;
+	border-width: 0 0 0 6px !important;
+	border-radius: 6px;
+
+	&.right {
+		background-color: #e4f8f0;
+		color: #1ea97c;
+		border: solid #1ea97c;
+	}
+
+	&.wrong {
+		background-color: #ffe7e6;
+		color: #ff5757;
+		border: solid #ff5757;
+	}
+}
+
+.icon {
+	transform: translateY(1px);
+	i {
+		font-size: 1.5rem;
+	}
+}
+
+.text {
+	padding: 0 0.8rem;
+	flex-grow: 1;
+}
+
+.remove-button {
+	margin-left: auto;
+	width: 2rem;
+	height: 2rem;
+	border-radius: 50%;
+	background: transparent;
+	transition: background-color 0.2s, color 0.2s, box-shadow 0.2s;
+}
