@@ -255,7 +255,7 @@ const TableData = forwardRef(({ onOpenDialog }, ref) => {
 		const actions = [
 			{
 				label: "Thay đổi",
-				icon: "pi pi-eye",
+				icon: "pi pi-file-edit",
 				command: () => {
 					onOpenDialog("UpdateItemDialog", rowData);
 				},

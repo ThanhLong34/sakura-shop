@@ -173,8 +173,15 @@ const TableData = forwardRef(({ onOpenDialog }, ref) => {
 	const actionsTemplate = (rowData) => {
 		const actions = [
 			{
+				label: "Câu trả lời",
+				icon: "pi pi-sitemap",
+				command: () => {
+					onOpenDialog("UpdateItemDialog", rowData);
+				},
+			},
+			{
 				label: "Thay đổi",
-				icon: "pi pi-eye",
+				icon: "pi pi-file-edit",
 				command: () => {
 					onOpenDialog("UpdateItemDialog", rowData);
 				},
