@@ -217,7 +217,7 @@ const TableData = forwardRef(({ onOpenDialog }, ref) => {
 			>
 				<Column field="imageUrl" header="Hình ảnh" body={imageDataTemplate} />
 				<Column field="name" header="Tên chủ đề" sortable sortFunction={getSortedTableData} />
-				<Column field="quantityCard" header="Số lượng thẻ bài" sortable sortFunction={getSortedTableData} />
+				<Column field="quantityCard" header="Số lượng thẻ bài" />
 				<Column
 					headerStyle={{ textAlign: "center" }}
 					bodyStyle={{ textAlign: "center", overflow: "visible" }}
