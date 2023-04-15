@@ -1,4 +1,4 @@
-import { useRef, useState, useEffect } from "react";
+import { useRef, useState } from "react";
 import PropTypes from "prop-types";
 import classNames from "classnames/bind";
 import styles from "./AddItemDialog.module.scss";
@@ -23,6 +23,7 @@ import { ProgressBar } from "primereact/progressbar";
 import { Tooltip } from "primereact/tooltip";
 import { Tag } from "primereact/tag";
 import { Dropdown } from "primereact/dropdown";
+import { Slider } from "primereact/slider";
 
 const cx = classNames.bind(styles);
 
@@ -70,19 +71,7 @@ function AddItemDialog({ visible, setVisible, onSubmitted }) {
 	const [totalSize, setTotalSize] = useState(0);
 	const [selectedTopicId, setSelectedTopicId] = useState(null);
 	const [topics, setTopics] = useState([]);
-
-	//? Effects
-	useEffect(() => {
-		topicApi.getAll().then((response) => {
-			setTopics(
-				response.data.map((topic) => ({
-					...topic,
-					id: +topic.id,
-					quantityCard: +topic.quantityCard,
-				}))
-			);
-		});
-	}, []);
+	const [occurrenceRate, setOccurrenceRate] = useState(100);
 
 	//? Handles
 	const handleSelectFile = (e) => {
@@ -131,7 +120,29 @@ function AddItemDialog({ visible, setVisible, onSubmitted }) {
 			life: 3000,
 		});
 	};
+	const handleBeforeShowDialog = () => {
+		topicApi.getAll().then((response) => {
+			setTopics(
+				response.data.map((topic) => ({
+					...topic,
+					id: +topic.id,
+					quantityCard: +topic.quantityCard,
+				}))
+			);
+		});
+	};
 	const handleCloseDialog = () => {
+		titleRef.current.value = null;
+		brandRef.current.value = null;
+		healthRewardRef.current.getInput().value = null;
+		starRewardRef.current.getInput().value = null;
+		diamondRewardRef.current.getInput().value = null;
+
+		setTotalSize(0);
+		setSelectedTopicId(null);
+		setTopics([]);
+		setOccurrenceRate(100);
+
 		setVisible(false);
 	};
 	const handleSubmit = () => {
@@ -141,6 +152,7 @@ function AddItemDialog({ visible, setVisible, onSubmitted }) {
 			healthReward: getInputNumberValue(healthRewardRef.current.getInput().value),
 			starReward: getInputNumberValue(starRewardRef.current.getInput().value),
 			diamondReward: getInputNumberValue(diamondRewardRef.current.getInput().value),
+			occurrenceRate,
 			topicId: selectedTopicId,
 			imageId: imageIdUploaded.current,
 		};
@@ -253,7 +265,13 @@ function AddItemDialog({ visible, setVisible, onSubmitted }) {
 	return (
 		<>
 			<Toast ref={toastRef} />
-			<Dialog header="THÊM THẺ BÀI" visible={visible} style={{ width: "620px" }} onHide={handleCloseDialog}>
+			<Dialog
+				header="THÊM THẺ BÀI"
+				visible={visible}
+				style={{ width: "620px" }}
+				onHide={handleCloseDialog}
+				onShow={handleBeforeShowDialog}
+			>
 				<div className="mb-4">
 					<span className="block mb-2">Tiêu đề</span>
 					<InputText ref={titleRef} className="w-full" placeholder="Nhập tiêu đề" />
@@ -275,6 +293,12 @@ function AddItemDialog({ visible, setVisible, onSubmitted }) {
 						placeholder="Chọn chủ đề *"
 						className="w-full"
 					/>
+				</div>
+				<div className="mb-4">
+					<span className="block mb-2">
+						Tỉ lệ xuất hiện (<span className="text-pink-500">{occurrenceRate}%</span>)
+					</span>
+					<Slider value={occurrenceRate} onChange={(e) => setOccurrenceRate(e.value)} className="w-full" />
 				</div>
 				<div className="mb-4 flex">
 					<span className={cx("item-icon")}>

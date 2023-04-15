@@ -88,6 +88,7 @@ const TableData = forwardRef(({ onOpenDialog }, ref) => {
 				healthReward: +card.healthReward,
 				starReward: +card.starReward,
 				diamondReward: +card.diamondReward,
+				occurrenceRate: +card.occurrenceRate,
 				topicId: +card.topicId,
 			}));
 
@@ -209,6 +210,9 @@ const TableData = forwardRef(({ onOpenDialog }, ref) => {
 			</span>
 		);
 	};
+	const occurrenceRateDataTemplate = (rowData) => {
+		return <span>{rowData.occurrenceRate}%</span>;
+	};
 	const topicFilterTemplate = (options) => {
 		return (
 			<TableFilterPopup label="Chọn chủ đề" options={topicOptions.current} isText onChange={handleChangeFilter} />
@@ -302,6 +306,13 @@ const TableData = forwardRef(({ onOpenDialog }, ref) => {
 					field="diamondReward"
 					header="Thưởng kim cương"
 					body={diamondRewardDataTemplate}
+					sortable
+					sortFunction={getSortedTableData}
+				/>
+				<Column
+					field="occurrenceRate"
+					header="Tỉ lệ xuất hiện"
+					body={occurrenceRateDataTemplate}
 					sortable
 					sortFunction={getSortedTableData}
 				/>

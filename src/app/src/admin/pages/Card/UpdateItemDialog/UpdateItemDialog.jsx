@@ -24,6 +24,7 @@ import { ProgressBar } from "primereact/progressbar";
 import { Tooltip } from "primereact/tooltip";
 import { Tag } from "primereact/tag";
 import { Dropdown } from "primereact/dropdown";
+import { Slider } from "primereact/slider";
 
 const cx = classNames.bind(styles);
 
@@ -73,6 +74,7 @@ function UpdateItemDialog({ visible, setVisible, item, onSubmitted }) {
 	const [totalSize, setTotalSize] = useState(0);
 	const [selectedTopicId, setSelectedTopicId] = useState(null);
 	const [topics, setTopics] = useState([]);
+	const [occurrenceRate, setOccurrenceRate] = useState(100);
 
 	//? Handles
 	const handleSelectFile = (e) => {
@@ -146,6 +148,7 @@ function UpdateItemDialog({ visible, setVisible, item, onSubmitted }) {
 						}))
 					);
 					setSelectedTopicId(item.topicId);
+					setOccurrenceRate(item.occurrenceRate);
 				}
 			} else {
 				toastRef.current.show({
@@ -158,6 +161,17 @@ function UpdateItemDialog({ visible, setVisible, item, onSubmitted }) {
 		})();
 	};
 	const handleCloseDialog = () => {
+		titleRef.current.value = null;
+		brandRef.current.value = null;
+		healthRewardRef.current.getInput().value = null;
+		starRewardRef.current.getInput().value = null;
+		diamondRewardRef.current.getInput().value = null;
+
+		setTotalSize(0);
+		setSelectedTopicId(null);
+		setTopics([]);
+		setOccurrenceRate(100);
+
 		setVisible(false);
 	};
 	const handleSubmit = () => {
@@ -191,6 +205,7 @@ function UpdateItemDialog({ visible, setVisible, item, onSubmitted }) {
 			healthReward: getInputNumberValue(healthRewardRef.current.getInput().value),
 			starReward: getInputNumberValue(starRewardRef.current.getInput().value),
 			diamondReward: getInputNumberValue(diamondRewardRef.current.getInput().value),
+			occurrenceRate,
 			topicId: topicId !== item.topicId ? topicId : null,
 			imageId: imageId !== item.imageId ? imageId : null,
 		};
@@ -311,6 +326,12 @@ function UpdateItemDialog({ visible, setVisible, item, onSubmitted }) {
 						placeholder="Chọn chủ đề *"
 						className="w-full"
 					/>
+				</div>
+				<div className="mb-4">
+					<span className="block mb-2">
+						Tỉ lệ xuất hiện (<span className="text-pink-500">{occurrenceRate}%</span>)
+					</span>
+					<Slider value={occurrenceRate} onChange={(e) => setOccurrenceRate(e.value)} className="w-full" />
 				</div>
 				<div className="mb-4 flex">
 					<span className={cx("item-icon")}>
