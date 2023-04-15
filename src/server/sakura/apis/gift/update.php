@@ -37,6 +37,7 @@ $description = trim($data["description"] ?? ""); // string
 $starCost = $data["starCost"] ?? ""; // int
 $diamondCost = $data["diamondCost"] ?? ""; // int
 $allowToReceiveOnline = $data["allowToReceiveOnline"] ?? ""; // bool
+$isSpecial = $data["isSpecial"] ?? ""; // bool
 $isShow = $data["isShow"] ?? ""; // bool
 
 
@@ -44,13 +45,13 @@ $isShow = $data["isShow"] ?? ""; // bool
 //? START
 //? ====================
 // ✅ Cập nhật record
-update($id, $imageId, $name, $brand, $description, $starCost, $diamondCost, $allowToReceiveOnline, $isShow);
+update($id, $imageId, $name, $brand, $description, $starCost, $diamondCost, $allowToReceiveOnline, $isSpecial, $isShow);
 
 
 //? ====================
 //? FUNCTIONS
 //? ====================
-function update($id, $imageId, $name, $brand, $description, $starCost, $diamondCost, $allowToReceiveOnline, $isShow)
+function update($id, $imageId, $name, $brand, $description, $starCost, $diamondCost, $allowToReceiveOnline, $isSpecial, $isShow)
 {
    global $connect, $tableName;
 
@@ -98,6 +99,11 @@ function update($id, $imageId, $name, $brand, $description, $starCost, $diamondC
    // Cập nhật allowToReceiveOnline
    if (is_bool($allowToReceiveOnline)) {
       $mainQuery .= "," . "`allowToReceiveOnline` = '$allowToReceiveOnline'";
+   }
+
+   // Cập nhật isSpecial
+   if (is_bool($isSpecial)) {
+      $mainQuery .= "," . "`isSpecial` = '$isSpecial'";
    }
 
    // Cập nhật isShow

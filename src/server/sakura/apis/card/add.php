@@ -35,6 +35,7 @@ $brand = trim($data["brand"] ?? ""); // string
 $healthReward = $data["healthReward"] ?? ""; // int
 $starReward = $data["starReward"] ?? ""; // int
 $diamondReward = $data["diamondReward"] ?? ""; // int
+$occurrenceRate = $data["occurrenceRate"] ?? ""; // int
 $topicId = $data["topicId"] ?? ""; // int
 
 
@@ -42,13 +43,13 @@ $topicId = $data["topicId"] ?? ""; // int
 //? START
 //? ====================
 // ✅ Thêm record 
-add($imageId, $title, $brand, $healthReward, $starReward, $diamondReward, $topicId);
+add($imageId, $title, $brand, $healthReward, $starReward, $diamondReward, $occurrenceRate, $topicId);
 
 
 //? ====================
 //? FUNCTIONS
 //? ====================
-function add($imageId, $title, $brand, $healthReward, $starReward, $diamondReward, $topicId)
+function add($imageId, $title, $brand, $healthReward, $starReward, $diamondReward, $occurrenceRate, $topicId)
 {
    global $connect, $tableName;
 
@@ -57,6 +58,7 @@ function add($imageId, $title, $brand, $healthReward, $starReward, $diamondRewar
       ($healthReward !== "" && !is_numeric($healthReward)) || // option
       ($starReward !== "" && !is_numeric($starReward)) || // option
       ($diamondReward !== "" && !is_numeric($diamondReward)) || // option
+      ($occurrenceRate !== "" && !is_numeric($occurrenceRate)) || // option
       !is_numeric($topicId) // require
    ) {
       $response = new ResponseAPI(9, "Không đủ payload để thực hiện");
@@ -68,8 +70,8 @@ function add($imageId, $title, $brand, $healthReward, $starReward, $diamondRewar
    $createdAt = getCurrentDatetime();
 
    // Thực thi query
-   $query = "INSERT INTO `$tableName`(`createdAt`, `imageId`, `title`, `brand`, `healthReward`, `starReward`, `diamondReward`, `topicId`) 
-               VALUES('$createdAt', '$imageId', '$title', '$brand', '$healthReward', '$starReward', '$diamondReward', '$topicId')";
+   $query = "INSERT INTO `$tableName`(`createdAt`, `imageId`, `title`, `brand`, `healthReward`, `starReward`, `diamondReward`, `occurrenceRate`, `topicId`) 
+               VALUES('$createdAt', '$imageId', '$title', '$brand', '$healthReward', '$starReward', '$diamondReward', '$occurrenceRate', '$topicId')";
    performsQueryAndResponseToClient($query);
 
    // Đóng kết nối

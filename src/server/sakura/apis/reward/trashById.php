@@ -13,7 +13,7 @@ require("../../classes/ResponseAPI.php");
 //? ====================
 header("Access-Control-Allow-Origin: " . ACCESS_CONTROL_ALLOW_ORIGIN);
 header("Access-Control-Allow-Headers: " . ACCESS_CONTROL_ALLOW_HEADERS);
-header("Access-Control-Allow-Methods: POST");
+header("Access-Control-Allow-Methods: PUT");
 header("Content-Type: application/json");
 
 
@@ -26,40 +26,43 @@ if (!checkPermissionFunction()) exit;
 //? ====================
 //? PARAMETERS & PAYLOAD
 //? ====================
-$tableName = "rewardhistory";
+$tableName = "reward";
 $data = getJSONPayloadRequest();
 
-$giftId = $data["giftId"] ?? ""; // int
-$playerId = $data["playerId"] ?? ""; // int
+$id = $data["id"] ?? ""; // int
 
 
 //? ====================
 //? START
 //? ====================
-// ✅ Thêm record 
-add($giftId, $playerId);
+// ✅ Chuyển record vào thùng rác
+trashById($id);
 
 
 //? ====================
 //? FUNCTIONS
 //? ====================
-function add($giftId, $playerId)
+function trashById($id)
 {
    global $connect, $tableName;
 
    // Kiểm tra dữ liệu payload
-   if (!is_numeric($giftId) || !is_numeric($playerId)) {
+   if (!is_numeric($id)) {
       $response = new ResponseAPI(9, "Không đủ payload để thực hiện");
       $response->send();
       return;
    }
 
    // createdAt, updateAt, deletedAt
-   $createdAt = getCurrentDatetime();
+   $deletedAt = getCurrentDatetime();
+
+   // Các chuỗi truy vấn
+   $baseQuery = "UPDATE `$tableName` SET `deletedAt` = '$deletedAt'";
+   $mainQuery = "";
+   $endQuery = "WHERE `id` = '$id' AND `deletedAt` IS NULL";
 
    // Thực thi query
-   $query = "INSERT INTO `$tableName`(`createdAt`, `giftId`, `playerId`) 
-               VALUES('$createdAt', '$giftId', '$playerId')";
+   $query = $baseQuery . " " . $mainQuery . " " . $endQuery;
    performsQueryAndResponseToClient($query);
 
    // Đóng kết nối

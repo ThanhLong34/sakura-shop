@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 14, 2023 at 03:54 PM
+-- Generation Time: Apr 15, 2023 at 06:16 AM
 -- Server version: 10.4.27-MariaDB
 -- PHP Version: 8.2.0
 
@@ -134,6 +134,7 @@ CREATE TABLE `card` (
   `healthReward` int(11) DEFAULT 0,
   `starReward` int(11) DEFAULT 0,
   `diamondReward` int(11) DEFAULT 0,
+  `occurrenceRate` int(11) NOT NULL DEFAULT 100,
   `topicId` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -141,11 +142,11 @@ CREATE TABLE `card` (
 -- Dumping data for table `card`
 --
 
-INSERT INTO `card` (`id`, `createdAt`, `updatedAt`, `deletedAt`, `imageId`, `title`, `brand`, `healthReward`, `starReward`, `diamondReward`, `topicId`) VALUES
-(1, '09:59:46 13/04/2023', NULL, NULL, 16, 'Sức khỏe', NULL, 3, 0, 0, 1),
-(3, '10:13:28 13/04/2023', '14:49:40 13/04/2023', NULL, 24, 'Sao', '', 0, 3, 0, 1),
-(5, '14:09:42 13/04/2023', '14:50:03 13/04/2023', NULL, 25, 'Kim cương', '', 0, 0, 1, 1),
-(8, '14:51:57 13/04/2023', '12:16:19 14/04/2023', NULL, 45, 'Son abc', 'Son Sakura', 0, 0, 0, 3);
+INSERT INTO `card` (`id`, `createdAt`, `updatedAt`, `deletedAt`, `imageId`, `title`, `brand`, `healthReward`, `starReward`, `diamondReward`, `occurrenceRate`, `topicId`) VALUES
+(1, '09:59:46 13/04/2023', NULL, NULL, 16, 'Sức khỏe', NULL, 3, 0, 0, 100, 1),
+(3, '10:13:28 13/04/2023', '14:49:40 13/04/2023', NULL, 24, 'Sao', '', 0, 3, 0, 100, 1),
+(5, '14:09:42 13/04/2023', '14:50:03 13/04/2023', NULL, 25, 'Kim cương', '', 0, 0, 1, 100, 1),
+(8, '14:51:57 13/04/2023', '12:16:19 14/04/2023', NULL, 45, 'Son abc', 'Son Sakura', 0, 0, 0, 100, 3);
 
 -- --------------------------------------------------------
 
@@ -165,6 +166,7 @@ CREATE TABLE `gift` (
   `starCost` int(11) DEFAULT 0,
   `diamondCost` int(11) DEFAULT 0,
   `allowToReceiveOnline` tinyint(1) DEFAULT 0,
+  `isSpecial` tinyint(1) NOT NULL DEFAULT 0,
   `isShow` tinyint(1) DEFAULT 1
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -172,12 +174,11 @@ CREATE TABLE `gift` (
 -- Dumping data for table `gift`
 --
 
-INSERT INTO `gift` (`id`, `createdAt`, `updatedAt`, `deletedAt`, `imageId`, `name`, `brand`, `description`, `starCost`, `diamondCost`, `allowToReceiveOnline`, `isShow`) VALUES
-(4, '15:18:59 13/04/2023', NULL, NULL, 27, 'Mứt dâu', '', '', 120, 0, 0, 0),
-(5, '15:20:11 13/04/2023', NULL, NULL, 28, 'Yomost cam', 'Yomost', 'Hương cam', 250, 0, 1, 1),
-(6, '15:20:35 13/04/2023', NULL, NULL, 29, 'Yomost việt quất', 'Yomost', 'Hương viết quất', 0, 3, 1, 1),
-(7, '11:17:32 14/04/2023', '12:12:52 14/04/2023', NULL, 42, 'Yomost lựu đỏ', 'Yomost', 'Hương lựu đỏ', 300, 0, 1, 1),
-(9, '14:39:53 14/04/2023', '14:52:35 14/04/2023', NULL, 53, 'Yomost dâu', 'Yomost', 'Hương dâu tây', 202, 5, 1, 1);
+INSERT INTO `gift` (`id`, `createdAt`, `updatedAt`, `deletedAt`, `imageId`, `name`, `brand`, `description`, `starCost`, `diamondCost`, `allowToReceiveOnline`, `isSpecial`, `isShow`) VALUES
+(5, '15:20:11 13/04/2023', NULL, NULL, 28, 'Yomost cam', 'Yomost', 'Hương cam', 250, 0, 1, 0, 1),
+(6, '15:20:35 13/04/2023', '11:00:13 15/04/2023', NULL, 29, 'Yomost việt quất', 'Yomost', 'Hương viết quất', 0, 3, 1, 0, 1),
+(7, '11:17:32 14/04/2023', '12:12:52 14/04/2023', NULL, 42, 'Yomost lựu đỏ', 'Yomost', 'Hương lựu đỏ', 300, 0, 1, 1, 1),
+(9, '14:39:53 14/04/2023', '14:52:35 14/04/2023', NULL, 53, 'Yomost dâu', 'Yomost', 'Hương dâu tây', 202, 5, 1, 1, 1);
 
 -- --------------------------------------------------------
 
@@ -206,7 +207,6 @@ INSERT INTO `image` (`id`, `createdAt`, `updatedAt`, `deletedAt`, `link`, `filen
 (18, '10:07:41 13/04/2023', NULL, NULL, 'http://localhost/projects/sakura/upload/images/imagefile643771fdc31f7.png', 'imagefile643771fdc31f7.png', 38968),
 (24, '14:49:40 13/04/2023', NULL, NULL, 'http://localhost/projects/sakura/upload/images/imagefile6437b41407f43.png', 'imagefile6437b41407f43.png', 11548),
 (25, '14:50:01 13/04/2023', NULL, NULL, 'http://localhost/projects/sakura/upload/images/imagefile6437b42942b39.png', 'imagefile6437b42942b39.png', 11492),
-(27, '15:16:20 13/04/2023', NULL, NULL, 'http://localhost/projects/sakura/upload/images/imagefile6437ba54917bf.png', 'imagefile6437ba54917bf.png', 116809),
 (28, '15:20:03 13/04/2023', NULL, NULL, 'http://localhost/projects/sakura/upload/images/imagefile6437bb33a03a4.png', 'imagefile6437bb33a03a4.png', 228661),
 (29, '15:20:33 13/04/2023', NULL, NULL, 'http://localhost/projects/sakura/upload/images/imagefile6437bb513c765.png', 'imagefile6437bb513c765.png', 245066),
 (42, '12:12:51 14/04/2023', NULL, NULL, 'http://localhost/projects/sakura/upload/images/imagefile6438e0d374b91.png', 'imagefile6438e0d374b91.png', 242887),
@@ -281,8 +281,8 @@ CREATE TABLE `player` (
 --
 
 INSERT INTO `player` (`id`, `createdAt`, `updatedAt`, `deletedAt`, `lockedAt`, `phoneNumber`, `password`, `email`, `nickname`, `health`, `star`, `diamond`, `experience`, `level`, `activeOptionMode`) VALUES
-(5, '20:05:31 07/04/2023', NULL, NULL, NULL, '0353292241', '4c79273eed3d095e55d1224f6524ae92', 'thanhlongedu0304@gmail.com', 'player_yP7Ty2', 3, 0, 0, 0, 1, 1),
-(6, '20:05:52 07/04/2023', NULL, NULL, NULL, '0123456789', '4c79273eed3d095e55d1224f6524ae92', '2014468@dlu.edu.vn', 'player_eECGaf', 3, 0, 0, 0, 1, 0),
+(5, '20:05:31 07/04/2023', NULL, NULL, NULL, '0353292241', '4c79273eed3d095e55d1224f6524ae92', 'thanhlongedu0304@gmail.com', 'player_yP7Ty2', 3, 50, 0, 0, 1, 1),
+(6, '20:05:52 07/04/2023', NULL, NULL, NULL, '0123456789', '4c79273eed3d095e55d1224f6524ae92', '2014468@dlu.edu.vn', 'player_eECGaf', 3, 280, 24, 0, 1, 0),
 (7, '20:06:33 07/04/2023', NULL, NULL, NULL, '0123456781', '4c79273eed3d095e55d1224f6524ae92', 'nguyenlong0304tester1@gmail.com', 'player_YzvXFT', 3, 0, 0, 0, 1, 0),
 (8, '20:06:37 07/04/2023', '20:32:19 07/04/2023', NULL, NULL, '0123456782', '4c79273eed3d095e55d1224f6524ae92', 'nguyenlong0304tester2@gmail.com', 'player_op7UUD', 5, 5, 2, 102, 3, 0);
 
@@ -315,17 +315,26 @@ INSERT INTO `question` (`id`, `createdAt`, `updatedAt`, `deletedAt`, `content`, 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `rewardhistory`
+-- Table structure for table `reward`
 --
 
-CREATE TABLE `rewardhistory` (
+CREATE TABLE `reward` (
   `id` int(11) NOT NULL,
   `createdAt` varchar(255) DEFAULT NULL,
   `updatedAt` varchar(255) DEFAULT NULL,
   `deletedAt` varchar(255) DEFAULT NULL,
   `giftId` int(11) DEFAULT NULL,
-  `playerId` int(11) DEFAULT NULL
+  `playerId` int(11) DEFAULT NULL,
+  `starCost` int(11) NOT NULL,
+  `diamondCost` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `reward`
+--
+
+INSERT INTO `reward` (`id`, `createdAt`, `updatedAt`, `deletedAt`, `giftId`, `playerId`, `starCost`, `diamondCost`) VALUES
+(6, '11:07:19 15/04/2023', NULL, NULL, 5, 6, 250, 0);
 
 -- --------------------------------------------------------
 
@@ -425,9 +434,9 @@ ALTER TABLE `question`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `rewardhistory`
+-- Indexes for table `reward`
 --
-ALTER TABLE `rewardhistory`
+ALTER TABLE `reward`
   ADD PRIMARY KEY (`id`),
   ADD KEY `giftId` (`giftId`),
   ADD KEY `playerId` (`playerId`);
@@ -471,19 +480,19 @@ ALTER TABLE `answer`
 -- AUTO_INCREMENT for table `card`
 --
 ALTER TABLE `card`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT for table `gift`
 --
 ALTER TABLE `gift`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT for table `image`
 --
 ALTER TABLE `image`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=60;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=66;
 
 --
 -- AUTO_INCREMENT for table `level`
@@ -504,10 +513,10 @@ ALTER TABLE `question`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
--- AUTO_INCREMENT for table `rewardhistory`
+-- AUTO_INCREMENT for table `reward`
 --
-ALTER TABLE `rewardhistory`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+ALTER TABLE `reward`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `topic`
@@ -538,11 +547,11 @@ ALTER TABLE `card`
   ADD CONSTRAINT `card_ibfk_1` FOREIGN KEY (`topicId`) REFERENCES `topic` (`id`);
 
 --
--- Constraints for table `rewardhistory`
+-- Constraints for table `reward`
 --
-ALTER TABLE `rewardhistory`
-  ADD CONSTRAINT `rewardhistory_ibfk_1` FOREIGN KEY (`giftId`) REFERENCES `gift` (`id`),
-  ADD CONSTRAINT `rewardhistory_ibfk_2` FOREIGN KEY (`playerId`) REFERENCES `player` (`id`);
+ALTER TABLE `reward`
+  ADD CONSTRAINT `reward_ibfk_1` FOREIGN KEY (`giftId`) REFERENCES `gift` (`id`),
+  ADD CONSTRAINT `reward_ibfk_2` FOREIGN KEY (`playerId`) REFERENCES `player` (`id`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

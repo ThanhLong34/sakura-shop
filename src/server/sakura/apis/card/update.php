@@ -36,6 +36,7 @@ $brand = trim($data["brand"] ?? ""); // string
 $healthReward = $data["healthReward"] ?? ""; // int
 $starReward = $data["starReward"] ?? ""; // int
 $diamondReward = $data["diamondReward"] ?? ""; // int
+$occurrenceRate = $data["occurrenceRate"] ?? ""; // int
 $topicId = $data["topicId"] ?? ""; // int
 
 
@@ -43,13 +44,13 @@ $topicId = $data["topicId"] ?? ""; // int
 //? START
 //? ====================
 // ✅ Cập nhật record
-update($id, $imageId, $title, $brand, $healthReward, $starReward, $diamondReward, $topicId);
+update($id, $imageId, $title, $brand, $healthReward, $starReward, $diamondReward, $occurrenceRate, $topicId);
 
 
 //? ====================
 //? FUNCTIONS
 //? ====================
-function update($id, $imageId, $title, $brand, $healthReward, $starReward, $diamondReward, $topicId)
+function update($id, $imageId, $title, $brand, $healthReward, $starReward, $diamondReward, $occurrenceRate, $topicId)
 {
    global $connect, $tableName;
 
@@ -92,6 +93,11 @@ function update($id, $imageId, $title, $brand, $healthReward, $starReward, $diam
    // Cập nhật diamondReward
    if (is_numeric($diamondReward)) {
       $mainQuery .= "," . "`diamondReward` = '$diamondReward'";
+   }
+
+   // Cập nhật occurrenceRate
+   if (is_numeric($occurrenceRate)) {
+      $mainQuery .= "," . "`occurrenceRate` = '$occurrenceRate'";
    }
 
    // Cập nhật topicId

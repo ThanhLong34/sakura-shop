@@ -36,19 +36,20 @@ $description = trim($data["description"] ?? ""); // string
 $starCost = $data["starCost"] ?? ""; // int
 $diamondCost = $data["diamondCost"] ?? ""; // int
 $allowToReceiveOnline = (bool)$data["allowToReceiveOnline"]; // bool
+$isSpecial = (bool)$data["isSpecial"]; // bool
 $isShow = (bool)$data["isShow"]; // bool
 
 //? ====================
 //? START
 //? ====================
 // ✅ Thêm record 
-add($imageId, $name, $brand, $description, $starCost, $diamondCost, $allowToReceiveOnline, $isShow);
+add($imageId, $name, $brand, $description, $starCost, $diamondCost, $allowToReceiveOnline, $isSpecial, $isShow);
 
 
 //? ====================
 //? FUNCTIONS
 //? ====================
-function add($imageId, $name, $brand, $description, $starCost, $diamondCost, $allowToReceiveOnline, $isShow)
+function add($imageId, $name, $brand, $description, $starCost, $diamondCost, $allowToReceiveOnline, $isSpecial, $isShow)
 {
    global $connect, $tableName;
 
@@ -68,8 +69,8 @@ function add($imageId, $name, $brand, $description, $starCost, $diamondCost, $al
    $createdAt = getCurrentDatetime();
 
    // Thực thi query
-   $query = "INSERT INTO `$tableName`(`createdAt`, `imageId`, `name`, `brand`, `description`, `starCost`, `diamondCost`, `allowToReceiveOnline`, `isShow`) 
-               VALUES('$createdAt', '$imageId', '$name', '$brand', '$description', '$starCost', '$diamondCost', '$allowToReceiveOnline', '$isShow')";
+   $query = "INSERT INTO `$tableName`(`createdAt`, `imageId`, `name`, `brand`, `description`, `starCost`, `diamondCost`, `allowToReceiveOnline`, `isSpecial`, `isShow`) 
+               VALUES('$createdAt', '$imageId', '$name', '$brand', '$description', '$starCost', '$diamondCost', '$allowToReceiveOnline', '$isSpecial', '$isShow')";
    performsQueryAndResponseToClient($query);
 
    // Đóng kết nối

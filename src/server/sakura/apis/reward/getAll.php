@@ -26,7 +26,7 @@ if (!checkPermissionFunction()) exit;
 //? ====================
 //? PARAMETERS & PAYLOAD
 //? ====================
-$tableName = "rewardhistory";
+$tableName = "reward";
 
 $limit = $_GET["limit"] ?? ""; // int, limit = "", hoặc không có payload để lấy tất cả
 $offset = $_GET["offset"] ?? ""; // int
@@ -60,10 +60,13 @@ function getAll($limit, $offset, $searchType, $searchValue, $fillType, $fillValu
    }
 
    //! Thêm tùy chỉnh Code ở đây
-   $baseQuery = "SELECT `$tableName`.*, `gift`.`name` AS 'giftName', `image`.`link` AS 'giftImageUrl'
+   $baseQuery = "SELECT `$tableName`.*,
+      `gift`.`name` AS 'giftName', 
+      `image`.`link` AS 'giftImageUrl'
       FROM `$tableName`
       LEFT JOIN `gift` ON `gift`.`id` = `$tableName`.`giftId`
       LEFT JOIN `image` ON `image`.`id` = `gift`.`imageId`
+      LEFT JOIN `player` ON `player`.`id` = `$tableName`.`playerId`
       WHERE `$tableName`.`deletedAt` IS NULL
       AND `gift`.`deletedAt` IS NULL
       AND `player`.`deletedAt` IS NULL";
