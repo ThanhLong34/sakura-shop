@@ -39,6 +39,11 @@ function AddItemDialog({ visible, setVisible, onSubmitted }) {
 
 	//? Handles
 	const handleCloseDialog = () => {
+		contentRef.current.value = null;
+		healthRewardRef.current.getInput().value = null;
+		starRewardRef.current.getInput().value = null;
+		diamondRewardRef.current.getInput().value = null;
+
 		setVisible(false);
 	};
 	const handleSubmit = () => {

@@ -1,7 +1,6 @@
 import { useRef, useState } from "react";
 import PropTypes from "prop-types";
 
-import questionApi from "@/apis/questionApi";
 import answerApi from "@/apis/answerApi";
 
 import Answer from "@/admin/components/Answer/Answer";
@@ -147,9 +146,9 @@ function AnswerManagementDialog({ visible, setVisible, item, onSubmitted }) {
 		});
 	};
 	const handleReload = () => {
-		handleBindingData();
+		handleBeforeShowDialog();
 	};
-	const handleBindingData = () => {
+	const handleBeforeShowDialog = () => {
 		(async () => {
 			if (item) {
 				const getAnswersResponse = await answerApi.getByQuestionId(item.id);
@@ -187,6 +186,9 @@ function AnswerManagementDialog({ visible, setVisible, item, onSubmitted }) {
 		})();
 	};
 	const handleCloseDialog = () => {
+		rightAnswerContentRef.current.value = null;
+		wrongAnswerContentRef.current.value = null;
+		
 		setVisible(false);
 	};
 
@@ -199,7 +201,7 @@ function AnswerManagementDialog({ visible, setVisible, item, onSubmitted }) {
 				visible={visible}
 				style={{ width: "1000px" }}
 				onHide={handleCloseDialog}
-				onShow={handleBindingData}
+				onShow={handleBeforeShowDialog}
 			>
 				<div className="mb-4">
 					<span className="block mb-2">Câu trả lời đúng (chỉ nên có 1 câu trả lời đúng)</span>

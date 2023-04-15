@@ -114,6 +114,10 @@ function UpdateItemDialog({ visible, setVisible, item, onSubmitted }) {
 		}
 	};
 	const handleCloseDialog = () => {
+		nameRef.current.value = null;
+
+		setTotalSize(0);
+		
 		setVisible(false);
 	};
 	const handleSubmit = () => {

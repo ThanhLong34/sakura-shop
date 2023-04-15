@@ -46,8 +46,8 @@ function AddItemDialog({ visible, setVisible, onSubmitted }) {
 
 	//? Refs
 	const toastRef = useRef(null);
-	const nameRef = useRef(null);
 	const fileUploadRef = useRef(null);
+	const nameRef = useRef(null);
 
 	//? States
 	const [totalSize, setTotalSize] = useState(0);
@@ -100,6 +100,10 @@ function AddItemDialog({ visible, setVisible, onSubmitted }) {
 		});
 	};
 	const handleCloseDialog = () => {
+		nameRef.current.value = null;
+
+		setTotalSize(0);
+
 		setVisible(false);
 	};
 	const handleSubmit = () => {

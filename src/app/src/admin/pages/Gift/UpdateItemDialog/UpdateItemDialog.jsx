@@ -61,12 +61,12 @@ function UpdateItemDialog({ visible, setVisible, item, onSubmitted }) {
 
 	//? Refs
 	const toastRef = useRef(null);
+	const fileUploadRef = useRef(null);
 	const nameRef = useRef(null);
 	const brandRef = useRef(null);
 	const descriptionRef = useRef(null);
 	const starCostRef = useRef(null);
 	const diamondCostRef = useRef(null);
-	const fileUploadRef = useRef(null);
 
 	//? States
 	const [totalSize, setTotalSize] = useState(0);
@@ -139,6 +139,16 @@ function UpdateItemDialog({ visible, setVisible, item, onSubmitted }) {
 		}
 	};
 	const handleCloseDialog = () => {
+		nameRef.current.value = null;
+		brandRef.current.value = null;
+		descriptionRef.current.value = null;
+		starCostRef.current.getInput().value = null;
+		diamondCostRef.current.getInput().value = null;
+
+		setTotalSize(0);
+		setAllowToReceiveOnline(false);
+		setIsShow(true);
+		
 		setVisible(false);
 	};
 	const handleSubmit = () => {

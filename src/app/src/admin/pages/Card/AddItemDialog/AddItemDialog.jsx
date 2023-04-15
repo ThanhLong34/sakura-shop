@@ -60,12 +60,12 @@ function AddItemDialog({ visible, setVisible, onSubmitted }) {
 
 	//? Refs
 	const toastRef = useRef(null);
+	const fileUploadRef = useRef(null);
 	const titleRef = useRef(null);
 	const brandRef = useRef(null);
 	const healthRewardRef = useRef(null);
 	const starRewardRef = useRef(null);
 	const diamondRewardRef = useRef(null);
-	const fileUploadRef = useRef(null);
 
 	//? States
 	const [totalSize, setTotalSize] = useState(0);

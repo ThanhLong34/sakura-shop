@@ -49,6 +49,11 @@ function UpdateItemDialog({ visible, setVisible, item, onSubmitted }) {
 		}
 	};
 	const handleCloseDialog = () => {
+		contentRef.current.value = null;
+		healthRewardRef.current.getInput().value = null;
+		starRewardRef.current.getInput().value = null;
+		diamondRewardRef.current.getInput().value = null;
+		
 		setVisible(false);
 	};
 	const handleSubmit = () => {
