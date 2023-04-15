@@ -2,18 +2,18 @@ import PropTypes from "prop-types";
 
 import { Dialog } from "primereact/dialog";
 
-PreviewImageDialog.propTypes = {
+PreviewVideoDialog.propTypes = {
 	visible: PropTypes.bool.isRequired,
 	setVisible: PropTypes.func.isRequired,
 	url: PropTypes.string,
 };
 
-function PreviewImageDialog({ visible, setVisible, url }) {
+function PreviewVideoDialog({ visible, setVisible, url }) {
 	return (
 		<Dialog visible={visible} style={{ width: "650px" }} onHide={() => setVisible(false)}>
-			<video src={url} type="video/mp4" width="100%" height="100%" controls />
+			<video src={url} type="video/mp4" width="100%" height="100%" controls muted />
 		</Dialog>
 	);
 }
 
-export default PreviewImageDialog;
+export default PreviewVideoDialog;
