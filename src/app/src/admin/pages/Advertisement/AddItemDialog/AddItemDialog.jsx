@@ -4,9 +4,10 @@ import classNames from "classnames/bind";
 import styles from "./AddItemDialog.module.scss";
 import { getInputNumberValue } from "@/helpers/converter";
 
-import cardApi from "@/apis/cardApi";
 import advertisementTypeApi from "@/apis/advertisementTypeApi";
+import advertisementApi from "@/apis/advertisementApi";
 import imageFileApi from "@/apis/imageFileApi";
+import videoFileApi from "@/apis/videoFileApi";
 
 // Icons
 import HealthIcon from "@/assets/images/heart.png";
@@ -24,6 +25,7 @@ import { Tooltip } from "primereact/tooltip";
 import { Tag } from "primereact/tag";
 import { Dropdown } from "primereact/dropdown";
 import { Slider } from "primereact/slider";
+import { InputTextarea } from "primereact/inputtextarea";
 
 const cx = classNames.bind(styles);
 
@@ -57,24 +59,28 @@ AddItemDialog.defaultProps = {
 function AddItemDialog({ visible, setVisible, onSubmitted }) {
 	//? Variables
 	const imageIdUploaded = useRef(null);
+	const videoIdUploaded = useRef(null);
 
 	//? Refs
 	const toastRef = useRef(null);
-	const fileUploadRef = useRef(null);
+	const imageFileUploadRef = useRef(null);
+	const videoFileUploadRef = useRef(null);
 	const titleRef = useRef(null);
-	const brandRef = useRef(null);
+	const descriptionRef = useRef(null);
+	const durationRef = useRef(null);
 	const healthRewardRef = useRef(null);
 	const starRewardRef = useRef(null);
 	const diamondRewardRef = useRef(null);
 
 	//? States
-	const [totalSize, setTotalSize] = useState(0);
-	const [selectedTopicId, setSelectedTopicId] = useState(null);
-	const [topics, setTopics] = useState([]);
+	const [totalSizeImageFile, setTotalSizeImageFile] = useState(0);
+	const [totalSizeVideoFile, setTotalSizeVideoFile] = useState(0);
+	const [selectedAdvertisementTypeId, setSelectedAdvertisementTypeId] = useState(null);
+	const [advertisementTypes, setAdvertisementTypes] = useState([]);
 	const [occurrenceRate, setOccurrenceRate] = useState(100);
 
 	//? Handles
-	const handleSelectFile = (e) => {
+	const handleSelectImageFile = (e) => {
 		let _totalSize = 0;
 		let files = e.files;
 
@@ -82,10 +88,21 @@ function AddItemDialog({ visible, setVisible, onSubmitted }) {
 			_totalSize += files[key].size || 0;
 		});
 
-		setTotalSize(_totalSize);
+		setTotalSizeImageFile(_totalSize);
 		imageIdUploaded.current = null;
 	};
-	const handleUploadFile = (e) => {
+	const handleSelectVideoFile = (e) => {
+		let _totalSize = 0;
+		let files = e.files;
+
+		Object.keys(files).forEach((key) => {
+			_totalSize += files[key].size || 0;
+		});
+
+		setTotalSizeVideoFile(_totalSize);
+		videoIdUploaded.current = null;
+	};
+	const handleUploadImageFile = (e) => {
 		const imageFile = e.files[0];
 
 		imageFileApi.upload(imageFile).then((response) => {
@@ -102,17 +119,44 @@ function AddItemDialog({ visible, setVisible, onSubmitted }) {
 			}
 		});
 	};
-	const handleRemoveFile = (file, callback) => {
-		setTotalSize(totalSize - file.size);
+	const handleUploadVideoFile = (e) => {
+		const videoFile = e.files[0];
+
+		videoFileApi.upload(videoFile).then((response) => {
+			if (response.code === 1) {
+				toastRef.current.show({
+					severity: "success",
+					summary: "Thành công",
+					detail: "Tải video lên máy chủ thành công",
+				});
+
+				videoIdUploaded.current = +response.data.id;
+			} else {
+				toastRef.current.show({ severity: "error", summary: "Lỗi", detail: "Tải video lên máy chủ thất bại" });
+			}
+		});
+	};
+	const handleRemoveImageFile = (file, callback) => {
+		setTotalSizeImageFile(totalSizeImageFile - file.size);
 		callback();
 
 		imageIdUploaded.current = null;
 	};
-	const handleClearFile = () => {
-		setTotalSize(0);
+	const handleRemoveVideoFile = (file, callback) => {
+		setTotalSizeVideoFile(totalSizeVideoFile - file.size);
+		callback();
+
+		videoIdUploaded.current = null;
+	};
+	const handleClearImageFile = () => {
+		setTotalSizeImageFile(0);
 		imageIdUploaded.current = null;
 	};
-	const handleValidationFailFile = () => {
+	const handleClearVideoFile = () => {
+		setTotalSizeVideoFile(0);
+		videoIdUploaded.current = null;
+	};
+	const handleValidationFailImageFile = () => {
 		toastRef.current.show({
 			severity: "error",
 			summary: "Lỗi",
@@ -120,27 +164,36 @@ function AddItemDialog({ visible, setVisible, onSubmitted }) {
 			life: 3000,
 		});
 	};
+	const handleValidationFailVideoFile = () => {
+		toastRef.current.show({
+			severity: "error",
+			summary: "Lỗi",
+			detail: "Kích thước video không hợp lệ",
+			life: 3000,
+		});
+	};
 	const handleBeforeShowDialog = () => {
 		advertisementTypeApi.getAll().then((response) => {
-			setTopics(
-				response.data.map((topic) => ({
-					...topic,
-					id: +topic.id,
-					quantityCard: +topic.quantityCard,
+			setAdvertisementTypes(
+				response.data.map((advertisementType) => ({
+					...advertisementType,
+					id: +advertisementType.id,
+					quantityAdvertisement: +advertisementType.quantityAdvertisement,
 				}))
 			);
 		});
 	};
 	const handleCloseDialog = () => {
 		titleRef.current.value = null;
-		brandRef.current.value = null;
+		descriptionRef.current.value = null;
 		healthRewardRef.current.getInput().value = null;
 		starRewardRef.current.getInput().value = null;
 		diamondRewardRef.current.getInput().value = null;
 
-		setTotalSize(0);
-		setSelectedTopicId(null);
-		setTopics([]);
+		setTotalSizeImageFile(0);
+		setTotalSizeVideoFile(0);
+		setSelectedAdvertisementTypeId(null);
+		setAdvertisementTypes([]);
 		setOccurrenceRate(100);
 
 		setVisible(false);
@@ -148,41 +201,42 @@ function AddItemDialog({ visible, setVisible, onSubmitted }) {
 	const handleSubmit = () => {
 		const data = {
 			title: titleRef.current?.value.trim(),
-			brand: brandRef.current?.value.trim(),
+			description: descriptionRef.current?.value.trim(),
 			healthReward: getInputNumberValue(healthRewardRef.current.getInput().value),
 			starReward: getInputNumberValue(starRewardRef.current.getInput().value),
 			diamondReward: getInputNumberValue(diamondRewardRef.current.getInput().value),
 			occurrenceRate,
-			topicId: selectedTopicId,
+			advertisementTypeId: selectedAdvertisementTypeId,
 			imageId: imageIdUploaded.current,
+			videoId: videoIdUploaded.current,
 		};
 
-		if (!data.topicId) {
+		if (!data.title) {
 			toastRef.current.show({
 				severity: "warn",
 				summary: "Cảnh báo",
-				detail: "Bạn chưa chọn chủ đề (bắt buộc)",
+				detail: "Bạn chưa nhập tiêu đề quảng cáo (bắt buộc)",
 				life: 3000,
 			});
 			return;
 		}
 
-		if (!data.imageId) {
+		if (!data.advertisementTypeId) {
 			toastRef.current.show({
 				severity: "warn",
 				summary: "Cảnh báo",
-				detail: "Bạn chưa tải ảnh lên máy chủ (bắt buộc)",
+				detail: "Bạn chưa chọn loại quảng cáo (bắt buộc)",
 				life: 3000,
 			});
 			return;
 		}
 
-		cardApi.add(data).then((response) => {
+		advertisementApi.add(data).then((response) => {
 			if (response.code === 1) {
 				toastRef.current.show({
 					severity: "success",
 					summary: "Thành Công",
-					detail: "Tạo thẻ bài thành công",
+					detail: "Tạo quảng cáo thành công",
 					life: 3000,
 				});
 
@@ -200,11 +254,11 @@ function AddItemDialog({ visible, setVisible, onSubmitted }) {
 	};
 
 	//? Templates
-	const headerUploadTemplate = (options) => {
+	const headerUploadImageFileTemplate = (options) => {
 		const { className, chooseButton, uploadButton, cancelButton } = options;
-		const value = totalSize / 10000;
+		const value = totalSizeImageFile / 100000;
 		const formatedValue =
-			fileUploadRef && fileUploadRef.current ? fileUploadRef.current.formatSize(totalSize) : "0 B";
+			imageFileUploadRef && imageFileUploadRef.current ? imageFileUploadRef.current.formatSize(totalSizeImageFile) : "0 B";
 
 		return (
 			<div className={className} style={{ backgroundColor: "transparent", display: "flex", alignItems: "center" }}>
@@ -212,13 +266,31 @@ function AddItemDialog({ visible, setVisible, onSubmitted }) {
 				{uploadButton}
 				{cancelButton}
 				<div className="flex align-items-center gap-3 ml-auto">
-					<span>{formatedValue} / 2 MB</span>
+					<span>{formatedValue} / 10 MB</span>
 					<ProgressBar value={value} showValue={false} style={{ width: "10rem", height: "12px" }}></ProgressBar>
 				</div>
 			</div>
 		);
 	};
-	const itemUploadTemplate = (file, props) => {
+	const headerUploadVideoFileTemplate = (options) => {
+		const { className, chooseButton, uploadButton, cancelButton } = options;
+		const value = totalSizeVideoFile / 100000;
+		const formatedValue =
+			videoFileUploadRef && videoFileUploadRef.current ? videoFileUploadRef.current.formatSize(totalSizeVideoFile) : "0 B";
+
+		return (
+			<div className={className} style={{ backgroundColor: "transparent", display: "flex", alignItems: "center" }}>
+				{chooseButton}
+				{uploadButton}
+				{cancelButton}
+				<div className="flex align-items-center gap-3 ml-auto">
+					<span>{formatedValue} / 10 MB</span>
+					<ProgressBar value={value} showValue={false} style={{ width: "10rem", height: "12px" }}></ProgressBar>
+				</div>
+			</div>
+		);
+	};
+	const itemUploadImageFileTemplate = (file, props) => {
 		return (
 			<div className="flex flex-column">
 				<div
@@ -237,13 +309,38 @@ function AddItemDialog({ visible, setVisible, onSubmitted }) {
 						type="button"
 						icon="pi pi-times"
 						className="p-button-outlined p-button-rounded p-button-danger ml-auto"
-						onClick={() => handleRemoveFile(file, props.onRemove)}
+						onClick={() => handleRemoveImageFile(file, props.onRemove)}
 					/>
 				</div>
 			</div>
 		);
 	};
-	const emptyUploadTemplate = () => {
+	const itemUploadVideoFileTemplate = (file, props) => {
+		return (
+			<div className="flex flex-column">
+				<div
+					className="flex justify-content-center justify-content-center mb-2"
+					style={{ width: "100%", maxHeight: "200px" }}
+				>
+					<img className="" alt={file.name} role="presentation" src={file.objectURL} />
+				</div>
+				<div className="flex align-items-center align-items-center flex-wrap">
+					<span className="flex flex-column text-left mr-5">
+						{file.name}
+						<small>{new Date().toLocaleDateString()}</small>
+					</span>
+					<Tag value={props.formatSize} severity="warning" className="px-3 py-2" />
+					<Button
+						type="button"
+						icon="pi pi-times"
+						className="p-button-outlined p-button-rounded p-button-danger ml-auto"
+						onClick={() => handleRemoveImageFile(file, props.onRemove)}
+					/>
+				</div>
+			</div>
+		);
+	};
+	const emptyUploadImageFileTemplate = () => {
 		return (
 			<div className="flex align-items-center flex-column">
 				<i
@@ -261,6 +358,24 @@ function AddItemDialog({ visible, setVisible, onSubmitted }) {
 			</div>
 		);
 	};
+	const emptyUploadVideoFileTemplate = () => {
+		return (
+			<div className="flex align-items-center flex-column">
+				<i
+					className="pi pi-image mt-3 p-5"
+					style={{
+						fontSize: "5em",
+						borderRadius: "50%",
+						backgroundColor: "var(--surface-b)",
+						color: "var(--surface-d)",
+					}}
+				></i>
+				<span style={{ fontSize: "1.2em", color: "var(--text-color-secondary)" }} className="my-5">
+					Kéo thả video vào đây
+				</span>
+			</div>
+		);
+	};
 
 	return (
 		<>
@@ -273,24 +388,24 @@ function AddItemDialog({ visible, setVisible, onSubmitted }) {
 				onShow={handleBeforeShowDialog}
 			>
 				<div className="mb-4">
-					<span className="block mb-2">Tiêu đề</span>
-					<InputText ref={titleRef} className="w-full" placeholder="Nhập tiêu đề" />
+					<span className="block mb-2">Tiêu đề <span className="text-red-500">*</span></span>
+					<InputText ref={titleRef} className="w-full" placeholder="Nhập tiêu đề *" />
 				</div>
 				<div className="mb-4">
-					<span className="block mb-2">Thương hiệu</span>
-					<InputText ref={brandRef} className="w-full" placeholder="Nhập thương hiệu" />
+					<span className="block mb-2">Mô tả</span>
+					<InputTextarea ref={descriptionRef} className="w-full" placeholder="Nhập mô tả" autoResize rows={5} />
 				</div>
 				<div className="mb-4">
 					<span className="block mb-2">
-						Chủ đề <span className="text-red-500">*</span>
+						Loại quảng cáo <span className="text-red-500">*</span>
 					</span>
 					<Dropdown
-						value={selectedTopicId}
-						onChange={(e) => setSelectedTopicId(e.value)}
-						options={topics}
+						value={selectedAdvertisementTypeId}
+						onChange={(e) => setSelectedAdvertisementTypeId(e.value)}
+						options={advertisementTypes}
 						optionLabel="name"
 						optionValue="id"
-						placeholder="Chọn chủ đề *"
+						placeholder="Chọn loại quảng cáo *"
 						className="w-full"
 					/>
 				</div>
@@ -341,7 +456,7 @@ function AddItemDialog({ visible, setVisible, onSubmitted }) {
 				</div>
 				<div className="mb-4">
 					<span className="block mb-2">
-						Hình ảnh <span className="text-red-500">*</span>
+						Hình ảnh
 					</span>
 
 					<Tooltip target=".custom-choose-btn" content="Chọn ảnh" position="bottom" />
@@ -349,19 +464,47 @@ function AddItemDialog({ visible, setVisible, onSubmitted }) {
 					<Tooltip target=".custom-cancel-btn" content="Xóa" position="bottom" />
 
 					<FileUpload
-						ref={fileUploadRef}
+						ref={imageFileUploadRef}
 						accept="image/*"
 						invalidFileSizeMessageDetail="Kích thước hình ảnh vượt quá quy định"
 						invalidFileSizeMessageSummary="Kích thước hình ảnh không hợp lệ"
-						maxFileSize={2000000}
-						onSelect={handleSelectFile}
-						onClear={handleClearFile}
-						onValidationFail={handleValidationFailFile}
+						maxFileSize={10000000}
+						onSelect={handleSelectImageFile}
+						onClear={handleClearImageFile}
+						onValidationFail={handleValidationFailImageFile}
 						customUpload
-						uploadHandler={handleUploadFile}
-						headerTemplate={headerUploadTemplate}
-						itemTemplate={itemUploadTemplate}
-						emptyTemplate={emptyUploadTemplate}
+						uploadHandler={handleUploadImageFile}
+						headerTemplate={headerUploadImageFileTemplate}
+						itemTemplate={itemUploadImageFileTemplate}
+						emptyTemplate={emptyUploadImageFileTemplate}
+						chooseOptions={chooseOptions}
+						uploadOptions={uploadOptions}
+						cancelOptions={cancelOptions}
+					/>
+				</div>
+				<div className="mb-4">
+					<span className="block mb-2">
+						Video
+					</span>
+
+					<Tooltip target=".custom-choose-btn" content="Chọn video" position="bottom" />
+					<Tooltip target=".custom-upload-btn" content="Tải video lên máy chủ" position="bottom" />
+					<Tooltip target=".custom-cancel-btn" content="Xóa" position="bottom" />
+
+					<FileUpload
+						ref={videoFileUploadRef}
+						accept="video/*"
+						invalidFileSizeMessageDetail="Kích thước video vượt quá quy định"
+						invalidFileSizeMessageSummary="Kích thước video không hợp lệ"
+						maxFileSize={10000000}
+						onSelect={handleSelectVideoFile}
+						onClear={handleClearVideoFile}
+						onValidationFail={handleValidationFailVideoFile}
+						customUpload
+						uploadHandler={handleUploadVideoFile}
+						headerTemplate={headerUploadVideoFileTemplate}
+						itemTemplate={itemUploadVideoFileTemplate}
+						emptyTemplate={emptyUploadVideoFileTemplate}
 						chooseOptions={chooseOptions}
 						uploadOptions={uploadOptions}
 						cancelOptions={cancelOptions}

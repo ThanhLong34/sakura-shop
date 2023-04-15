@@ -216,7 +216,7 @@ function UpdateItemDialog({ visible, setVisible, item, onSubmitted }) {
 	//? Templates
 	const headerUploadTemplate = (options) => {
 		const { className, chooseButton, uploadButton, cancelButton } = options;
-		const value = totalSize / 10000;
+		const value = totalSize / 20000;
 		const formatedValue =
 			fileUploadRef && fileUploadRef.current ? fileUploadRef.current.formatSize(totalSize) : "0 B";
 
