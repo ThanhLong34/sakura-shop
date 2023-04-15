@@ -26,7 +26,7 @@ if (!checkPermissionFunction()) exit;
 //? ====================
 //? PARAMETERS & PAYLOAD
 //? ====================
-$tableName = "image";
+$tableName = "video";
 
 $limit = $_GET["limit"] ?? ""; // int, limit = "", hoặc không có payload để lấy tất cả
 $offset = $_GET["offset"] ?? ""; // int
@@ -69,20 +69,17 @@ function getAll($limit, $offset, $searchType, $searchValue, $fillType, $fillValu
    if ($target === "using" || $target === "dont_using") {
 
       // using & dont_using
-      $usingImageIdList = [];
+      $usingVideoIdList = [];
 
       // Lấy danh sách id hình ảnh đang sử dụng
       $queries = [
-         "SELECT `imageId` FROM `topic` WHERE `imageId` IS NOT NULL AND `deletedAt` IS NULL",
-         "SELECT `imageId` FROM `card` WHERE `imageId` IS NOT NULL AND `deletedAt` IS NULL",
-         "SELECT `imageId` FROM `gift` WHERE `imageId` IS NOT NULL AND `deletedAt` IS NULL",
-         "SELECT `imageId` FROM `advertisement` WHERE `imageId` IS NOT NULL AND `deletedAt` IS NULL"
+         "SELECT `videoId` FROM `advertisement` WHERE `videoId` IS NOT NULL AND `deletedAt` IS NULL"
       ];
       foreach ($queries as $key => $value) {
          $result = mysqli_query($connect, $value);
          if ($result) {
             while ($obj = $result->fetch_row()) {
-               array_push($usingImageIdList, (int)$obj[0]);
+               array_push($usingVideoIdList, (int)$obj[0]);
             }
          } else {
             $response = new ResponseAPI(2, "Thất bại");
@@ -95,19 +92,19 @@ function getAll($limit, $offset, $searchType, $searchValue, $fillType, $fillValu
       }
 
       // Lấy danh sách id hình ảnh đang sử dụng
-      $usingImageIdListString = implode(",", $usingImageIdList);
+      $usingVideoIdListString = implode(",", $usingVideoIdList);
 
       if ($target === "using") {
-         if ($usingImageIdListString === "") {
+         if ($usingVideoIdListString === "") {
             $optionQuery = "AND `$tableName`.`id` IN (-1)";
          } else {
-            $optionQuery = "AND `$tableName`.`id` IN ($usingImageIdListString)";
+            $optionQuery = "AND `$tableName`.`id` IN ($usingVideoIdListString)";
          }
       } else if ($target === "dont_using") {
-         if ($usingImageIdListString === "") {
+         if ($usingVideoIdListString === "") {
             $optionQuery = "AND `$tableName`.`id` NOT IN (-1)";
          } else {
-            $optionQuery = "AND `$tableName`.`id` NOT IN ($usingImageIdListString)";
+            $optionQuery = "AND `$tableName`.`id` NOT IN ($usingVideoIdListString)";
          }
       }
    }
@@ -134,6 +131,7 @@ function getAll($limit, $offset, $searchType, $searchValue, $fillType, $fillValu
 
       $query = $querySelectAllRecord . " " . $orderbyQuery . " " . $limitQuery;
    }
+
 
    // Thực thi truy vấn
    performsQueryAndResponseToClient($query, $querySelectAllRecord);

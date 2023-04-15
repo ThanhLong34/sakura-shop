@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 15, 2023 at 06:16 AM
+-- Generation Time: Apr 15, 2023 at 12:07 PM
 -- Server version: 10.4.27-MariaDB
 -- PHP Version: 8.2.0
 
@@ -59,15 +59,26 @@ CREATE TABLE `advertisement` (
   `updatedAt` varchar(255) DEFAULT NULL,
   `deletedAt` varchar(255) DEFAULT NULL,
   `imageId` int(11) DEFAULT NULL,
-  `videoUrl` varchar(1000) DEFAULT NULL,
-  `title` varchar(1000) DEFAULT NULL,
+  `videoId` int(11) DEFAULT NULL,
+  `title` varchar(1000) NOT NULL,
   `description` text DEFAULT NULL,
   `duration` int(11) NOT NULL,
   `healthReward` int(11) DEFAULT 0,
   `starReward` int(11) DEFAULT 0,
   `diamondReward` int(11) DEFAULT 0,
+  `occurrenceRate` int(11) NOT NULL DEFAULT 100,
   `advertisementTypeId` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `advertisement`
+--
+
+INSERT INTO `advertisement` (`id`, `createdAt`, `updatedAt`, `deletedAt`, `imageId`, `videoId`, `title`, `description`, `duration`, `healthReward`, `starReward`, `diamondReward`, `occurrenceRate`, `advertisementTypeId`) VALUES
+(3, '15:54:17 15/04/2023', NULL, NULL, 0, 9, 'QC 1  123', '', 0, 3, 0, 0, 32, 3),
+(5, '15:59:59 15/04/2023', NULL, NULL, 66, 10, 'QC 2', '', 0, 0, 0, 0, 56, 3),
+(6, '16:19:33 15/04/2023', '17:04:43 15/04/2023', NULL, 69, 11, 'QC 3', '', 25, 3, 0, 0, 100, 1),
+(7, '16:32:07 15/04/2023', '17:06:27 15/04/2023', NULL, 68, 0, 'QC 4', '', 5, 3, 1, 2, 83, 1);
 
 -- --------------------------------------------------------
 
@@ -82,6 +93,15 @@ CREATE TABLE `advertisementtype` (
   `deletedAt` varchar(255) DEFAULT NULL,
   `name` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `advertisementtype`
+--
+
+INSERT INTO `advertisementtype` (`id`, `createdAt`, `updatedAt`, `deletedAt`, `name`) VALUES
+(1, '14:41:14 15/04/2023', NULL, NULL, 'Hình ảnh'),
+(3, '14:56:13 15/04/2023', NULL, NULL, 'Video ngắn'),
+(4, '14:56:41 15/04/2023', '15:00:21 15/04/2023', '15:00:24 15/04/2023', 'QC');
 
 -- --------------------------------------------------------
 
@@ -211,7 +231,11 @@ INSERT INTO `image` (`id`, `createdAt`, `updatedAt`, `deletedAt`, `link`, `filen
 (29, '15:20:33 13/04/2023', NULL, NULL, 'http://localhost/projects/sakura/upload/images/imagefile6437bb513c765.png', 'imagefile6437bb513c765.png', 245066),
 (42, '12:12:51 14/04/2023', NULL, NULL, 'http://localhost/projects/sakura/upload/images/imagefile6438e0d374b91.png', 'imagefile6438e0d374b91.png', 242887),
 (45, '12:15:54 14/04/2023', NULL, NULL, 'http://localhost/projects/sakura/upload/images/imagefile6438e18a02efb.png', 'imagefile6438e18a02efb.png', 73137),
-(53, '14:41:02 14/04/2023', NULL, NULL, 'http://localhost/projects/sakura/upload/images/imagefile6439038e3abea.png', 'imagefile6439038e3abea.png', 237473);
+(53, '14:41:02 14/04/2023', NULL, NULL, 'http://localhost/projects/sakura/upload/images/imagefile6439038e3abea.png', 'imagefile6439038e3abea.png', 237473),
+(66, '15:59:42 15/04/2023', NULL, NULL, 'http://localhost/projects/sakura/upload/images/imagefile643a677e4faeb.jpg', 'imagefile643a677e4faeb.jpg', 2259017),
+(67, '16:19:31 15/04/2023', NULL, NULL, 'http://localhost/projects/sakura/upload/images/imagefile643a6c235bf2c.jpg', 'imagefile643a6c235bf2c.jpg', 587401),
+(68, '16:32:01 15/04/2023', NULL, NULL, 'http://localhost/projects/sakura/upload/images/imagefile643a6f1134c6b.jpg', 'imagefile643a6f1134c6b.jpg', 1187154),
+(69, '17:04:24 15/04/2023', NULL, NULL, 'http://localhost/projects/sakura/upload/images/imagefile643a76a83be40.png', 'imagefile643a76a83be40.png', 116809);
 
 -- --------------------------------------------------------
 
@@ -360,6 +384,31 @@ INSERT INTO `topic` (`id`, `createdAt`, `updatedAt`, `deletedAt`, `imageId`, `na
 (3, '10:52:40 11/04/2023', NULL, NULL, 1, 'Son môi'),
 (4, '10:53:33 11/04/2023', NULL, NULL, 2, 'Giày Sneaker');
 
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `video`
+--
+
+CREATE TABLE `video` (
+  `id` int(11) NOT NULL,
+  `createdAt` varchar(255) DEFAULT NULL,
+  `updatedAt` varchar(255) DEFAULT NULL,
+  `deletedAt` varchar(255) DEFAULT NULL,
+  `link` varchar(255) NOT NULL,
+  `filename` varchar(255) NOT NULL,
+  `size` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `video`
+--
+
+INSERT INTO `video` (`id`, `createdAt`, `updatedAt`, `deletedAt`, `link`, `filename`, `size`) VALUES
+(9, '15:54:15 15/04/2023', NULL, NULL, 'http://localhost/projects/sakura/upload/videos/videofile643a66379c01c.mp4', 'videofile643a66379c01c.mp4', 2361284),
+(10, '15:59:43 15/04/2023', NULL, NULL, 'http://localhost/projects/sakura/upload/videos/videofile643a677f3d074.mp4', 'videofile643a677f3d074.mp4', 1542713),
+(11, '17:04:40 15/04/2023', NULL, NULL, 'http://localhost/projects/sakura/upload/videos/videofile643a76b8eb950.mp4', 'videofile643a76b8eb950.mp4', 1542713);
+
 --
 -- Indexes for dumped tables
 --
@@ -382,7 +431,8 @@ ALTER TABLE `advertisement`
 -- Indexes for table `advertisementtype`
 --
 ALTER TABLE `advertisementtype`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `name` (`name`);
 
 --
 -- Indexes for table `answer`
@@ -449,6 +499,14 @@ ALTER TABLE `topic`
   ADD UNIQUE KEY `name` (`name`);
 
 --
+-- Indexes for table `video`
+--
+ALTER TABLE `video`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `link` (`link`),
+  ADD UNIQUE KEY `filename` (`filename`);
+
+--
 -- AUTO_INCREMENT for dumped tables
 --
 
@@ -462,13 +520,13 @@ ALTER TABLE `admin`
 -- AUTO_INCREMENT for table `advertisement`
 --
 ALTER TABLE `advertisement`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `advertisementtype`
 --
 ALTER TABLE `advertisementtype`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `answer`
@@ -492,7 +550,7 @@ ALTER TABLE `gift`
 -- AUTO_INCREMENT for table `image`
 --
 ALTER TABLE `image`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=66;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=70;
 
 --
 -- AUTO_INCREMENT for table `level`
@@ -523,6 +581,12 @@ ALTER TABLE `reward`
 --
 ALTER TABLE `topic`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+
+--
+-- AUTO_INCREMENT for table `video`
+--
+ALTER TABLE `video`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- Constraints for dumped tables

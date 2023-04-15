@@ -26,7 +26,7 @@ if (!checkPermissionFunction()) exit;
 //? ====================
 //? PARAMETERS & PAYLOAD
 //? ====================
-$tableName = "topic";
+$tableName = "video";
 
 $id = $_GET["id"] ?? ""; // int
 
@@ -53,14 +53,7 @@ function getById($id)
    }
 
    // Thực thi query
-   $query = "SELECT COUNT(`card`.`id`) AS 'quantityCard', 
-      `$tableName`.*, `image`.`link` AS 'imageUrl'
-      FROM `$tableName`
-      LEFT JOIN `image` ON `image`.`id` = `$tableName`.`imageId`
-      LEFT JOIN `card` ON `card`.`topicId` = `$tableName`.`id` AND `card`.`deletedAt` IS NULL
-      WHERE `$tableName`.`deletedAt` IS NULL
-      AND `$tableName`.`id` = '$id'
-      LIMIT 1";
+   $query = "SELECT * FROM `$tableName` WHERE `id` = '$id' AND `deletedAt` IS NULL LIMIT 1";
    performsQueryAndResponseToClient($query);
 
    // Đóng kết nối

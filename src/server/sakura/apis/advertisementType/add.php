@@ -13,7 +13,7 @@ require("../../classes/ResponseAPI.php");
 //? ====================
 header("Access-Control-Allow-Origin: " . ACCESS_CONTROL_ALLOW_ORIGIN);
 header("Access-Control-Allow-Headers: " . ACCESS_CONTROL_ALLOW_HEADERS);
-header("Access-Control-Allow-Methods: GET");
+header("Access-Control-Allow-Methods: POST");
 header("Content-Type: application/json");
 
 
@@ -26,41 +26,46 @@ if (!checkPermissionFunction()) exit;
 //? ====================
 //? PARAMETERS & PAYLOAD
 //? ====================
-$tableName = "topic";
+$tableName = "advertisementtype";
+$data = getJSONPayloadRequest();
 
-$id = $_GET["id"] ?? ""; // int
+$name = trim($data["name"] ?? ""); // string
 
 
 //? ====================
 //? START
 //? ====================
-// ✅ Lấy record theo id
-getById($id);
+// ✅ Thêm record 
+add($name);
 
 
 //? ====================
 //? FUNCTIONS
 //? ====================
-function getById($id)
+function add($name)
 {
    global $connect, $tableName;
 
    // Kiểm tra dữ liệu payload
-   if (!is_numeric($id)) {
+   if ($name === "") {
       $response = new ResponseAPI(9, "Không đủ payload để thực hiện");
       $response->send();
       return;
    }
 
+   // Kiểm tra item tồn tại trong CSDL theo các tiêu chí
+   if (checkItemExist($name)) {
+      $response = new ResponseAPI(3, "Tên loại quảng cáo đã tồn tại");
+      $response->send();
+      return;
+   }
+
+   // createdAt, updateAt, deletedAt
+   $createdAt = getCurrentDatetime();
+
    // Thực thi query
-   $query = "SELECT COUNT(`card`.`id`) AS 'quantityCard', 
-      `$tableName`.*, `image`.`link` AS 'imageUrl'
-      FROM `$tableName`
-      LEFT JOIN `image` ON `image`.`id` = `$tableName`.`imageId`
-      LEFT JOIN `card` ON `card`.`topicId` = `$tableName`.`id` AND `card`.`deletedAt` IS NULL
-      WHERE `$tableName`.`deletedAt` IS NULL
-      AND `$tableName`.`id` = '$id'
-      LIMIT 1";
+   $query = "INSERT INTO `$tableName`(`createdAt`, `name`) 
+               VALUES('$createdAt', '$name')";
    performsQueryAndResponseToClient($query);
 
    // Đóng kết nối
@@ -75,16 +80,25 @@ function performsQueryAndResponseToClient($query)
    $result = mysqli_query($connect, $query);
 
    if ($result) {
-      $item = $result->fetch_object();
-      if ($item != null) {
-         $response = new ResponseAPI(1, "Thành công", $item, 1);
-         $response->send();
-      } else {
-         $response = new ResponseAPI(2, "Không tìm thấy");
-         $response->send();
-      }
+      $response = new ResponseAPI(1, "Thành công");
+      $response->send();
    } else {
-      $response = new ResponseAPI(3, "Thất bại");
+      $response = new ResponseAPI(2, "Thất bại");
       $response->send();
    }
+}
+
+// Kiểm tra item tồn tại trong CSDL theo các tiêu chí
+function checkItemExist($name)
+{
+   global $connect, $tableName;
+
+   $query = "SELECT * FROM `$tableName` WHERE `deletedAt` IS NULL AND `name` = '$name' LIMIT 1";
+   $result = mysqli_query($connect, $query);
+
+   if ($result && mysqli_num_rows($result) > 0) {
+      return true;
+   }
+
+   return false;
 }

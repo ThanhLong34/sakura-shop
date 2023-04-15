@@ -13,7 +13,7 @@ require("../../classes/ResponseAPI.php");
 //? ====================
 header("Access-Control-Allow-Origin: " . ACCESS_CONTROL_ALLOW_ORIGIN);
 header("Access-Control-Allow-Headers: " . ACCESS_CONTROL_ALLOW_HEADERS);
-header("Access-Control-Allow-Methods: GET");
+header("Access-Control-Allow-Methods: PUT");
 header("Content-Type: application/json");
 
 
@@ -26,41 +26,43 @@ if (!checkPermissionFunction()) exit;
 //? ====================
 //? PARAMETERS & PAYLOAD
 //? ====================
-$tableName = "topic";
+$tableName = "advertisement";
+$data = getJSONPayloadRequest();
 
-$id = $_GET["id"] ?? ""; // int
+$advertisementTypeId = $data["advertisementTypeId"] ?? ""; // int
 
 
 //? ====================
 //? START
 //? ====================
-// ✅ Lấy record theo id
-getById($id);
+// ✅ Chuyển record vào thùng rác đồng loạt
+trashByAdvertisementTypeId($advertisementTypeId);
 
 
 //? ====================
 //? FUNCTIONS
 //? ====================
-function getById($id)
+function trashByAdvertisementTypeId($advertisementTypeId)
 {
    global $connect, $tableName;
 
    // Kiểm tra dữ liệu payload
-   if (!is_numeric($id)) {
+   if (!is_numeric($advertisementTypeId)) {
       $response = new ResponseAPI(9, "Không đủ payload để thực hiện");
       $response->send();
       return;
    }
 
+   // createdAt, updateAt, deletedAt
+   $deletedAt = getCurrentDatetime();
+
+   // Các chuỗi truy vấn
+   $baseQuery = "UPDATE `$tableName` SET `deletedAt` = '$deletedAt'";
+   $mainQuery = "";
+   $endQuery = "WHERE `advertisementTypeId` = '$advertisementTypeId' AND `deletedAt` IS NULL";
+
    // Thực thi query
-   $query = "SELECT COUNT(`card`.`id`) AS 'quantityCard', 
-      `$tableName`.*, `image`.`link` AS 'imageUrl'
-      FROM `$tableName`
-      LEFT JOIN `image` ON `image`.`id` = `$tableName`.`imageId`
-      LEFT JOIN `card` ON `card`.`topicId` = `$tableName`.`id` AND `card`.`deletedAt` IS NULL
-      WHERE `$tableName`.`deletedAt` IS NULL
-      AND `$tableName`.`id` = '$id'
-      LIMIT 1";
+   $query = $baseQuery . " " . $mainQuery . " " . $endQuery;
    performsQueryAndResponseToClient($query);
 
    // Đóng kết nối
@@ -75,16 +77,10 @@ function performsQueryAndResponseToClient($query)
    $result = mysqli_query($connect, $query);
 
    if ($result) {
-      $item = $result->fetch_object();
-      if ($item != null) {
-         $response = new ResponseAPI(1, "Thành công", $item, 1);
-         $response->send();
-      } else {
-         $response = new ResponseAPI(2, "Không tìm thấy");
-         $response->send();
-      }
+      $response = new ResponseAPI(1, "Thành công");
+      $response->send();
    } else {
-      $response = new ResponseAPI(3, "Thất bại");
+      $response = new ResponseAPI(2, "Thất bại");
       $response->send();
    }
 }

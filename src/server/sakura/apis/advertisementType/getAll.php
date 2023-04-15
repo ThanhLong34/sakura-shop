@@ -26,7 +26,7 @@ if (!checkPermissionFunction()) exit;
 //? ====================
 //? PARAMETERS & PAYLOAD
 //? ====================
-$tableName = "image";
+$tableName = "advertisementtype";
 
 $limit = $_GET["limit"] ?? ""; // int, limit = "", hoặc không có payload để lấy tất cả
 $offset = $_GET["offset"] ?? ""; // int
@@ -37,20 +37,17 @@ $fillValue = trim($_GET["fillValue"] ?? ""); // string
 $orderby = trim($_GET["orderby"] ?? "id"); // string
 $reverse = ($_GET["reverse"] ?? "false") === "true"; // boolean
 
-$target = trim($_GET["target"] ?? "all"); // Hợp lệ: all, using, dont_using
-
-
 //? ====================
 //? START
 //? ====================
-// ✅ Lấy tất cả records
-getAll($limit, $offset, $searchType, $searchValue, $fillType, $fillValue, $orderby, $reverse, $target);
+// ✅ Lấy tất cả records 
+getAll($limit, $offset, $searchType, $searchValue, $fillType, $fillValue, $orderby, $reverse);
 
 
 //? ====================
 //? FUNCTIONS
 //? ====================
-function getAll($limit, $offset, $searchType, $searchValue, $fillType, $fillValue, $orderby, $reverse, $target)
+function getAll($limit, $offset, $searchType, $searchValue, $fillType, $fillValue, $orderby, $reverse)
 {
    global $connect, $tableName;
 
@@ -63,54 +60,14 @@ function getAll($limit, $offset, $searchType, $searchValue, $fillType, $fillValu
    }
 
    //! Thêm tùy chỉnh Code ở đây
-   $baseQuery = "SELECT * FROM `$tableName` WHERE `deletedAt` IS NULL";
+   $baseQuery = "SELECT COUNT(`advertisement`.`id`) AS 'quantityAdvertisement', 
+      `$tableName`.*
+      FROM `$tableName`
+      LEFT JOIN `advertisement` ON `advertisement`.`advertisementTypeId` = `$tableName`.`id` AND `advertisement`.`deletedAt` IS NULL
+      WHERE `$tableName`.`deletedAt` IS NULL";
    $optionQuery = "";
+   $groupbyQuery = "GROUP BY `$tableName`.`id`";
 
-   if ($target === "using" || $target === "dont_using") {
-
-      // using & dont_using
-      $usingImageIdList = [];
-
-      // Lấy danh sách id hình ảnh đang sử dụng
-      $queries = [
-         "SELECT `imageId` FROM `topic` WHERE `imageId` IS NOT NULL AND `deletedAt` IS NULL",
-         "SELECT `imageId` FROM `card` WHERE `imageId` IS NOT NULL AND `deletedAt` IS NULL",
-         "SELECT `imageId` FROM `gift` WHERE `imageId` IS NOT NULL AND `deletedAt` IS NULL",
-         "SELECT `imageId` FROM `advertisement` WHERE `imageId` IS NOT NULL AND `deletedAt` IS NULL"
-      ];
-      foreach ($queries as $key => $value) {
-         $result = mysqli_query($connect, $value);
-         if ($result) {
-            while ($obj = $result->fetch_row()) {
-               array_push($usingImageIdList, (int)$obj[0]);
-            }
-         } else {
-            $response = new ResponseAPI(2, "Thất bại");
-            $response->send();
-
-            // Đóng kết nối
-            $connect->close();
-            return;
-         }
-      }
-
-      // Lấy danh sách id hình ảnh đang sử dụng
-      $usingImageIdListString = implode(",", $usingImageIdList);
-
-      if ($target === "using") {
-         if ($usingImageIdListString === "") {
-            $optionQuery = "AND `$tableName`.`id` IN (-1)";
-         } else {
-            $optionQuery = "AND `$tableName`.`id` IN ($usingImageIdListString)";
-         }
-      } else if ($target === "dont_using") {
-         if ($usingImageIdListString === "") {
-            $optionQuery = "AND `$tableName`.`id` NOT IN (-1)";
-         } else {
-            $optionQuery = "AND `$tableName`.`id` NOT IN ($usingImageIdListString)";
-         }
-      }
-   }
 
    //! Cẩn thận khi sửa Code ở đây
    //! Tùy chỉnh truy vấn theo các tiêu chí
@@ -122,7 +79,7 @@ function getAll($limit, $offset, $searchType, $searchValue, $fillType, $fillValu
    $limitQuery = "LIMIT $limit OFFSET $offset";
 
    if ($limit === "") {
-      $query = $querySelectAllRecord . " " . $orderbyQuery;
+      $query = $querySelectAllRecord . " " . $groupbyQuery . " " . $orderbyQuery;
    } else {
       if ($searchType !== "" && $searchValue !== "" && $fillType !== "" && $fillValue !== "") {
          $querySelectAllRecord .= " AND `$tableName`.`$searchType` LIKE '%$searchValue%' AND `$tableName`.`$fillType` = '$fillValue'";
@@ -132,8 +89,10 @@ function getAll($limit, $offset, $searchType, $searchValue, $fillType, $fillValu
          $querySelectAllRecord .= " AND `$tableName`.`$fillType` = '$fillValue'";
       }
 
-      $query = $querySelectAllRecord . " " . $orderbyQuery . " " . $limitQuery;
+      $query = $querySelectAllRecord . " " . $groupbyQuery . " " . $orderbyQuery . " " . $limitQuery;
    }
+
+   $querySelectAllRecord .= " " . $groupbyQuery;
 
    // Thực thi truy vấn
    performsQueryAndResponseToClient($query, $querySelectAllRecord);

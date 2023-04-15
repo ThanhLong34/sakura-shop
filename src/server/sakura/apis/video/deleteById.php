@@ -13,7 +13,7 @@ require("../../classes/ResponseAPI.php");
 //? ====================
 header("Access-Control-Allow-Origin: " . ACCESS_CONTROL_ALLOW_ORIGIN);
 header("Access-Control-Allow-Headers: " . ACCESS_CONTROL_ALLOW_HEADERS);
-header("Access-Control-Allow-Methods: GET");
+header("Access-Control-Allow-Methods: DELETE");
 header("Content-Type: application/json");
 
 
@@ -26,22 +26,23 @@ if (!checkPermissionFunction()) exit;
 //? ====================
 //? PARAMETERS & PAYLOAD
 //? ====================
-$tableName = "topic";
+$tableName = "video";
+$data = getJSONPayloadRequest();
 
-$id = $_GET["id"] ?? ""; // int
+$id = $data["id"] ?? ""; // int
 
 
 //? ====================
 //? START
 //? ====================
-// ✅ Lấy record theo id
-getById($id);
+// ✅ Xóa record theo id
+deleteById($id);
 
 
 //? ====================
 //? FUNCTIONS
 //? ====================
-function getById($id)
+function deleteById($id)
 {
    global $connect, $tableName;
 
@@ -52,16 +53,29 @@ function getById($id)
       return;
    }
 
-   // Thực thi query
-   $query = "SELECT COUNT(`card`.`id`) AS 'quantityCard', 
-      `$tableName`.*, `image`.`link` AS 'imageUrl'
-      FROM `$tableName`
-      LEFT JOIN `image` ON `image`.`id` = `$tableName`.`imageId`
-      LEFT JOIN `card` ON `card`.`topicId` = `$tableName`.`id` AND `card`.`deletedAt` IS NULL
-      WHERE `$tableName`.`deletedAt` IS NULL
-      AND `$tableName`.`id` = '$id'
-      LIMIT 1";
-   performsQueryAndResponseToClient($query);
+   // Kiểm tra xem image có tồn tại trong DB không
+   $query = "SELECT * FROM `$tableName` WHERE `id` = '$id' LIMIT 1";
+   $result = mysqli_query($connect, $query);
+   $obj = null;
+
+   if (!$result || ($obj = $result->fetch_object()) === null) {
+      $response = new ResponseAPI(3, "Không tìm thấy file ảnh");
+      $response->send();
+      return;
+   }
+
+   // Lấy path file ảnh trên server
+   $fileLocation = LOCATION_UPLOAD_VIDEO . $obj->filename;
+
+   // Xóa file trên server
+   if (unlink($fileLocation)) {
+      // Thực thi query
+      $query = "DELETE FROM `$tableName` WHERE `id` = '$id'";
+      performsQueryAndResponseToClient($query);
+   } else {
+      $response = new ResponseAPI(4, "Xóa file ảnh thất bại");
+      $response->send();
+   }
 
    // Đóng kết nối
    $connect->close();
@@ -71,20 +85,13 @@ function getById($id)
 function performsQueryAndResponseToClient($query)
 {
    global $connect;
-
    $result = mysqli_query($connect, $query);
 
    if ($result) {
-      $item = $result->fetch_object();
-      if ($item != null) {
-         $response = new ResponseAPI(1, "Thành công", $item, 1);
-         $response->send();
-      } else {
-         $response = new ResponseAPI(2, "Không tìm thấy");
-         $response->send();
-      }
+      $response = new ResponseAPI(1, "Thành công");
+      $response->send();
    } else {
-      $response = new ResponseAPI(3, "Thất bại");
+      $response = new ResponseAPI(2, "Thất bại");
       $response->send();
    }
 }
