@@ -2,6 +2,7 @@ import { useState, useRef, useEffect, useCallback, useImperativeHandle, memo, fo
 import PropTypes from "prop-types";
 
 import advertisementTypeApi from "@/apis/advertisementTypeApi";
+import advertisementApi from "@/apis/advertisementApi";
 
 import TableHeader from "@/admin/components/TableHeader";
 import TableSearch from "@/admin/components/TableSearch";
@@ -59,9 +60,10 @@ const TableData = forwardRef(({ onOpenDialog }, ref) => {
 	// Get table data
 	useEffect(() => {
 		advertisementTypeApi.getAll(tableParams).then((response) => {
-			const data = response.data.map((topic) => ({
-				...topic,
-				id: +topic.id,
+			const data = response.data.map((advertisementType) => ({
+				...advertisementType,
+				id: +advertisementType.id,
+				quantityAdvertisement: +advertisementType.quantityAdvertisement,
 			}));
 
 			setTableData(data);
@@ -109,9 +111,9 @@ const TableData = forwardRef(({ onOpenDialog }, ref) => {
 		(async () => {
 			const response = await advertisementTypeApi.trashById(item.id);
 			if (response.code === 1) {
-				// Trash cards of the topic
-				const trashCardsByTopicId = await cardApi.trashByTopicId(item.id);
-				if (trashCardsByTopicId.code === 1) {
+				// Trash advertisements of the advertisementType
+				const trashAdvertisementsByAdvertisementTypeId = await advertisementApi.trashByAdvertisementTypeId(item.id);
+				if (trashAdvertisementsByAdvertisementTypeId.code === 1) {
 					toastRef.current.show({
 						severity: "success",
 						summary: "Thành công",
@@ -136,7 +138,7 @@ const TableData = forwardRef(({ onOpenDialog }, ref) => {
 		return (
 			<div className="grid">
 				<div className="col-12">
-					<TableHeader addItemButtonLabel="Thêm chủ đề" onReload={handleReload} onAddItem={handleAddItem} />
+					<TableHeader addItemButtonLabel="Thêm loại quảng cáo" onReload={handleReload} onAddItem={handleAddItem} />
 				</div>
 				<div className="col-12">
 					<TableSearch ref={tableSearchRef} searchOptions={searchOptions} onSearch={handleSearch} />
@@ -154,7 +156,7 @@ const TableData = forwardRef(({ onOpenDialog }, ref) => {
 				},
 			},
 			{
-				label: "Xóa chủ đề",
+				label: "Xóa loại QC",
 				icon: "pi pi-trash",
 				command: (e) => {
 					confirmPopup({
@@ -206,6 +208,7 @@ const TableData = forwardRef(({ onOpenDialog }, ref) => {
 				tableStyle={{ minWidth: "max-content" }}
 			>
 				<Column field="name" header="Tên loại quảng cáo" sortable sortFunction={getSortedTableData} frozen />
+				<Column field="quantityAdvertisement" header="Số lượng quảng cáo" />
 				<Column
 					headerStyle={{ textAlign: "center" }}
 					bodyStyle={{ textAlign: "center", overflow: "visible" }}

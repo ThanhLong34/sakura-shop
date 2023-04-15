@@ -1,8 +1,8 @@
 import axiosClient from "./axiosClient";
 
-const group = "advertisementType";
+const group = "advertisement";
 
-const advertisementTypeApi = {
+const advertisementApi = {
 	getAll(params) {
 		const url = `${group}/getAll.php?`;
 		return axiosClient.get(url, { params });
@@ -10,6 +10,10 @@ const advertisementTypeApi = {
 	trashById(id) {
 		const url = `${group}/trashById.php?`;
 		return axiosClient.put(url, { id });
+	},
+	trashByAdvertisementTypeId(advertisementTypeId) {
+		const url = `${group}/trashByAdvertisementTypeId.php?`;
+		return axiosClient.put(url, { advertisementTypeId });
 	},
 	add(data) {
 		const url = `${group}/add.php?`;
@@ -21,4 +25,4 @@ const advertisementTypeApi = {
 	},
 };
 
-export default advertisementTypeApi;
+export default advertisementApi;
