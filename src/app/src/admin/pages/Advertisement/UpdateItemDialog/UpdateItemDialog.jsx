@@ -276,8 +276,8 @@ function UpdateItemDialog({ visible, setVisible, item, onSubmitted }) {
 			diamondReward: getInputNumberValue(diamondRewardRef.current.getInput().value),
 			occurrenceRate,
 			advertisementTypeId,
-			imageId: imageIdUploaded.current,
-			videoId: videoIdUploaded.current,
+			imageId: imageIdUploaded.current ?? "NULL",
+			videoId: videoIdUploaded.current ?? "NULL",
 		};
 
 		advertisementApi.update(data).then((response) => {
