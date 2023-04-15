@@ -184,8 +184,12 @@ function AddItemDialog({ visible, setVisible, onSubmitted }) {
 		});
 	};
 	const handleCloseDialog = () => {
+		imageIdUploaded.current = null;
+		videoIdUploaded.current = null;
+
 		titleRef.current.value = null;
 		descriptionRef.current.value = null;
+		durationRef.current.getInput().value = null;
 		healthRewardRef.current.getInput().value = null;
 		starRewardRef.current.getInput().value = null;
 		diamondRewardRef.current.getInput().value = null;
@@ -202,6 +206,7 @@ function AddItemDialog({ visible, setVisible, onSubmitted }) {
 		const data = {
 			title: titleRef.current?.value.trim(),
 			description: descriptionRef.current?.value.trim(),
+			duration: getInputNumberValue(durationRef.current.getInput().value),
 			healthReward: getInputNumberValue(healthRewardRef.current.getInput().value),
 			starReward: getInputNumberValue(starRewardRef.current.getInput().value),
 			diamondReward: getInputNumberValue(diamondRewardRef.current.getInput().value),
@@ -334,7 +339,7 @@ function AddItemDialog({ visible, setVisible, onSubmitted }) {
 						type="button"
 						icon="pi pi-times"
 						className="p-button-outlined p-button-rounded p-button-danger ml-auto"
-						onClick={() => handleRemoveImageFile(file, props.onRemove)}
+						onClick={() => handleRemoveVideoFile(file, props.onRemove)}
 					/>
 				</div>
 			</div>
@@ -394,6 +399,17 @@ function AddItemDialog({ visible, setVisible, onSubmitted }) {
 				<div className="mb-4">
 					<span className="block mb-2">Mô tả</span>
 					<InputTextarea ref={descriptionRef} className="w-full" placeholder="Nhập mô tả" autoResize rows={5} />
+				</div>
+				<div className="mb-4">
+					<span className="block mb-2">Thời gian quảng cáo (giây)</span>
+					<InputNumber
+						ref={durationRef}
+						className="w-full"
+						mode="decimal"
+						placeholder="Nhập thời gian quảng cáo (giây)"
+						showButtons
+						min={0}
+					/>
 				</div>
 				<div className="mb-4">
 					<span className="block mb-2">

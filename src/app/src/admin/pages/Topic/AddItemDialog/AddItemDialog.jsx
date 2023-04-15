@@ -100,6 +100,8 @@ function AddItemDialog({ visible, setVisible, onSubmitted }) {
 		});
 	};
 	const handleCloseDialog = () => {
+		imageIdUploaded.current = null;
+		
 		nameRef.current.value = null;
 
 		setTotalSize(0);

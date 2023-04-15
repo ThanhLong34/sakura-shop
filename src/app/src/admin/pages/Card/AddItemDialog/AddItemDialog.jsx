@@ -132,6 +132,8 @@ function AddItemDialog({ visible, setVisible, onSubmitted }) {
 		});
 	};
 	const handleCloseDialog = () => {
+		imageIdUploaded.current = null;
+		
 		titleRef.current.value = null;
 		brandRef.current.value = null;
 		healthRewardRef.current.getInput().value = null;

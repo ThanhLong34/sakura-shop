@@ -114,6 +114,8 @@ function UpdateItemDialog({ visible, setVisible, item, onSubmitted }) {
 		}
 	};
 	const handleCloseDialog = () => {
+		imageIdUploaded.current = null;
+
 		nameRef.current.value = null;
 
 		setTotalSize(0);

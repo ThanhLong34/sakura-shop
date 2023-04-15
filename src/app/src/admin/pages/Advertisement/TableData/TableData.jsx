@@ -177,6 +177,9 @@ const TableData = forwardRef(({ onOpenDialog }, ref) => {
 			</div>
 		);
 	};
+	const durationDataTemplate = (rowData) => {
+		return <span>{rowData.duration} s</span>;
+	};
 	const healthRewardDataTemplate = (rowData) => {
 		return (
 			<span className="data-template">
@@ -290,6 +293,13 @@ const TableData = forwardRef(({ onOpenDialog }, ref) => {
 						maxWidth: "420px",
 					}}
 					frozen
+				/>
+				<Column
+					field="duration"
+					header="Thời gian quảng cáo"
+					body={durationDataTemplate}
+					sortable
+					sortFunction={getSortedTableData}
 				/>
 				<Column
 					field="healthReward"

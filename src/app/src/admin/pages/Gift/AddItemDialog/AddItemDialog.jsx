@@ -119,6 +119,8 @@ function AddItemDialog({ visible, setVisible, onSubmitted }) {
 		});
 	};
 	const handleCloseDialog = () => {
+		imageIdUploaded.current = null;
+
 		nameRef.current.value = null;
 		brandRef.current.value = null;
 		descriptionRef.current.value = null;
