@@ -20,6 +20,20 @@ export async function createImageFileFromUrl(url) {
 	return file;
 }
 
+export async function createVideoFileFromUrl(url) {
+	const response = await fetch(url);
+	const blob = await response.blob();
+
+	const metadata = {
+		type: blob.type,
+	};
+
+	const file = new File([blob], "VideoFileFromUrl", metadata);
+	file.objectURL = url;
+	
+	return file;
+}
+
 export function getMbFromFileSize(fileSize) {
 	return (fileSize / (1024 * 1024)).toFixed(2);
 }
