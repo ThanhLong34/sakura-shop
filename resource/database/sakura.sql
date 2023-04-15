@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 15, 2023 at 12:07 PM
+-- Generation Time: Apr 15, 2023 at 01:27 PM
 -- Server version: 10.4.27-MariaDB
 -- PHP Version: 8.2.0
 
@@ -75,10 +75,8 @@ CREATE TABLE `advertisement` (
 --
 
 INSERT INTO `advertisement` (`id`, `createdAt`, `updatedAt`, `deletedAt`, `imageId`, `videoId`, `title`, `description`, `duration`, `healthReward`, `starReward`, `diamondReward`, `occurrenceRate`, `advertisementTypeId`) VALUES
-(3, '15:54:17 15/04/2023', NULL, NULL, 0, 9, 'QC 1  123', '', 0, 3, 0, 0, 32, 3),
-(5, '15:59:59 15/04/2023', NULL, NULL, 66, 10, 'QC 2', '', 0, 0, 0, 0, 56, 3),
-(6, '16:19:33 15/04/2023', '17:04:43 15/04/2023', NULL, 69, 11, 'QC 3', '', 25, 3, 0, 0, 100, 1),
-(7, '16:32:07 15/04/2023', '17:06:27 15/04/2023', NULL, 68, 0, 'QC 4', '', 5, 3, 1, 2, 83, 1);
+(8, '18:22:12 15/04/2023', '18:22:53 15/04/2023', NULL, 71, 0, 'QC1', '', 32, 2, 0, 0, 100, 1),
+(9, '18:23:22 15/04/2023', '18:24:42 15/04/2023', NULL, 0, 16, 'QC 2', 'video', 20, 3, 2, 1, 50, 3);
 
 -- --------------------------------------------------------
 
@@ -100,8 +98,7 @@ CREATE TABLE `advertisementtype` (
 
 INSERT INTO `advertisementtype` (`id`, `createdAt`, `updatedAt`, `deletedAt`, `name`) VALUES
 (1, '14:41:14 15/04/2023', NULL, NULL, 'Hình ảnh'),
-(3, '14:56:13 15/04/2023', NULL, NULL, 'Video ngắn'),
-(4, '14:56:41 15/04/2023', '15:00:21 15/04/2023', '15:00:24 15/04/2023', 'QC');
+(3, '14:56:13 15/04/2023', NULL, NULL, 'Video ngắn');
 
 -- --------------------------------------------------------
 
@@ -232,10 +229,7 @@ INSERT INTO `image` (`id`, `createdAt`, `updatedAt`, `deletedAt`, `link`, `filen
 (42, '12:12:51 14/04/2023', NULL, NULL, 'http://localhost/projects/sakura/upload/images/imagefile6438e0d374b91.png', 'imagefile6438e0d374b91.png', 242887),
 (45, '12:15:54 14/04/2023', NULL, NULL, 'http://localhost/projects/sakura/upload/images/imagefile6438e18a02efb.png', 'imagefile6438e18a02efb.png', 73137),
 (53, '14:41:02 14/04/2023', NULL, NULL, 'http://localhost/projects/sakura/upload/images/imagefile6439038e3abea.png', 'imagefile6439038e3abea.png', 237473),
-(66, '15:59:42 15/04/2023', NULL, NULL, 'http://localhost/projects/sakura/upload/images/imagefile643a677e4faeb.jpg', 'imagefile643a677e4faeb.jpg', 2259017),
-(67, '16:19:31 15/04/2023', NULL, NULL, 'http://localhost/projects/sakura/upload/images/imagefile643a6c235bf2c.jpg', 'imagefile643a6c235bf2c.jpg', 587401),
-(68, '16:32:01 15/04/2023', NULL, NULL, 'http://localhost/projects/sakura/upload/images/imagefile643a6f1134c6b.jpg', 'imagefile643a6f1134c6b.jpg', 1187154),
-(69, '17:04:24 15/04/2023', NULL, NULL, 'http://localhost/projects/sakura/upload/images/imagefile643a76a83be40.png', 'imagefile643a76a83be40.png', 116809);
+(71, '18:22:52 15/04/2023', NULL, NULL, 'http://localhost/projects/sakura/upload/images/imagefile643a890c2a733.png', 'imagefile643a890c2a733.png', 31831);
 
 -- --------------------------------------------------------
 
@@ -405,9 +399,7 @@ CREATE TABLE `video` (
 --
 
 INSERT INTO `video` (`id`, `createdAt`, `updatedAt`, `deletedAt`, `link`, `filename`, `size`) VALUES
-(9, '15:54:15 15/04/2023', NULL, NULL, 'http://localhost/projects/sakura/upload/videos/videofile643a66379c01c.mp4', 'videofile643a66379c01c.mp4', 2361284),
-(10, '15:59:43 15/04/2023', NULL, NULL, 'http://localhost/projects/sakura/upload/videos/videofile643a677f3d074.mp4', 'videofile643a677f3d074.mp4', 1542713),
-(11, '17:04:40 15/04/2023', NULL, NULL, 'http://localhost/projects/sakura/upload/videos/videofile643a76b8eb950.mp4', 'videofile643a76b8eb950.mp4', 1542713);
+(16, '18:24:41 15/04/2023', NULL, NULL, 'http://localhost/projects/sakura/upload/videos/videofile643a897992417.mp4', 'videofile643a897992417.mp4', 1542713);
 
 --
 -- Indexes for dumped tables
@@ -520,7 +512,7 @@ ALTER TABLE `admin`
 -- AUTO_INCREMENT for table `advertisement`
 --
 ALTER TABLE `advertisement`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `advertisementtype`
@@ -550,7 +542,7 @@ ALTER TABLE `gift`
 -- AUTO_INCREMENT for table `image`
 --
 ALTER TABLE `image`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=70;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=73;
 
 --
 -- AUTO_INCREMENT for table `level`
@@ -586,7 +578,7 @@ ALTER TABLE `topic`
 -- AUTO_INCREMENT for table `video`
 --
 ALTER TABLE `video`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- Constraints for dumped tables

@@ -74,11 +74,15 @@ function update($id, $imageId, $videoId, $title, $description, $duration, $healt
    // Cập nhật imageId
    if (is_numeric($imageId)) {
       $mainQuery .= "," . "`imageId` = '$imageId'";
+   } else if ($imageId === "NULL") {
+      $mainQuery .= "," . "`imageId` = NULL";
    }
 
    // Cập nhật videoId
    if (is_numeric($videoId)) {
       $mainQuery .= "," . "`videoId` = '$videoId'";
+   } else if ($videoId === "NULL") {
+      $mainQuery .= "," . "`videoId` = NULL";
    }
 
    // Cập nhật title
