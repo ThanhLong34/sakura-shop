@@ -1,8 +1,8 @@
 import { useState, useRef, useEffect, useCallback, memo } from "react";
 import PropTypes from "prop-types";
 
-import imageFileApi from "@/apis/imageFileApi";
-import { getKbFromFileSize } from "@/helpers/converter";
+import videoFileApi from "@/apis/videoFileApi";
+import { getMbFromFileSize } from "@/helpers/converter";
 
 import TableHeader from "@/admin/components/TableHeader";
 import TableSearch from "@/admin/components/TableSearch";
@@ -60,7 +60,7 @@ function getFillValue(status) {
 const TableData = ({ onOpenDialog }) => {
 	//? Variables
 	const fillValue = useRef(null);
-	const imageFileDontUsingIds = useRef([]);
+	const videoFileDontUsingIds = useRef([]);
 
 	//? Refs
 	const tableSearchRef = useRef(null);
@@ -76,17 +76,17 @@ const TableData = ({ onOpenDialog }) => {
 	// Get table data
 	useEffect(() => {
 		(async () => {
-			// Only get image files dont using
-			const getImageFileDontUsingResponse = await imageFileApi.getAll({ target: "dont_using" });
-			imageFileDontUsingIds.current = getImageFileDontUsingResponse.data.map((i) => +i.id);
+			// Only get video files dont using
+			const getVideoFileDontUsingResponse = await videoFileApi.getAll({ target: "dont_using" });
+			videoFileDontUsingIds.current = getVideoFileDontUsingResponse.data.map((i) => +i.id);
 
-			// Get all image files
-			const response = await imageFileApi.getAll(tableParams);
-			const data = response.data.map((imageFile) => ({
-				...imageFile,
-				id: +imageFile.id,
-				size: +imageFile.size,
-				status: imageFileDontUsingIds.current.find((id) => id === +imageFile.id) ? "Không sử dụng" : "Đang sử dụng",
+			// Get all video files
+			const response = await videoFileApi.getAll(tableParams);
+			const data = response.data.map((videoFile) => ({
+				...videoFile,
+				id: +videoFile.id,
+				size: +videoFile.size,
+				status: videoFileDontUsingIds.current.find((id) => id === +videoFile.id) ? "Không sử dụng" : "Đang sử dụng",
 			}));
 
 			setTableData(data);
@@ -153,7 +153,7 @@ const TableData = ({ onOpenDialog }) => {
 	const handleRefreshPage = () => {
 		setTableParams((prevState) => ({ ...prevState }));
 	};
-	const handleDeleteImageFilesDontUsing = (e) => {
+	const handleDeleteVideoFilesDontUsing = (e) => {
 		confirmPopup({
 			target: e.currentTarget,
 			message: "Bạn có chắn chắc muốn xóa?",
@@ -162,9 +162,9 @@ const TableData = ({ onOpenDialog }) => {
 			acceptLabel: "Có",
 			rejectLabel: "Không",
 			accept: () => {
-				imageFileDontUsingIds.current.forEach(async (id, idx, array) => {
+				videoFileDontUsingIds.current.forEach(async (id, idx, array) => {
 
-					await imageFileApi.deleteById(id);
+					await videoFileApi.deleteById(id);
 
 					if (idx >= array.length - 1) {
 						toastRef.current.show({
@@ -187,12 +187,12 @@ const TableData = ({ onOpenDialog }) => {
 				<div className="col-12">
 					<TableHeader
 						showAddItemButton={false}
-						showCustomizeButton={imageFileDontUsingIds.current.length > 0}
-						customizeButtonLabel="Xóa các hình ảnh không sử dụng"
+						showCustomizeButton={videoFileDontUsingIds.current.length > 0}
+						customizeButtonLabel="Xóa các video không sử dụng"
 						customizeButtonSeverity="warning"
 						customizeButtonIcon="pi pi-trash"
 						onReload={handleReload}
-						onCustomizeButtonClick={handleDeleteImageFilesDontUsing}
+						onCustomizeButtonClick={handleDeleteVideoFilesDontUsing}
 					/>
 				</div>
 				<div className="col-12">
@@ -201,15 +201,15 @@ const TableData = ({ onOpenDialog }) => {
 			</div>
 		);
 	};
-	const imageDataTemplate = (rowData) => {
+	const videoDataTemplate = (rowData) => {
 		return (
 			<div className="w-5rem">
-				<img src={rowData.link} alt="image url" />
+				<img src={rowData.link} alt="video url" />
 			</div>
 		);
 	};
 	const sizeDataTemplate = (rowData) => {
-		return <span>{getKbFromFileSize(rowData.size)} KB</span>;
+		return <span>{getMbFromFileSize(rowData.size)} MB</span>;
 	};
 	const statusDataTemplate = (rowData) => {
 		return <Tag value={rowData.status} severity={getSeverity(rowData.status)} />;
@@ -233,7 +233,7 @@ const TableData = ({ onOpenDialog }) => {
 	const actionsTemplate = (rowData) => {
 		const actions = [
 			{
-				label: "Xem hình ảnh",
+				label: "Xem video",
 				icon: "pi pi-eye",
 				command: () => {
 					onOpenDialog("PreviewImageDialog", rowData.link);
@@ -252,7 +252,7 @@ const TableData = ({ onOpenDialog }) => {
 			<ConfirmPopup />
 			<div className="grid mb-3">
 				<div className="col-6">
-					<h3 className="">DANH SÁCH TỆP HÌNH ẢNH LƯU TRÊN MÁY CHỦ</h3>
+					<h3 className="">DANH SÁCH TỆP VIDEO LƯU TRÊN MÁY CHỦ</h3>
 				</div>
 				<div className="col-6 text-right">
 					<h3 className="text-400 text-sm">{`(${tableData.length} trên tổng ${totalItem})`}</h3>
@@ -276,7 +276,7 @@ const TableData = ({ onOpenDialog }) => {
 				emptyMessage="Không có kết quả"
 				tableStyle={{ minWidth: "max-content" }}
 			>
-				<Column field="link" header="Hình ảnh" body={imageDataTemplate} />
+				<Column field="link" header="Video" body={videoDataTemplate} />
 				<Column field="filename" header="Tên tệp" sortable sortFunction={getSortedTableData} />
 				<Column
 					field="size"

@@ -16,6 +16,7 @@ function MenuList() {
 				<ul>
 					<MenuItem icon="pi pi-fw pi-home" label="Dashboard" redirectTo="/admin/dashboard" />
 					<MenuItem icon="pi pi-fw pi-image" label="Tệp hình ảnh" redirectTo="/admin/image-file" />
+					<MenuItem icon="pi pi-fw pi-video" label="Tệp video" redirectTo="/admin/video-file" />
 					<MenuItem icon="pi pi-fw pi-user" label="Người chơi" redirectTo="/admin/player" />
 					<MenuItem icon="pi pi-fw pi-chart-line" label="Cấp độ" redirectTo="/admin/level" />
 					<MenuItem icon="pi pi-fw pi-gift" label="Phần thưởng" redirectTo="/admin/gift" />

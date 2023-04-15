@@ -2,6 +2,7 @@
 import AdminLogin from "@/admin/pages/Login";
 import AdminDashboard from "@/admin/pages/Dashboard";
 import AdminImageFileManagement from "@/admin/pages/ImageFile";
+import AdminVideoFileManagement from "@/admin/pages/VideoFile";
 import AdminPlayerManagement from "@/admin/pages/Player";
 import AdminLevelManagement from "@/admin/pages/Level";
 import AdminGiftManagement from "@/admin/pages/Gift";
@@ -37,6 +38,13 @@ const adminRoutes = [
 		component: AdminImageFileManagement,
 		metadata: {
 			title: 'Tệp hình ảnh'
+		}
+	},
+	{
+		path: "/admin/video-file",
+		component: AdminVideoFileManagement,
+		metadata: {
+			title: 'Tệp video'
 		}
 	},
 	{
