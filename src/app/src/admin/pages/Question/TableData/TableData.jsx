@@ -246,7 +246,14 @@ const TableData = forwardRef(({ onOpenDialog }, ref) => {
 				emptyMessage="Không có kết quả"
 				tableStyle={{ minWidth: "max-content" }}
 			>
-				<Column field="content" header="Nội dung" frozen />
+				<Column
+					field="content"
+					header="Nội dung"
+					style={{
+						maxWidth: "420px",
+					}}
+					frozen
+				/>
 				<Column
 					field="healthReward"
 					header="Thưởng sức khỏe"

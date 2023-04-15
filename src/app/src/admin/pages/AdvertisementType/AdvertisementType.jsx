@@ -4,7 +4,7 @@ import AddItemDialog from "./AddItemDialog";
 import UpdateItemDialog from "./UpdateItemDialog";
 import TableData from "./TableData";
 
-function Topic() {
+function AdvertisementType() {
 	//? Refs
 	const tableDataRef = useRef(null);
 
@@ -53,4 +53,4 @@ function Topic() {
 	);
 }
 
-export default Topic;
+export default AdvertisementType;

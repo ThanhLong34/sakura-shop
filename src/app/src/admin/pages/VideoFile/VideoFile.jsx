@@ -3,7 +3,7 @@ import { useState, useCallback } from "react";
 import PreviewVideoDialog from "@/admin/components/PreviewVideoDialog";
 import TableData from "./TableData";
 
-function ImageFile() {
+function VideoFile() {
 
 	//? States
 	const [previewImageUrl, setPreviewImageUrl] = useState(null);
@@ -32,4 +32,4 @@ function ImageFile() {
 	);
 }
 
-export default ImageFile;
+export default VideoFile;

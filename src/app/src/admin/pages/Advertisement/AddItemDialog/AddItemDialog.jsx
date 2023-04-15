@@ -5,7 +5,7 @@ import styles from "./AddItemDialog.module.scss";
 import { getInputNumberValue } from "@/helpers/converter";
 
 import cardApi from "@/apis/cardApi";
-import topicApi from "@/apis/topicApi";
+import advertisementTypeApi from "@/apis/advertisementTypeApi";
 import imageFileApi from "@/apis/imageFileApi";
 
 // Icons
@@ -121,7 +121,7 @@ function AddItemDialog({ visible, setVisible, onSubmitted }) {
 		});
 	};
 	const handleBeforeShowDialog = () => {
-		topicApi.getAll().then((response) => {
+		advertisementTypeApi.getAll().then((response) => {
 			setTopics(
 				response.data.map((topic) => ({
 					...topic,

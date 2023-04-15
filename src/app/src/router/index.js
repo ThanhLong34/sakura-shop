@@ -10,6 +10,7 @@ import AdminTopicManagement from "@/admin/pages/Topic";
 import AdminCardManagement from "@/admin/pages/Card";
 import AdminQuestionManagement from "@/admin/pages/Question";
 import AdminAdvertisementTypeManagement from "@/admin/pages/AdvertisementType";
+import AdminAdvertisementManagement from "@/admin/pages/Advertisement";
 import AdminProfile from "@/admin/pages/Profile";
 import AdminNotFound from "@/admin/pages/NotFound";
 
@@ -95,6 +96,13 @@ const adminRoutes = [
 		component: AdminAdvertisementTypeManagement,
 		metadata: {
 			title: 'Loại quảng cáo'
+		}
+	},
+	{
+		path: "/admin/advertisement",
+		component: AdminAdvertisementManagement,
+		metadata: {
+			title: 'Quảng cáo'
 		}
 	},
 	{
