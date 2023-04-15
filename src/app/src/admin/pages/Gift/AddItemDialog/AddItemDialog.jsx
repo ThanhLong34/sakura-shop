@@ -68,6 +68,7 @@ function AddItemDialog({ visible, setVisible, onSubmitted }) {
 	//? States
 	const [totalSize, setTotalSize] = useState(0);
 	const [allowToReceiveOnline, setAllowToReceiveOnline] = useState(false);
+	const [isSpecial, setIsSpecial] = useState(false);
 	const [isShow, setIsShow] = useState(true);
 
 	//? Handles
@@ -126,6 +127,7 @@ function AddItemDialog({ visible, setVisible, onSubmitted }) {
 
 		setTotalSize(0);
 		setAllowToReceiveOnline(false);
+		setIsSpecial(false);
 		setIsShow(true);
 
 		setVisible(false);
@@ -136,6 +138,7 @@ function AddItemDialog({ visible, setVisible, onSubmitted }) {
 			brand: brandRef.current?.value.trim(),
 			description: descriptionRef.current?.value.trim(),
 			allowToReceiveOnline,
+			isSpecial,
 			isShow,
 			starCost: getInputNumberValue(starCostRef.current.getInput().value),
 			diamondCost: getInputNumberValue(diamondCostRef.current.getInput().value),
@@ -266,13 +269,19 @@ function AddItemDialog({ visible, setVisible, onSubmitted }) {
 					<InputTextarea ref={descriptionRef} className="w-full" placeholder="Nhập mô tả" autoResize rows={5} />
 				</div>
 				<div className="grid">
-					<div className="col-6">
+					<div className="col-12 md:col-4">
 						<div className="mb-4">
 							<span className="block mb-2">Có thể nhận Online</span>
 							<InputSwitch checked={allowToReceiveOnline} onChange={(e) => setAllowToReceiveOnline(e.value)} />
 						</div>
 					</div>
-					<div className="col-6">
+					<div className="col-12 md:col-4">
+						<div className="mb-4">
+							<span className="block mb-2">Đặc biệt</span>
+							<InputSwitch checked={isSpecial} onChange={(e) => setIsSpecial(e.value)} />
+						</div>
+					</div>
+					<div className="col-12 md:col-4">
 						<div className="mb-4">
 							<span className="block mb-2">Hiển thị</span>
 							<InputSwitch checked={isShow} onChange={(e) => setIsShow(e.value)} />

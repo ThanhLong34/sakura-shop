@@ -43,6 +43,7 @@ const searchOptions = [
 	},
 ];
 const allowToReceiveOnlineOptions = ["Có", "Không"];
+const isSpecialOptions = ["Có", "Không"];
 const isShowOptions = ["Hiển thị", "Ẩn"];
 
 //? Functions
@@ -56,12 +57,12 @@ function getIsShowSeverity(option) {
 }
 function getFillValue(option) {
 	switch (option) {
-		// allowToReceiveOnlineOptions
+		// allowToReceiveOnlineOptions & isSpecialOptions
 		case "Có":
 			return 1;
 		case "Không":
 			return 0;
-		//isShowOptions
+		// isShowOptions
 		case "Hiển thị":
 			return 1;
 		case "Ẩn":
@@ -107,6 +108,7 @@ const TableData = forwardRef(({ onOpenDialog }, ref) => {
 				starCost: +gift.starCost,
 				diamondCost: +gift.diamondCost,
 				allowToReceiveOnline: +gift.allowToReceiveOnline === 1,
+				isSpecial: +gift.isSpecial === 1,
 				isShow: +gift.isShow === 1,
 			}));
 
@@ -220,6 +222,11 @@ const TableData = forwardRef(({ onOpenDialog }, ref) => {
 	const allowToReceiveOnlineDataTemplate = (rowData) => {
 		return <span>{rowData.allowToReceiveOnline ? "Có" : "Không"}</span>;
 	};
+	const isSpecialDataTemplate = (rowData) => {
+		return (
+			<span>{rowData.isSpecial ? "Có" : "Không"}</span>
+		);
+	};
 	const isShowDataTemplate = (rowData) => {
 		return (
 			<Tag value={rowData.isShow ? "Hiển thị" : "Ẩn"} severity={getIsShowSeverity(rowData.isShow ? "Hiển thị" : "Ẩn")} />
@@ -230,6 +237,16 @@ const TableData = forwardRef(({ onOpenDialog }, ref) => {
 			<TableFilterPopup
 				label="Chọn trạng thái"
 				options={allowToReceiveOnlineOptions}
+				isText
+				onChange={handleChangeFilter}
+			/>
+		);
+	};
+	const isSpecialFilterTemplate = (options) => {
+		return (
+			<TableFilterPopup
+				label="Chọn trạng thái"
+				options={isSpecialOptions}
 				isText
 				onChange={handleChangeFilter}
 			/>
@@ -335,6 +352,19 @@ const TableData = forwardRef(({ onOpenDialog }, ref) => {
 					body={allowToReceiveOnlineDataTemplate}
 					filter
 					filterElement={allowToReceiveOnlineFilterTemplate}
+					filterApply={filterApplyButtonTemplate}
+					filterClear={filterClearButtonTemplate}
+					showFilterMatchModes={false}
+					showFilterOperator={false}
+					showFilterMenuOptions={false}
+					filterMatchMode="equals"
+				/>
+				<Column
+					field="isSpecial"
+					header="Đặc biệt"
+					body={isSpecialDataTemplate}
+					filter
+					filterElement={isSpecialFilterTemplate}
 					filterApply={filterApplyButtonTemplate}
 					filterClear={filterClearButtonTemplate}
 					showFilterMatchModes={false}
