@@ -163,7 +163,6 @@ const TableData = ({ onOpenDialog }) => {
 			rejectLabel: "Không",
 			accept: () => {
 				videoFileDontUsingIds.current.forEach(async (id, idx, array) => {
-
 					await videoFileApi.deleteById(id);
 
 					if (idx >= array.length - 1) {
@@ -201,13 +200,6 @@ const TableData = ({ onOpenDialog }) => {
 			</div>
 		);
 	};
-	const videoDataTemplate = (rowData) => {
-		return (
-			<div className="w-5rem">
-				<img src={rowData.link} alt="video url" />
-			</div>
-		);
-	};
 	const sizeDataTemplate = (rowData) => {
 		return <span>{getMbFromFileSize(rowData.size)} MB</span>;
 	};
@@ -236,7 +228,7 @@ const TableData = ({ onOpenDialog }) => {
 				label: "Xem video",
 				icon: "pi pi-eye",
 				command: () => {
-					onOpenDialog("PreviewImageDialog", rowData.link);
+					onOpenDialog("PreviewVideoDialog", rowData.link);
 				},
 			},
 		];
@@ -276,7 +268,6 @@ const TableData = ({ onOpenDialog }) => {
 				emptyMessage="Không có kết quả"
 				tableStyle={{ minWidth: "max-content" }}
 			>
-				<Column field="link" header="Video" body={videoDataTemplate} />
 				<Column field="filename" header="Tên tệp" sortable sortFunction={getSortedTableData} />
 				<Column
 					field="size"

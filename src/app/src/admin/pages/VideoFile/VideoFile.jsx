@@ -1,6 +1,6 @@
 import { useState, useCallback } from "react";
 
-import PreviewImageDialog from "@/admin/components/PreviewImageDialog";
+import PreviewVideoDialog from "@/admin/components/PreviewVideoDialog";
 import TableData from "./TableData";
 
 function ImageFile() {
@@ -12,7 +12,7 @@ function ImageFile() {
 	//? Handles
 	const handleOpenDialog = useCallback((type, payload) => {
 		switch (type) {
-			case "PreviewImageDialog": {
+			case "PreviewVideoDialog": {
 				setPreviewImageDialogVisible(true);
 				setPreviewImageUrl(payload);
 				break;
@@ -24,7 +24,7 @@ function ImageFile() {
 
 	return (
 		<div>
-			<PreviewImageDialog visible={previewImageDialogVisible} setVisible={setPreviewImageDialogVisible} url={previewImageUrl} />
+			<PreviewVideoDialog visible={previewImageDialogVisible} setVisible={setPreviewImageDialogVisible} url={previewImageUrl} />
 			<div className="card">
 				<TableData onOpenDialog={handleOpenDialog} />
 			</div>
