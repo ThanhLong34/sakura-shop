@@ -294,6 +294,13 @@ function TableData({ onOpenDialog }) {
 				},
 			},
 			{
+				label: "Xem LS đổi thưởng",
+				icon: "pi pi-calendar",
+				command: () => {
+					onOpenDialog('ViewRewardHistoryDialog', rowData);
+				},
+			},
+			{
 				label: rowData.lockedAt ? "Mở khóa" : "Khóa tài khoản",
 				icon: "pi pi-lock",
 				command: (e) => {

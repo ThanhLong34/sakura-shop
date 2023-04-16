@@ -55,3 +55,7 @@ aside {
 .p-component, .p-dropdown-label {
 	font-family: "Lexend", sans-serif;
 }
+
+.p-menu.p-menu-overlay {
+	min-width: max-content !important;
+}
