@@ -1,13 +1,17 @@
-import classNames from "classnames/bind";
-import styles from "./NotFound.module.scss";
-
-const cx = classNames.bind(styles);
+import PageNotFoundAdmin from '@/assets/images/PageNotFoundAdmin.png';
 
 function NotFound() {
 	return (
 		<div>
-			<h1>Admin page not found</h1>
-			<h2>Page not found</h2>
+			<div className="card text-center">
+				<div className="flex justify-alignts-center" style={ {
+					maxHeight: '300px'
+				}}>
+					<img src={PageNotFoundAdmin} alt="page not found image" />
+				</div>
+				<h2>Ôi không!</h2>
+				<h2>Không tìm thấy trang bạn yêu cầu</h2>
+			</div>
 		</div>
 	);
 }
