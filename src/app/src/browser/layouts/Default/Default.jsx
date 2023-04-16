@@ -4,7 +4,7 @@ import Navigator from "@/browser/components/Navigator/Navigator";
 
 const cx = classNames.bind(styles);
 
-function Default({children}) {
+function Default({ children }) {
 	return (
 		<div className={cx("wrapper")}>
 			<Navigator />

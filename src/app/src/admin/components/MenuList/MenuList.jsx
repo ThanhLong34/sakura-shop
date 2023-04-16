@@ -1,12 +1,12 @@
 import { useDispatch } from "react-redux";
-import { resetAdminAccount } from "@/store/adminSlice";
+import { logoutAdminAccount } from "@/store/adminSlice";
 import MenuItem from "@/admin/components/MenuItem";
 
 function MenuList() {
 	const dispatch = useDispatch();
 
 	function handleLogout() {
-		dispatch(resetAdminAccount());
+		dispatch(logoutAdminAccount());
 	}
 
 	return (

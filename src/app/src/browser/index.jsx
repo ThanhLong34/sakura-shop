@@ -1,8 +1,9 @@
-import { Routes, Route } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { Routes, Route, Navigate } from "react-router-dom";
 import { browserRoutes } from "@/router";
 import { DefaultLayout } from "./layouts";
 
-function renderRoutes() {
+function renderRoutes(playerAccount) {
 	if (browserRoutes) {
 		return browserRoutes.map((route, idx) => {
 			const Page = route.component;
@@ -18,7 +19,11 @@ function renderRoutes() {
 					path={route.path}
 					element={
 						<Layout>
-							<Page />
+							{!playerAccount && route.access === "private" ? (
+								<Navigate to="/" />
+							) : (
+								<Page />
+							)}
 						</Layout>
 					}
 				/>
@@ -28,9 +33,11 @@ function renderRoutes() {
 }
 
 function Browser() {
+	const playerAccount = useSelector((state) => state.player.account);
+
 	return (
 		<>
-			<Routes>{renderRoutes()}</Routes>
+			<Routes>{renderRoutes(playerAccount)}</Routes>
 		</>
 	);
 }

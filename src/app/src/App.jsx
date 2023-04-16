@@ -7,6 +7,7 @@ import Mobile from "./mobile";
 
 function App() {
 	const adminAccount = useSelector((state) => state.admin.account);
+
 	const BrowserViewRender = useMemo(() => {
 		if (adminAccount) {
 			return Admin;

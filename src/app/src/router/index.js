@@ -15,6 +15,8 @@ import AdminProfile from "@/admin/pages/Profile";
 import AdminNotFound from "@/admin/pages/NotFound";
 
 // Browser pages
+import BrowserHome from "@/browser/pages/Home";
+import BrowserLogin from "@/browser/pages/Login";
 import BrowserDashboard from "@/browser/pages/Dashboard";
 import BrowserNotFound from "@/browser/pages/NotFound";
 import { EmptyLayout as BrowserEmptyLayout } from "@/browser/layouts";
@@ -121,16 +123,32 @@ const adminRoutes = [
 const browserRoutes = [
 	{
 		path: "/",
+		component: BrowserHome,
+		layout: BrowserEmptyLayout,
+		access: 'public'
+	},
+	{
+		path: "/login-or-register",
+		component: BrowserLogin,
+		layout: BrowserEmptyLayout,
+		access: 'public'
+	},
+	{
+		path: "/dashboard",
 		component: BrowserDashboard,
+		access: 'private'
 	},
 	{
 		path: "/admin/login",
 		component: AdminLogin,
 		layout: BrowserEmptyLayout,
+		access: 'public'
 	},
 	{
 		path: "/*",
 		component: BrowserNotFound,
+		layout: BrowserEmptyLayout,
+		access: 'public'
 	},
 ];
 

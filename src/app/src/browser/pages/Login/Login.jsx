@@ -1,8 +1,8 @@
 import { useState, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { loginAdminAccount } from "@/store/adminSlice.js";
-import adminApi from "@/apis/adminApi";
+import { setPlayerAccount } from "@/store/playerSlice.js";
+import playerApi from "@/apis/playerApi";
 
 import { InputText } from "primereact/inputtext";
 import { Checkbox } from "primereact/checkbox";
@@ -75,7 +75,7 @@ function Login() {
 			return;
 		}
 
-		const response = await adminApi.login({ username, password });
+		const response = await playerApi.login({ username, password });
 
 		if (response.code === 1) {
 			toastRef.current.show({
@@ -90,7 +90,7 @@ function Login() {
 				id: +response.data.id,
 			};
 
-			const action = loginAdminAccount(account);
+			const action = setPlayerAccount(account);
 			dispatch(action);
 		} else {
 			toastRef.current.show({ severity: "error", summary: "Lỗi", detail: response.message, life: 3000 });
@@ -117,7 +117,7 @@ function Login() {
 		// Show loading
 		setResetPasswordLoading(true);
 
-		const response = await adminApi.resetPassword({ email });
+		const response = await playerApi.resetPassword({ email });
 
 		// Hide loading
 		setResetPasswordLoading(false);
@@ -138,7 +138,7 @@ function Login() {
 
 	return (
 		<div>
-			<Toast ref={toastRef} position="top-center" />
+			<Toast ref={ toastRef } position="top-center" />
 			<Dialog
 				header="Reset mật khẩu"
 				visible={dialogVisible}
