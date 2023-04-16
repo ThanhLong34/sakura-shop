@@ -1,0 +1,51 @@
+.statistical {
+	display: flex;
+	align-items: start;
+	justify-content: space-between;
+	margin-bottom: 0rem !important;
+	box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px !important;
+
+	&-info {
+		font-size: 1.5rem;
+	}
+
+	&-title {
+		margin-bottom: 6px;
+	}
+
+	&-icon {
+		i {
+			font-size: 2.4rem;
+		}
+	}
+
+	&.player {
+		color: #0099ff;
+		background-color: #f1f9ff;
+	}
+
+	&.gift {
+		color: #ff0066;
+		background-color: #fff5f9;
+	}
+
+	&.card-s {
+		color: #ffb300;
+		background-color: #fffbf3;
+	}
+
+	&.topic {
+		color: #cb00ff;
+		background-color: #fcf2ff;
+	}
+
+	&.question {
+		color: #00ffc7;
+		background-color: #f4fffd;
+	}
+
+	&.advertisement {
+		color: #ff4dd0;
+		background-color: #fff2fc;
+	}
+}
