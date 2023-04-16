@@ -8,8 +8,8 @@ import TableSearch from "@/admin/components/TableSearch";
 import TableFilterPopup from "@/admin/components/TableFilterPopup";
 
 // Icons
-import StarIcon from "@/assets/images/star.png";
-import DiamondIcon from "@/assets/images/diamond.png";
+import StarIcon from "@/assets/images/StarIcon.png";
+import DiamondIcon from "@/assets/images/DiamondIcon.png";
 
 import { DataTable } from "primereact/datatable";
 import { Column } from "primereact/column";

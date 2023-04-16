@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import classNames from "classnames/bind";
 import styles from "./Dashboard.module.scss";
-import dashboardImage from "@/assets/images/dashboard.png";
+import dashboardImage from "@/assets/images/Dashboard.png";
 
 import playerApi from "@/apis/playerApi";
 import giftApi from "@/apis/giftApi";

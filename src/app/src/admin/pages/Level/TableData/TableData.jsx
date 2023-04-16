@@ -7,11 +7,11 @@ import TableHeader from "@/admin/components/TableHeader";
 import TableSearch from "@/admin/components/TableSearch";
 
 // Icons
-import HealthIcon from "@/assets/images/heart.png";
-import StarIcon from "@/assets/images/star.png";
-import DiamondIcon from "@/assets/images/diamond.png";
-import ExperienceIcon from "@/assets/images/experience.png";
-import LevelIcon from "@/assets/images/level.png";
+import HealthIcon from "@/assets/images/HeartIcon.png";
+import StarIcon from "@/assets/images/StarIcon.png";
+import DiamondIcon from "@/assets/images/DiamondIcon.png";
+import ExperienceIcon from "@/assets/images/ExperienceIcon.png";
+import LevelIcon from "@/assets/images/LevelIcon.png";
 
 import { DataTable } from "primereact/datatable";
 import { Column } from "primereact/column";

@@ -9,8 +9,8 @@ import giftApi from "@/apis/giftApi";
 import imageFileApi from "@/apis/imageFileApi";
 
 // Icons
-import StarIcon from "@/assets/images/star.png";
-import DiamondIcon from "@/assets/images/diamond.png";
+import StarIcon from "@/assets/images/StarIcon.png";
+import DiamondIcon from "@/assets/images/DiamondIcon.png";
 
 import { Dialog } from "primereact/dialog";
 import { Button } from "primereact/button";

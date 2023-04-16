@@ -8,9 +8,9 @@ import TableHeader from "@/admin/components/TableHeader";
 import TableSearch from "@/admin/components/TableSearch";
 
 // Icons
-import HealthIcon from "@/assets/images/heart.png";
-import StarIcon from "@/assets/images/star.png";
-import DiamondIcon from "@/assets/images/diamond.png";
+import HealthIcon from "@/assets/images/HeartIcon.png";
+import StarIcon from "@/assets/images/StarIcon.png";
+import DiamondIcon from "@/assets/images/DiamondIcon.png";
 
 import { DataTable } from "primereact/datatable";
 import { Column } from "primereact/column";

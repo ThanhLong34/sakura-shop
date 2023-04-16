@@ -3,12 +3,12 @@ import classNames from "classnames/bind";
 import styles from "./ViewItemDialog.module.scss";
 
 // Icons
-import HealthIcon from "@/assets/images/heart.png";
-import StarIcon from "@/assets/images/star.png";
-import DiamondIcon from "@/assets/images/diamond.png";
-import ExperienceIcon from "@/assets/images/experience.png";
-import LevelIcon from "@/assets/images/level.png";
-import AccountIcon from "@/assets/images/account.png";
+import HealthIcon from "@/assets/images/HeartIcon.png";
+import StarIcon from "@/assets/images/StarIcon.png";
+import DiamondIcon from "@/assets/images/DiamondIcon.png";
+import ExperienceIcon from "@/assets/images/ExperienceIcon.png";
+import LevelIcon from "@/assets/images/LevelIcon.png";
+import AccountIcon from "@/assets/images/AccountIcon.png";
 
 import { Dialog } from "primereact/dialog";
 import { Tag } from "primereact/tag";
