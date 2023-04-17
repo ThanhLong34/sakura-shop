@@ -10,23 +10,25 @@ TextButton.propTypes = {
 	className: PropTypes.string,
 	isRouteLink: PropTypes.bool,
 	navigateTo: PropTypes.string,
+	onlyText: PropTypes.bool,
 	onClick: PropTypes.func,
 };
 
 TextButton.defaultProps = {
 	isRouteLink: false,
+	onlyText: false,
 	onClick: () => {},
 };
 
-function TextButton({ children, className, isRouteLink, navigateTo, onClick }) {
+function TextButton({ children, className, isRouteLink, navigateTo, onlyText, onClick }) {
 	let Component = "button";
-
+	
 	if (isRouteLink) {
 		Component = Link;
 	}
 
 	return (
-		<Component to={navigateTo} className={cx("button", className)} onClick={onClick}>
+		<Component to={navigateTo} className={cx("button", className, { onlyText })} onClick={onClick}>
 			{children}
 		</Component>
 	);

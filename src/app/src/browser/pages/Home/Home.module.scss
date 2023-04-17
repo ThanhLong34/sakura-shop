@@ -1,14 +1,5 @@
 @use "@/assets/styles/variables.scss" as *;
 
-@keyframes showContent {
-	from {
-		opacity: 0;
-	}
-	to {
-		opacity: 1;
-	}
-}
-
 .brand-logo {
 	position: fixed;
 	top: 12px;
@@ -44,7 +35,6 @@
 	color: $bTertiaryColor;
 	text-align: center;
 	background-color: #f6ffffe8 !important;
-	animation: showContent ease 1s forwards;
 }
 
 .image-wrapper {

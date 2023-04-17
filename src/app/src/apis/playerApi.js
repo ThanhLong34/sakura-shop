@@ -19,6 +19,26 @@ const playerApi = {
 		const url = `${group}/unlockById.php?`;
 		return axiosClient.put(url, { id });
 	},
+	login(data) {
+		const url = `${group}/login.php`;
+		return axiosClient.post(url, data);
+	},
+	resetPassword(data) {
+		const url = `${group}/resetPassword.php`;
+		return axiosClient.post(url, data);
+	},
+	updatePassword(data) {
+		const url = `${group}/updatePassword.php`;
+		return axiosClient.put(url, data);
+	},
+	updateEmail(data) {
+		const url = `${group}/updateEmail.php`;
+		return axiosClient.put(url, data);
+	},
+	updateNickname(data) {
+		const url = `${group}/updateNickname.php`;
+		return axiosClient.put(url, data);
+	},
 };
 
 export default playerApi;

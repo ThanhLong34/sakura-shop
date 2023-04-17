@@ -7,13 +7,13 @@ const player = createSlice({
 		account: null || SessionStorage.getPlayerAccount(),
 	},
 	reducers: {
-		setPlayerAccount: (state, action) => {
+		loginPlayerAccount: (state, action) => {
 			const account = action.payload;
 
 			state.account = account;
 			SessionStorage.setPlayerAccount(account);
 		},
-		resetPlayerAccount: (state) => {
+		logoutPlayerAccount: (state) => {
 			state.account = null;
 			SessionStorage.resetPlayerAccount();
 		},
@@ -29,5 +29,5 @@ const player = createSlice({
 });
 
 const { reducer, actions } = player;
-export const { setPlayerAccount, resetPlayerAccount, updatePlayerAccountEmail, updatePlayerAccountNickname } = actions;
+export const { loginPlayerAccount, logoutPlayerAccount, updatePlayerAccountEmail, updatePlayerAccountNickname } = actions;
 export default reducer;

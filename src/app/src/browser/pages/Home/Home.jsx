@@ -1,8 +1,8 @@
-import { useState } from "react";
+import { useCallback, useState } from "react";
 import classNames from "classnames/bind";
 import styles from "./Home.module.scss";
 
-import Logo from '@/assets/images/LogoX250.png';
+import Logo from "@/assets/images/LogoX250.png";
 import GameTitle from "@/assets/images/GameTitle.png";
 import IconButton from "@/browser/components/IconButton";
 import GradientButton from "@/browser/components/GradientButton";
@@ -14,9 +14,13 @@ const cx = classNames.bind(styles);
 function Home() {
 	const [action, setAction] = useState(0);
 
+	const handleGoBack = useCallback(() => {
+		setAction(null);
+	}, []);
+
 	return (
 		<div className="flex flex-column">
-			<div className={cx('brand-logo')}>
+			<div className={cx("brand-logo")}>
 				<img src={Logo} alt="brand logo" />
 			</div>
 			<div className={cx("login-admin-button")}>
@@ -27,11 +31,11 @@ function Home() {
 			</div>
 			<div className={cx("content", "card")}>
 				{action === "ShowLoginForm" ? (
-					<LoginForm />
+					<LoginForm onGoBack={handleGoBack} />
 				) : action === "ShowRegisterForm" ? (
 					<RegisterForm />
 				) : (
-					<>
+					<div className="zoomin animation-duration-500 animation-iteration-1 animation-ease-out">
 						<h3 className={cx("title")}>PHẦN THƯỞNG HẤP DẪN</h3>
 						<div className={cx("image-wrapper")}>
 							<img
@@ -81,7 +85,7 @@ function Home() {
 								</GradientButton>
 							</div>
 						</div>
-					</>
+					</div>
 				)}
 			</div>
 		</div>

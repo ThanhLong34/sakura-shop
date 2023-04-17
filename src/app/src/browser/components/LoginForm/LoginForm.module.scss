@@ -1,7 +1,21 @@
 @use "@/assets/styles/variables.scss" as *;
 
+.wrapper {
+	position: relative;
+}
+
+.go-back-button {
+	position: absolute;
+	top: -8px;
+	left: -8px;
+}
+
 .title {
 	color: $bPrimaryColor;
 	font-size: 1.6rem;
-	margin-bottom: 1.2rem;
+	margin-bottom: 2rem;
+}
+
+.forgot-password-text {
+	padding-left: 1.6rem;
 }
