@@ -1,4 +1,13 @@
-@use '@/assets/styles/variables.scss' as *;
+@use "@/assets/styles/variables.scss" as *;
+
+@keyframes showContent {
+	from {
+		opacity: 0;
+	}
+	to {
+		opacity: 1;
+	}
+}
 
 .login-admin-button {
 	position: fixed;
@@ -17,6 +26,7 @@
 	color: $bTertiaryColor;
 	text-align: center;
 	background-color: #f6ffffe8 !important;
+	animation: showContent ease 1s forwards;
 }
 
 .image-wrapper {
@@ -51,7 +61,8 @@
 	height: 100%;
 }
 
-.login-button, .register-button {
+.login-button,
+.register-button {
 	flex: 1;
 	width: 100%;
 }
