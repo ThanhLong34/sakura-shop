@@ -1,3 +1,4 @@
+import { memo } from "react";
 import { NavLink } from "react-router-dom";
 import classNames from "classnames/bind";
 import styles from "./Navigator.module.scss";
@@ -23,4 +24,4 @@ function Navigator() {
 	);
 }
 
-export default Navigator;
+export default memo(Navigator);

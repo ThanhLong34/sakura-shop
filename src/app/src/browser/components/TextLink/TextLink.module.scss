@@ -1,0 +1,10 @@
+@use '@/assets/styles/variables.scss' as *;
+
+.link {
+	color: $bPrimaryColor;
+	transition: all ease 0.2s;
+
+	&:hover {
+		color: $bSecondaryColor;
+	}
+}

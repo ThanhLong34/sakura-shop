@@ -1,3 +1,4 @@
+import { memo } from "react";
 import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
 import classNames from "classnames/bind";
@@ -18,4 +19,4 @@ function TextLink({ children, className, to }) {
 	);
 }
 
-export default TextLink;
+export default memo(TextLink);

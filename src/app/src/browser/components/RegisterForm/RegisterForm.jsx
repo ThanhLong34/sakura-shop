@@ -1,3 +1,4 @@
+import { memo } from "react";
 import PropTypes from "prop-types";
 import classNames from "classnames/bind";
 import styles from "./RegisterForm.module.scss";
@@ -8,4 +9,4 @@ function RegisterForm() {
 	return <div>RegisterForm</div>;
 }
 
-export default RegisterForm;
+export default memo(RegisterForm);

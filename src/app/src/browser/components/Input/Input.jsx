@@ -1,3 +1,4 @@
+import { memo } from "react";
 import PropTypes from "prop-types";
 import classNames from "classnames/bind";
 import styles from "./Input.module.scss";
@@ -41,4 +42,4 @@ function Input({ className, type, label, icon, placeholder, inputType, isRequire
 	);
 }
 
-export default Input;
+export default memo(Input);

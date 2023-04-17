@@ -1,8 +1,9 @@
+import { memo } from "react";
 import classNames from "classnames/bind";
 import styles from "./LoginForm.module.scss";
 
-import GradientButton from "../GradientButton/GradientButton";
-import GradientText from "../GradientText/GradientText";
+import GradientButton from "../GradientButton";
+import TextLink from "../TextLink";
 import Input from "../Input/Input";
 
 const cx = classNames.bind(styles);
@@ -27,10 +28,10 @@ function LoginForm() {
 			</GradientButton>
 
 			<h4 className="mt-5">
-				Bạn chưa có tài khoản?<GradientText>Đăng ký ngay</GradientText>
+				Bạn chưa có tài khoản? <TextLink to="">Đăng ký ngay</TextLink>
 			</h4>
 		</div>
 	);
 }
 
-export default LoginForm;
+export default memo(LoginForm);
