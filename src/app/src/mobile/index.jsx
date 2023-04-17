@@ -36,9 +36,9 @@ function Mobile() {
 	const routesRendered = useMemo(() => renderRoutes(() => isLandscape), [isLandscape]);
 
 	return (
-		<>
+		<div className="mobile">
 			<Routes>{routesRendered}</Routes>
-		</>
+		</div>
 	);
 }
 

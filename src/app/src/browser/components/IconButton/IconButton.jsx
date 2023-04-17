@@ -1,3 +1,5 @@
+import { memo } from "react";
+import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
 import classNames from "classnames/bind";
 import styles from "./IconButton.module.scss";
@@ -6,20 +8,29 @@ const cx = classNames.bind(styles);
 
 IconButton.propTypes = {
 	className: PropTypes.string,
+	isRouteLink: PropTypes.bool,
+	navigateTo: PropTypes.string,
 	icon: PropTypes.string,
-	onClick: PropTypes.func
-}
+	onClick: PropTypes.func,
+};
 
 IconButton.defaultProps = {
-	onClick: () => {}
-}
+	isRouteLink: false,
+	onClick: () => {},
+};
 
-function IconButton({ className, icon, onClick }) {
+function IconButton({ className, isRouteLink, navigateTo, icon, onClick }) {
+	let Component = "button";
+
+	if (isRouteLink) {
+		Component = Link;
+	}
+
 	return (
-		<button className={cx('button', className)} onClick={onClick}>
-			<i className={icon}></i>
-		</button>
+		<Component to={navigateTo} className={cx("button", className)} onClick={onClick}>
+			<i className={ icon }></i>
+		</Component>
 	);
 }
 
-export default IconButton;
+export default memo(IconButton);

@@ -1,3 +1,4 @@
+import { memo } from "react";
 import PropTypes from "prop-types";
 import classNames from "classnames/bind";
 import styles from "./GradientText.module.scss";
@@ -13,4 +14,4 @@ function GradientText({ children, className, type }) {
 	return <span className={cx("text", className, type)}>{children}</span>;
 }
 
-export default GradientText;
+export default memo(GradientText);

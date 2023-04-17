@@ -1,6 +1,8 @@
 import { useState, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
+import classNames from "classnames/bind";
+import styles from "./Login.module.scss";
 import { loginAdminAccount } from "@/store/adminSlice.js";
 import adminApi from "@/apis/adminApi";
 
@@ -9,6 +11,8 @@ import { Checkbox } from "primereact/checkbox";
 import { Button } from "primereact/button";
 import { Toast } from "primereact/toast";
 import { Dialog } from "primereact/dialog";
+
+const cx = classNames.bind(styles);
 
 function BackgroundVector() {
 	return (
@@ -40,7 +44,7 @@ function BackgroundVector() {
 }
 
 function Login() {
-	//? 
+	//?
 	const navigate = useNavigate();
 	const dispatch = useDispatch();
 
@@ -137,7 +141,7 @@ function Login() {
 	}
 
 	return (
-		<div>
+		<div className={cx("login")}>
 			<Toast ref={toastRef} position="top-center" />
 			<Dialog
 				header="Reset mật khẩu"

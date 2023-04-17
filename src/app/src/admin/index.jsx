@@ -34,9 +34,9 @@ function renderRoutes() {
 
 function Admin() {
 	return (
-		<>
+		<div className="admin">
 			<Routes>{renderRoutes()}</Routes>
-		</>
+		</div>
 	);
 }
 
