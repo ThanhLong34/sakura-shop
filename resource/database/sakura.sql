@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 15, 2023 at 01:27 PM
+-- Generation Time: Apr 17, 2023 at 03:29 PM
 -- Server version: 10.4.27-MariaDB
 -- PHP Version: 8.2.0
 
@@ -299,8 +299,8 @@ CREATE TABLE `player` (
 --
 
 INSERT INTO `player` (`id`, `createdAt`, `updatedAt`, `deletedAt`, `lockedAt`, `phoneNumber`, `password`, `email`, `nickname`, `health`, `star`, `diamond`, `experience`, `level`, `activeOptionMode`) VALUES
-(5, '20:05:31 07/04/2023', NULL, NULL, NULL, '0353292241', '4c79273eed3d095e55d1224f6524ae92', 'thanhlongedu0304@gmail.com', 'player_yP7Ty2', 3, 50, 0, 0, 1, 1),
-(6, '20:05:52 07/04/2023', NULL, NULL, NULL, '0123456789', '4c79273eed3d095e55d1224f6524ae92', '2014468@dlu.edu.vn', 'player_eECGaf', 3, 280, 24, 0, 1, 0),
+(5, '20:05:31 07/04/2023', '20:20:53 17/04/2023', NULL, NULL, '0353292241', '35c640e3431fa9c09ee650b526fa6a56', 'thanhlongedu0304@gmail.com', 'player_yP7Ty2', 3, 50, 0, 0, 1, 1),
+(6, '20:05:52 07/04/2023', '20:26:31 17/04/2023', NULL, NULL, '0123456789', 'c03aee5fe9ce9eb3303966295445a036', '2014468@dlu.edu.vn', 'player_eECGaf', 3, 280, 24, 0, 1, 0),
 (7, '20:06:33 07/04/2023', NULL, NULL, NULL, '0123456781', '4c79273eed3d095e55d1224f6524ae92', 'nguyenlong0304tester1@gmail.com', 'player_YzvXFT', 3, 0, 0, 0, 1, 0),
 (8, '20:06:37 07/04/2023', '20:32:19 07/04/2023', NULL, NULL, '0123456782', '4c79273eed3d095e55d1224f6524ae92', 'nguyenlong0304tester2@gmail.com', 'player_op7UUD', 5, 5, 2, 102, 3, 0);
 
@@ -352,7 +352,9 @@ CREATE TABLE `reward` (
 --
 
 INSERT INTO `reward` (`id`, `createdAt`, `updatedAt`, `deletedAt`, `giftId`, `playerId`, `starCost`, `diamondCost`) VALUES
-(6, '11:07:19 15/04/2023', NULL, NULL, 5, 6, 250, 0);
+(6, '11:07:19 15/04/2023', NULL, NULL, 5, 6, 250, 0),
+(7, '11:07:19 15/04/2023', NULL, NULL, 5, 7, 250, 0),
+(8, '11:07:19 15/04/2023', NULL, NULL, 6, 6, 120, 3);
 
 -- --------------------------------------------------------
 
@@ -566,7 +568,7 @@ ALTER TABLE `question`
 -- AUTO_INCREMENT for table `reward`
 --
 ALTER TABLE `reward`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `topic`

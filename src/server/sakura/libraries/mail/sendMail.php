@@ -39,14 +39,14 @@ function sendMail($mailTo, $subject, $body)
          <div style='text-align: center;
             padding: 24px 18px;
             width: 100%;
-            background-color: #62a403;
+            background-color: #d9005f;
             color: white;
             font-size: 22px'
          >
-            Organic-Food
+            Sakura Shop
          </div>
          <div style='padding: 24px 18px; font-size: 16px'>$body</div>
-         <div style='color: #62a403 !important; text-align: center;'>
+         <div style='color: #d9005f !important; text-align: center;'>
             Từ: sakurashopvn0304@gmail.com
          </div>
       ";
