@@ -1,6 +1,41 @@
 @use "@/assets/styles/variables.scss" as *;
 
-.button {
+.wrapper {
+	display: flex;
+	flex-direction: column;
+}
+
+.label {
+	margin-bottom: 0.4rem;
+	padding-left: 1.6rem;
+	text-align: left;
+	font-size: 1.4rem;
+}
+
+.required-sign {
+	color: orangered;
+}
+
+.input-wrapper {
+	position: relative;
+}
+
+.icon {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	position: absolute;
+	width: 25px;
+	height: 25px;
+	z-index: 3;
+	top: 50%;
+	left: 1.3rem;
+	transform: translateY(-50%);
+	color: white;
+}
+
+.input {
+	width: 100%;
 	display: block;
 	position: relative;
 	z-index: 1;
@@ -12,7 +47,12 @@
 	background-clip: padding-box;
 	color: #fff;
 	background-image: linear-gradient(90deg, $gradientColorD0, $gradientColorD1);
+	caret-color: $bPrimaryColor;
 	transition: all ease 0.2s;
+
+	&::placeholder {
+		color: #ffffff;
+	}
 
 	&::before {
 		content: "";
@@ -24,7 +64,6 @@
 		left: 5px;
 		border-radius: 50px;
 		filter: blur(14px);
-		background-image: linear-gradient(90deg, $gradientColorD0, transparent);
 	}
 
 	&::after {
@@ -37,34 +76,17 @@
 		right: 5px;
 		border-radius: 50px;
 		filter: blur(14px);
-		background-image: linear-gradient(90deg, transparent, $gradientColorD1);
-	}
-
-	&:hover {
-		transform: translateY(-2px);
 	}
 
 	&.primary {
 		background-image: linear-gradient(90deg, $gradientColorP0, $gradientColorP1);
-
-		&::before {
-			background-image: linear-gradient(90deg, $gradientColorP0, transparent);
-		}
-
-		&::after {
-			background-image: linear-gradient(90deg, transparent, $gradientColorP1);
-		}
 	}
 
 	&.secondary {
 		background-image: linear-gradient(90deg, $gradientColorS0, $gradientColorS1);
+	}
 
-		&::before {
-			background-image: linear-gradient(90deg, $gradientColorS0, transparent);
-		}
-
-		&::after {
-			background-image: linear-gradient(90deg, transparent, $gradientColorS1);
-		}
+	&.invalid {
+		border-color: rgba(255, 85, 85, 0.6);
 	}
 }

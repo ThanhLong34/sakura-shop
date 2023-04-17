@@ -2,6 +2,7 @@ import { useState } from "react";
 import classNames from "classnames/bind";
 import styles from "./Home.module.scss";
 
+import Logo from '@/assets/images/LogoX250.png';
 import GameTitle from "@/assets/images/GameTitle.png";
 import IconButton from "@/browser/components/IconButton";
 import GradientButton from "@/browser/components/GradientButton";
@@ -15,6 +16,9 @@ function Home() {
 
 	return (
 		<div className="flex flex-column">
+			<div className={cx('brand-logo')}>
+				<img src={Logo} alt="brand logo" />
+			</div>
 			<div className={cx("login-admin-button")}>
 				<IconButton isRouteLink navigateTo="/admin/login" icon="pi pi-user" />
 			</div>
