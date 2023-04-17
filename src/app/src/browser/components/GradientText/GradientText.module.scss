@@ -1,0 +1,18 @@
+.text {
+	position: relative;
+	text-shadow: 0.15em 0.15em 0.35em #888;
+	padding: 0.5em;
+	color: #000;
+	background: transparent;
+
+	&::after {
+		content: "";
+		position: absolute;
+		top: 0;
+		left: 0;
+		bottom: 0;
+		right: 0;
+		background: radial-gradient(circle at 70% 3%, #aa048b, #bb9801);
+		mix-blend-mode: screen;
+	}
+}

@@ -1,0 +1,75 @@
+$gradientColorD0: #64cbff;
+$gradientColorD1: #9e72fc;
+$gradientColorP0: #ff4da3;
+$gradientColorP1: #ff65fc;
+$gradientColorS0: #ffc551;
+$gradientColorS1: #ff7d4e;
+
+.button {
+	display: block;
+	position: relative;
+	z-index: 1;
+	border: 6px solid rgba(255, 255, 255, 0.45);
+	border-radius: 50px;
+	padding: 1em 3em;
+	background-repeat: no-repeat;
+	background-size: 100%;
+	background-clip: padding-box;
+	color: #fff;
+	background-image: linear-gradient(90deg, $gradientColorD0, $gradientColorD1);
+	transition: all ease 0.2s;
+
+	&::before {
+		content: "";
+		width: 100%;
+		height: 100%;
+		position: absolute;
+		z-index: -1;
+		top: 5px;
+		left: 5px;
+		border-radius: 50px;
+		filter: blur(14px);
+		background-image: linear-gradient(90deg, $gradientColorD0, transparent);
+	}
+
+	&::after {
+		content: "";
+		width: 100%;
+		height: 100%;
+		position: absolute;
+		z-index: -1;
+		top: 5px;
+		right: 5px;
+		border-radius: 50px;
+		filter: blur(14px);
+		background-image: linear-gradient(90deg, transparent, $gradientColorD1);
+	}
+
+	&:hover {
+		transform: translateY(-2px);
+	}
+
+	&.primary {
+		background-image: linear-gradient(90deg, $gradientColorP0, $gradientColorP1);
+
+		&::before {
+			background-image: linear-gradient(90deg, $gradientColorP0, transparent);
+		}
+
+		&::after {
+			background-image: linear-gradient(90deg, transparent, $gradientColorP1);
+		}
+	}
+
+	&.secondary {
+		background-image: linear-gradient(90deg, $gradientColorS0, $gradientColorS1);
+
+		&::before {
+			background-image: linear-gradient(90deg, $gradientColorS0, transparent);
+		}
+
+		&::after {
+			background-image: linear-gradient(90deg, transparent, $gradientColorS1);
+		}
+	}
+}

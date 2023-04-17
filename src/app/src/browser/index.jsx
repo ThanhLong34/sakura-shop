@@ -36,9 +36,9 @@ function Browser() {
 	const playerAccount = useSelector((state) => state.player.account);
 
 	return (
-		<>
+		<div className="browser">
 			<Routes>{renderRoutes(playerAccount)}</Routes>
-		</>
+		</div>
 	);
 }
 

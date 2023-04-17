@@ -1,0 +1,52 @@
+@use '@/assets/styles/variables.scss' as *;
+
+.login-admin-button {
+	position: fixed;
+	top: 12px;
+	right: 12px;
+}
+
+.game-title {
+	margin: 0 auto;
+	width: 565px;
+}
+
+.content {
+	margin: 2.4rem auto 0;
+	max-width: 542px;
+	color: $bTertiaryColor;
+	text-align: center;
+	background-color: #f6ffffe8 !important;
+}
+
+.image-wrapper {
+	display: grid;
+	grid-template-columns: repeat(3, 1fr);
+	gap: 12px;
+	margin: 1.2rem 0 1.5rem;
+
+	img {
+		border-radius: 6px;
+		box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+	}
+}
+
+.title {
+	color: $bPrimaryColor;
+	font-size: 1.6rem;
+}
+
+.desc {
+	margin-bottom: 0.8rem;
+}
+
+.text-divider {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.login-button, .register-button {
+	flex: 1;
+	width: 100%;
+}

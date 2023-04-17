@@ -1,5 +1,10 @@
 @use "@/assets/styles/variables.scss" as *;
 @import url("https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;500;600;700;800;900&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Coiny&display=swap');
+@font-face {
+	font-family: 'SVN';
+	src: url('@/assets/fonts/SVN-Berkshire Swash.ttf');
+}
 
 .App {
 	font-family: "Lexend", sans-serif;
@@ -58,4 +63,9 @@ aside {
 
 .p-menu.p-menu-overlay {
 	min-width: max-content !important;
+}
+
+.browser {
+	color: $bTextColor;
+	font-family: 'Coiny';
 }
