@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 18, 2023 at 05:31 AM
+-- Generation Time: Apr 18, 2023 at 06:23 AM
 -- Server version: 10.4.27-MariaDB
 -- PHP Version: 8.2.0
 
@@ -124,13 +124,94 @@ INSERT INTO `answer` (`id`, `createdAt`, `updatedAt`, `deletedAt`, `content`, `i
 (23, '20:43:19 14/04/2023', NULL, NULL, '12 tháng', 0, 1),
 (24, '20:43:28 14/04/2023', NULL, NULL, '30 tháng', 0, 1),
 (25, '20:44:35 14/04/2023', NULL, NULL, '3 - 5 tháng', 0, 2),
-(26, '20:44:38 14/04/2023', NULL, NULL, '8 - 12 tháng', 1, 2),
+(26, '20:44:38 14/04/2023', NULL, '11:07:25 18/04/2023', '8 - 12 tháng', 1, 2),
 (27, '20:44:42 14/04/2023', NULL, NULL, '15 - 17 tháng', 0, 2),
 (28, '20:44:45 14/04/2023', NULL, NULL, '20 - 24 tháng', 0, 2),
 (33, '20:51:20 14/04/2023', NULL, NULL, 'L’Oreal', 1, 8),
 (34, '20:51:23 14/04/2023', NULL, NULL, 'Hermès', 0, 8),
 (35, '20:51:27 14/04/2023', NULL, NULL, 'Guerlain', 0, 8),
-(36, '20:51:30 14/04/2023', NULL, NULL, 'YSL', 0, 8);
+(36, '20:51:30 14/04/2023', NULL, NULL, 'YSL', 0, 8),
+(37, '11:06:25 18/04/2023', NULL, NULL, '24 tháng', 1, 9),
+(38, '11:06:29 18/04/2023', NULL, NULL, '8 tháng', 0, 9),
+(39, '11:06:34 18/04/2023', NULL, NULL, '12 tháng', 0, 9),
+(40, '11:06:44 18/04/2023', NULL, NULL, '30 tháng', 0, 9),
+(41, '11:07:38 18/04/2023', NULL, NULL, '8 - 12 tháng', 1, 2),
+(42, '11:08:34 18/04/2023', NULL, NULL, '1.8kg - 4kg', 1, 10),
+(43, '11:08:41 18/04/2023', NULL, NULL, '4.5kg - 6kg', 0, 10),
+(44, '11:08:50 18/04/2023', NULL, NULL, '6.5kg - 7.7kg', 0, 10),
+(45, '11:08:56 18/04/2023', NULL, NULL, '8kg - 9kg', 0, 10),
+(46, '11:09:18 18/04/2023', NULL, NULL, 'MAC', 1, 11),
+(47, '11:09:21 18/04/2023', NULL, NULL, '3CE', 0, 11),
+(48, '11:09:28 18/04/2023', NULL, NULL, 'DIOR', 0, 11),
+(49, '11:09:34 18/04/2023', NULL, NULL, 'Burberry', 0, 11),
+(50, '11:10:03 18/04/2023', NULL, NULL, '9 - 11 loại', 1, 12),
+(51, '11:10:07 18/04/2023', NULL, NULL, '1 - 3 loại', 0, 12),
+(52, '11:10:12 18/04/2023', NULL, NULL, '5 - 7 loại', 0, 12),
+(53, '11:10:17 18/04/2023', NULL, NULL, '11 loại trở lên', 0, 12),
+(54, '11:10:39 18/04/2023', NULL, NULL, 'Là dòng son truyền thống, có vỏ bên ngoài hình trụ bên trong là sáp son', 1, 13),
+(55, '11:10:47 18/04/2023', NULL, NULL, 'Là loại được thiết kế với cọ tô và dạng tuyp, thông thường ở dạng gel', 0, 13),
+(56, '11:10:54 18/04/2023', NULL, NULL, 'Là loại thường được đựng vào lọ, son môi dạng lỏng giống với kem nền trang điểm', 0, 13),
+(57, '11:11:01 18/04/2023', NULL, NULL, 'Là loại son trong thành phần có chứa các tinh thế mica hay silica tạo nên hiệu ứng lấp lánh trên môi', 0, 13),
+(58, '11:11:26 18/04/2023', NULL, NULL, 'Là dòng son truyền thống, có vỏ bên ngoài hình trụ bên trong là sáp son', 0, 14),
+(59, '11:11:31 18/04/2023', NULL, NULL, 'Là loại được thiết kế với cọ tô và dạng tuyp, thông thường ở dạng gel', 0, 14),
+(60, '11:11:37 18/04/2023', NULL, NULL, 'Là loại thường được đựng vào lọ, son môi dạng lỏng giống với kem nền trang điểm', 1, 14),
+(61, '11:11:43 18/04/2023', NULL, NULL, 'Là loại son trong thành phần có chứa các tinh thế mica hay silica tạo nên hiệu ứng lấp lánh', 0, 14),
+(62, '11:12:02 18/04/2023', NULL, NULL, 'Là dòng son truyền thống, có vỏ bên ngoài hình trụ bên trong là sáp son', 0, 15),
+(63, '11:12:07 18/04/2023', NULL, NULL, 'Là loại được thiết kế với cọ tô và dạng tuyp, thông thường ở dạng gel', 1, 15),
+(64, '11:12:13 18/04/2023', NULL, NULL, 'Là loại thường được đựng vào lọ, son môi dạng lỏng giống với kem nền trang điểm', 0, 15),
+(65, '11:12:20 18/04/2023', NULL, NULL, 'Là loại son trong thành phần có chứa các tinh thế mica hay silica tạo nên hiệu ứng lấp lánh', 0, 15),
+(66, '11:13:00 18/04/2023', NULL, NULL, 'Là dòng son truyền thống, có vỏ bên ngoài hình trụ bên trong là sáp son', 0, 16),
+(67, '11:13:07 18/04/2023', NULL, NULL, 'Là loại được thiết kế với cọ tô và dạng tuyp, thông thường ở dạng gel', 0, 16),
+(68, '11:13:12 18/04/2023', NULL, NULL, 'Là loại thường được đựng vào lọ, son môi dạng lỏng giống với kem nền trang điểm', 0, 16),
+(69, '11:13:23 18/04/2023', NULL, NULL, 'Là loại được thiết kế dạng thỏi, dạng tuýp, dạng hũ,... có dưỡng chất để giữ ẩm', 1, 16),
+(70, '11:13:42 18/04/2023', NULL, NULL, 'Là dòng son truyền thống, có vỏ bên ngoài hình trụ bên trong là sáp son', 0, 17),
+(71, '11:13:48 18/04/2023', NULL, NULL, 'Là loại được thiết kế với cọ tô và dạng tuyp, thông thường ở dạng gel', 0, 17),
+(72, '11:13:53 18/04/2023', NULL, NULL, 'Là loại thường được đựng vào lọ, son môi dạng lỏng giống với kem nền trang điểm', 0, 17),
+(73, '11:13:59 18/04/2023', NULL, NULL, 'Là loại thường được đựng vào lọ, kết cấu mỏng nhẹ và bám màu tốt', 1, 17),
+(74, '11:14:48 18/04/2023', NULL, NULL, 'Dây giày, đế giày, mũi giày, lớp lót bên trong giày', 0, 18),
+(75, '11:14:54 18/04/2023', NULL, NULL, 'Lưỡi gà, gót giày, hông giày, phần thân sau của giày', 0, 18),
+(76, '11:15:00 18/04/2023', NULL, NULL, 'Cổ giày, miếng lót giày, lỗ xỏ dây giày', 0, 18),
+(77, '11:15:07 18/04/2023', NULL, NULL, 'Tất cả các ý kiến trên', 1, 18),
+(78, '11:15:32 18/04/2023', NULL, NULL, 'Hông giày và đế ngoài của giày', 0, 19),
+(79, '11:15:38 18/04/2023', NULL, NULL, 'Hông giày và đế ngoài của giày', 0, 19),
+(80, '11:15:44 18/04/2023', NULL, NULL, 'Đế giữa của giày và đế ngoài của giày', 0, 19),
+(81, '11:15:49 18/04/2023', NULL, NULL, 'Thân giày, đế giữa của giày và đế ngoài của giày', 1, 19),
+(82, '11:16:06 18/04/2023', NULL, NULL, 'Không vệ sinh giày thể thao', 0, 20),
+(83, '11:16:15 18/04/2023', NULL, NULL, 'Phơi giày trực tiếp dưới nắng gắt hoặc những nơi có nhiệt độ cao', 0, 20),
+(84, '11:16:21 18/04/2023', NULL, NULL, 'Sử dụng giày đúng mục đích, bảo quản nơi khô ráo thoáng mát', 1, 20),
+(85, '11:16:28 18/04/2023', NULL, NULL, 'Để tất cả các loại chồng lên nhau nhưng không có hộp bảo vệ', 0, 20),
+(86, '11:16:49 18/04/2023', NULL, NULL, 'Nike', 0, 21),
+(87, '11:16:53 18/04/2023', NULL, NULL, 'Adidas', 0, 21),
+(88, '11:16:57 18/04/2023', NULL, NULL, 'Louis Vuiton', 1, 21),
+(89, '11:17:03 18/04/2023', NULL, NULL, 'MLB', 0, 21),
+(90, '11:17:25 18/04/2023', NULL, NULL, 'Thượng Đình', 0, 22),
+(91, '11:17:30 18/04/2023', NULL, NULL, 'Juno', 0, 22),
+(92, '11:17:35 18/04/2023', NULL, NULL, 'MWC Shop', 0, 22),
+(93, '11:17:41 18/04/2023', NULL, NULL, 'Biti’s', 1, 22),
+(94, '11:19:01 18/04/2023', NULL, NULL, 'Mục đích sử dụng, chất liệu, kích thước, mẫu mã', 1, 23),
+(95, '11:19:10 18/04/2023', NULL, NULL, 'Mục đích sử dụng, chất liệu', 0, 23),
+(96, '11:19:15 18/04/2023', NULL, NULL, 'Kích thước, mẫu mã', 0, 23),
+(97, '11:19:20 18/04/2023', NULL, NULL, 'Theo xu thế, càng đắt càng tốt', 0, 23),
+(98, '11:19:38 18/04/2023', NULL, NULL, 'Giày thể thao (Bata, Sneaker, ...)', 1, 24),
+(99, '11:19:44 18/04/2023', NULL, NULL, 'Giày thể thao (Bata, Sneaker, ...)', 0, 24),
+(100, '11:19:54 18/04/2023', NULL, NULL, 'Boots (Bôt cao ngang đùi, bốt Chelsea, …)', 0, 24),
+(101, '11:20:16 18/04/2023', NULL, NULL, 'Là giày có độ cao không qua mắt cá chân', 1, 25),
+(102, '11:20:21 18/04/2023', NULL, NULL, 'Là loại giày này giúp hỗ trợ phần mắt cá chân', 0, 25),
+(103, '11:20:26 18/04/2023', NULL, NULL, 'Là loại giày thể thao cao cổ có độ cao che đi phần mắt cá chân', 0, 25),
+(104, '11:20:32 18/04/2023', NULL, NULL, 'Là loại giày thể thao phổ biến và kinh điển nhất, thường có đế khá thấp', 0, 25),
+(105, '11:20:55 18/04/2023', NULL, '11:21:15 18/04/2023', 'Là giày có độ cao k qua mắt cá chân', 1, 26),
+(106, '11:21:02 18/04/2023', NULL, NULL, 'Là loại giày này giúp hỗ trợ phần mắt cá chân', 0, 26),
+(107, '11:21:05 18/04/2023', NULL, NULL, 'Là giày có độ cao k qua mắt cá chân', 0, 26),
+(108, '11:21:11 18/04/2023', NULL, NULL, 'Là loại giày thể thao cao cổ có độ cao che đi phần mắt cá chân', 0, 26),
+(109, '11:21:20 18/04/2023', NULL, NULL, 'Là loại giày thể thao phổ biến và kinh điển nhất, thường có đế khá thấp', 1, 26),
+(110, '11:21:37 18/04/2023', NULL, NULL, 'Là giày có độ cao k qua mắt cá chân', 0, 27),
+(111, '11:21:41 18/04/2023', NULL, NULL, 'Là loại giày này giúp hỗ trợ phần mắt cá chân', 1, 27),
+(112, '11:21:47 18/04/2023', NULL, NULL, 'Là loại giày thể thao cao cổ có độ cao che đi phần mắt cá chân', 0, 27),
+(113, '11:21:53 18/04/2023', NULL, NULL, 'Là loại giày thể thao phổ biến và kinh điển nhất, thường có đế khá thấp', 0, 27),
+(114, '11:22:06 18/04/2023', NULL, NULL, 'Là giày có độ cao k qua mắt cá chân', 0, 28),
+(115, '11:22:11 18/04/2023', NULL, NULL, 'Là loại giày này giúp hỗ trợ phần mắt cá chân', 0, 28),
+(116, '11:22:16 18/04/2023', NULL, NULL, 'Là loại giày thể thao cao cổ có độ cao che đi phần mắt cá chân', 1, 28),
+(117, '11:22:21 18/04/2023', NULL, NULL, 'Là loại giày thể thao phổ biến và kinh điển nhất, thường có đế khá thấp', 0, 28);
 
 -- --------------------------------------------------------
 
@@ -160,8 +241,7 @@ CREATE TABLE `card` (
 INSERT INTO `card` (`id`, `createdAt`, `updatedAt`, `deletedAt`, `imageId`, `title`, `brand`, `healthReward`, `starReward`, `diamondReward`, `occurrenceRate`, `topicId`) VALUES
 (1, '09:59:46 13/04/2023', NULL, NULL, 16, 'Sức khỏe', NULL, 3, 0, 0, 100, 1),
 (3, '10:13:28 13/04/2023', '14:49:40 13/04/2023', NULL, 24, 'Sao', '', 0, 3, 0, 100, 1),
-(5, '14:09:42 13/04/2023', '14:50:03 13/04/2023', NULL, 25, 'Kim cương', '', 0, 0, 1, 100, 1),
-(8, '14:51:57 13/04/2023', '12:16:19 14/04/2023', NULL, 45, 'Son abc', 'Son Sakura', 0, 0, 0, 100, 3);
+(5, '14:09:42 13/04/2023', '14:50:03 13/04/2023', NULL, 25, 'Kim cương', '', 0, 0, 1, 100, 1);
 
 -- --------------------------------------------------------
 
@@ -184,16 +264,6 @@ CREATE TABLE `gift` (
   `isSpecial` tinyint(1) NOT NULL DEFAULT 0,
   `isShow` tinyint(1) DEFAULT 1
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `gift`
---
-
-INSERT INTO `gift` (`id`, `createdAt`, `updatedAt`, `deletedAt`, `imageId`, `name`, `brand`, `description`, `starCost`, `diamondCost`, `allowToReceiveOnline`, `isSpecial`, `isShow`) VALUES
-(5, '15:20:11 13/04/2023', NULL, NULL, 28, 'Yomost cam', 'Yomost', 'Hương cam', 250, 0, 1, 0, 1),
-(6, '15:20:35 13/04/2023', '11:00:13 15/04/2023', NULL, 29, 'Yomost việt quất', 'Yomost', 'Hương viết quất', 0, 3, 1, 0, 1),
-(7, '11:17:32 14/04/2023', '12:12:52 14/04/2023', NULL, 42, 'Yomost lựu đỏ', 'Yomost', 'Hương lựu đỏ', 300, 0, 1, 1, 1),
-(9, '14:39:53 14/04/2023', '14:52:35 14/04/2023', NULL, 53, 'Yomost dâu', 'Yomost', 'Hương dâu tây', 202, 5, 1, 1, 1);
 
 -- --------------------------------------------------------
 
@@ -252,21 +322,15 @@ CREATE TABLE `level` (
 --
 
 INSERT INTO `level` (`id`, `createdAt`, `updatedAt`, `deletedAt`, `levelNumber`, `experienceRequired`, `healthReward`, `starReward`, `diamondReward`) VALUES
-(1, '21:13:00 07/04/2023', '14:36:52 14/04/2023', NULL, 2, 122, 1, 3, 1),
-(2, '21:13:31 07/04/2023', NULL, NULL, 3, 250, 0, 10, 0),
-(3, '21:13:53 07/04/2023', NULL, NULL, 4, 350, 0, 12, 0),
-(4, '21:14:03 07/04/2023', NULL, NULL, 5, 500, 0, 15, 0),
-(6, '21:19:47 10/04/2023', NULL, NULL, 6, 600, 0, 0, 0),
-(7, '21:20:35 10/04/2023', NULL, NULL, 7, 750, 2, 5, 1),
-(8, '21:21:00 10/04/2023', NULL, NULL, 8, 820, 2, 2, 1),
-(9, '21:21:15 10/04/2023', NULL, NULL, 9, 950, 3, 2, 2),
-(10, '21:21:30 10/04/2023', NULL, NULL, 10, 1020, 2, 2, 2),
-(11, '21:21:39 10/04/2023', '10:24:05 11/04/2023', NULL, 11, 1235, 3, 2, 3),
-(12, '21:21:51 10/04/2023', NULL, NULL, 12, 1300, 2, 1, 2),
-(13, '21:22:01 10/04/2023', NULL, NULL, 13, 1350, 2, 1, 2),
-(14, '10:25:05 11/04/2023', '17:48:19 12/04/2023', NULL, 14, 1450, 3, 2, 1),
-(15, '14:37:07 14/04/2023', '14:37:15 14/04/2023', NULL, 15, 1550, 1, 1, 1),
-(16, '14:37:23 14/04/2023', NULL, NULL, 16, 1680, 2, 1, 2);
+(17, '10:53:48 18/04/2023', NULL, NULL, 2, 120, 1, 1, 0),
+(18, '10:58:19 18/04/2023', '11:00:06 18/04/2023', NULL, 3, 480, 1, 1, 0),
+(19, '11:00:21 18/04/2023', NULL, NULL, 4, 960, 1, 1, 0),
+(20, '11:00:49 18/04/2023', '11:03:26 18/04/2023', NULL, 5, 1560, 2, 1, 1),
+(21, '11:01:05 18/04/2023', NULL, NULL, 6, 2280, 2, 1, 0),
+(22, '11:01:28 18/04/2023', NULL, NULL, 7, 3120, 2, 2, 0),
+(23, '11:02:06 18/04/2023', NULL, NULL, 8, 4080, 3, 2, 0),
+(24, '11:02:42 18/04/2023', NULL, NULL, 9, 5160, 3, 3, 0),
+(25, '11:03:13 18/04/2023', NULL, NULL, 10, 6360, 3, 3, 1);
 
 -- --------------------------------------------------------
 
@@ -297,10 +361,9 @@ CREATE TABLE `player` (
 --
 
 INSERT INTO `player` (`id`, `createdAt`, `updatedAt`, `deletedAt`, `lockedAt`, `phoneNumber`, `password`, `email`, `nickname`, `health`, `star`, `diamond`, `experience`, `level`, `activeOptionMode`) VALUES
-(5, '20:05:31 07/04/2023', '20:20:53 17/04/2023', NULL, '10:17:18 18/04/2023', '0353292241', '35c640e3431fa9c09ee650b526fa6a56', 'thanhlongedu0304@gmail.com', 'player_yP7Ty2', 3, 50, 0, 0, 1, 1),
-(6, '20:05:52 07/04/2023', '20:26:31 17/04/2023', NULL, NULL, '0123456789', 'c03aee5fe9ce9eb3303966295445a036', '2014468@dlu.edu.vn', 'player_eECGaf', 3, 280, 24, 0, 1, 0),
-(7, '20:06:33 07/04/2023', NULL, NULL, NULL, '0123456781', '4c79273eed3d095e55d1224f6524ae92', 'nguyenlong0304tester1@gmail.com', 'player_YzvXFT', 3, 0, 0, 0, 1, 0),
-(23, '10:29:47 18/04/2023', NULL, NULL, NULL, '0353292244', '0192023a7bbd73250516f069df18b500', '2014468@dlu.edu.vn', 'player_Xkg4qE', 3, 0, 0, 0, 1, 0);
+(24, '10:39:35 18/04/2023', NULL, NULL, NULL, '0353292241', '4c79273eed3d095e55d1224f6524ae92', 'thanhlongedu0304@gmail.com', 'player_r3kcxg', 3, 0, 0, 0, 1, 0),
+(25, '10:50:26 18/04/2023', NULL, NULL, NULL, '0336010147', '4c79273eed3d095e55d1224f6524ae92', 'nguyenlong0304tester1@gmail.com', 'player_D9NWE6', 3, 0, 0, 0, 1, 0),
+(26, '10:50:50 18/04/2023', NULL, NULL, NULL, '0336010149', '4c79273eed3d095e55d1224f6524ae92', 'nguyenlong0304tester2@gmail.com', 'player_TPiyZC', 3, 0, 0, 0, 1, 0);
 
 -- --------------------------------------------------------
 
@@ -324,9 +387,29 @@ CREATE TABLE `question` (
 --
 
 INSERT INTO `question` (`id`, `createdAt`, `updatedAt`, `deletedAt`, `content`, `healthReward`, `starReward`, `diamondReward`) VALUES
-(1, '13:45:10 14/04/2023', '20:42:14 14/04/2023', NULL, 'Sau khi mở nắp thì son dạng thỏi có thể sử dụng an toàn trong khoảng thời gian bao lâu?', 2, 0, 0),
-(2, '13:46:07 14/04/2023', '20:44:16 14/04/2023', NULL, 'Vậy còn đối với son dạng kem, dạng nước thì bạn nên dùng trong bao lâu sau khi mở nắp?', 3, 0, 0),
-(8, '20:50:53 14/04/2023', NULL, NULL, 'Đố bạn biết, thỏi son đắt nhất thế giới hiện tại đến từ thương hiệu nào?', 3, 2, 0);
+(1, '13:45:10 14/04/2023', '11:04:07 18/04/2023', NULL, 'Sau khi mở nắp thì son dạng thỏi có thể sử dụng an toàn trong khoảng thời gian bao lâu?', 1, 0, 0),
+(2, '13:46:07 14/04/2023', '11:07:14 18/04/2023', NULL, 'Thời gian sử dụng của son dạng kem, dạng nước sau khi mở nắp là bao lâu?', 1, 0, 0),
+(8, '20:50:53 14/04/2023', '11:04:32 18/04/2023', NULL, 'Đố bạn biết, thỏi son đắt nhất thế giới hiện tại đến từ thương hiệu nào?', 1, 0, 0),
+(9, '11:06:15 18/04/2023', NULL, NULL, 'Thời gian sử dụng tốt nhất của son dạng thỏi sau khi mở nắp là bao lâu?', 1, 0, 0),
+(10, '11:08:03 18/04/2023', NULL, NULL, 'Ước tính trong cuộc đời của mỗi người phụ nữ có thoa son nuốt trung bình khoảng bao nhiêu KILOGAM son môi?', 2, 0, 0),
+(11, '11:09:10 18/04/2023', NULL, NULL, 'Hãng son nổi tiếng và được sử dụng nhiều nhất tính đến năm 2023?', 1, 0, 0),
+(12, '11:09:44 18/04/2023', '11:09:48 18/04/2023', NULL, 'Có bao nhiêu loại son môi trên thế giới?', 3, 0, 0),
+(13, '11:10:27 18/04/2023', NULL, NULL, 'Thế nào là Son thỏi/ Son sáp?', 2, 0, 0),
+(14, '11:11:16 18/04/2023', NULL, NULL, 'Thế nào là Son kem?', 2, 0, 0),
+(15, '11:11:52 18/04/2023', NULL, NULL, 'Thế nào là Son bóng?', 2, 0, 0),
+(16, '11:12:46 18/04/2023', NULL, NULL, 'Thế nào là Son dưỡng môi?', 2, 0, 0),
+(17, '11:13:33 18/04/2023', NULL, NULL, 'Thế nào là Son Tint/ Son nước?', 3, 0, 0),
+(18, '11:14:32 18/04/2023', NULL, NULL, 'Một chiếc giày hoàn chỉnh cần có các thành phần nào sau đây?', 2, 0, 0),
+(19, '11:15:21 18/04/2023', NULL, NULL, 'Thành phần chính cấu tạo nên một chiếc giày là?', 2, 0, 0),
+(20, '11:15:58 18/04/2023', NULL, NULL, 'Cách sử dụng và bảo quản giày tốt nhất?', 2, 0, 0),
+(21, '11:16:40 18/04/2023', NULL, NULL, 'Thương hiệu giày đắt giá nhất tính đến năm 2023?', 3, 1, 0),
+(22, '11:17:13 18/04/2023', NULL, NULL, 'Thương hiệu giày của Việt Nam được yêu thích nhất tính đến 2023?', 1, 1, 1),
+(23, '11:18:06 18/04/2023', NULL, NULL, 'Khi lựa chọn mua một đôi giày mọi người thường lưu ý và chú trọng đến điều gì?', 2, 1, 0),
+(24, '11:19:30 18/04/2023', NULL, NULL, 'Loại giày được các bạn trẻ ưa chuộng nhất tính đến năm 2023 là?', 2, 1, 0),
+(25, '11:20:08 18/04/2023', NULL, NULL, 'Giày Low-top là?', 1, 1, 0),
+(26, '11:20:40 18/04/2023', NULL, NULL, 'Giày Slip-on là?', 1, 1, 0),
+(27, '11:21:30 18/04/2023', NULL, NULL, 'Giày Mid-top là?', 1, 1, 0),
+(28, '11:21:59 18/04/2023', NULL, NULL, 'Giày High-top là?', 1, 1, 0);
 
 -- --------------------------------------------------------
 
@@ -344,15 +427,6 @@ CREATE TABLE `reward` (
   `starCost` int(11) NOT NULL,
   `diamondCost` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `reward`
---
-
-INSERT INTO `reward` (`id`, `createdAt`, `updatedAt`, `deletedAt`, `giftId`, `playerId`, `starCost`, `diamondCost`) VALUES
-(6, '11:07:19 15/04/2023', NULL, NULL, 5, 6, 250, 0),
-(7, '11:07:19 15/04/2023', NULL, NULL, 5, 7, 250, 0),
-(8, '11:07:19 15/04/2023', NULL, NULL, 6, 6, 120, 3);
 
 -- --------------------------------------------------------
 
@@ -524,7 +598,7 @@ ALTER TABLE `advertisementtype`
 -- AUTO_INCREMENT for table `answer`
 --
 ALTER TABLE `answer`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=37;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=118;
 
 --
 -- AUTO_INCREMENT for table `card`
@@ -548,19 +622,19 @@ ALTER TABLE `image`
 -- AUTO_INCREMENT for table `level`
 --
 ALTER TABLE `level`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
 
 --
 -- AUTO_INCREMENT for table `player`
 --
 ALTER TABLE `player`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
 
 --
 -- AUTO_INCREMENT for table `question`
 --
 ALTER TABLE `question`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
 
 --
 -- AUTO_INCREMENT for table `reward`
