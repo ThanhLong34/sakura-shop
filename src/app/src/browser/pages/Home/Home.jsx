@@ -18,6 +18,14 @@ function Home() {
 		setAction(null);
 	}, []);
 
+	const handleShowRegisterForm = useCallback(() => {
+		setAction("ShowRegisterForm");
+	}, []);
+
+	const handleShowLoginForm = useCallback(() => {
+		setAction("ShowLoginForm");
+	}, []);
+
 	return (
 		<div className="flex flex-column">
 			<div className={cx("brand-logo")}>
@@ -31,9 +39,9 @@ function Home() {
 			</div>
 			<div className={cx("content", "card")}>
 				{action === "ShowLoginForm" ? (
-					<LoginForm onGoBack={handleGoBack} />
+					<LoginForm onGoBack={handleGoBack} onShowRegisterForm={handleShowRegisterForm} />
 				) : action === "ShowRegisterForm" ? (
-					<RegisterForm />
+					<RegisterForm onGoBack={handleGoBack} onShowLoginForm={handleShowLoginForm} />
 				) : (
 					<div className="zoomin animation-duration-500 animation-iteration-1 animation-ease-out">
 						<h3 className={cx("title")}>PHẦN THƯỞNG HẤP DẪN</h3>

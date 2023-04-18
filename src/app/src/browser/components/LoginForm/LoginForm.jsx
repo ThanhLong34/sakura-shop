@@ -23,13 +23,15 @@ const cx = classNames.bind(styles);
 
 LoginForm.propTypes = {
 	onGoBack: PropTypes.func,
+	onShowRegisterForm: PropTypes.func,
 };
 
 LoginForm.defaultProps = {
 	onGoBack: () => {},
+	onShowRegisterForm: () => {},
 };
 
-function LoginForm({ onGoBack }) {
+function LoginForm({ onGoBack, onShowRegisterForm }) {
 	//?
 	const navigate = useNavigate();
 	const dispatch = useDispatch();
@@ -206,7 +208,7 @@ function LoginForm({ onGoBack }) {
 			</GradientButton>
 
 			<h4 className="mt-5">
-				Bạn chưa có tài khoản? <TextButton onlyText>Đăng ký ngay</TextButton>
+				Bạn chưa có tài khoản? <TextButton onlyText onClick={onShowRegisterForm}>Đăng ký ngay</TextButton>
 			</h4>
 		</div>
 	);
