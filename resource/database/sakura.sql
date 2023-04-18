@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 18, 2023 at 06:23 AM
+-- Generation Time: Apr 18, 2023 at 10:27 AM
 -- Server version: 10.4.27-MariaDB
 -- PHP Version: 8.2.0
 
@@ -239,9 +239,33 @@ CREATE TABLE `card` (
 --
 
 INSERT INTO `card` (`id`, `createdAt`, `updatedAt`, `deletedAt`, `imageId`, `title`, `brand`, `healthReward`, `starReward`, `diamondReward`, `occurrenceRate`, `topicId`) VALUES
-(1, '09:59:46 13/04/2023', NULL, NULL, 16, 'Sức khỏe', NULL, 3, 0, 0, 100, 1),
-(3, '10:13:28 13/04/2023', '14:49:40 13/04/2023', NULL, 24, 'Sao', '', 0, 3, 0, 100, 1),
-(5, '14:09:42 13/04/2023', '14:50:03 13/04/2023', NULL, 25, 'Kim cương', '', 0, 0, 1, 100, 1);
+(1, '09:59:46 13/04/2023', '15:27:27 18/04/2023', NULL, 16, 'Sức khỏe', '', 3, 0, 0, 15, 1),
+(3, '10:13:28 13/04/2023', '15:27:15 18/04/2023', NULL, 24, 'Sao', '', 0, 3, 0, 10, 1),
+(5, '14:09:42 13/04/2023', '15:27:09 18/04/2023', NULL, 25, 'Kim cương', '', 0, 0, 1, 5, 1),
+(13, '13:55:03 18/04/2023', NULL, NULL, 73, 'Son YSL Tatouage Couture Matte Stain 08 – Đỏ rượu', 'YSL', 0, 0, 0, 100, 3),
+(14, '13:55:44 18/04/2023', NULL, NULL, 74, 'Son Dior Addict Lip Glow Matte màu Raspberry 102 – Hồng dâu', 'Dior', 0, 0, 0, 100, 3),
+(15, '13:56:27 18/04/2023', NULL, NULL, 75, 'Son Dior Rouge Dior Satin 339 Grège New – Màu Cam Đất', 'Dior', 0, 0, 0, 100, 3),
+(16, '13:56:56 18/04/2023', NULL, NULL, 76, 'Son Kem MAC Lisa Swoon For Blooms (Phiên Bản Giới Hạn) – Màu Đỏ Hồng', 'MAC', 0, 0, 0, 100, 3),
+(17, '13:57:26 18/04/2023', NULL, NULL, 77, 'Son Tom Ford Lip Color Satin Matte 28 Shanghai Lily –  Đỏ Hồng tươi', 'Tom Ford', 0, 0, 0, 100, 3),
+(18, '13:58:50 18/04/2023', NULL, NULL, 78, 'Son Lì Gucci Rouge À Lèvres Voile Mat 217 Valeria Rose – Màu Hồng Cam Đất', 'Gucci', 0, 0, 0, 100, 3),
+(19, '13:59:24 18/04/2023', NULL, NULL, 79, 'Son Gucci Rouge De Beauté Brillant 516 Margaret Ruby – Màu Đỏ Tươi Ánh Cam', 'Gucci', 0, 0, 0, 100, 3),
+(20, '13:59:51 18/04/2023', NULL, NULL, 80, 'Son Ysl Slim 08 – Hồng Cánh Sen', 'YSL', 0, 0, 0, 100, 3),
+(21, '14:00:40 18/04/2023', NULL, NULL, 82, 'Son Charlotte Tilbury Matte Revolution màu Love liberty – Đỏ tím', 'Charlotte Tilbury Matte Revolution', 0, 0, 0, 100, 3),
+(22, '15:14:27 18/04/2023', NULL, NULL, 83, 'Son 3CE Red Recipe Lip Color 215 – Đỏ Trầm', '3CE', 0, 0, 0, 100, 3),
+(23, '15:15:02 18/04/2023', NULL, NULL, 84, 'Son Hermès Ebloui Satin Limited Edition Màu 17 Beige – Cam nâu nude', 'Hermès', 0, 0, 0, 100, 3),
+(24, '15:15:30 18/04/2023', NULL, NULL, 85, 'YSL Rouge volupte Shine Collector I LOVE YOU Light Me Red 119 (Bản giới hạn) – Đỏ Cherry', 'YSL', 0, 0, 0, 100, 3),
+(25, '15:16:57 18/04/2023', '15:17:49 18/04/2023', NULL, 86, 'Giày Jordan 1 Low (GS) (Pale Raspberry)', 'Jordan', 0, 0, 0, 100, 4),
+(26, '15:17:42 18/04/2023', NULL, NULL, 87, 'Giày adidas Superstar (White)', 'Adidas', 0, 0, 0, 100, 4),
+(27, '15:18:51 18/04/2023', NULL, NULL, 88, 'Giày Nike AIR MAX 90 G NRG (Smoke Purple)', 'Nike', 0, 0, 0, 100, 4),
+(28, '15:19:42 18/04/2023', NULL, NULL, 89, 'Giày Converse Run Star Hike Low (Black Gum)', 'Converse', 0, 0, 0, 100, 4),
+(29, '15:21:20 18/04/2023', NULL, NULL, 90, 'Giày Nike Air Max Scorpion FK (Heather White)', 'Nike', 0, 0, 0, 100, 4),
+(30, '15:22:35 18/04/2023', NULL, NULL, 91, 'Giày ‎Gucci Lovelight Screener (Pale Pink)', 'Gucci', 0, 0, 0, 100, 4),
+(31, '15:23:09 18/04/2023', NULL, NULL, 93, 'Giày FILA Oakment TR (Green)', 'Fila', 0, 0, 0, 100, 4),
+(32, '15:23:42 18/04/2023', NULL, NULL, 94, 'Giày New Balance 530 Retro (Running Navy)', 'New Balance', 0, 0, 0, 100, 4),
+(33, '15:24:03 18/04/2023', NULL, NULL, 95, 'Giày MLB BigBall Chunky Monotive Boston Red Sox Brown', 'MLB', 0, 0, 0, 100, 4),
+(34, '15:24:29 18/04/2023', NULL, NULL, 96, 'Giày Puma Hedra (Dark Dreams)', 'Puma', 0, 0, 0, 100, 4),
+(35, '15:24:59 18/04/2023', NULL, NULL, 97, 'Giày Vans OG Old Skool LX Aztec/Black', 'Vans', 0, 0, 0, 100, 4),
+(36, '15:25:49 18/04/2023', NULL, NULL, 98, 'Giày Nike PEGASUS 40 (Black)', 'Nike', 0, 0, 0, 100, 4);
 
 -- --------------------------------------------------------
 
@@ -292,12 +316,31 @@ INSERT INTO `image` (`id`, `createdAt`, `updatedAt`, `deletedAt`, `link`, `filen
 (18, '10:07:41 13/04/2023', NULL, NULL, 'http://localhost/projects/sakura/upload/images/imagefile643771fdc31f7.png', 'imagefile643771fdc31f7.png', 38968),
 (24, '14:49:40 13/04/2023', NULL, NULL, 'http://localhost/projects/sakura/upload/images/imagefile6437b41407f43.png', 'imagefile6437b41407f43.png', 11548),
 (25, '14:50:01 13/04/2023', NULL, NULL, 'http://localhost/projects/sakura/upload/images/imagefile6437b42942b39.png', 'imagefile6437b42942b39.png', 11492),
-(28, '15:20:03 13/04/2023', NULL, NULL, 'http://localhost/projects/sakura/upload/images/imagefile6437bb33a03a4.png', 'imagefile6437bb33a03a4.png', 228661),
-(29, '15:20:33 13/04/2023', NULL, NULL, 'http://localhost/projects/sakura/upload/images/imagefile6437bb513c765.png', 'imagefile6437bb513c765.png', 245066),
-(42, '12:12:51 14/04/2023', NULL, NULL, 'http://localhost/projects/sakura/upload/images/imagefile6438e0d374b91.png', 'imagefile6438e0d374b91.png', 242887),
-(45, '12:15:54 14/04/2023', NULL, NULL, 'http://localhost/projects/sakura/upload/images/imagefile6438e18a02efb.png', 'imagefile6438e18a02efb.png', 73137),
-(53, '14:41:02 14/04/2023', NULL, NULL, 'http://localhost/projects/sakura/upload/images/imagefile6439038e3abea.png', 'imagefile6439038e3abea.png', 237473),
-(71, '18:22:52 15/04/2023', NULL, NULL, 'http://localhost/projects/sakura/upload/images/imagefile643a890c2a733.png', 'imagefile643a890c2a733.png', 31831);
+(71, '18:22:52 15/04/2023', NULL, NULL, 'http://localhost/projects/sakura/upload/images/imagefile643a890c2a733.png', 'imagefile643a890c2a733.png', 31831),
+(73, '13:55:02 18/04/2023', NULL, NULL, 'http://localhost/projects/sakura/upload/images/imagefile643e3ec651213.png', 'imagefile643e3ec651213.png', 118842),
+(74, '13:55:43 18/04/2023', NULL, NULL, 'http://localhost/projects/sakura/upload/images/imagefile643e3eef45e1f.png', 'imagefile643e3eef45e1f.png', 157875),
+(75, '13:56:25 18/04/2023', NULL, NULL, 'http://localhost/projects/sakura/upload/images/imagefile643e3f19bcd7b.png', 'imagefile643e3f19bcd7b.png', 70748),
+(76, '13:56:55 18/04/2023', NULL, NULL, 'http://localhost/projects/sakura/upload/images/imagefile643e3f3709c19.png', 'imagefile643e3f3709c19.png', 129156),
+(77, '13:57:24 18/04/2023', NULL, NULL, 'http://localhost/projects/sakura/upload/images/imagefile643e3f54d0c22.png', 'imagefile643e3f54d0c22.png', 83461),
+(78, '13:58:49 18/04/2023', NULL, NULL, 'http://localhost/projects/sakura/upload/images/imagefile643e3fa98dd26.png', 'imagefile643e3fa98dd26.png', 111940),
+(79, '13:59:23 18/04/2023', NULL, NULL, 'http://localhost/projects/sakura/upload/images/imagefile643e3fcba56ea.png', 'imagefile643e3fcba56ea.png', 122283),
+(80, '13:59:49 18/04/2023', NULL, NULL, 'http://localhost/projects/sakura/upload/images/imagefile643e3fe5f101b.png', 'imagefile643e3fe5f101b.png', 79429),
+(82, '14:00:35 18/04/2023', NULL, NULL, 'http://localhost/projects/sakura/upload/images/imagefile643e4013e9004.png', 'imagefile643e4013e9004.png', 96903),
+(83, '15:14:26 18/04/2023', NULL, NULL, 'http://localhost/projects/sakura/upload/images/imagefile643e5162b3ae8.png', 'imagefile643e5162b3ae8.png', 135260),
+(84, '15:15:00 18/04/2023', NULL, NULL, 'http://localhost/projects/sakura/upload/images/imagefile643e5184d9d0a.png', 'imagefile643e5184d9d0a.png', 81116),
+(85, '15:15:28 18/04/2023', NULL, NULL, 'http://localhost/projects/sakura/upload/images/imagefile643e51a061244.png', 'imagefile643e51a061244.png', 178617),
+(86, '15:16:25 18/04/2023', NULL, NULL, 'http://localhost/projects/sakura/upload/images/imagefile643e51d9244e8.png', 'imagefile643e51d9244e8.png', 95674),
+(87, '15:17:40 18/04/2023', NULL, NULL, 'http://localhost/projects/sakura/upload/images/imagefile643e5224103db.png', 'imagefile643e5224103db.png', 83307),
+(88, '15:18:50 18/04/2023', NULL, NULL, 'http://localhost/projects/sakura/upload/images/imagefile643e526a66faa.png', 'imagefile643e526a66faa.png', 108964),
+(89, '15:19:41 18/04/2023', NULL, NULL, 'http://localhost/projects/sakura/upload/images/imagefile643e529d6fb6d.png', 'imagefile643e529d6fb6d.png', 107047),
+(90, '15:21:13 18/04/2023', NULL, NULL, 'http://localhost/projects/sakura/upload/images/imagefile643e52f91b13a.png', 'imagefile643e52f91b13a.png', 120280),
+(91, '15:22:33 18/04/2023', NULL, NULL, 'http://localhost/projects/sakura/upload/images/imagefile643e5349dcc52.png', 'imagefile643e5349dcc52.png', 109567),
+(93, '15:23:08 18/04/2023', NULL, NULL, 'http://localhost/projects/sakura/upload/images/imagefile643e536c7fbb6.png', 'imagefile643e536c7fbb6.png', 126107),
+(94, '15:23:41 18/04/2023', NULL, NULL, 'http://localhost/projects/sakura/upload/images/imagefile643e538d4df62.png', 'imagefile643e538d4df62.png', 113413),
+(95, '15:24:00 18/04/2023', NULL, NULL, 'http://localhost/projects/sakura/upload/images/imagefile643e53a03d238.png', 'imagefile643e53a03d238.png', 154867),
+(96, '15:24:28 18/04/2023', NULL, NULL, 'http://localhost/projects/sakura/upload/images/imagefile643e53bcc9db9.png', 'imagefile643e53bcc9db9.png', 94424),
+(97, '15:24:59 18/04/2023', NULL, NULL, 'http://localhost/projects/sakura/upload/images/imagefile643e53db044a4.png', 'imagefile643e53db044a4.png', 95090),
+(98, '15:25:48 18/04/2023', NULL, NULL, 'http://localhost/projects/sakura/upload/images/imagefile643e540cc88c7.png', 'imagefile643e540cc88c7.png', 82380);
 
 -- --------------------------------------------------------
 
@@ -604,7 +647,7 @@ ALTER TABLE `answer`
 -- AUTO_INCREMENT for table `card`
 --
 ALTER TABLE `card`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=37;
 
 --
 -- AUTO_INCREMENT for table `gift`
@@ -616,7 +659,7 @@ ALTER TABLE `gift`
 -- AUTO_INCREMENT for table `image`
 --
 ALTER TABLE `image`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=73;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=99;
 
 --
 -- AUTO_INCREMENT for table `level`
