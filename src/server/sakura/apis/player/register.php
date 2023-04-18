@@ -88,7 +88,20 @@ function add($phoneNumber, $password, $email)
    // Thực thi query
    $query = "INSERT INTO `$tableName`(`createdAt`, `phoneNumber`, `password`, `email`, `nickname`) 
                VALUES('$createdAt', '$phoneNumber', '$password', '$email', '$nickname')";
-   performsQueryAndResponseToClient($query);
+
+   if (($accountId = performsQueryAndResponseToClient($query)) > 0) {
+      $obj = responsePlayerAccount($accountId);
+      if ($obj) {
+         $response = new ResponseAPI(1, "Thành công", $obj, 1);
+         $response->send();
+      } else {
+         $response = new ResponseAPI(2, "Thất bại");
+         $response->send();
+      }
+   } else {
+      $response = new ResponseAPI(2, "Thất bại");
+      $response->send();
+   }
 
    // Đóng kết nối
    $connect->close();
@@ -100,14 +113,11 @@ function performsQueryAndResponseToClient($query)
    global $connect;
 
    $result = mysqli_query($connect, $query);
-
    if ($result) {
-      $response = new ResponseAPI(1, "Thành công");
-      $response->send();
-   } else {
-      $response = new ResponseAPI(2, "Thất bại");
-      $response->send();
+      return mysqli_insert_id($connect);
    }
+
+   return -1;
 }
 
 // Kiểm tra item tồn tại trong CSDL theo các tiêu chí
@@ -123,4 +133,20 @@ function checkItemExist($phoneNumber)
    }
 
    return false;
+}
+
+// Trả về tài khoản vừa đăng ký thành công cho Client
+function responsePlayerAccount($id)
+{
+   global $connect, $tableName;
+
+   $query = "SELECT * FROM `$tableName` WHERE `deletedAt` IS NULL AND `id` = '$id' LIMIT 1";
+   $result = mysqli_query($connect, $query);
+   $obj = null;
+
+   if ($result) {
+      $obj = $result->fetch_object();
+   }
+
+   return $obj;
 }
