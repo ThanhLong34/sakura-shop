@@ -121,9 +121,6 @@ function ViewItemDialog({ visible, setVisible, item }) {
 							</div>
 						</div>
 						<div className={cx("item-data")}>{status && statusDataTemplate()}</div>
-						<div className={cx("item-data")}>
-							{item.activeOptionMode ? <Tag value="Chế độ chơi tùy chọn" severity="info" /> : null}
-						</div>
 					</div>
 					<div className="col-6">
 						<img className={cx("account-image")} src={AccountIcon} alt="account icon" />

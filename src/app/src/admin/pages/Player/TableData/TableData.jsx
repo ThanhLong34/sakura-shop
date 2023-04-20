@@ -104,7 +104,6 @@ function TableData({ onOpenDialog }) {
 				diamond: +player.diamond,
 				experience: +player.experience,
 				level: +player.level,
-				activeOptionMode: +player.activeOptionMode === 1,
 				status: player.lockedAt ? "Bị khóa" : "Hoạt động",
 			}));
 
