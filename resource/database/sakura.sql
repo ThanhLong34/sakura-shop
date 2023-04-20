@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 20, 2023 at 05:02 AM
+-- Generation Time: Apr 20, 2023 at 12:44 PM
 -- Server version: 10.4.27-MariaDB
 -- PHP Version: 8.2.0
 
@@ -270,6 +270,29 @@ INSERT INTO `card` (`id`, `createdAt`, `updatedAt`, `deletedAt`, `imageId`, `tit
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `gamedata`
+--
+
+CREATE TABLE `gamedata` (
+  `id` int(11) NOT NULL,
+  `createdAt` varchar(255) DEFAULT NULL,
+  `updatedAt` varchar(255) DEFAULT NULL,
+  `deletedAt` varchar(255) DEFAULT NULL,
+  `title` varchar(255) DEFAULT NULL,
+  `value` varchar(255) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `gamedata`
+--
+
+INSERT INTO `gamedata` (`id`, `createdAt`, `updatedAt`, `deletedAt`, `title`, `value`) VALUES
+(1, '16:05:43 20/04/2023', '17:42:21 20/04/2023', NULL, 'Cấp độ yêu cầu để mở khóa chế độ chơi tùy chọn', '32'),
+(2, '16:06:51 20/04/2023', '17:43:55 20/04/2023', NULL, 'Công thức tính điểm kinh nghiệm sau mỗi ván chơi', 'Tổng số thẻ bài x Thời gian hoàn thành x 100%');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `gift`
 --
 
@@ -419,18 +442,17 @@ CREATE TABLE `player` (
   `star` int(11) DEFAULT 0,
   `diamond` int(11) DEFAULT 0,
   `experience` int(11) DEFAULT 0,
-  `level` int(11) DEFAULT 1,
-  `activeOptionMode` tinyint(1) DEFAULT 0
+  `level` int(11) DEFAULT 1
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `player`
 --
 
-INSERT INTO `player` (`id`, `createdAt`, `updatedAt`, `deletedAt`, `lockedAt`, `phoneNumber`, `password`, `email`, `nickname`, `health`, `star`, `diamond`, `experience`, `level`, `activeOptionMode`) VALUES
-(24, '10:39:35 18/04/2023', NULL, NULL, NULL, '0353292241', '4c79273eed3d095e55d1224f6524ae92', 'thanhlongedu0304@gmail.com', 'player_r3kcxg', 3, 0, 0, 0, 1, 0),
-(25, '10:50:26 18/04/2023', NULL, NULL, NULL, '0336010147', '4c79273eed3d095e55d1224f6524ae92', 'nguyenlong0304tester1@gmail.com', 'player_D9NWE6', 3, 0, 0, 0, 1, 0),
-(26, '10:50:50 18/04/2023', NULL, NULL, NULL, '0336010149', '4c79273eed3d095e55d1224f6524ae92', 'nguyenlong0304tester2@gmail.com', 'player_TPiyZC', 3, 0, 0, 0, 1, 0);
+INSERT INTO `player` (`id`, `createdAt`, `updatedAt`, `deletedAt`, `lockedAt`, `phoneNumber`, `password`, `email`, `nickname`, `health`, `star`, `diamond`, `experience`, `level`) VALUES
+(24, '10:39:35 18/04/2023', NULL, NULL, NULL, '0353292241', '4c79273eed3d095e55d1224f6524ae92', 'thanhlongedu0304@gmail.com', 'player_r3kcxg', 3, 0, 0, 0, 1),
+(25, '10:50:26 18/04/2023', NULL, NULL, NULL, '0336010147', '4c79273eed3d095e55d1224f6524ae92', 'nguyenlong0304tester1@gmail.com', 'player_D9NWE6', 3, 0, 0, 0, 1),
+(26, '10:50:50 18/04/2023', NULL, NULL, NULL, '0336010149', '4c79273eed3d095e55d1224f6524ae92', 'nguyenlong0304tester2@gmail.com', 'player_TPiyZC', 3, 0, 0, 0, 1);
 
 -- --------------------------------------------------------
 
@@ -582,6 +604,13 @@ ALTER TABLE `card`
   ADD KEY `topicId` (`topicId`);
 
 --
+-- Indexes for table `gamedata`
+--
+ALTER TABLE `gamedata`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `field` (`title`);
+
+--
 -- Indexes for table `gift`
 --
 ALTER TABLE `gift`
@@ -672,6 +701,12 @@ ALTER TABLE `answer`
 --
 ALTER TABLE `card`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=37;
+
+--
+-- AUTO_INCREMENT for table `gamedata`
+--
+ALTER TABLE `gamedata`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `gift`
