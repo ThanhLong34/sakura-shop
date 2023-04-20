@@ -1,4 +1,5 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, memo } from "react";
+import PropTypes from "prop-types";
 import classNames from "classnames/bind";
 import styles from "./SpecialGiftCarousel.module.scss";
 
@@ -10,7 +11,15 @@ import { Tag } from "primereact/tag";
 
 const cx = classNames.bind(styles);
 
-function SpecialGiftCarousel() {
+SpecialGiftCarousel.propTypes = {
+	onOpenViewGiftDialog: PropTypes.func,
+};
+
+SpecialGiftCarousel.defaultProps = {
+	onOpenViewGiftDialog: () => {},
+};
+
+function SpecialGiftCarousel({ onOpenViewGiftDialog }) {
 	const [gifts, setGifts] = useState([]);
 
 	const responsiveOptions = [
@@ -46,15 +55,21 @@ function SpecialGiftCarousel() {
 
 	const giftTemplate = (gift) => {
 		return (
-			<div className={cx('border-1 surface-border border-round m-2 text-center py-5 px-3', 'gift')}>
-				<div className={cx('gift-image')}>
+			<div className={cx("border-1 surface-border border-round m-2 text-center py-5 px-3", "gift")}>
+				<div className={cx("gift-image")}>
 					<img src={gift.imageUrl} alt={gift.name} className="shadow-2" />
 				</div>
 				<div className="mt-4">
-					<h4 className={cx('mb-3', 'gift-name')}>{gift.name}</h4>
+					<h4 className={cx("mb-3", "gift-name")}>{gift.name}</h4>
 					<Tag value="Mới nhất" severity="danger" />
 					<div className="mt-3 flex flex-wrap gap-2 justify-content-center">
-						<Button label="Xem" icon="pi pi-eye" severity="info" outlined />
+						<Button
+							label="Xem"
+							icon="pi pi-eye"
+							severity="info"
+							outlined
+							onClick={() => onOpenViewGiftDialog(gift)}
+						/>
 					</div>
 				</div>
 			</div>
@@ -77,4 +92,4 @@ function SpecialGiftCarousel() {
 	);
 }
 
-export default SpecialGiftCarousel;
+export default memo(SpecialGiftCarousel);

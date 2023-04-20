@@ -15,10 +15,14 @@ import "primeflex/primeflex.css"; // styles primeflex
 import "./assets/styles/reset.scss";
 import "./assets/styles/main.scss";
 
+// Components
+// import ScrollToTop from "./components/ScrollToTop";
+
 ReactDOM.createRoot(document.getElementById("root")).render(
 	<React.StrictMode>
 		<Provider store={store}>
 			<Router>
+				{/* <ScrollToTop /> */}
 				<App />
 			</Router>
 		</Provider>

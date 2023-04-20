@@ -1,0 +1,19 @@
+@use "@/assets/styles/variables.scss" as *;
+
+.gift {
+	&-name {
+		text-align: center;
+		color: $bTertiaryColor;
+		font-size: 1.2rem;
+	}
+
+	&-brand {
+		text-align: center;
+		color: $bPrimaryColor;
+		font-size: 1.2rem;
+	}
+
+	&-description {
+		color: #5b5b5b;
+	}
+}
