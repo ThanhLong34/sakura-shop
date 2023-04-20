@@ -4,12 +4,13 @@ import styles from "./Home.module.scss";
 
 import giftApi from "@/apis/giftApi";
 
-import Logo from "@/assets/images/LogoX250.png";
 import GameTitle from "@/assets/images/GameTitle.png";
 import IconButton from "@/browser/components/IconButton";
 import GradientButton from "@/browser/components/GradientButton";
 import LoginForm from "@/browser/components/LoginForm";
 import RegisterForm from "@/browser/components/RegisterForm";
+
+import BrandLogo from "@/browser/components/BrandLogo";
 
 const cx = classNames.bind(styles);
 
@@ -41,9 +42,7 @@ function Home() {
 
 	return (
 		<div className="flex flex-column">
-			<div className={cx("brand-logo")}>
-				<img src={Logo} alt="brand logo" />
-			</div>
+			<BrandLogo />
 			<div className={cx("login-admin-button")}>
 				<IconButton isRouteLink navigateTo="/admin/login" icon="pi pi-user" />
 			</div>

@@ -1,23 +1,5 @@
 @use "@/assets/styles/variables.scss" as *;
 
-.brand-logo {
-	position: fixed;
-	top: 12px;
-	left: 12px;
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	background-color: white;
-	padding: 0 0.8rem;
-	height: 42px;
-	border-radius: 6px;
-	box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
-
-	img {
-		width: 100px;
-	}
-}
-
 .login-admin-button {
 	position: fixed;
 	top: 12px;

@@ -1,0 +1,50 @@
+@use "@/assets/styles/variables.scss" as *;
+
+.profile {
+	position: fixed;
+	top: 0;
+	right: 0;
+	display: flex;
+	align-items: center;
+	height: 42px;
+	padding: 0 1.2rem;
+	border-radius: 0.5rem !important;
+}
+
+.game-data {
+	display: flex;
+	align-items: center;
+}
+
+.game-data-item {
+	display: flex;
+	align-items: center;
+
+	& + & {
+		margin-left: 1.4rem;
+	}
+}
+
+.game-data-image {
+	width: 20px;
+}
+
+.game-data-value {
+	margin-left: 0.5rem;
+	transform: translateY(2px);
+}
+
+.user {
+	display: flex;
+	align-items: center;
+	margin-left: 1rem;
+
+	&-image {
+		width: 24px;
+	}
+
+	&-nickname {
+		margin-left: 0.5rem;
+		transform: translateY(2px);
+	}
+}

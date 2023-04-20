@@ -1,9 +1,9 @@
 @use "@/assets/styles/variables.scss" as *;
 @import url("https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;500;600;700;800;900&display=swap");
-@import url('https://fonts.googleapis.com/css2?family=Coiny&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Coiny&display=swap");
 @font-face {
-	font-family: 'SVN';
-	src: url('@/assets/fonts/SVN-Berkshire Swash.ttf');
+	font-family: "SVN";
+	src: url("@/assets/fonts/SVN-Berkshire Swash.ttf");
 }
 
 .App {
@@ -13,20 +13,20 @@
 body,
 div,
 aside {
-   &::-webkit-scrollbar {
-      width: 5px;
-      height: 8px;
-   }
+	&::-webkit-scrollbar {
+		width: 5px;
+		height: 8px;
+	}
 
-   &::-webkit-scrollbar-track {
-      -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.15);
-      background-color: white;
-   }
+	&::-webkit-scrollbar-track {
+		-webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.15);
+		background-color: white;
+	}
 
-   &::-webkit-scrollbar-thumb {
-      border-radius: 20px;
-      background-image: linear-gradient(45deg, #a143ff 0%, #67abff 100%);
-   }
+	&::-webkit-scrollbar-thumb {
+		border-radius: 20px;
+		background-image: linear-gradient(45deg, #a143ff 0%, #67abff 100%);
+	}
 }
 
 .card {
@@ -35,6 +35,13 @@ aside {
 	margin-bottom: 1.4rem;
 	box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
 	border-radius: 12px;
+}
+
+.background-transparent {
+	background-color: rgba(255, 255, 255, 0.1);
+	border-radius: 12px;
+	border: 1px solid rgba(255, 255, 255, 0.2);
+	box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
 }
 
 .text-center {
@@ -57,13 +64,30 @@ aside {
 }
 
 // Override Prime styles
-.p-component, .p-dropdown-label {
+.p-component,
+.p-dropdown-label {
 	font-family: "Lexend", sans-serif;
 }
 
 .p-menu.p-menu-overlay {
 	min-width: max-content !important;
 }
+
+.p-tooltip {
+	font-family: "Coiny" !important;
+}
+
+.p-dock-list {
+	box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
+}
+
+.p-carousel-item {
+	& > div {
+		padding-top: 1rem !important;
+	}
+}
+
+//? Devices
 
 .admin {
 	color: $textColor;
@@ -72,5 +96,5 @@ aside {
 
 .browser {
 	color: $bTextColor;
-	font-family: 'Coiny';
+	font-family: "Coiny";
 }

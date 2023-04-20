@@ -1,0 +1,17 @@
+.brand-logo {
+	position: fixed;
+	top: 0;
+	left: 0;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	background-color: white;
+	width: 85.6px;
+	height: 42px;
+	border-radius: 0.5rem;
+	box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
+
+	img {
+		width: 84%;
+	}
+}
