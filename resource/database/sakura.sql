@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 18, 2023 at 10:27 AM
+-- Generation Time: Apr 20, 2023 at 05:02 AM
 -- Server version: 10.4.27-MariaDB
 -- PHP Version: 8.2.0
 
@@ -289,6 +289,21 @@ CREATE TABLE `gift` (
   `isShow` tinyint(1) DEFAULT 1
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Dumping data for table `gift`
+--
+
+INSERT INTO `gift` (`id`, `createdAt`, `updatedAt`, `deletedAt`, `imageId`, `name`, `brand`, `description`, `starCost`, `diamondCost`, `allowToReceiveOnline`, `isSpecial`, `isShow`) VALUES
+(11, '09:39:43 20/04/2023', '09:39:52 20/04/2023', NULL, 99, 'Bộ Giftset Lancome 4 Chai - The Best Of Lancome Fragrances', '', 'Nếu Ai yêu thích các dòng nước hoa của Lancome thì chắc chắn sẽ thích set 4 mùi hương kinh điển nằm top bán chạy nhất và được nhiều người say mê. Còn ai chưa thử qua các dòng Lancome thì set nước hoa Lancome này sẽ giúp ta trải nghiệm đủ các mùi hương kinh điển để dễ dàng chọn ra mùi hương “tri kỉ”. Ngoài ra bộ sản phẩm rất phù hợp là món quà trong dịp sinh nhật, hay hẹn hò hay đi chơi đều được.', 1399, 0, 0, 1, 1),
+(12, '09:41:18 20/04/2023', NULL, NULL, 100, 'Bộ Qùa Tặng 8/3 Victoria’s Secret Very Sexy & Lotion', '', 'Bộ quà tặng Victoria’s Secret Very Sexy 2023 là sự kết hợp hoàn hảo giữa kem dưỡng da và nước hoa, giúp giữ được hương thơm quyến rũ suốt cả ngày. Chỉ cần thoa một lớp kem dưỡng sau khi tắm làn da của bạn sẽ trở nên mềm mại, mịn màng. Thích hợp tặng cho những người yêu thương hoặc tặng vào những dịp lễ, tết và sinh nhật.', 649, 0, 0, 1, 1),
+(13, '09:42:46 20/04/2023', NULL, NULL, 101, 'Bộ Quà Tặng Nước Hoa Carolina Herrera Very Good Girl EDP (80ML + 100ML+7ML)', '', 'Carolina Herrera Very Good Girl mang đến sự bùng nổ từ vẻ ngoài với hình dáng chiếc giày cao gót đỏ rực, toát lên khí chất kiêu hãnh, tự tin của những cô nàng thành đạt, quyến rũ, với hương thơm nồng nàn từ hoa hồng, vani, Very Good Girl hứa hẹn sẽ là phiên bản được săn lùng nhất trong năm nay.', 0, 599, 0, 1, 1),
+(14, '09:44:01 20/04/2023', NULL, NULL, 102, 'Bộ Quà Tặng Nước Hoa Giorgio Armani Sì Passione EDP ( 100ML + 15ML + 75ML)', '', 'Nước hoa Giorgio Armani Sì Passione EDP phiên bản đỏ rực rỡ, không chỉ mê hoặc mọi cô nàng bởi thiết kế sang trọng đầy quyến rũ mà còn khiến nàng say đắm với những tầng hương độc đáo dành cho những cô nàng tự tin, tràn đầy đam mê và nhiệt huyết. Bộ sản phấm Nước Hoa Giorgio Armani sẽ làm xao xuyến mọi con tim ngay từ lần đầu gặp gỡ đầu tiên.Thích hợp tặng cho những người yêu thương hoặc tặng vào những dịp lễ, tết và sinh nhật.', 0, 999, 0, 1, 1),
+(15, '09:45:52 20/04/2023', NULL, NULL, 103, 'Set Quà Tặng Cao Cấp Dior Rouge 3 Món ( Son + Sơn Móng + Gương)', '', 'Set Quà Tặng Cao Cấp Dior Rouge như Món quà mà Dior thân gửi đến nàng chứ một lời cảm ơn thật xinh đẹp. Set Dior Rouge Gồm 3 món quà cực kì đặt biệc : Son Dior 999 Satin, Sơn Móng Màu 999 Rouge Và 1 Tag Vali kèm gương phiên bản giới hạn, set gồm nhưng dòng sản phẩm  được hầu hết phái đẹp trên thế giới ưa chuộng. Tất cả được đặt trong trọng trong hộp quà sang trọng thích hợp làm quà tặng trong các dịp lễ đặc biệt cho các Nàng lắm luôn ạ.', 899, 0, 0, 1, 1),
+(16, '09:47:25 20/04/2023', NULL, NULL, 104, 'Set Nước Hoa Kilian Moonlight In heaven - Món Quà Đến Từ Thiên Đường', '', 'Sau chuyến đi về vùng biển nhiệt đới Thái Lan, trót say lòng trước sự hấp dẫn của món tráng miệng độc đáo tại đây, Kilian Hennessy đã nhanh chóng gửi gắm nhà chế tác Calice Becker tạo nên một mùi hương không những mô phỏng món ngon này, mà còn vẽ ra chuyến hành trình đến với một thiên đường bí mật - nơi chỉ có tình yêu.', 0, 820, 0, 1, 1),
+(17, '09:49:12 20/04/2023', '09:52:45 20/04/2023', NULL, 105, 'Giày Nike Air Force 1 Carabiner “Habanero Red” DH7579-100', '', '', 1200, 0, 1, 0, 1),
+(18, '09:50:14 20/04/2023', '09:52:42 20/04/2023', NULL, 106, 'Giày Nike Air Force 1 Low VD Valentines Day 2022 DQ9320-100', '', '', 749, 0, 1, 0, 1),
+(19, '09:52:11 20/04/2023', '09:52:36 20/04/2023', NULL, 107, 'Giày Adidas Drop Step Low GW9735 (White Tech Emerald)', '', '', 0, 200, 1, 0, 1);
+
 -- --------------------------------------------------------
 
 --
@@ -340,7 +355,16 @@ INSERT INTO `image` (`id`, `createdAt`, `updatedAt`, `deletedAt`, `link`, `filen
 (95, '15:24:00 18/04/2023', NULL, NULL, 'http://localhost/projects/sakura/upload/images/imagefile643e53a03d238.png', 'imagefile643e53a03d238.png', 154867),
 (96, '15:24:28 18/04/2023', NULL, NULL, 'http://localhost/projects/sakura/upload/images/imagefile643e53bcc9db9.png', 'imagefile643e53bcc9db9.png', 94424),
 (97, '15:24:59 18/04/2023', NULL, NULL, 'http://localhost/projects/sakura/upload/images/imagefile643e53db044a4.png', 'imagefile643e53db044a4.png', 95090),
-(98, '15:25:48 18/04/2023', NULL, NULL, 'http://localhost/projects/sakura/upload/images/imagefile643e540cc88c7.png', 'imagefile643e540cc88c7.png', 82380);
+(98, '15:25:48 18/04/2023', NULL, NULL, 'http://localhost/projects/sakura/upload/images/imagefile643e540cc88c7.png', 'imagefile643e540cc88c7.png', 82380),
+(99, '09:39:20 20/04/2023', NULL, NULL, 'http://localhost/projects/sakura/upload/images/imagefile6440a5d8a7bce.png', 'imagefile6440a5d8a7bce.png', 162437),
+(100, '09:41:17 20/04/2023', NULL, NULL, 'http://localhost/projects/sakura/upload/images/imagefile6440a64d06563.png', 'imagefile6440a64d06563.png', 660198),
+(101, '09:42:45 20/04/2023', NULL, NULL, 'http://localhost/projects/sakura/upload/images/imagefile6440a6a59eff6.png', 'imagefile6440a6a59eff6.png', 154313),
+(102, '09:44:00 20/04/2023', NULL, NULL, 'http://localhost/projects/sakura/upload/images/imagefile6440a6f07e7dc.webp', 'imagefile6440a6f07e7dc.webp', 35826),
+(103, '09:45:50 20/04/2023', NULL, NULL, 'http://localhost/projects/sakura/upload/images/imagefile6440a75ec12a0.png', 'imagefile6440a75ec12a0.png', 335593),
+(104, '09:47:21 20/04/2023', NULL, NULL, 'http://localhost/projects/sakura/upload/images/imagefile6440a7b954d53.png', 'imagefile6440a7b954d53.png', 459245),
+(105, '09:49:11 20/04/2023', NULL, NULL, 'http://localhost/projects/sakura/upload/images/imagefile6440a827f3577.png', 'imagefile6440a827f3577.png', 185220),
+(106, '09:50:11 20/04/2023', NULL, NULL, 'http://localhost/projects/sakura/upload/images/imagefile6440a863637fe.png', 'imagefile6440a863637fe.png', 271643),
+(107, '09:51:47 20/04/2023', NULL, NULL, 'http://localhost/projects/sakura/upload/images/imagefile6440a8c382b98.png', 'imagefile6440a8c382b98.png', 382981);
 
 -- --------------------------------------------------------
 
@@ -653,13 +677,13 @@ ALTER TABLE `card`
 -- AUTO_INCREMENT for table `gift`
 --
 ALTER TABLE `gift`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 
 --
 -- AUTO_INCREMENT for table `image`
 --
 ALTER TABLE `image`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=99;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=108;
 
 --
 -- AUTO_INCREMENT for table `level`
