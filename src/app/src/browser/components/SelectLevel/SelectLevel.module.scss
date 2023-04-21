@@ -1,0 +1,57 @@
+@use "@/assets/styles/variables.scss" as *;
+
+.heading {
+	font-size: 2rem;
+	text-align: center;
+	color: #ffd968;
+}
+
+.level-item {
+	margin: 0.6rem;
+	color: $bTertiaryColor;
+	cursor: pointer;
+	transition: all ease 0.2s;
+
+	&:hover {
+		transform: scale(1.05);
+	}
+
+	&-image {
+		img {
+			margin: 0 auto;
+			width: 160px;
+			height: 160px;
+			object-fit: contain;
+			object-position: center;
+		}
+	}
+
+	&-heading {
+		text-align: center;
+		color: $bPrimaryColor;
+		font-size: 2rem;
+	}
+
+	&-quantity-card {
+		text-align: center;
+		font-size: 1.6rem;
+	}
+
+	&-grid {
+		display: grid;
+		grid-template-columns: repeat(4, 1fr);
+		gap: 6px;
+		margin-top: 1rem;
+	}
+
+	&-grid-item {
+		margin: 0 auto;
+		width: 100%;
+		padding-top: 100%;
+		background-color: #ffe1d1;
+	}
+
+	.grid-col-5 {
+		grid-template-columns: repeat(5, 1fr);
+	}
+}

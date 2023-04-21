@@ -20,6 +20,7 @@ import BrowserHome from "@/browser/pages/Home";
 import BrowserDashboard from "@/browser/pages/Dashboard";
 import BrowserClassicMode from "@/browser/pages/ClassicMode";
 import BrowserOptionalMode from "@/browser/pages/OptionalMode";
+import BrowserGameplay from "@/browser/pages/Gameplay";
 import BrowserNotFound from "@/browser/pages/NotFound";
 import { EmptyLayout as BrowserEmptyLayout } from "@/browser/layouts";
 
@@ -149,6 +150,11 @@ const browserRoutes = [
 	{
 		path: "/optional-mode",
 		component: BrowserOptionalMode,
+		access: 'private'
+	},
+	{
+		path: "/gameplay/:topicId/:selectedLevel",
+		component: BrowserGameplay,
 		access: 'private'
 	},
 	{
