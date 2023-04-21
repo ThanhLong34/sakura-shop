@@ -1,10 +1,9 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
 import PropTypes from "prop-types";
 import classNames from "classnames/bind";
 import styles from "./SelectLevel.module.scss";
-
-import gameDataApi from "@/apis/gameDataApi";
 
 // Images
 import EasyLevelImage from "@/assets/images/levels/EasyLevel.png";
@@ -19,30 +18,27 @@ SelectLevel.propTypes = {
 
 function SelectLevel({ topicId }) {
 	const navigate = useNavigate();
+	const gameDataValue = useSelector((state) => state.gameData.value);
 	const [levels, setLevels] = useState([]);
+
+	useEffect(() => {
+		setLevels(
+			gameDataValue
+				.filter((gameData) => {
+					const id = +gameData.id;
+					return id === 3 || id === 4 || id === 5;
+				})
+				.map((gameData) => ({
+					...gameData,
+					id: +gameData.id,
+					value: +gameData.value,
+				}))
+		);
+	}, gameDataValue);
 
 	const handlePlayGame = (selectedLevel) => {
 		navigate(`/gameplay/${topicId}/${selectedLevel}`);
 	};
-
-	useEffect(() => {
-		gameDataApi.getAll().then((response) => {
-			if (response.code === 1) {
-				setLevels(
-					response.data
-						.filter((gameData) => {
-							const id = +gameData.id;
-							return id === 3 || id === 4 || id === 5;
-						})
-						.map((gameData) => ({
-							...gameData,
-							id: +gameData.id,
-							value: +gameData.value,
-						}))
-				);
-			}
-		});
-	}, []);
 
 	return (
 		<>

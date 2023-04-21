@@ -7,8 +7,10 @@ import classNames from "classnames/bind";
 import styles from "./LoginForm.module.scss";
 
 import playerApi from "@/apis/playerApi";
+import gameDataApi from "@/apis/gameDataApi";
 import { validateEmail, validatePhoneNumber } from "@/helpers/validator";
 import { loginPlayerAccount } from "@/store/playerSlice";
+import { setGameDataValue } from "@/store/gameDataSlice";
 
 import GradientButton from "../GradientButton";
 import TextButton from "../TextButton";
@@ -89,68 +91,80 @@ function LoginForm({ onGoBack, onShowRegisterForm }) {
 			toastRef.current.show({ severity: "error", summary: "Lỗi", detail: response.message, life: 3000 });
 		}
 	}, [emailRef, toastRef]);
-	const handleLogin = useCallback(async (e) => {
-		e.preventDefault();
+	const handleLogin = useCallback(
+		async (e) => {
+			e.preventDefault();
 
-		const phoneNumber = phoneNumberRef.current?.getValue();
-		const password = passwordRef.current?.getValue();
+			const phoneNumber = phoneNumberRef.current?.getValue();
+			const password = passwordRef.current?.getValue();
 
-		if (!phoneNumber) {
-			toastRef.current.show({
-				severity: "error",
-				summary: "Lỗi",
-				detail: "Bạn chưa nhập số điện thoại",
-				life: 3000,
-			});
-			return;
-		}
+			if (!phoneNumber) {
+				toastRef.current.show({
+					severity: "error",
+					summary: "Lỗi",
+					detail: "Bạn chưa nhập số điện thoại",
+					life: 3000,
+				});
+				return;
+			}
 
-		if (!validatePhoneNumber(phoneNumber)) {
-			toastRef.current.show({
-				severity: "error",
-				summary: "Lỗi",
-				detail: "Không đúng định dạng số điện thoại",
-				life: 3000,
-			});
-			return;
-		}
+			if (!validatePhoneNumber(phoneNumber)) {
+				toastRef.current.show({
+					severity: "error",
+					summary: "Lỗi",
+					detail: "Không đúng định dạng số điện thoại",
+					life: 3000,
+				});
+				return;
+			}
 
-		if (!password) {
-			toastRef.current.show({
-				severity: "error",
-				summary: "Lỗi",
-				detail: "Bạn chưa nhập mật khẩu",
-				life: 3000,
-			});
-			return;
-		}
+			if (!password) {
+				toastRef.current.show({
+					severity: "error",
+					summary: "Lỗi",
+					detail: "Bạn chưa nhập mật khẩu",
+					life: 3000,
+				});
+				return;
+			}
 
-		const response = await playerApi.login({ phoneNumber, password });
+			const response = await playerApi.login({ phoneNumber, password });
 
-		if (response.code === 1) {
-			toastRef.current.show({
-				severity: "success",
-				summary: "Thành công",
-				detail: "Chúc mừng bạn, đăng nhập thành công",
-				life: 5000,
-			});
+			if (response.code === 1) {
+				toastRef.current.show({
+					severity: "success",
+					summary: "Thành công",
+					detail: "Chúc mừng bạn, đăng nhập thành công",
+					life: 5000,
+				});
 
-			const account = {
-				...response.data,
-				id: +response.data.id,
-			};
+				const account = {
+					...response.data,
+					id: +response.data.id,
+				};	
 
-			const action = loginPlayerAccount(account);
-			dispatch(action);
+				const loginPlayerAccountAction = loginPlayerAccount(account);
+				dispatch(loginPlayerAccountAction);
 
-			navigate("/dashboard");
-		} else {
-			toastRef.current.show({ severity: "error", summary: "Lỗi", detail: response.message, life: 3000 });
-		}
-	}, [phoneNumberRef, passwordRef]);
+				const getGameDataResponse = await gameDataApi.getAll();
+				if (getGameDataResponse.code === 1) {
+					const setGameDataValueAction = setGameDataValue(getGameDataResponse.data);
+					dispatch(setGameDataValueAction);
+				}
+
+				navigate("/dashboard");
+			} else {
+				toastRef.current.show({ severity: "error", summary: "Lỗi", detail: response.message, life: 3000 });
+			}
+		},
+		[phoneNumberRef, passwordRef]
+	);
 
 	return (
-		<form className={cx("wrapper", "zoomin animation-duration-500 animation-iteration-1 animation-ease-out")} onSubmit={handleLogin}>
+		<form
+			className={cx("wrapper", "zoomin animation-duration-500 animation-iteration-1 animation-ease-out")}
+			onSubmit={handleLogin}
+		>
 			{createPortal(<Toast ref={toastRef} position="top-right" />, document.body)}
 
 			<Dialog
@@ -210,7 +224,10 @@ function LoginForm({ onGoBack, onShowRegisterForm }) {
 			</GradientButton>
 
 			<h4 className="mt-5">
-				Bạn chưa có tài khoản? <TextButton onlyText onClick={onShowRegisterForm}>Đăng ký ngay</TextButton>
+				Bạn chưa có tài khoản?{" "}
+				<TextButton onlyText onClick={onShowRegisterForm}>
+					Đăng ký ngay
+				</TextButton>
 			</h4>
 		</form>
 	);
