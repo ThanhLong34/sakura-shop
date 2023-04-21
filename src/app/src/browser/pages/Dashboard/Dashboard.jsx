@@ -5,6 +5,9 @@ import styles from "./Dashboard.module.scss";
 import SpecialGiftCarousel from "@/browser/components/SpecialGiftCarousel";
 import ViewGiftDialog from "@/browser/components/ViewGiftDialog";
 
+import ConsoleIcon from "@/assets/images/dockIcons/Console.png";
+import GameboyIcon from "@/assets/images/dockIcons/Gameboy.png";
+
 const cx = classNames.bind(styles);
 
 function Dashboard() {
@@ -48,7 +51,40 @@ function Dashboard() {
 						</div>
 					</div>
 					<div className="col-12 md:col-12 lg:col-5">
-						<div className="card"></div>
+						<div className={cx("card", "mode")}>
+							<h6 className={cx("mode-title")}>Chọn chế độ chơi</h6>
+							<div className={cx("mode-item", "mb-3")}>
+								<div className={cx("mode-image")}>
+									<img src={ConsoleIcon} alt="console" />
+								</div>
+								<div className={cx("mode-info")}>
+									<h6 className={cx("mode-name")}>Chế độ cổ điển</h6>
+									<p className={cx("mode-desc")}>
+										Trong chế độ này, người chơi được chọn 1 trong 3 cấp độ sau:
+									</p>
+									<ul>
+										<li>Dễ: 12 thẻ bài</li>
+										<li>Trung bình: 16 thẻ bài</li>
+										<li>Khó: 20 thẻ bài</li>
+									</ul>
+								</div>
+							</div>
+							<div
+								className={cx("mode-item", "mb-3", {
+									lock: true,
+								})}
+							>
+								<div className={cx("mode-image")}>
+									<img src={GameboyIcon} alt="game boy" />
+								</div>
+								<div className={cx("mode-info")}>
+									<h6 className={cx("mode-name")}>Chế độ tùy chọn</h6>
+									<p className={cx("mode-desc")}>
+										Trong chế độ này, người chơi được chọn 1 trong các chủ đề yêu thích
+									</p>
+								</div>
+							</div>
+						</div>
 					</div>
 				</div>
 			</div>

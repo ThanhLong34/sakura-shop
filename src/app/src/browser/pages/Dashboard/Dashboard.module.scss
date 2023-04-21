@@ -21,3 +21,51 @@
 		font-size: 1.2rem;
 	}
 }
+
+.mode {
+	color: $bTertiaryColor;
+
+	&-title {
+		text-align: center;
+		color: $bSecondaryColor;
+		font-size: 1.4rem;
+		margin-bottom: 1rem;
+	}
+
+	&-item {
+		padding: 1.4rem;
+		border-radius: 12px;
+		display: flex;
+		align-items: start;
+		cursor: pointer;
+		transition: all ease 0.2s;
+
+		&:hover {
+			box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
+		}
+
+		&.lock {
+			pointer-events: none;
+		}
+	}
+
+	&-image {
+		width: 120px;
+		margin-right: 1.4rem;
+	}
+
+	&-name {
+		color: $bPrimaryColor;
+		font-size: 1.2rem;
+		margin-bottom: 0.6rem;
+	}
+
+	&-desc {
+		margin-bottom: 0.6rem;
+	}
+
+	ul {
+		list-style: circle;
+		padding-left: 1rem;
+	}
+}
