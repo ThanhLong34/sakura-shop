@@ -18,6 +18,8 @@ import AdminNotFound from "@/admin/pages/NotFound";
 // Browser pages
 import BrowserHome from "@/browser/pages/Home";
 import BrowserDashboard from "@/browser/pages/Dashboard";
+import BrowserClassicMode from "@/browser/pages/ClassicMode";
+import BrowserOptionalMode from "@/browser/pages/OptionalMode";
 import BrowserNotFound from "@/browser/pages/NotFound";
 import { EmptyLayout as BrowserEmptyLayout } from "@/browser/layouts";
 
@@ -137,6 +139,16 @@ const browserRoutes = [
 	{
 		path: "/dashboard",
 		component: BrowserDashboard,
+		access: 'private'
+	},
+	{
+		path: "/classic-mode",
+		component: BrowserClassicMode,
+		access: 'private'
+	},
+	{
+		path: "/optional-mode",
+		component: BrowserOptionalMode,
 		access: 'private'
 	},
 	{

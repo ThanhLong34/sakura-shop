@@ -69,11 +69,7 @@ function Dashboard() {
 									</ul>
 								</div>
 							</div>
-							<div
-								className={cx("mode-item", "mb-3", {
-									lock: true,
-								})}
-							>
+							<div className={cx("mode-item", "mb-3")}>
 								<div className={cx("mode-image")}>
 									<img src={GameboyIcon} alt="game boy" />
 								</div>

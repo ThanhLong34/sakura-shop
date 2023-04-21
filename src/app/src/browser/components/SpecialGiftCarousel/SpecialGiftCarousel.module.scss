@@ -1,5 +1,12 @@
 @use "@/assets/styles/variables.scss" as *;
 
+.title {
+	text-align: center;
+	color: $bPrimaryColor;
+	font-size: 1.6rem;
+	margin-bottom: 1.2rem;
+}
+
 .gift {
 	&-image {
 		width: 100%;

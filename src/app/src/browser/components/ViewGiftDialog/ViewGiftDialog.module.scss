@@ -2,7 +2,6 @@
 
 .gift {
 	&-name {
-		text-align: center;
 		color: $bTertiaryColor;
 		font-size: 1.2rem;
 	}
@@ -15,5 +14,29 @@
 
 	&-description {
 		color: #5b5b5b;
+	}
+
+	&-cost-heading {
+		color: $bPrimaryColor;
+		margin-right: 2rem;
+	}
+
+	&-cost-item {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+
+		&+& {
+			margin-left: 2rem;
+		}
+	}
+
+	&-cost-value {
+		color: $bTertiaryColor;
+	}
+
+	&-cost-image {
+		width: 25px;
+		margin-right: 0.5rem;
 	}
 }

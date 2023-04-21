@@ -1,6 +1,5 @@
 import { memo } from "react";
-import classNames from "classnames/bind";
-import styles from "./Navigator.module.scss";
+import { useNavigate } from "react-router-dom";
 
 import { Tooltip } from "primereact/tooltip";
 import { Dock } from "primereact/dock";
@@ -13,35 +12,35 @@ import QuizIcon from "@/assets/images/dockIcons/Quiz.png";
 import AdsIcon from "@/assets/images/dockIcons/Ads.png";
 import UserIcon from "@/assets/images/dockIcons/User.png";
 
-const cx = classNames.bind(styles);
-
 function Navigator() {
+	const navigator = useNavigate();
+
 	const items = [
 		{
 			label: "Màn hình chính",
 			icon: () => (
 				<img alt="Dashboard" src={HouseIcon} width="100%" />
 			),
-			command: () => {
-				//
+			command: (e) => {
+				navigator('/dashboard');
 			},
 		},
 		{
 			label: "Chế độ cổ điển",
 			icon: () => (
-				<img alt="Basic mode" src={ConsoleIcon} width="100%" />
+				<img alt="Classic mode" src={ConsoleIcon} width="100%" />
 			),
-			command: () => {
-				//
+			command: (e) => {
+				navigator('/classic-mode');
 			},
 		},
 		{
 			label: "Chế độ tùy chọn",
 			icon: () => (
-				<img alt="Option mode" src={GameboyIcon} width="100%" />
+				<img alt="Optional mode" src={GameboyIcon} width="100%" />
 			),
-			command: () => {
-				//
+			command: (e) => {
+				navigator('/optional-mode');
 			},
 		},
 		{
@@ -49,8 +48,8 @@ function Navigator() {
 			icon: () => (
 				<img alt="Gift" src={GiftBoxIcon} width="100%" />
 			),
-			command: () => {
-				//
+			command: (e) => {
+				navigator('/gift');
 			},
 		},
 		{
@@ -58,8 +57,8 @@ function Navigator() {
 			icon: () => (
 				<img alt="Question" src={QuizIcon} width="100%" />
 			),
-			command: () => {
-				//
+			command: (e) => {
+				navigator('/question');
 			},
 		},
 		{
@@ -67,8 +66,8 @@ function Navigator() {
 			icon: () => (
 				<img alt="Ads" src={AdsIcon} width="100%" />
 			),
-			command: () => {
-				//
+			command: (e) => {
+				navigator('/ads');
 			},
 		},
 		{
@@ -76,28 +75,11 @@ function Navigator() {
 			icon: () => (
 				<img alt="Profile" src={UserIcon} width="100%" />
 			),
-			command: () => {
-				//
+			command: (e) => {
+				navigator('/profile');
 			},
 		},
 	];
-
-	// return (
-	// 	<nav className={cx("navigator")}>
-	// 		<NavLink
-	// 			to="/"
-	// 			className={ cx("link") }
-	// 		>
-	// 			Màn hình chính
-	// 		</NavLink>
-	// 		<NavLink
-	// 			to="/admin/login"
-	// 			className={cx("link")}
-	// 		>
-	// 			Đăng nhập Admin
-	// 		</NavLink>
-	// 	</nav>
-	// );
 
 	return (
 		<>

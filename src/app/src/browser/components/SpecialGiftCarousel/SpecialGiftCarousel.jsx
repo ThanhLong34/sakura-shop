@@ -46,7 +46,8 @@ function SpecialGiftCarousel({ onOpenViewGiftDialog }) {
 				response.data.map((gift) => ({
 					...gift,
 					id: +gift.id,
-					starCost: +gift.starCost === 1,
+					starCost: +gift.starCost,
+					diamondCost: +gift.diamondCost,
 					isSpecial: +gift.isSpecial === 1,
 				}))
 			)
@@ -78,6 +79,7 @@ function SpecialGiftCarousel({ onOpenViewGiftDialog }) {
 
 	return (
 		<div>
+			<h5 className={cx('title')}>Phần thưởng hấp dẫn</h5>
 			<Carousel
 				value={gifts}
 				numVisible={3}
@@ -85,7 +87,7 @@ function SpecialGiftCarousel({ onOpenViewGiftDialog }) {
 				responsiveOptions={responsiveOptions}
 				className="custom-carousel"
 				circular
-				autoplayInterval={600000}
+				autoplayInterval={3000}
 				itemTemplate={giftTemplate}
 			/>
 		</div>

@@ -5,7 +5,13 @@ import { DefaultLayout } from "./layouts";
 
 function renderRoutes(playerAccount) {
 	if (browserRoutes) {
-		return browserRoutes.map((route, idx) => {
+		let routes = browserRoutes;
+
+		if (!playerAccount) {
+			routes = routes.filter((route) => route.access === "public");
+		}
+
+		return routes.map((route, idx) => {
 			const Page = route.component;
 			let Layout = DefaultLayout;
 
@@ -19,11 +25,7 @@ function renderRoutes(playerAccount) {
 					path={route.path}
 					element={
 						<Layout>
-							{!playerAccount && route.access === "private" ? (
-								<Navigate to="/" />
-							) : (
-								<Page />
-							)}
+							<Page />
 						</Layout>
 					}
 				/>

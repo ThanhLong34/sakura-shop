@@ -3,12 +3,8 @@ import classNames from "classnames/bind";
 import styles from "./ViewGiftDialog.module.scss";
 
 // Icons
-import HealthIcon from "@/assets/images/HeartIcon.png";
 import StarIcon from "@/assets/images/StarIcon.png";
 import DiamondIcon from "@/assets/images/DiamondIcon.png";
-import ExperienceIcon from "@/assets/images/ExperienceIcon.png";
-import LevelIcon from "@/assets/images/LevelIcon.png";
-import AccountIcon from "@/assets/images/AccountIcon.png";
 
 import { Dialog } from "primereact/dialog";
 import { Tag } from "primereact/tag";
@@ -26,6 +22,7 @@ ViewGiftDialog.defaultProps = {
 };
 
 function ViewGiftDialog({ visible, setVisible, item }) {
+	console.log(item);
 	return (
 		<Dialog
 			header="CHI TIẾT PHẦN THƯỞNG"
@@ -48,6 +45,21 @@ function ViewGiftDialog({ visible, setVisible, item }) {
 					</div>
 					<div className="mb-3">
 						<p className={cx("gift-description")}>{item.description}</p>
+					</div>
+					<div className="mb-3 flex align-items-center">
+						<p className={cx("gift-cost-heading")}>Tiêu chí đổi thưởng:</p>
+						{item.starCost > 0 && (
+							<div className={cx("gift-cost-item")}>
+								<img className={cx("gift-cost-image")} src={StarIcon} alt="star" />
+								<span className={cx("gift-cost-value")}>{item.starCost}</span>
+							</div>
+						)}
+						{item.diamondCost > 0 && (
+							<div className={cx("gift-cost-item")}>
+								<img className={cx("gift-cost-image")} src={DiamondIcon} alt="diamond" />
+								<span className={cx("gift-cost-value")}>{item.diamondCost}</span>
+							</div>
+						)}
 					</div>
 				</div>
 			)}
