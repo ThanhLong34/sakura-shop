@@ -32,6 +32,7 @@
 .game-data-value {
 	margin-left: 0.5rem;
 	transform: translateY(2px);
+	text-shadow: 1px 1px 2px rgba(112, 3, 255, 0.752);
 }
 
 .user {
@@ -46,5 +47,6 @@
 	&-nickname {
 		margin-left: 0.5rem;
 		transform: translateY(2px);
+		text-shadow: 1px 1px 2px rgba(112, 3, 255, 0.752);
 	}
 }
