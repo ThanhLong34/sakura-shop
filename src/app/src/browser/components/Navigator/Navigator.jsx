@@ -13,70 +13,56 @@ import AdsIcon from "@/assets/images/dockIcons/Ads.png";
 import UserIcon from "@/assets/images/dockIcons/User.png";
 
 function Navigator() {
-	const navigator = useNavigate();
+	const navigate = useNavigate();
 
 	const items = [
 		{
 			label: "Màn hình chính",
-			icon: () => (
-				<img alt="Dashboard" src={HouseIcon} width="100%" />
-			),
+			icon: () => <img alt="Dashboard" src={HouseIcon} width="100%" />,
 			command: (e) => {
-				navigator('/dashboard');
+				navigate("/dashboard");
 			},
 		},
 		{
 			label: "Chế độ cổ điển",
-			icon: () => (
-				<img alt="Classic mode" src={ConsoleIcon} width="100%" />
-			),
+			icon: () => <img alt="Classic mode" src={ConsoleIcon} width="100%" />,
 			command: (e) => {
-				navigator('/classic-mode');
+				navigate("/classic-mode");
 			},
 		},
 		{
 			label: "Chế độ tùy chọn",
-			icon: () => (
-				<img alt="Optional mode" src={GameboyIcon} width="100%" />
-			),
+			icon: () => <img alt="Optional mode" src={GameboyIcon} width="100%" />,
 			command: (e) => {
-				navigator('/optional-mode');
+				navigate("/optional-mode");
 			},
 		},
 		{
 			label: "Đổi thưởng",
-			icon: () => (
-				<img alt="Gift" src={GiftBoxIcon} width="100%" />
-			),
+			icon: () => <img alt="Gift" src={GiftBoxIcon} width="100%" />,
 			command: (e) => {
-				navigator('/gift');
+				navigate("/gift");
 			},
 		},
 		{
 			label: "Trả lời câu hỏi",
-			icon: () => (
-				<img alt="Question" src={QuizIcon} width="100%" />
-			),
+			icon: () => <img alt="Question" src={QuizIcon} width="100%" />,
 			command: (e) => {
-				navigator('/question');
+				navigate("/question");
 			},
 		},
 		{
 			label: "Xem quảng cáo",
-			icon: () => (
-				<img alt="Ads" src={AdsIcon} width="100%" />
-			),
+			icon: () => <img alt="Ads" src={AdsIcon} width="100%" />,
 			command: (e) => {
-				navigator('/ads');
+				navigate("/ads");
 			},
 		},
 		{
 			label: "Thông tin tài khoản",
-			icon: () => (
-				<img alt="Profile" src={UserIcon} width="100%" />
-			),
+			icon: () => <img alt="Profile" src={UserIcon} width="100%" />,
 			command: (e) => {
-				navigator('/profile');
+				navigate("/profile");
 			},
 		},
 	];

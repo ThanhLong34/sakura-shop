@@ -81,6 +81,10 @@ aside {
 	box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
 }
 
+.p-dock-item, .p-dock-action {
+	cursor: pointer;
+}
+
 .p-carousel-item {
 	& > div {
 		padding-top: 1rem !important;

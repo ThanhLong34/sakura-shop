@@ -22,7 +22,6 @@ ViewGiftDialog.defaultProps = {
 };
 
 function ViewGiftDialog({ visible, setVisible, item }) {
-	console.log(item);
 	return (
 		<Dialog
 			header="CHI TIẾT PHẦN THƯỞNG"
