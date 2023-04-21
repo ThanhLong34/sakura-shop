@@ -1,0 +1,31 @@
+.gameplay {
+	display: flex;
+	justify-content: space-between;
+}
+
+.board {
+	display: grid;
+	grid-template-columns: repeat(4, 1fr);
+	gap: 10px;
+	width: 100vmin;
+	user-select: none;
+
+	&.disable {
+		pointer-events: none;
+	}
+
+	&.easy {
+		grid-template-columns: repeat(4, 1fr);
+		width: 120vmin;
+	}
+
+	&.normal {
+		grid-template-columns: repeat(4, 1fr);
+		width: 90vmin;
+	}
+
+	&.hard {
+		grid-template-columns: repeat(5, 1fr);
+		width: 112vmin;
+	}
+}
