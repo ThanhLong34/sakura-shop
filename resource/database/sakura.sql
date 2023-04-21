@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 20, 2023 at 12:44 PM
+-- Generation Time: Apr 21, 2023 at 05:16 AM
 -- Server version: 10.4.27-MariaDB
 -- PHP Version: 8.2.0
 
@@ -288,7 +288,10 @@ CREATE TABLE `gamedata` (
 
 INSERT INTO `gamedata` (`id`, `createdAt`, `updatedAt`, `deletedAt`, `title`, `value`) VALUES
 (1, '16:05:43 20/04/2023', '17:42:21 20/04/2023', NULL, 'Cấp độ yêu cầu để mở khóa chế độ chơi tùy chọn', '32'),
-(2, '16:06:51 20/04/2023', '17:43:55 20/04/2023', NULL, 'Công thức tính điểm kinh nghiệm sau mỗi ván chơi', 'Tổng số thẻ bài x Thời gian hoàn thành x 100%');
+(2, '16:06:51 20/04/2023', '10:16:18 21/04/2023', NULL, 'Công thức tính điểm kinh nghiệm sau mỗi ván chơi', 'Math.ceil(Tổng số thẻ bài / Thời gian hoàn thành x 100%)'),
+(3, '10:12:49 21/04/2023', NULL, NULL, 'Số thẻ bài cấp độ dễ', '12'),
+(4, '10:12:58 21/04/2023', NULL, NULL, 'Số thẻ bài cấp độ trung bình', '16'),
+(5, '10:13:15 21/04/2023', NULL, NULL, 'Số thẻ bài cấp độ khó', '20');
 
 -- --------------------------------------------------------
 
@@ -317,7 +320,7 @@ CREATE TABLE `gift` (
 --
 
 INSERT INTO `gift` (`id`, `createdAt`, `updatedAt`, `deletedAt`, `imageId`, `name`, `brand`, `description`, `starCost`, `diamondCost`, `allowToReceiveOnline`, `isSpecial`, `isShow`) VALUES
-(11, '09:39:43 20/04/2023', '09:39:52 20/04/2023', NULL, 99, 'Bộ Giftset Lancome 4 Chai - The Best Of Lancome Fragrances', '', 'Nếu Ai yêu thích các dòng nước hoa của Lancome thì chắc chắn sẽ thích set 4 mùi hương kinh điển nằm top bán chạy nhất và được nhiều người say mê. Còn ai chưa thử qua các dòng Lancome thì set nước hoa Lancome này sẽ giúp ta trải nghiệm đủ các mùi hương kinh điển để dễ dàng chọn ra mùi hương “tri kỉ”. Ngoài ra bộ sản phẩm rất phù hợp là món quà trong dịp sinh nhật, hay hẹn hò hay đi chơi đều được.', 1399, 0, 0, 1, 1),
+(11, '09:39:43 20/04/2023', '09:39:52 20/04/2023', NULL, 99, 'Bộ Giftset Lancome 4 Chai - The Best Of Lancome Fragrances', NULL, 'Nếu Ai yêu thích các dòng nước hoa của Lancome thì chắc chắn sẽ thích set 4 mùi hương kinh điển nằm top bán chạy nhất và được nhiều người say mê. Còn ai chưa thử qua các dòng Lancome thì set nước hoa Lancome này sẽ giúp ta trải nghiệm đủ các mùi hương kinh điển để dễ dàng chọn ra mùi hương “tri kỉ”. Ngoài ra bộ sản phẩm rất phù hợp là món quà trong dịp sinh nhật, hay hẹn hò hay đi chơi đều được.', 1399, 0, 0, 1, 1),
 (12, '09:41:18 20/04/2023', NULL, NULL, 100, 'Bộ Qùa Tặng 8/3 Victoria’s Secret Very Sexy & Lotion', '', 'Bộ quà tặng Victoria’s Secret Very Sexy 2023 là sự kết hợp hoàn hảo giữa kem dưỡng da và nước hoa, giúp giữ được hương thơm quyến rũ suốt cả ngày. Chỉ cần thoa một lớp kem dưỡng sau khi tắm làn da của bạn sẽ trở nên mềm mại, mịn màng. Thích hợp tặng cho những người yêu thương hoặc tặng vào những dịp lễ, tết và sinh nhật.', 649, 0, 0, 1, 1),
 (13, '09:42:46 20/04/2023', NULL, NULL, 101, 'Bộ Quà Tặng Nước Hoa Carolina Herrera Very Good Girl EDP (80ML + 100ML+7ML)', '', 'Carolina Herrera Very Good Girl mang đến sự bùng nổ từ vẻ ngoài với hình dáng chiếc giày cao gót đỏ rực, toát lên khí chất kiêu hãnh, tự tin của những cô nàng thành đạt, quyến rũ, với hương thơm nồng nàn từ hoa hồng, vani, Very Good Girl hứa hẹn sẽ là phiên bản được săn lùng nhất trong năm nay.', 0, 599, 0, 1, 1),
 (14, '09:44:01 20/04/2023', NULL, NULL, 102, 'Bộ Quà Tặng Nước Hoa Giorgio Armani Sì Passione EDP ( 100ML + 15ML + 75ML)', '', 'Nước hoa Giorgio Armani Sì Passione EDP phiên bản đỏ rực rỡ, không chỉ mê hoặc mọi cô nàng bởi thiết kế sang trọng đầy quyến rũ mà còn khiến nàng say đắm với những tầng hương độc đáo dành cho những cô nàng tự tin, tràn đầy đam mê và nhiệt huyết. Bộ sản phấm Nước Hoa Giorgio Armani sẽ làm xao xuyến mọi con tim ngay từ lần đầu gặp gỡ đầu tiên.Thích hợp tặng cho những người yêu thương hoặc tặng vào những dịp lễ, tết và sinh nhật.', 0, 999, 0, 1, 1),
@@ -706,7 +709,7 @@ ALTER TABLE `card`
 -- AUTO_INCREMENT for table `gamedata`
 --
 ALTER TABLE `gamedata`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT for table `gift`
