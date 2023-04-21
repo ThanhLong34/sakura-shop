@@ -1,6 +1,7 @@
 // Admin pages
 import AdminLogin from "@/admin/pages/Login";
 import AdminDashboard from "@/admin/pages/Dashboard";
+import AdminGameDataManagement from "@/admin/pages/GameData";
 import AdminImageFileManagement from "@/admin/pages/ImageFile";
 import AdminVideoFileManagement from "@/admin/pages/VideoFile";
 import AdminPlayerManagement from "@/admin/pages/Player";
@@ -34,6 +35,13 @@ const adminRoutes = [
 		component: AdminDashboard,
 		metadata: {
 			title: 'Dashboard'
+		}
+	},
+	{
+		path: "/admin/game-data",
+		component: AdminGameDataManagement,
+		metadata: {
+			title: 'Dữ liệu trò chơi'
 		}
 	},
 	{

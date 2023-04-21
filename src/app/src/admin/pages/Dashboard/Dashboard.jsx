@@ -9,11 +9,7 @@ import cardApi from "@/apis/cardApi";
 import topicApi from "@/apis/topicApi";
 import questionApi from "@/apis/questionApi";
 import advertisementApi from "@/apis/advertisementApi";
-import gameDataApi from "@/apis/gameDataApi";
 
-import { Button } from "primereact/button";
-import { InputNumber } from "primereact/inputnumber";
-import { InputText } from "primereact/inputtext";
 import { Toast } from "primereact/toast";
 
 const cx = classNames.bind(styles);
@@ -29,8 +25,6 @@ function Dashboard() {
 
 	//? Refs
 	const toastRef = useRef(null);
-	const levelRequireToActiveOptionModeRef = useRef(null);
-	const calculatingExperiencePointsAfterEachGameRef = useRef(null);
 
 	//? Effects
 	useEffect(() => {
@@ -64,80 +58,8 @@ function Dashboard() {
 			if (getAdvertisementsResponse.code === 1) {
 				setAdvertisements(getAdvertisementsResponse.data);
 			}
-
-			const getGameDatasResponse = await gameDataApi.getAll();
-			if (getGameDatasResponse.code === 1) {
-				levelRequireToActiveOptionModeRef.current.getInput().value =
-					+getGameDatasResponse.data.find((i) => +i.id === 1)?.value ?? null;
-				calculatingExperiencePointsAfterEachGameRef.current.value =
-					getGameDatasResponse.data.find((i) => +i.id === 2)?.value ?? null;
-			}
 		})();
 	}, []);
-
-	//? Handles
-	const hanldeSaveLevelRequireToActiveOptionMode = () => {
-		const value = levelRequireToActiveOptionModeRef.current?.getInput().value ?? null;
-
-		if (!value) {
-			toastRef.current.show({
-				severity: "warn",
-				summary: "Cảnh báo",
-				detail: "Bạn chưa nhập cấp độ",
-				life: 3000,
-			});
-			return;
-		}
-
-		gameDataApi.update({ id: 1, value }).then((response) => {
-			if (response.code === 1) {
-				toastRef.current.show({
-					severity: "success",
-					summary: "Thành công",
-					detail: "Cập nhật dữ liệu trò chơi thành công",
-					life: 3000,
-				});
-			} else {
-				toastRef.current.show({
-					severity: "error",
-					summary: "Lỗi",
-					detail: response.message,
-					life: 3000,
-				});
-			}
-		});
-	};
-	const hanldeSaveCalculatingExperiencePointsAfterEachGame = () => {
-		const value = calculatingExperiencePointsAfterEachGameRef.current?.value ?? null;
-
-		if (!value) {
-			toastRef.current.show({
-				severity: "warn",
-				summary: "Cảnh báo",
-				detail: "Bạn chưa nhập công thức tính",
-				life: 3000,
-			});
-			return;
-		}
-
-		gameDataApi.update({ id: 2, value }).then((response) => {
-			if (response.code === 1) {
-				toastRef.current.show({
-					severity: "success",
-					summary: "Thành công",
-					detail: "Cập nhật dữ liệu trò chơi thành công",
-					life: 3000,
-				});
-			} else {
-				toastRef.current.show({
-					severity: "error",
-					summary: "Lỗi",
-					detail: response.message,
-					life: 3000,
-				});
-			}
-		});
-	};
 
 	return (
 		<div>
@@ -222,56 +144,6 @@ function Dashboard() {
 						</div>
 					</div>
 				</div>
-			</div>
-			<div className="card mt-3">
-				<h3>Tùy chỉnh dữ liệu trò chơi</h3>
-				<ul className="mt-4">
-					<li className="mb-4">
-						<span className="block mb-2">Cấp độ yêu cầu để mở khóa chế độ chơi tùy chọn</span>
-						<div className="grid">
-							<div className="col-10">
-								<InputNumber
-									ref={levelRequireToActiveOptionModeRef}
-									className="w-full"
-									mode="decimal"
-									placeholder="Nhập cấp độ"
-									showButtons
-									min={0}
-								/>
-							</div>
-							<div className="col-2">
-								<Button
-									label="Lưu"
-									icon="pi pi-save"
-									severity="info"
-									outlined
-									onClick={hanldeSaveLevelRequireToActiveOptionMode}
-								/>
-							</div>
-						</div>
-					</li>
-					<li className="mb-4">
-						<span className="block mb-2">Công thức tính điểm kinh nghiệm sau mỗi ván chơi</span>
-						<div className="grid">
-							<div className="col-10">
-								<InputText
-									ref={calculatingExperiencePointsAfterEachGameRef}
-									className="w-full"
-									placeholder="Nhập công thức tính"
-								/>
-							</div>
-							<div className="col-2">
-								<Button
-									label="Lưu"
-									icon="pi pi-save"
-									severity="info"
-									outlined
-									onClick={hanldeSaveCalculatingExperiencePointsAfterEachGame}
-								/>
-							</div>
-						</div>
-					</li>
-				</ul>
 			</div>
 		</div>
 	);
