@@ -89,7 +89,9 @@ function LoginForm({ onGoBack, onShowRegisterForm }) {
 			toastRef.current.show({ severity: "error", summary: "Lỗi", detail: response.message, life: 3000 });
 		}
 	}, [emailRef, toastRef]);
-	const handleLogin = useCallback(async () => {
+	const handleLogin = useCallback(async (e) => {
+		e.preventDefault();
+
 		const phoneNumber = phoneNumberRef.current?.getValue();
 		const password = passwordRef.current?.getValue();
 
@@ -148,7 +150,7 @@ function LoginForm({ onGoBack, onShowRegisterForm }) {
 	}, [phoneNumberRef, passwordRef]);
 
 	return (
-		<div className={cx("wrapper", "zoomin animation-duration-500 animation-iteration-1 animation-ease-out")}>
+		<form className={cx("wrapper", "zoomin animation-duration-500 animation-iteration-1 animation-ease-out")} onSubmit={handleLogin}>
 			{createPortal(<Toast ref={toastRef} position="top-right" />, document.body)}
 
 			<Dialog
@@ -203,14 +205,14 @@ function LoginForm({ onGoBack, onShowRegisterForm }) {
 				</TextButton>
 			</div>
 
-			<GradientButton type="primary" className={cx("login-button", "mt-5 w-full")} onClick={handleLogin}>
+			<GradientButton type="primary" className={cx("login-button", "mt-5 w-full")} buttonType="submit">
 				VÀO CHƠI THÔI NÀO
 			</GradientButton>
 
 			<h4 className="mt-5">
 				Bạn chưa có tài khoản? <TextButton onlyText onClick={onShowRegisterForm}>Đăng ký ngay</TextButton>
 			</h4>
-		</div>
+		</form>
 	);
 }
 

@@ -40,87 +40,95 @@ function RegisterForm({ onGoBack, onShowLoginForm }) {
 	const passwordRef = useRef(null);
 
 	//? Handles
-	const handleRegister = useCallback(async () => {
-		const phoneNumber = phoneNumberRef.current?.getValue();
-		const password = passwordRef.current?.getValue();
-		const email = emailRef.current?.getValue();
+	const handleRegister = useCallback(
+		async (e) => {
+			e.preventDefault();
 
-		if (!phoneNumber) {
-			toastRef.current.show({
-				severity: "error",
-				summary: "Lỗi",
-				detail: "Bạn chưa nhập số điện thoại",
-				life: 3000,
-			});
-			return;
-		}
+			const phoneNumber = phoneNumberRef.current?.getValue();
+			const password = passwordRef.current?.getValue();
+			const email = emailRef.current?.getValue();
 
-		if (!validatePhoneNumber(phoneNumber)) {
-			toastRef.current.show({
-				severity: "error",
-				summary: "Lỗi",
-				detail: "Không đúng định dạng số điện thoại",
-				life: 3000,
-			});
-			return;
-		}
+			if (!phoneNumber) {
+				toastRef.current.show({
+					severity: "error",
+					summary: "Lỗi",
+					detail: "Bạn chưa nhập số điện thoại",
+					life: 3000,
+				});
+				return;
+			}
 
-		if (!password) {
-			toastRef.current.show({
-				severity: "error",
-				summary: "Lỗi",
-				detail: "Bạn chưa nhập mật khẩu",
-				life: 3000,
-			});
-			return;
-		}
+			if (!validatePhoneNumber(phoneNumber)) {
+				toastRef.current.show({
+					severity: "error",
+					summary: "Lỗi",
+					detail: "Không đúng định dạng số điện thoại",
+					life: 3000,
+				});
+				return;
+			}
 
-		if (!email) {
-			toastRef.current.show({
-				severity: "error",
-				summary: "Lỗi",
-				detail: "Bạn chưa nhập địa chỉ Email",
-				life: 3000,
-			});
-			return;
-		}
+			if (!password) {
+				toastRef.current.show({
+					severity: "error",
+					summary: "Lỗi",
+					detail: "Bạn chưa nhập mật khẩu",
+					life: 3000,
+				});
+				return;
+			}
 
-		if (!validateEmail(email)) {
-			toastRef.current.show({
-				severity: "error",
-				summary: "Lỗi",
-				detail: "Không đúng định dạng địa chỉ Email",
-				life: 3000,
-			});
-			return;
-		}
+			if (!email) {
+				toastRef.current.show({
+					severity: "error",
+					summary: "Lỗi",
+					detail: "Bạn chưa nhập địa chỉ Email",
+					life: 3000,
+				});
+				return;
+			}
 
-		const response = await playerApi.register({ phoneNumber, password, email });
+			if (!validateEmail(email)) {
+				toastRef.current.show({
+					severity: "error",
+					summary: "Lỗi",
+					detail: "Không đúng định dạng địa chỉ Email",
+					life: 3000,
+				});
+				return;
+			}
 
-		if (response.code === 1) {
-			toastRef.current.show({
-				severity: "success",
-				summary: "Thành công",
-				detail: "Chúc mừng bạn, đăng ký thành công",
-				life: 5000,
-			});
+			const response = await playerApi.register({ phoneNumber, password, email });
 
-			const account = {
-				...response.data,
-				id: +response.data.id,
-			};
+			if (response.code === 1) {
+				toastRef.current.show({
+					severity: "success",
+					summary: "Thành công",
+					detail: "Chúc mừng bạn, đăng ký thành công",
+					life: 5000,
+				});
 
-			const action = loginPlayerAccount(account);
-			dispatch(action);
+				const account = {
+					...response.data,
+					id: +response.data.id,
+				};
 
-			navigate("/dashboard");
-		} else {
-			toastRef.current.show({ severity: "error", summary: "Lỗi", detail: response.message, life: 3000 });
-		}
-	}, [phoneNumberRef, passwordRef]);
+				const action = loginPlayerAccount(account);
+				dispatch(action);
+
+				navigate("/dashboard");
+			} else {
+				toastRef.current.show({ severity: "error", summary: "Lỗi", detail: response.message, life: 3000 });
+			}
+		},
+		[phoneNumberRef, passwordRef]
+	);
 
 	return (
-		<div className={cx("wrapper", "zoomin animation-duration-500 animation-iteration-1 animation-ease-out")}>
+		<form
+			className={cx("wrapper", "zoomin animation-duration-500 animation-iteration-1 animation-ease-out")}
+			onSubmit={handleRegister}
+		>
 			{createPortal(<Toast ref={toastRef} position="top-right" />, document.body)}
 
 			<IconButton className={cx("go-back-button")} icon="pi pi-chevron-left" onClick={onGoBack} />
@@ -152,7 +160,7 @@ function RegisterForm({ onGoBack, onShowLoginForm }) {
 				isRequired
 			/>
 
-			<GradientButton type="primary" className={cx("login-button", "mt-5 w-full")} onClick={handleRegister}>
+			<GradientButton type="primary" className={cx("login-button", "mt-5 w-full")} buttonType="submit">
 				XÁC NHẬN ĐĂNG KÝ
 			</GradientButton>
 
@@ -162,7 +170,7 @@ function RegisterForm({ onGoBack, onShowLoginForm }) {
 					Đăng nhập ngay
 				</TextButton>
 			</h4>
-		</div>
+		</form>
 	);
 }
 

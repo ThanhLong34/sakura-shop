@@ -8,18 +8,20 @@ const cx = classNames.bind(styles);
 
 GradientButton.propTypes = {
 	className: PropTypes.string,
-	type: PropTypes.oneOf(['primary', 'secondary']),
+	type: PropTypes.oneOf(["primary", "secondary"]),
+	buttonType: PropTypes.oneOf(["submit", "button"]),
 	isRouteLink: PropTypes.bool,
 	navigateTo: PropTypes.string,
 	onClick: PropTypes.func,
 };
 
 GradientButton.defaultProps = {
+	buttonType: "button",
 	isRouteLink: false,
 	onClick: () => {},
 };
 
-function GradientButton({ children, className, type, isRouteLink, navigateTo, onClick }) {
+function GradientButton({ children, className, type, buttonType, isRouteLink, navigateTo, onClick }) {
 	let Component = "button";
 
 	if (isRouteLink) {
@@ -27,7 +29,7 @@ function GradientButton({ children, className, type, isRouteLink, navigateTo, on
 	}
 
 	return (
-		<Component to={navigateTo} className={cx("button", className, type)} onClick={onClick}>
+		<Component to={navigateTo} className={cx("button", className, type)} onClick={onClick} type={buttonType}>
 			{children}
 		</Component>
 	);

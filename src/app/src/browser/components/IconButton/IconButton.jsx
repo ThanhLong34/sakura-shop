@@ -27,7 +27,7 @@ function IconButton({ className, isRouteLink, navigateTo, icon, onClick }) {
 	}
 
 	return (
-		<Component to={navigateTo} className={cx("button", className)} onClick={onClick}>
+		<Component to={navigateTo} className={cx("button", className)} onClick={onClick} type="button">
 			<i className={ icon }></i>
 		</Component>
 	);

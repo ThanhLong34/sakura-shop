@@ -8,6 +8,7 @@ const cx = classNames.bind(styles);
 
 TextButton.propTypes = {
 	className: PropTypes.string,
+	buttonType: PropTypes.oneOf(["submit", "button"]),
 	isRouteLink: PropTypes.bool,
 	navigateTo: PropTypes.string,
 	onlyText: PropTypes.bool,
@@ -15,20 +16,21 @@ TextButton.propTypes = {
 };
 
 TextButton.defaultProps = {
+	buttonType: "button",
 	isRouteLink: false,
 	onlyText: false,
 	onClick: () => {},
 };
 
-function TextButton({ children, className, isRouteLink, navigateTo, onlyText, onClick }) {
+function TextButton({ children, className, buttonType, isRouteLink, navigateTo, onlyText, onClick }) {
 	let Component = "button";
-	
+
 	if (isRouteLink) {
 		Component = Link;
 	}
 
 	return (
-		<Component to={navigateTo} className={cx("button", className, { onlyText })} onClick={onClick}>
+		<Component to={navigateTo} className={cx("button", className, { onlyText })} onClick={onClick} type={buttonType}>
 			{children}
 		</Component>
 	);
