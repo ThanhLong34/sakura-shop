@@ -25,9 +25,27 @@ const player = createSlice({
 			state.account.nickname = action.payload;
 			SessionStorage.setPlayerAccount(state.account);
 		},
+		updatePlayerAccountGameData: (state, action) => {
+			const { payload } = action;
+
+			state.account = {
+				...state.account,
+				health: payload.health ?? state.account.health,
+				star: payload.star ?? state.account.star,
+				diamond: payload.diamond ?? state.account.diamond,
+			};
+			
+			SessionStorage.setPlayerAccount(state.account);
+		},
 	},
 });
 
 const { reducer, actions } = player;
-export const { loginPlayerAccount, logoutPlayerAccount, updatePlayerAccountEmail, updatePlayerAccountNickname } = actions;
+export const {
+	loginPlayerAccount,
+	logoutPlayerAccount,
+	updatePlayerAccountEmail,
+	updatePlayerAccountNickname,
+	updatePlayerAccountGameData,
+} = actions;
 export default reducer;

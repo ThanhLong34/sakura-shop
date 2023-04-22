@@ -1,10 +1,14 @@
 import { useEffect, useRef, useState, useCallback, useMemo } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import classNames from "classnames/bind";
 import styles from "./Gameplay.module.scss";
 import cardApi from "@/apis/cardApi";
 import { arrayDestructuringNested } from "@/helpers/destructor";
 import { gameConvention } from "@/constant";
+import { updatePlayerAccountGameData } from "@/store/playerSlice";
+
+import playerApi from "@/apis/playerApi";
 
 import Card from "@/browser/components/Card";
 import TimeCounter from "@/browser/components/TimeCounter";
@@ -16,6 +20,8 @@ import DiamondIcon from "@/assets/images/DiamondIcon.png";
 const cx = classNames.bind(styles);
 
 function Gameplay() {
+	const dispatch = useDispatch();
+	const playerAccount = useSelector((state) => state.player.account);
 	const { topicId, selectedLevel } = useParams();
 
 	const timeCounterRef = useRef(null);
@@ -38,8 +44,8 @@ function Gameplay() {
 	}, [selectedLevel]);
 
 	//? Effects
-	// Get cards
 	useEffect(() => {
+		// Get cards
 		(async () => {
 			const _cards = [];
 
@@ -76,6 +82,17 @@ function Gameplay() {
 			const cardsShuffled = getCardsShuffled(arrayDestructuringNested(_cards));
 			setCards(cardsShuffled);
 		})();
+
+		// Check health & subtract
+		if (playerAccount.health > 0) {
+			(async () => {
+				const response = await playerApi.updateGameData({ id: playerAccount.id, health: playerAccount.health - 1 });
+				if (response.code === 1) {
+					const action = updatePlayerAccountGameData({ health: playerAccount.health - 1 });
+					dispatch(action);
+				}
+			})();
+		}
 	}, []);
 	// Compare 2 selected cards
 	useEffect(() => {
@@ -142,7 +159,6 @@ function Gameplay() {
 	};
 	const handleEndGame = () => {
 		const times = timeCounterRef.current.getTimes();
-		console.log(times);
 	};
 
 	return (

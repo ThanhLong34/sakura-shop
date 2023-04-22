@@ -139,6 +139,11 @@ function LoginForm({ onGoBack, onShowRegisterForm }) {
 				const account = {
 					...response.data,
 					id: +response.data.id,
+					health: +response.data.health,
+					star: +response.data.star,
+					diamond: +response.data.diamond,
+					experience: +response.data.experience,
+					level: +response.data.level,
 				};	
 
 				const loginPlayerAccountAction = loginPlayerAccount(account);

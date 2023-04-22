@@ -43,6 +43,10 @@ const playerApi = {
 		const url = `${group}/updateNickname.php`;
 		return axiosClient.put(url, data);
 	},
+	updateGameData(data) {
+		const url = `${group}/updateGameData.php`;
+		return axiosClient.put(url, data);
+	},
 };
 
 export default playerApi;
