@@ -4,6 +4,7 @@ import classNames from "classnames/bind";
 import styles from "./Gameplay.module.scss";
 import cardApi from "@/apis/cardApi";
 import { arrayDestructuringNested } from "@/helpers/destructor";
+import { gameConvention } from "@/constant";
 
 import Card from "@/browser/components/Card";
 
@@ -17,12 +18,12 @@ function Gameplay() {
 	const [disableClickCard, setDisableClickCard] = useState(false);
 
 	const quantityCard = useMemo(() => {
-		if (selectedLevel === "easy") {
-			return 6;
-		} else if (selectedLevel === "normal") {
-			return 8;
-		} else if (selectedLevel === "hard") {
-			return 10;
+		if (selectedLevel === gameConvention.levels.easy.name) {
+			return gameConvention.levels.easy.quantityCard / 2;
+		} else if (selectedLevel === gameConvention.levels.normal.name) {
+			return gameConvention.levels.normal.quantityCard / 2;
+		} else if (selectedLevel === gameConvention.levels.hard.name) {
+			return gameConvention.levels.hard.quantityCard / 2;
 		} else {
 			return 0;
 		}

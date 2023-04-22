@@ -8,6 +8,8 @@ import EasyLevelImage from "@/assets/images/levels/EasyLevel.png";
 import NormalLevelImage from "@/assets/images/levels/NormalLevel.png";
 import HardLevelImage from "@/assets/images/levels/HardLevel.png";
 
+import { gameConvention } from "@/constant";
+
 const cx = classNames.bind(styles);
 
 SelectLevel.propTypes = {
@@ -31,42 +33,42 @@ function SelectLevel({ topicId }) {
 			<div className="grid">
 				<div className="col-1"></div>
 				<div className="col-3">
-					<div className={cx("level-item", "card")} onClick={() => handlePlayGame("easy")}>
+					<div className={cx("level-item", "card")} onClick={() => handlePlayGame(gameConvention.levels.easy.name)}>
 						<div className={cx("level-item-image")}>
 							<img src={EasyLevelImage} alt="easy level" />
 						</div>
 						<div className={cx("level-item-heading")}>Dễ</div>
-						<div className={cx("level-item-quantity-card")}>12 thẻ bài</div>
+						<div className={ cx("level-item-quantity-card") }>{gameConvention.levels.easy.quantityCard} thẻ bài</div>
 						<div className={cx("level-item-grid")}>
-							{new Array(12).fill(null).map((item, idx) => (
+							{new Array(gameConvention.levels.easy.quantityCard).fill(null).map((item, idx) => (
 								<div key={idx} className={cx("level-item-grid-item")}></div>
 							))}
 						</div>
 					</div>
 				</div>
 				<div className="col-3">
-					<div className={cx("level-item", "card")} onClick={() => handlePlayGame("normal")}>
+					<div className={cx("level-item", "card")} onClick={() => handlePlayGame(gameConvention.levels.normal.name)}>
 						<div className={cx("level-item-image")}>
 							<img src={NormalLevelImage} alt="easy level" />
 						</div>
 						<div className={cx("level-item-heading")}>Trung bình</div>
-						<div className={cx("level-item-quantity-card")}>16 thẻ bài</div>
+						<div className={ cx("level-item-quantity-card") }>{gameConvention.levels.normal.quantityCard} thẻ bài</div>
 						<div className={cx("level-item-grid")}>
-							{new Array(16).fill(null).map((item, idx) => (
+							{new Array(gameConvention.levels.normal.quantityCard).fill(null).map((item, idx) => (
 								<div key={idx} className={cx("level-item-grid-item")}></div>
 							))}
 						</div>
 					</div>
 				</div>
 				<div className="col-3">
-					<div className={cx("level-item", "card")} onClick={() => handlePlayGame("hard")}>
+					<div className={cx("level-item", "card")} onClick={() => handlePlayGame(gameConvention.levels.hard.name)}>
 						<div className={cx("level-item-image")}>
 							<img src={HardLevelImage} alt="easy level" />
 						</div>
 						<div className={cx("level-item-heading")}>Khó</div>
-						<div className={cx("level-item-quantity-card")}>20 thẻ bài</div>
+						<div className={ cx("level-item-quantity-card") }>{gameConvention.levels.hard.quantityCard} thẻ bài</div>
 						<div className={cx("level-item-grid", "grid-col-5")}>
-							{new Array(20).fill(null).map((item, idx) => (
+							{new Array(gameConvention.levels.hard.quantityCard).fill(null).map((item, idx) => (
 								<div key={idx} className={cx("level-item-grid-item")}></div>
 							))}
 						</div>
