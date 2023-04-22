@@ -9,6 +9,7 @@ import { gameConvention } from "@/constant";
 import { updatePlayerAccountGameData } from "@/store/playerSlice";
 
 import playerApi from "@/apis/playerApi";
+import levelApi from "@/apis/levelApi";
 
 import Card from "@/browser/components/Card";
 import TimeCounter from "@/browser/components/TimeCounter";
@@ -16,6 +17,8 @@ import ClockIcon from "@/assets/images/ClockIcon.png";
 import HeartIcon from "@/assets/images/HeartIcon.png";
 import StarIcon from "@/assets/images/StarIcon.png";
 import DiamondIcon from "@/assets/images/DiamondIcon.png";
+
+import EndGameDialog from "@/browser/components/EndGameDialog";
 
 const cx = classNames.bind(styles);
 
@@ -27,11 +30,15 @@ function Gameplay() {
 	const timeCounterRef = useRef(null);
 
 	const [cards, setCards] = useState([]);
+	const [cardsReal, setCardsReal] = useState([]);
 	const [choiceCardOne, setChoiceCardOne] = useState(null);
 	const [choiceCardTwo, setChoiceCardTwo] = useState(null);
 	const [disableClickCard, setDisableClickCard] = useState(false);
+	const [levels, setLevels] = useState([]);
+	const [gameDataUpdate, setGameDataUpdate] = useState(null);
+	const [endGameDialogVisible, setEndGameDialogVisible] = useState(false);
 
-	const quantityCard = useMemo(() => {
+	const quantityCardReal = useMemo(() => {
 		if (selectedLevel === gameConvention.levels.easy.name) {
 			return gameConvention.levels.easy.quantityCard / 2;
 		} else if (selectedLevel === gameConvention.levels.normal.name) {
@@ -45,6 +52,24 @@ function Gameplay() {
 
 	//? Effects
 	useEffect(() => {
+		// Get levels
+		(async () => {
+			const getLevelsResponse = await levelApi.getAll();
+			if (getLevelsResponse.code === 1) {
+				setLevels(
+					getLevelsResponse.data.map((level) => ({
+						...level,
+						id: +level.id,
+						levelNumber: +level.levelNumber,
+						experienceRequired: +level.experienceRequired,
+						healthReward: +level.healthReward,
+						starReward: +level.starReward,
+						diamondReward: +level.diamondReward,
+					}))
+				);
+			}
+		})();
+
 		// Get cards
 		(async () => {
 			const _cards = [];
@@ -60,6 +85,9 @@ function Gameplay() {
 					getCommonCardResponse.data.map((card) => ({
 						...card,
 						id: +card.id,
+						healthReward: +card.healthReward,
+						starReward: +card.starReward,
+						diamondReward: +card.diamondReward,
 					}))
 				);
 			}
@@ -75,12 +103,18 @@ function Gameplay() {
 					getCardByTopicIdResponse.data.map((card) => ({
 						...card,
 						id: +card.id,
+						healthReward: +card.healthReward,
+						starReward: +card.starReward,
+						diamondReward: +card.diamondReward,
 					}))
 				);
 			}
 
 			const cardsShuffled = getCardsShuffled(arrayDestructuringNested(_cards));
 			setCards(cardsShuffled);
+			setCardsReal(
+				cardsShuffled.filter((value, index, array) => array.findIndex((m) => m.id === value.id) === index)
+			);
 		})();
 
 		// Check health & subtract
@@ -126,21 +160,27 @@ function Gameplay() {
 			}
 		}
 	}, [choiceCardOne, choiceCardTwo]);
+	// Listening for win
+	useEffect(() => {
+		if (cards.length > 0 && cards.every((card) => card.matched === true)) {
+			handleEndGame();
+		}
+	}, [cards]);
 
 	//? Handles
 	const getCardsShuffled = (_cards) => {
-		const saveCards = [..._cards].filter((i, idx) => idx < quantityCard);
+		const saveCards = [..._cards].filter((i, idx) => idx < quantityCardReal);
 		const cardsShuffled = [...saveCards, ...saveCards]
 			.sort(() => Math.random() - 0.5)
 			.map((card, idx) => ({ ...card, idx, flipped: false, matched: false }));
 		return cardsShuffled;
 	};
-	const resetGame = useCallback(() => {
+	const resetGame = () => {
 		const cardsShuffled = getCardsShuffled(cards);
 		setCards(cardsShuffled);
 		setChoiceCardOne(null);
 		setChoiceCardTwo(null);
-	}, []);
+	};
 	const resetTurn = () => {
 		setDisableClickCard(false);
 		setChoiceCardOne(null);
@@ -159,38 +199,70 @@ function Gameplay() {
 	};
 	const handleEndGame = () => {
 		const times = timeCounterRef.current.getTimes();
+
+		const gameData = {};
+
+		gameData.health = cardsReal.reduce((prevValue, curValue) => {
+			return prevValue + curValue.healthReward;
+		}, playerAccount.health);
+
+		gameData.star = cardsReal.reduce((prevValue, curValue) => {
+			return prevValue + curValue.starReward;
+		}, playerAccount.star);
+
+		gameData.diamond = cardsReal.reduce((prevValue, curValue) => {
+			return prevValue + curValue.diamondReward;
+		}, playerAccount.diamond);
+
+		gameData.experience = playerAccount.experience + Math.ceil(((quantityCardReal * 2) / times.seconds) * 100);
+
+		if (levels) {
+			const nextLevel = levels[levels.findIndex((l) => l.id === playerAccount.level) + 1];
+			if (nextLevel && gameData.experience >= nextLevel.experienceRequired) {
+				gameData.level = nextLevel;
+			}
+		}
+
+		playerApi.updateGameData(gameData).then((response) => {
+			if (response.code === 1) {
+				setGameDataUpdate(gameData);
+			}
+		});
 	};
 
 	return (
-		<div className={cx("gameplay")}>
-			<div
-				className={cx("board", {
-					disable: disableClickCard,
-					[selectedLevel]: selectedLevel,
-				})}
-			>
-				{cards && cards.map((card) => <Card key={card.idx} card={card} onClick={handleClickCard} />)}
+		<>
+			<EndGameDialog visible={endGameDialogVisible} setVisible={setEndGameDialogVisible} gameData={gameDataUpdate} />
+			<div className={cx("gameplay")}>
+				<div
+					className={cx("board", {
+						disable: disableClickCard,
+						[selectedLevel]: selectedLevel,
+					})}
+				>
+					{cards && cards.map((card) => <Card key={card.idx} card={card} onClick={handleClickCard} />)}
+				</div>
+				<div className={cx("card background-transparent ml-4", "game-data")}>
+					<div className={cx("game-data-item")}>
+						<img src={ClockIcon} alt="clock" />
+						<TimeCounter ref={timeCounterRef} />
+					</div>
+					<div className={cx("game-data-item")}>
+						<img src={HeartIcon} alt="heart" />
+						<span>2</span>
+					</div>
+					<div className={cx("game-data-item")}>
+						<img src={StarIcon} alt="star" />
+						<span>2</span>
+					</div>
+					<div className={cx("game-data-item")}>
+						<img src={DiamondIcon} alt="diamond" />
+						<span>2</span>
+					</div>
+					<button onClick={handleEndGame}>Click</button>
+				</div>
 			</div>
-			<div className={cx("card background-transparent ml-4", "game-data")}>
-				<div className={cx("game-data-item")}>
-					<img src={ClockIcon} alt="clock" />
-					<TimeCounter ref={timeCounterRef} />
-				</div>
-				<div className={cx("game-data-item")}>
-					<img src={HeartIcon} alt="heart" />
-					<span>2</span>
-				</div>
-				<div className={cx("game-data-item")}>
-					<img src={StarIcon} alt="star" />
-					<span>2</span>
-				</div>
-				<div className={cx("game-data-item")}>
-					<img src={DiamondIcon} alt="diamond" />
-					<span>2</span>
-				</div>
-				<button onClick={handleEndGame}>Click</button>
-			</div>
-		</div>
+		</>
 	);
 }
 
