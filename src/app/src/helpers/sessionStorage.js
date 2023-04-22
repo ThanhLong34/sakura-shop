@@ -21,15 +21,3 @@ export function getPlayerAccount() {
 export function resetPlayerAccount() {
 	sessionStorage.removeItem('player-account');
 }
-
-export function setGameData(payload) {
-	sessionStorage.setItem('game-data', JSON.stringify(payload));
-}
-
-export function getGameData() {
-	return JSON.parse(sessionStorage.getItem('game-data'));
-}
-
-export function resetGameData() {
-	sessionStorage.removeItem('game-data');
-}

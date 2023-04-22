@@ -1,7 +1,7 @@
 import { useState, useRef, useEffect, useCallback, useImperativeHandle, memo, forwardRef } from "react";
 import PropTypes from "prop-types";
 
-import gameDataApi from "@/apis/gameDataApi";
+import gameConventionApi from "@/apis/gameConventionApi";
 
 import TableHeader from "@/admin/components/TableHeader";
 import TableSearch from "@/admin/components/TableSearch";
@@ -27,8 +27,8 @@ const initialTableParams = {
 const rowsPerPageOptions = [10, 20, 30];
 const searchOptions = [
 	{
-		title: "Tên dữ liệu",
-		value: "title",
+		title: "Tên quy ước",
+		value: "name",
 	},
 ];
 
@@ -58,10 +58,10 @@ const TableData = forwardRef(({ onOpenDialog }, ref) => {
 	//? Effects
 	// Get table data
 	useEffect(() => {
-		gameDataApi.getAll(tableParams).then((response) => {
-			const data = response.data.map((gameData) => ({
-				...gameData,
-				id: +gameData.id,
+		gameConventionApi.getAll(tableParams).then((response) => {
+			const data = response.data.map((gameConvention) => ({
+				...gameConvention,
+				id: +gameConvention.id,
 			}));
 
 			setTableData(data);
@@ -107,7 +107,7 @@ const TableData = forwardRef(({ onOpenDialog }, ref) => {
 	};
 	const handleDeleteItem = (item) => {
 		(async () => {
-			const response = await gameDataApi.trashById(item.id);
+			const response = await gameConventionApi.trashById(item.id);
 			if (response.code === 1) {
 				toastRef.current.show({
 					severity: "success",
@@ -130,7 +130,7 @@ const TableData = forwardRef(({ onOpenDialog }, ref) => {
 		return (
 			<div className="grid">
 				<div className="col-12">
-					<TableHeader addItemButtonLabel="Thêm dữ liệu" onReload={handleReload} onAddItem={handleAddItem} />
+					<TableHeader addItemButtonLabel="Thêm quy ước" onReload={handleReload} onAddItem={handleAddItem} />
 				</div>
 				<div className="col-12">
 					<TableSearch ref={tableSearchRef} searchOptions={searchOptions} onSearch={handleSearch} />
@@ -148,7 +148,7 @@ const TableData = forwardRef(({ onOpenDialog }, ref) => {
 				},
 			},
 			{
-				label: "Xóa dữ liệu",
+				label: "Xóa quy ước",
 				icon: "pi pi-trash",
 				command: (e) => {
 					confirmPopup({
@@ -175,7 +175,7 @@ const TableData = forwardRef(({ onOpenDialog }, ref) => {
 			<ConfirmPopup />
 			<div className="grid mb-3">
 				<div className="col-6">
-					<h3 className="">DANH SÁCH DỮ LIỆU TRÒ CHƠI</h3>
+					<h3 className="">DANH SÁCH QUY ƯỚC TRÒ CHƠI</h3>
 				</div>
 				<div className="col-6 text-right">
 					<h3 className="text-400 text-sm">{`(${tableData.length} trên tổng ${totalItem})`}</h3>
@@ -199,7 +199,7 @@ const TableData = forwardRef(({ onOpenDialog }, ref) => {
 				emptyMessage="Không có kết quả"
 				tableStyle={{ minWidth: "max-content" }}
 			>
-				<Column field="title" header="Tên dữ liệu" sortable sortFunction={getSortedTableData} />
+				<Column field="name" header="Tên quy ước" sortable sortFunction={getSortedTableData} />
 				<Column field="value" header="Giá trị" />
 				<Column
 					headerStyle={{ textAlign: "center" }}

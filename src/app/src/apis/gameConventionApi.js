@@ -1,8 +1,8 @@
 import axiosClient from "./axiosClient";
 
-const group = "gameData";
+const group = "gameConvention";
 
-const gameDataApi = {
+const gameConventionApi = {
 	getAll(params) {
 		const url = `${group}/getAll.php?`;
 		return axiosClient.get(url, { params });
@@ -21,4 +21,4 @@ const gameDataApi = {
 	},
 };
 
-export default gameDataApi;
+export default gameConventionApi;

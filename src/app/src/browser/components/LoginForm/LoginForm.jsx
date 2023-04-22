@@ -7,10 +7,8 @@ import classNames from "classnames/bind";
 import styles from "./LoginForm.module.scss";
 
 import playerApi from "@/apis/playerApi";
-import gameDataApi from "@/apis/gameDataApi";
 import { validateEmail, validatePhoneNumber } from "@/helpers/validator";
 import { loginPlayerAccount } from "@/store/playerSlice";
-import { setGameDataValue } from "@/store/gameDataSlice";
 
 import GradientButton from "../GradientButton";
 import TextButton from "../TextButton";
@@ -145,12 +143,6 @@ function LoginForm({ onGoBack, onShowRegisterForm }) {
 
 				const loginPlayerAccountAction = loginPlayerAccount(account);
 				dispatch(loginPlayerAccountAction);
-
-				const getGameDataResponse = await gameDataApi.getAll();
-				if (getGameDataResponse.code === 1) {
-					const setGameDataValueAction = setGameDataValue(getGameDataResponse.data);
-					dispatch(setGameDataValueAction);
-				}
 
 				navigate("/dashboard");
 			} else {

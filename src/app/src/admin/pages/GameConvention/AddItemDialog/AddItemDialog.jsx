@@ -1,7 +1,7 @@
 import { useRef, useState } from "react";
 import PropTypes from "prop-types";
 
-import gameDataApi from "@/apis/gameDataApi";
+import gameConventionApi from "@/apis/gameConventionApi";
 
 import { Dialog } from "primereact/dialog";
 import { Button } from "primereact/button";
@@ -23,53 +23,53 @@ function AddItemDialog({ visible, setVisible, onSubmitted }) {
 	const toastRef = useRef(null);
 
 	//? States
-	const [gameData, setGameData] = useState({
-		title: "",
+	const [gameConvention, setGameConvention] = useState({
+		name: "",
 		value: "",
 	});
 
 	//? Handles
-	const handleSetGameDataField = (field, value) => {
-		setGameData((prevState) => ({
+	const handleSetGameConventionField = (field, value) => {
+		setGameConvention((prevState) => ({
 			...prevState,
 			[field]: value,
 		}));
 	};
 	const handleCloseDialog = () => {
-		setGameData({
-			title: "",
+		setGameConvention({
+			name: "",
 			value: "",
 		});
 
 		setVisible(false);
 	};
 	const handleSubmit = () => {
-		if (!gameData.title) {
+		if (!gameConvention.name) {
 			toastRef.current.show({
 				severity: "warn",
 				summary: "Cảnh báo",
-				detail: "Bạn chưa nhập tên dữ liệu (bắt buộc)",
+				detail: "Bạn chưa nhập tên quy ước (bắt buộc)",
 				life: 3000,
 			});
 			return;
 		}
 
-		if (!gameData.value) {
+		if (!gameConvention.value) {
 			toastRef.current.show({
 				severity: "warn",
 				summary: "Cảnh báo",
-				detail: "Bạn chưa nhập giá trị dữ liệu (bắt buộc)",
+				detail: "Bạn chưa nhập giá trị (bắt buộc)",
 				life: 3000,
 			});
 			return;
 		}
 
-		gameDataApi.add(gameData).then((response) => {
+		gameConventionApi.add(gameConvention).then((response) => {
 			if (response.code === 1) {
 				toastRef.current.show({
 					severity: "success",
 					summary: "Thành Công",
-					detail: "Tạo dữ liệu trò chơi thành công",
+					detail: "Tạo quy ước trò chơi thành công",
 					life: 3000,
 				});
 
@@ -89,27 +89,27 @@ function AddItemDialog({ visible, setVisible, onSubmitted }) {
 	return (
 		<>
 			<Toast ref={toastRef} />
-			<Dialog header="THÊM DỮ LIỆU TRÒ CHƠI" visible={visible} style={{ width: "620px" }} onHide={handleCloseDialog}>
+			<Dialog header="THÊM QUY ƯỚC TRÒ CHƠI" visible={visible} style={{ width: "620px" }} onHide={handleCloseDialog}>
 			<div className="mb-4">
 					<span className="block mb-2">
-						Tên dữ liệu <span className="text-red-500">*</span>
+						Tên quy ước <span className="text-red-500">*</span>
 					</span>
 					<InputText
-						value={gameData.title}
+						value={gameConvention.name}
 						className="w-full"
-						placeholder="Nhập tên dữ liệu *"
-						onChange={(e) => handleSetGameDataField("title", e.target.value)}
+						placeholder="Nhập tên quy ước *"
+						onChange={(e) => handleSetGameConventionField("name", e.target.value)}
 					/>
 				</div>
 				<div className="mb-4">
 					<span className="block mb-2">
-						Giá trị dữ liệu <span className="text-red-500">*</span>
+						Giá trị <span className="text-red-500">*</span>
 					</span>
 					<InputText
-						value={gameData.value}
+						value={gameConvention.value}
 						className="w-full"
-						placeholder="Nhập giá trị dữ liệu *"
-						onChange={(e) => handleSetGameDataField("value", e.target.value)}
+						placeholder="Nhập giá trị *"
+						onChange={(e) => handleSetGameConventionField("value", e.target.value)}
 					/>
 				</div>
 				<div className="flex justify-content-end pt-2">

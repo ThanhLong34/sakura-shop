@@ -1,7 +1,7 @@
 // Admin pages
 import AdminLogin from "@/admin/pages/Login";
 import AdminDashboard from "@/admin/pages/Dashboard";
-import AdminGameDataManagement from "@/admin/pages/GameData";
+import AdminGameConventionManagement from "@/admin/pages/GameConvention";
 import AdminImageFileManagement from "@/admin/pages/ImageFile";
 import AdminVideoFileManagement from "@/admin/pages/VideoFile";
 import AdminPlayerManagement from "@/admin/pages/Player";
@@ -41,10 +41,10 @@ const adminRoutes = [
 		}
 	},
 	{
-		path: "/admin/game-data",
-		component: AdminGameDataManagement,
+		path: "/admin/game-convention",
+		component: AdminGameConventionManagement,
 		metadata: {
-			title: 'Dữ liệu trò chơi'
+			tConvention: 'Quy ước trò chơi'
 		}
 	},
 	{

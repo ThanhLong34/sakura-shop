@@ -4,7 +4,7 @@ import AddItemDialog from "./AddItemDialog";
 import UpdateItemDialog from "./UpdateItemDialog";
 import TableData from "./TableData";
 
-function GameData() {
+function GameConvention() {
 	//? Refs
 	const tableDataRef = useRef(null);
 
@@ -53,4 +53,4 @@ function GameData() {
 	);
 }
 
-export default GameData;
+export default GameConvention;

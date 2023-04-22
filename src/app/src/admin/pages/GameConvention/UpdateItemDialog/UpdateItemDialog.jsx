@@ -1,7 +1,7 @@
 import { useRef, useState } from "react";
 import PropTypes from "prop-types";
 
-import gameDataApi from "@/apis/gameDataApi";
+import gameConventionApi from "@/apis/gameConventionApi";
 
 import { Dialog } from "primereact/dialog";
 import { Button } from "primereact/button";
@@ -25,49 +25,49 @@ function UpdateItemDialog({ visible, setVisible, item, onSubmitted }) {
 	const toastRef = useRef(null);
 
 	//? States
-	const [gameData, setGameData] = useState({
-		title: "",
+	const [gameConvention, setGameConvention] = useState({
+		name: "",
 		value: "",
 	});
 
 	//? Handles
-	const handleSetGameDataField = (field, value) => {
-		setGameData((prevState) => ({
+	const handleSetGameConventionField = (field, value) => {
+		setGameConvention((prevState) => ({
 			...prevState,
 			[field]: value,
 		}));
 	};
 	const handleBindingData = () => {
 		if (item) {
-			setGameData({
+			setGameConvention({
 				...item,
 			});
 		}
 	};
 	const handleCloseDialog = () => {
-		setGameData({
-			title: "",
+		setGameConvention({
+			name: "",
 			value: "",
 		});
 
 		setVisible(false);
 	};
 	const handleSubmit = () => {
-		if (!gameData.title) {
+		if (!gameConvention.name) {
 			toastRef.current.show({
 				severity: "warn",
 				summary: "Cảnh báo",
-				detail: "Bạn chưa nhập tên dữ liệu (bắt buộc)",
+				detail: "Bạn chưa nhập tên quy ước (bắt buộc)",
 				life: 3000,
 			});
 			return;
 		}
 
-		if (!gameData.value) {
+		if (!gameConvention.value) {
 			toastRef.current.show({
 				severity: "warn",
 				summary: "Cảnh báo",
-				detail: "Bạn chưa nhập giá trị dữ liệu (bắt buộc)",
+				detail: "Bạn chưa nhập giá trị (bắt buộc)",
 				life: 3000,
 			});
 			return;
@@ -75,16 +75,16 @@ function UpdateItemDialog({ visible, setVisible, item, onSubmitted }) {
 
 		const data = {
 			id: item.id,
-			title: gameData.title !== item.title ? gameData.title : null,
-			value: gameData.value !== item.value ? gameData.value : null,
+			name: gameConvention.name !== item.name ? gameConvention.name : null,
+			value: gameConvention.value !== item.value ? gameConvention.value : null,
 		};
 
-		gameDataApi.update(data).then((response) => {
+		gameConventionApi.update(data).then((response) => {
 			if (response.code === 1) {
 				toastRef.current.show({
 					severity: "success",
 					summary: "Thành Công",
-					detail: "Cập nhật dữ liệu trò chơi thành công",
+					detail: "Cập nhật quy ước trò chơi thành công",
 					life: 3000,
 				});
 
@@ -105,7 +105,7 @@ function UpdateItemDialog({ visible, setVisible, item, onSubmitted }) {
 		<>
 			<Toast ref={toastRef} />
 			<Dialog
-				header="THAY ĐỔI DỮ LIỆU TRÒ CHƠI"
+				header="THAY ĐỔI QUY ƯỚC TRÒ CHƠI"
 				visible={visible}
 				onShow={handleBindingData}
 				style={{ width: "620px" }}
@@ -113,24 +113,24 @@ function UpdateItemDialog({ visible, setVisible, item, onSubmitted }) {
 			>
 				<div className="mb-4">
 					<span className="block mb-2">
-						Tên dữ liệu <span className="text-red-500">*</span>
+						Tên quy ước <span className="text-red-500">*</span>
 					</span>
 					<InputText
-						value={gameData.title}
+						value={gameConvention.name}
 						className="w-full"
-						placeholder="Nhập tên dữ liệu *"
-						onChange={(e) => handleSetGameDataField("title", e.target.value)}
+						placeholder="Nhập tên quy ước *"
+						onChange={(e) => handleSetGameConventionField("name", e.target.value)}
 					/>
 				</div>
 				<div className="mb-4">
 					<span className="block mb-2">
-						Giá trị dữ liệu <span className="text-red-500">*</span>
+						Giá trị <span className="text-red-500">*</span>
 					</span>
 					<InputText
-						value={gameData.value}
+						value={gameConvention.value}
 						className="w-full"
-						placeholder="Nhập giá trị dữ liệu *"
-						onChange={(e) => handleSetGameDataField("value", e.target.value)}
+						placeholder="Nhập giá trị *"
+						onChange={(e) => handleSetGameConventionField("value", e.target.value)}
 					/>
 				</div>
 				<div className="flex justify-content-end pt-2">
