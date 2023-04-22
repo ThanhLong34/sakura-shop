@@ -1,4 +1,4 @@
-import { useEffect, useState, useCallback, useMemo } from "react";
+import { useEffect, useRef, useState, useCallback, useMemo } from "react";
 import { useParams } from "react-router-dom";
 import classNames from "classnames/bind";
 import styles from "./Gameplay.module.scss";
@@ -7,11 +7,19 @@ import { arrayDestructuringNested } from "@/helpers/destructor";
 import { gameConvention } from "@/constant";
 
 import Card from "@/browser/components/Card";
+import TimeCounter from "@/browser/components/TimeCounter";
+import ClockIcon from "@/assets/images/ClockIcon.png";
+import HeartIcon from "@/assets/images/HeartIcon.png";
+import StarIcon from "@/assets/images/StarIcon.png";
+import DiamondIcon from "@/assets/images/DiamondIcon.png";
 
 const cx = classNames.bind(styles);
 
 function Gameplay() {
 	const { topicId, selectedLevel } = useParams();
+
+	const timeCounterRef = useRef(null);
+
 	const [cards, setCards] = useState([]);
 	const [choiceCardOne, setChoiceCardOne] = useState(null);
 	const [choiceCardTwo, setChoiceCardTwo] = useState(null);
@@ -132,6 +140,10 @@ function Gameplay() {
 			);
 		}
 	};
+	const handleEndGame = () => {
+		const times = timeCounterRef.current.getTimes();
+		console.log(times);
+	};
 
 	return (
 		<div className={cx("gameplay")}>
@@ -143,7 +155,25 @@ function Gameplay() {
 			>
 				{cards && cards.map((card) => <Card key={card.idx} card={card} onClick={handleClickCard} />)}
 			</div>
-			<div className="card background-transparent ml-4"></div>
+			<div className={cx("card background-transparent ml-4", "game-data")}>
+				<div className={cx("game-data-item")}>
+					<img src={ClockIcon} alt="clock" />
+					<TimeCounter ref={timeCounterRef} />
+				</div>
+				<div className={cx("game-data-item")}>
+					<img src={HeartIcon} alt="heart" />
+					<span>2</span>
+				</div>
+				<div className={cx("game-data-item")}>
+					<img src={StarIcon} alt="star" />
+					<span>2</span>
+				</div>
+				<div className={cx("game-data-item")}>
+					<img src={DiamondIcon} alt="diamond" />
+					<span>2</span>
+				</div>
+				<button onClick={handleEndGame}>Click</button>
+			</div>
 		</div>
 	);
 }

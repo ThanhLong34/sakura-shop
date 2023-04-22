@@ -1,5 +1,6 @@
-import { memo } from "react";
+import { useMemo, memo, useEffect, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 
 import { Tooltip } from "primereact/tooltip";
 import { Dock } from "primereact/dock";
@@ -11,56 +12,129 @@ import GiftBoxIcon from "@/assets/images/dockIcons/GiftBox.png";
 import ChocolateBoxIcon from "@/assets/images/dockIcons/ChocolateBox.png";
 import UserIcon from "@/assets/images/dockIcons/User.png";
 
+import { ConfirmDialog, confirmDialog } from "primereact/confirmdialog";
+
 function Navigator() {
 	const navigate = useNavigate();
+	const location = useLocation();
 
-	const items = [
-		{
-			label: "Màn hình chính",
-			icon: () => <img alt="Dashboard" src={HouseIcon} width="100%" />,
-			command: (e) => {
-				navigate("/dashboard");
+	const items = useMemo(
+		() => [
+			{
+				label: "Màn hình chính",
+				icon: () => <img alt="Dashboard" src={HouseIcon} width="100%" />,
+				command: (e) => {
+					if (checkChangeRouteFromGameplay()) {
+						confirmChangeRouteFromGameplay(() => {
+							navigateTo("/dashboard");
+						});
+					} else {
+						navigateTo("/dashboard");
+					}
+				},
 			},
-		},
-		{
-			label: "Chế độ cổ điển",
-			icon: () => <img alt="Classic mode" src={ConsoleIcon} width="100%" />,
-			command: (e) => {
-				navigate("/classic-mode");
+			{
+				label: "Chế độ cổ điển",
+				icon: () => <img alt="Classic mode" src={ConsoleIcon} width="100%" />,
+				command: (e) => {
+					if (checkChangeRouteFromGameplay()) {
+						confirmChangeRouteFromGameplay(() => {
+							navigateTo("/classic-mode");
+						});
+					} else {
+						navigateTo("/classic-mode");
+					}
+				},
 			},
-		},
-		{
-			label: "Chế độ tùy chọn",
-			icon: () => <img alt="Optional mode" src={GameboyIcon} width="100%" />,
-			command: (e) => {
-				navigate("/optional-mode");
+			{
+				label: "Chế độ tùy chọn",
+				icon: () => <img alt="Optional mode" src={GameboyIcon} width="100%" />,
+				command: (e) => {
+					if (checkChangeRouteFromGameplay()) {
+						confirmChangeRouteFromGameplay(() => {
+							navigateTo("/optional-mode");
+						});
+					} else {
+						navigateTo("/optional-mode");
+					}
+				},
 			},
-		},
-		{
-			label: "Đổi thưởng",
-			icon: () => <img alt="Gift" src={GiftBoxIcon} width="120%" />,
-			command: (e) => {
-				navigate("/gift");
+			{
+				label: "Đổi thưởng",
+				icon: () => <img alt="Gift" src={GiftBoxIcon} width="120%" />,
+				command: (e) => {
+					if (checkChangeRouteFromGameplay()) {
+						confirmChangeRouteFromGameplay(() => {
+							navigateTo("/gift");
+						});
+					} else {
+						navigateTo("/gift");
+					}
+				},
 			},
-		},
-		{
-			label: "Thu thập sức khỏe",
-			icon: () => <img alt="Collect health" src={ChocolateBoxIcon} width="100%" />,
-			command: (e) => {
-				navigate("/collect-health");
+			{
+				label: "Thu thập sức khỏe",
+				icon: () => <img alt="Collect health" src={ChocolateBoxIcon} width="100%" />,
+				command: (e) => {
+					if (checkChangeRouteFromGameplay()) {
+						confirmChangeRouteFromGameplay(() => {
+							navigateTo("/collect-health");
+						});
+					} else {
+						navigateTo("/collect-health");
+					}
+				},
 			},
-		},
-		{
-			label: "Thông tin tài khoản",
-			icon: () => <img alt="Profile" src={UserIcon} width="100%" />,
-			command: (e) => {
-				navigate("/profile");
+			{
+				label: "Thông tin tài khoản",
+				icon: () => <img alt="Profile" src={UserIcon} width="100%" />,
+				command: (e) => {
+					if (checkChangeRouteFromGameplay()) {
+						confirmChangeRouteFromGameplay(() => {
+							navigateTo("/profile");
+						});
+					} else {
+						navigateTo("/profile");
+					}
+				},
 			},
+		],
+		[location.pathname]
+	);
+
+	//? Handles
+	const navigateTo = useCallback(
+		(to) => {
+			navigate(to, {
+				state: {
+					prevRoute: location.pathname,
+				},
+			});
 		},
-	];
+		[navigate, location.pathname]
+	);
+	const checkChangeRouteFromGameplay = useCallback(() => {
+		return location.pathname.includes("/gameplay");
+	}, [location.pathname]);
+	const confirmChangeRouteFromGameplay = useCallback(
+		(acceptCallback = () => {}, rejectCallback = () => {}) => {
+			confirmDialog({
+				message: "Tất cả phần thưởng trong ván chơi này sẽ bị mất, bạn có muốn thoát không?",
+				header: "Thoát khỏi ván chơi",
+				icon: "pi pi-info-circle",
+				position: "left",
+				acceptLabel: "Đồng ý",
+				rejectLabel: "Hủy",
+				accept: acceptCallback,
+				reject: rejectCallback,
+			});
+		},
+		[location.pathname]
+	);
 
 	return (
 		<>
+			<ConfirmDialog />
 			<Tooltip
 				className="dark-tooltip"
 				target=".dock-advanced .p-dock-action"
