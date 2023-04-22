@@ -8,8 +8,7 @@ import HouseIcon from "@/assets/images/dockIcons/House.png";
 import ConsoleIcon from "@/assets/images/dockIcons/Console.png";
 import GameboyIcon from "@/assets/images/dockIcons/Gameboy.png";
 import GiftBoxIcon from "@/assets/images/dockIcons/GiftBox.png";
-import QuizIcon from "@/assets/images/dockIcons/Quiz.png";
-import AdsIcon from "@/assets/images/dockIcons/Ads.png";
+import ChocolateBoxIcon from "@/assets/images/dockIcons/ChocolateBox.png";
 import UserIcon from "@/assets/images/dockIcons/User.png";
 
 function Navigator() {
@@ -39,23 +38,16 @@ function Navigator() {
 		},
 		{
 			label: "Đổi thưởng",
-			icon: () => <img alt="Gift" src={GiftBoxIcon} width="100%" />,
+			icon: () => <img alt="Gift" src={GiftBoxIcon} width="120%" />,
 			command: (e) => {
 				navigate("/gift");
 			},
 		},
 		{
-			label: "Trả lời câu hỏi",
-			icon: () => <img alt="Question" src={QuizIcon} width="100%" />,
+			label: "Thu thập sức khỏe",
+			icon: () => <img alt="Collect health" src={ChocolateBoxIcon} width="100%" />,
 			command: (e) => {
-				navigate("/question");
-			},
-		},
-		{
-			label: "Xem quảng cáo",
-			icon: () => <img alt="Ads" src={AdsIcon} width="100%" />,
-			command: (e) => {
-				navigate("/ads");
+				navigate("/collect-health");
 			},
 		},
 		{

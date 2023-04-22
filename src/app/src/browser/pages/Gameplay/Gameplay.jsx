@@ -143,9 +143,7 @@ function Gameplay() {
 			>
 				{cards && cards.map((card) => <Card key={card.idx} card={card} onClick={handleClickCard} />)}
 			</div>
-			<div className="card background-transparent">
-				
-			</div>
+			<div className="card background-transparent ml-4"></div>
 		</div>
 	);
 }
