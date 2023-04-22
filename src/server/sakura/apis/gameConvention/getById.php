@@ -26,7 +26,7 @@ if (!checkPermissionFunction()) exit;
 //? ====================
 //? PARAMETERS & PAYLOAD
 //? ====================
-$tableName = "gamedata";
+$tableName = "gameconvention";
 
 $id = $_GET["id"] ?? ""; // int
 

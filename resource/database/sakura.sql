@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.2.0
+-- version 5.2.1
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 21, 2023 at 05:16 AM
--- Server version: 10.4.27-MariaDB
--- PHP Version: 8.2.0
+-- Generation Time: Apr 22, 2023 at 04:38 AM
+-- Server version: 10.4.28-MariaDB
+-- PHP Version: 8.2.4
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -270,23 +270,23 @@ INSERT INTO `card` (`id`, `createdAt`, `updatedAt`, `deletedAt`, `imageId`, `tit
 -- --------------------------------------------------------
 
 --
--- Table structure for table `gamedata`
+-- Table structure for table `gameconvention`
 --
 
-CREATE TABLE `gamedata` (
+CREATE TABLE `gameconvention` (
   `id` int(11) NOT NULL,
   `createdAt` varchar(255) DEFAULT NULL,
   `updatedAt` varchar(255) DEFAULT NULL,
   `deletedAt` varchar(255) DEFAULT NULL,
-  `title` varchar(255) DEFAULT NULL,
+  `name` varchar(255) DEFAULT NULL,
   `value` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `gamedata`
+-- Dumping data for table `gameconvention`
 --
 
-INSERT INTO `gamedata` (`id`, `createdAt`, `updatedAt`, `deletedAt`, `title`, `value`) VALUES
+INSERT INTO `gameconvention` (`id`, `createdAt`, `updatedAt`, `deletedAt`, `name`, `value`) VALUES
 (1, '16:05:43 20/04/2023', '17:42:21 20/04/2023', NULL, 'Cấp độ yêu cầu để mở khóa chế độ chơi tùy chọn', '32'),
 (2, '16:06:51 20/04/2023', '10:16:18 21/04/2023', NULL, 'Công thức tính điểm kinh nghiệm sau mỗi ván chơi', 'Math.ceil(Tổng số thẻ bài / Thời gian hoàn thành x 100%)'),
 (3, '10:12:49 21/04/2023', NULL, NULL, 'Số thẻ bài cấp độ dễ', '12'),
@@ -607,11 +607,11 @@ ALTER TABLE `card`
   ADD KEY `topicId` (`topicId`);
 
 --
--- Indexes for table `gamedata`
+-- Indexes for table `gameconvention`
 --
-ALTER TABLE `gamedata`
+ALTER TABLE `gameconvention`
   ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `field` (`title`);
+  ADD UNIQUE KEY `field` (`name`);
 
 --
 -- Indexes for table `gift`
@@ -706,10 +706,10 @@ ALTER TABLE `card`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=37;
 
 --
--- AUTO_INCREMENT for table `gamedata`
+-- AUTO_INCREMENT for table `gameconvention`
 --
-ALTER TABLE `gamedata`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+ALTER TABLE `gameconvention`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT for table `gift`

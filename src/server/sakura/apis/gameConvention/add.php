@@ -13,7 +13,7 @@ require("../../classes/ResponseAPI.php");
 //? ====================
 header("Access-Control-Allow-Origin: " . ACCESS_CONTROL_ALLOW_ORIGIN);
 header("Access-Control-Allow-Headers: " . ACCESS_CONTROL_ALLOW_HEADERS);
-header("Access-Control-Allow-Methods: PUT");
+header("Access-Control-Allow-Methods: POST");
 header("Content-Type: application/json");
 
 
@@ -26,63 +26,47 @@ if (!checkPermissionFunction()) exit;
 //? ====================
 //? PARAMETERS & PAYLOAD
 //? ====================
-$tableName = "gamedata";
+$tableName = "gameconvention";
 $data = getJSONPayloadRequest();
 
-$id = $data["id"] ?? ""; // int
-$title = trim($data["title"] ?? ""); // string
+$name = trim($data["name"] ?? ""); // string
 $value = trim($data["value"] ?? ""); // string
 
 
 //? ====================
 //? START
 //? ====================
-// ✅ Cập nhật record
-update($id, $title, $value);
+// ✅ Thêm record 
+add($name, $value);
 
 
 //? ====================
 //? FUNCTIONS
 //? ====================
-function update($id, $title, $value)
+function add($name, $value)
 {
    global $connect, $tableName;
 
    // Kiểm tra dữ liệu payload
-   if (!is_numeric($id)) {
+   if ($name === "" || $value === "") {
       $response = new ResponseAPI(9, "Không đủ payload để thực hiện");
       $response->send();
       return;
    }
 
+   // Kiểm tra item tồn tại trong CSDL theo các tiêu chí
+   if (checkItemExist($name)) {
+      $response = new ResponseAPI(3, "Quy ước trò chơi đã tồn tại");
+      $response->send();
+      return;
+   }
+
    // createdAt, updateAt, deletedAt
-   $updatedAt = getCurrentDatetime();
-
-   // Các chuỗi truy vấn
-   $baseQuery = "UPDATE `$tableName` SET `updatedAt` = '$updatedAt'";
-   $mainQuery = "";
-   $endQuery = "WHERE `id` = '$id' AND `deletedAt` IS NULL";
-
-   // Cập nhật title
-   if ($title !== "") {
-
-      // Kiểm tra item tồn tại trong CSDL theo các tiêu chí
-      if (checkItemExist($title)) {
-         $response = new ResponseAPI(3, "Dữ liệu trò chơi đã tồn tại");
-         $response->send();
-         return;
-      }
-
-      $mainQuery .= "," . "`title` = '$title'";
-   }
-
-   // Cập nhật value
-   if ($value !== "") {
-      $mainQuery .= "," . "`value` = '$value'";
-   }
+   $createdAt = getCurrentDatetime();
 
    // Thực thi query
-   $query = $baseQuery . " " . $mainQuery . " " . $endQuery;
+   $query = "INSERT INTO `$tableName`(`createdAt`, `name`, `value`) 
+               VALUES('$createdAt', '$name', '$value')";
    performsQueryAndResponseToClient($query);
 
    // Đóng kết nối
@@ -106,11 +90,11 @@ function performsQueryAndResponseToClient($query)
 }
 
 // Kiểm tra item tồn tại trong CSDL theo các tiêu chí
-function checkItemExist($title)
+function checkItemExist($name)
 {
    global $connect, $tableName;
 
-   $query = "SELECT * FROM `$tableName` WHERE `deletedAt` IS NULL AND `title` = '$title' LIMIT 1";
+   $query = "SELECT * FROM `$tableName` WHERE `deletedAt` IS NULL AND `name` = '$name' LIMIT 1";
    $result = mysqli_query($connect, $query);
 
    if ($result && mysqli_num_rows($result) > 0) {

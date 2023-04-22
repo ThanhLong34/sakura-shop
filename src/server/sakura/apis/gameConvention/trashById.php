@@ -13,7 +13,7 @@ require("../../classes/ResponseAPI.php");
 //? ====================
 header("Access-Control-Allow-Origin: " . ACCESS_CONTROL_ALLOW_ORIGIN);
 header("Access-Control-Allow-Headers: " . ACCESS_CONTROL_ALLOW_HEADERS);
-header("Access-Control-Allow-Methods: DELETE");
+header("Access-Control-Allow-Methods: PUT");
 header("Content-Type: application/json");
 
 
@@ -26,7 +26,7 @@ if (!checkPermissionFunction()) exit;
 //? ====================
 //? PARAMETERS & PAYLOAD
 //? ====================
-$tableName = "gamedata";
+$tableName = "gameconvention";
 $data = getJSONPayloadRequest();
 
 $id = $data["id"] ?? ""; // int
@@ -35,14 +35,14 @@ $id = $data["id"] ?? ""; // int
 //? ====================
 //? START
 //? ====================
-// ✅ Xóa record theo id
-deleteById($id);
+// ✅ Chuyển record vào thùng rác
+trashById($id);
 
 
 //? ====================
 //? FUNCTIONS
 //? ====================
-function deleteById($id)
+function trashById($id)
 {
    global $connect, $tableName;
 
@@ -53,15 +53,16 @@ function deleteById($id)
       return;
    }
 
-   // Kiểm tra record đã đánh dấu trong thùng rác chưa
-   if (!checkItemInTrash($id)) {
-      $response = new ResponseAPI(3, "Xóa thất bại, đối tượng chưa được chuyển vào thùng rác");
-      $response->send();
-      return;
-   }
+   // createdAt, updateAt, deletedAt
+   $deletedAt = getCurrentDatetime();
+
+   // Các chuỗi truy vấn
+   $baseQuery = "UPDATE `$tableName` SET `deletedAt` = '$deletedAt'";
+   $mainQuery = "";
+   $endQuery = "WHERE `id` = '$id' AND `deletedAt` IS NULL";
 
    // Thực thi query
-   $query = "DELETE FROM `$tableName` WHERE `id` = '$id' AND `deletedAt` IS NOT NULL";
+   $query = $baseQuery . " " . $mainQuery . " " . $endQuery;
    performsQueryAndResponseToClient($query);
 
    // Đóng kết nối
@@ -72,6 +73,7 @@ function deleteById($id)
 function performsQueryAndResponseToClient($query)
 {
    global $connect;
+
    $result = mysqli_query($connect, $query);
 
    if ($result) {
@@ -81,19 +83,4 @@ function performsQueryAndResponseToClient($query)
       $response = new ResponseAPI(2, "Thất bại");
       $response->send();
    }
-}
-
-// Kiểm tra trường dữ liệu deletedAt có null không
-function checkItemInTrash($id)
-{
-   global $connect, $tableName;
-
-   $query = "SELECT * FROM `$tableName` WHERE `id` = '$id' AND `deletedAt` IS NOT NULL LIMIT 1";
-   $result = mysqli_query($connect, $query);
-
-   if ($result && mysqli_num_rows($result) > 0) {
-      return true;
-   }
-
-   return false;
 }

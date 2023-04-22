@@ -26,7 +26,7 @@ if (!checkPermissionFunction()) exit;
 //? ====================
 //? PARAMETERS & PAYLOAD
 //? ====================
-$tableName = "gamedata";
+$tableName = "gameconvention";
 
 $limit = $_GET["limit"] ?? ""; // int, limit = "", hoặc không có payload để lấy tất cả
 $offset = $_GET["offset"] ?? ""; // int
