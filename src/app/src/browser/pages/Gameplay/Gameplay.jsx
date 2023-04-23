@@ -15,9 +15,6 @@ import levelApi from "@/apis/levelApi";
 import Card from "@/browser/components/Card";
 import TimeCounter from "@/browser/components/TimeCounter";
 import ClockIcon from "@/assets/images/ClockIcon.png";
-import HeartIcon from "@/assets/images/HeartIcon.png";
-import StarIcon from "@/assets/images/StarIcon.png";
-import DiamondIcon from "@/assets/images/DiamondIcon.png";
 
 import EndGameDialog from "@/browser/components/EndGameDialog";
 import NotAllowedToPlay from "@/browser/components/NotAllowedToPlay";
@@ -208,6 +205,7 @@ function Gameplay() {
 		}
 	};
 	const handleEndGame = () => {
+		timeCounterRef.current.pause();
 		const times = timeCounterRef.current.getTimes();
 
 		const gameData = cardsReal.reduce(
@@ -231,9 +229,10 @@ function Gameplay() {
 			for (let idx = 0; idx < levels.length; idx++) {
 				const level = levels[idx];
 				if (
-					gameData.experience >= level.experienceRequired &&
-					levels[idx + 1] &&
-					gameData.experience < levels[idx + 1].experienceRequired
+					(gameData.experience >= level.experienceRequired &&
+						levels[idx + 1] &&
+						gameData.experience < levels[idx + 1].experienceRequired) ||
+					(gameData.experience >= level.experienceRequired && idx === levels.length - 1)
 				) {
 					gameData.level = level.levelNumber;
 					break;
@@ -264,6 +263,7 @@ function Gameplay() {
 			});
 	};
 	const handleResetGame = () => {
+		timeCounterRef.current.start();
 		const cardsShuffledByOccurrenceRate = arrayShuffledByProbability(cardsOrigin, "occurrenceRate");
 		const cardsToPlay = getCardsShuffled(cardsShuffledByOccurrenceRate);
 
@@ -295,24 +295,11 @@ function Gameplay() {
 					>
 						{cards && cards.map((card) => <Card key={card.idx} card={card} onClick={handleClickCard} />)}
 					</div>
-					<div className={cx("card background-transparent ml-4", "game-data")}>
+					<div className={cx("card background-transparent mt-4", "game-data")}>
 						<div className={cx("game-data-item")}>
 							<img src={ClockIcon} alt="clock" />
 							<TimeCounter ref={timeCounterRef} />
 						</div>
-						<div className={cx("game-data-item")}>
-							<img src={HeartIcon} alt="heart" />
-							<span>2</span>
-						</div>
-						<div className={cx("game-data-item")}>
-							<img src={StarIcon} alt="star" />
-							<span>2</span>
-						</div>
-						<div className={cx("game-data-item")}>
-							<img src={DiamondIcon} alt="diamond" />
-							<span>2</span>
-						</div>
-						<button onClick={handleEndGame}>Click</button>
 					</div>
 				</div>
 			</>

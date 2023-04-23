@@ -46,7 +46,7 @@ function ViewGiftDialog({ visible, setVisible, item }) {
 						<p className={cx("gift-description")}>{item.description}</p>
 					</div>
 					<div className="mb-3 flex align-items-center">
-						<p className={cx("gift-cost-heading")}>Tiêu chí đổi thưởng:</p>
+						<p className={cx("gift-cost-heading")}>Cần có:</p>
 						{item.starCost > 0 && (
 							<div className={cx("gift-cost-item")}>
 								<img className={cx("gift-cost-image")} src={StarIcon} alt="star" />

@@ -10,8 +10,16 @@ const TimeCounter = forwardRef(({}, ref) => {
 				seconds,
 			};
 		},
+		pause() {
+			setIsPause(true);
+		},
+		start() {
+			setIsPause(false);
+			setSeconds(0);
+		},
 	}));
 
+	const [isPause, setIsPause] = useState(false);
 	const [seconds, setSeconds] = useState(0);
 
 	const hour = Math.floor(seconds / 3600);
@@ -20,11 +28,13 @@ const TimeCounter = forwardRef(({}, ref) => {
 
 	useEffect(() => {
 		const interval = setInterval(() => {
-			setSeconds((prevState) => prevState + 1);
+			if (!isPause) {
+				setSeconds((prevState) => prevState + 1);
+			}
 		}, 1000);
 
 		return () => clearInterval(interval);
-	}, []);
+	}, [isPause]);
 
 	return <span>{`${minute}:${updSecond}`}</span>;
 });

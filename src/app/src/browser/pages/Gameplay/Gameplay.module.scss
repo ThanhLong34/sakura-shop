@@ -1,13 +1,14 @@
 .gameplay {
 	display: flex;
-	justify-content: space-between;
+	flex-direction: column;
+	align-items: center;
 }
 
 .board {
 	display: grid;
 	grid-template-columns: repeat(4, 1fr);
 	gap: 10px;
-	width: 100vmin;
+	width: 108vmin;
 	user-select: none;
 	margin: 0 auto;
 
@@ -17,28 +18,29 @@
 
 	&.easy {
 		grid-template-columns: repeat(4, 1fr);
-		width: 120vmin;
+		width: 110vmin;
 	}
 
 	&.normal {
 		grid-template-columns: repeat(4, 1fr);
-		width: 90vmin;
+		width: 82vmin;
 	}
 
 	&.hard {
 		grid-template-columns: repeat(5, 1fr);
-		width: 112vmin;
+		width: 104vmin;
 	}
 }
 
 .game-data {
-	width: 120px;
-	max-width: 120px;
+	width: 130px;
+	max-width: 130px;
 	height: fit-content;
 
 	&-item {
 		display: flex;
 		align-items: center;
+		padding-left: 0.6rem;
 
 		&+& {
 			margin-top: 1.2rem;
@@ -51,7 +53,8 @@
 		}
 
 		span {
-			font-size: 1rem;
+			display: inline-block;
+			font-size: 1.2rem;
 			transform: translateY(2px);
 		}
 	}
