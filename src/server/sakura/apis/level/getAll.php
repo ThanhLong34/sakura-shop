@@ -34,7 +34,7 @@ $searchType = trim($_GET["searchType"] ?? ""); // string
 $searchValue = trim($_GET["searchValue"] ?? ""); // string
 $fillType = trim($_GET["fillType"] ?? ""); // string
 $fillValue = trim($_GET["fillValue"] ?? ""); // string
-$orderby = trim($_GET["orderby"] ?? "id"); // string
+$orderby = trim($_GET["orderby"] ?? "levelNumber"); // string
 $reverse = ($_GET["reverse"] ?? "false") === "true"; // boolean
 
 //? ====================

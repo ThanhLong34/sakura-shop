@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 22, 2023 at 04:38 AM
+-- Generation Time: Apr 23, 2023 at 11:04 AM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -239,9 +239,9 @@ CREATE TABLE `card` (
 --
 
 INSERT INTO `card` (`id`, `createdAt`, `updatedAt`, `deletedAt`, `imageId`, `title`, `brand`, `healthReward`, `starReward`, `diamondReward`, `occurrenceRate`, `topicId`) VALUES
-(1, '09:59:46 13/04/2023', '15:27:27 18/04/2023', NULL, 16, 'Sức khỏe', '', 3, 0, 0, 15, 1),
-(3, '10:13:28 13/04/2023', '15:27:15 18/04/2023', NULL, 24, 'Sao', '', 0, 3, 0, 10, 1),
-(5, '14:09:42 13/04/2023', '15:27:09 18/04/2023', NULL, 25, 'Kim cương', '', 0, 0, 1, 5, 1),
+(1, '09:59:46 13/04/2023', '15:27:27 18/04/2023', NULL, 16, 'Sức khỏe', '', 3, 0, 0, 25, 1),
+(3, '10:13:28 13/04/2023', '15:27:15 18/04/2023', NULL, 24, 'Sao', '', 0, 3, 0, 30, 1),
+(5, '14:09:42 13/04/2023', '15:27:09 18/04/2023', NULL, 25, 'Kim cương', '', 0, 0, 3, 10, 1),
 (13, '13:55:03 18/04/2023', NULL, NULL, 73, 'Son YSL Tatouage Couture Matte Stain 08 – Đỏ rượu', 'YSL', 0, 0, 0, 100, 3),
 (14, '13:55:44 18/04/2023', NULL, NULL, 74, 'Son Dior Addict Lip Glow Matte màu Raspberry 102 – Hồng dâu', 'Dior', 0, 0, 0, 100, 3),
 (15, '13:56:27 18/04/2023', NULL, NULL, 75, 'Son Dior Rouge Dior Satin 339 Grège New – Màu Cam Đất', 'Dior', 0, 0, 0, 100, 3),
@@ -288,7 +288,7 @@ CREATE TABLE `gameconvention` (
 
 INSERT INTO `gameconvention` (`id`, `createdAt`, `updatedAt`, `deletedAt`, `name`, `value`) VALUES
 (1, '16:05:43 20/04/2023', '17:42:21 20/04/2023', NULL, 'Cấp độ yêu cầu để mở khóa chế độ chơi tùy chọn', '32'),
-(2, '16:06:51 20/04/2023', '10:16:18 21/04/2023', NULL, 'Công thức tính điểm kinh nghiệm sau mỗi ván chơi', 'Math.ceil(Tổng số thẻ bài / Thời gian hoàn thành x 100%)'),
+(2, '16:06:51 20/04/2023', '10:16:18 21/04/2023', NULL, 'Công thức tính điểm kinh nghiệm sau mỗi ván chơi', 'Math.ceil(Tổng số thẻ bài / Thời gian hoàn thành x 100)'),
 (3, '10:12:49 21/04/2023', NULL, NULL, 'Số thẻ bài cấp độ dễ', '12'),
 (4, '10:12:58 21/04/2023', NULL, NULL, 'Số thẻ bài cấp độ trung bình', '16'),
 (5, '10:13:15 21/04/2023', NULL, NULL, 'Số thẻ bài cấp độ khó', '20');
@@ -423,7 +423,9 @@ INSERT INTO `level` (`id`, `createdAt`, `updatedAt`, `deletedAt`, `levelNumber`,
 (22, '11:01:28 18/04/2023', NULL, NULL, 7, 3120, 2, 2, 0),
 (23, '11:02:06 18/04/2023', NULL, NULL, 8, 4080, 3, 2, 0),
 (24, '11:02:42 18/04/2023', NULL, NULL, 9, 5160, 3, 3, 0),
-(25, '11:03:13 18/04/2023', NULL, NULL, 10, 6360, 3, 3, 1);
+(25, '11:03:13 18/04/2023', NULL, NULL, 10, 6360, 3, 3, 1),
+(26, '14:10:50 23/04/2023', NULL, NULL, 11, 7680, 3, 3, 1),
+(27, '14:11:10 23/04/2023', NULL, NULL, 12, 9120, 3, 3, 2);
 
 -- --------------------------------------------------------
 
@@ -453,8 +455,8 @@ CREATE TABLE `player` (
 --
 
 INSERT INTO `player` (`id`, `createdAt`, `updatedAt`, `deletedAt`, `lockedAt`, `phoneNumber`, `password`, `email`, `nickname`, `health`, `star`, `diamond`, `experience`, `level`) VALUES
-(24, '10:39:35 18/04/2023', NULL, NULL, NULL, '0353292241', '4c79273eed3d095e55d1224f6524ae92', 'thanhlongedu0304@gmail.com', 'player_r3kcxg', 3, 0, 0, 0, 1),
-(25, '10:50:26 18/04/2023', NULL, NULL, NULL, '0336010147', '4c79273eed3d095e55d1224f6524ae92', 'nguyenlong0304tester1@gmail.com', 'player_D9NWE6', 3, 0, 0, 0, 1),
+(24, '10:39:35 18/04/2023', '16:04:33 23/04/2023', NULL, NULL, '0353292241', '4c79273eed3d095e55d1224f6524ae92', 'thanhlongedu0304@gmail.com', 'player_r3kcxg', 21, 15, 4, 6476, 10),
+(25, '10:50:26 18/04/2023', '13:50:23 23/04/2023', NULL, NULL, '0336010147', '4c79273eed3d095e55d1224f6524ae92', 'nguyenlong0304tester1@gmail.com', 'player_D9NWE6', 0, 0, 0, 0, 1),
 (26, '10:50:50 18/04/2023', NULL, NULL, NULL, '0336010149', '4c79273eed3d095e55d1224f6524ae92', 'nguyenlong0304tester2@gmail.com', 'player_TPiyZC', 3, 0, 0, 0, 1);
 
 -- --------------------------------------------------------
@@ -727,7 +729,7 @@ ALTER TABLE `image`
 -- AUTO_INCREMENT for table `level`
 --
 ALTER TABLE `level`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
 
 --
 -- AUTO_INCREMENT for table `player`
