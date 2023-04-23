@@ -20,7 +20,7 @@ import BrowserHome from "@/browser/pages/Home";
 import BrowserDashboard from "@/browser/pages/Dashboard";
 import BrowserClassicMode from "@/browser/pages/ClassicMode";
 import BrowserOptionalMode from "@/browser/pages/OptionalMode";
-import BrowserGift from "@/browser/pages/Gift";
+import BrowserReward from "@/browser/pages/Reward";
 import BrowserQuizAndAds from "@/browser/pages/QuizAndAds";
 import BrowserProfile from "@/browser/pages/Profile";
 import BrowserGameplay from "@/browser/pages/Gameplay";
@@ -161,8 +161,8 @@ const browserRoutes = [
 		access: "private",
 	},
 	{
-		path: "/gift",
-		component: BrowserGift,
+		path: "/reward",
+		component: BrowserReward,
 		access: "private",
 	},
 	{

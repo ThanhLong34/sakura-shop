@@ -61,14 +61,14 @@ function Navigator() {
 			},
 			{
 				label: "Đổi thưởng",
-				icon: () => <img alt="Gift" src={GiftBoxIcon} width="120%" />,
+				icon: () => <img alt="Reward" src={GiftBoxIcon} width="120%" />,
 				command: (e) => {
 					if (checkChangeRouteFromGameplay()) {
 						confirmChangeRouteFromGameplay(() => {
-							navigateTo("/gift");
+							navigateTo("/reward");
 						});
 					} else {
-						navigateTo("/gift");
+						navigateTo("/reward");
 					}
 				},
 			},
