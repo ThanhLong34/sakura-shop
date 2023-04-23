@@ -167,11 +167,16 @@ function Gameplay() {
 
 	//? Functions
 	const getCardsShuffled = (cards) => {
-		const saveCards = [...cards].filter((i, idx) => idx < quantityCardReal);
-		const cardsShuffled = [...saveCards, ...saveCards]
-			.sort(() => Math.random() - 0.5)
-			.map((card, idx) => ({ ...card, idx, flipped: false, matched: false }));
-		return cardsShuffled;
+		if (cards.length >= quantityCardReal) {
+			const saveCards = [...cards].filter((i, idx) => idx < quantityCardReal);
+			const cardsShuffled = [...saveCards, ...saveCards]
+				.sort(() => Math.random() - 0.5)
+				.map((card, idx) => ({ ...card, idx, flipped: false, matched: false }));
+			return cardsShuffled;
+		}
+		
+		console.error('Không đủ thẻ bài');
+		return [];
 	};
 	const resetTurn = () => {
 		setDisableClickCard(false);
@@ -240,6 +245,27 @@ function Gameplay() {
 			}
 		}
 
+		const gameReward = {
+			healthReward: gameData.health - playerAccount.health,
+			starReward: gameData.star - playerAccount.star,
+			diamondReward: gameData.diamond - playerAccount.diamond,
+			experienceReward: gameData.experience - playerAccount.experience,
+			levelUp: gameData.level - playerAccount.level > 0 ? gameData.level : null,
+		};
+
+		if (gameReward.levelUp) {
+			const levelUpObj = levels.find(l => l.levelNumber === gameReward.levelUp);
+			if (levelUpObj) {
+				gameReward.healthRewardLevelUp = levelUpObj.healthReward;
+				gameReward.starRewardLevelUp = levelUpObj.starReward;
+				gameReward.diamondRewardLevelUp = levelUpObj.diamondReward;
+
+				gameData.health += levelUpObj.healthReward;
+				gameData.star += levelUpObj.starReward;
+				gameData.diamond += levelUpObj.diamondReward;
+			}
+		}
+
 		playerApi
 			.updateGameData({
 				...gameData,
@@ -251,13 +277,6 @@ function Gameplay() {
 					dispatch(action);
 
 					setEndGameDialogVisible(true);
-					const gameReward = {
-						healthReward: gameData.health - playerAccount.health,
-						starReward: gameData.star - playerAccount.star,
-						diamondReward: gameData.diamond - playerAccount.diamond,
-						experienceReward: gameData.experience - playerAccount.experience,
-						levelUp: gameData.level - playerAccount.level > 0 ? gameData.level : null,
-					};
 					setGameReward(gameReward);
 				}
 			});

@@ -55,7 +55,7 @@ function EndGameDialog({ visible, setVisible, gameReward, onResetGame }) {
 			{gameReward && (
 				<div className="grid">
 					<div className="col-12">
-						<h4 className={cx("heading")}>BẠN ĐÃ NHẬN ĐƯỢC</h4>
+						<h4 className={cx("heading")}>PHẦN THƯỞNG TRONG LƯỢT CHƠI</h4>
 					</div>
 					<div className="col-12">
 						<div className="grid mt-2 mb-2">
@@ -78,15 +78,38 @@ function EndGameDialog({ visible, setVisible, gameReward, onResetGame }) {
 								</div>
 							</div>
 							{gameReward.levelUp && (
-								<div className="col-12">
-									<div className={cx("item-data", "flex")}>
-										<img className={cx("item-icon")} src={LevelIcon} alt="level icon" />
-										<span className={cx("item-value")}>{gameReward.levelUp}</span>
-										<span className={cx("level-up")}>
-											Chúc mừng bạn <br /> Bạn đã lên cấp độ mới
-										</span>
+								<>
+									<div className="col-12">
+										<div className={cx("item-data", "flex")}>
+											<img className={cx("item-icon")} src={LevelIcon} alt="level icon" />
+											<span className={cx("item-value")}>{gameReward.levelUp}</span>
+											<span className={cx("level-up")}>
+												Chúc mừng bạn <br /> Bạn đã lên cấp độ mới
+											</span>
+										</div>
 									</div>
-								</div>
+									<div className="col-12 mt-2">
+										<h4 className={cx("heading")}>PHẦN THƯỞNG LÊN CẤP ĐỘ MỚI</h4>
+									</div>
+									<div className="col-4">
+										<div className={cx("item-data", "flex")}>
+											<img className={cx("item-icon")} src={HealthIcon} alt="health icon" />
+											<span className={cx("item-value")}>{gameReward.healthRewardLevelUp}</span>
+										</div>
+									</div>
+									<div className="col-4">
+										<div className={cx("item-data", "flex")}>
+											<img className={cx("item-icon")} src={StarIcon} alt="star icon" />
+											<span className={cx("item-value")}>{gameReward.starRewardLevelUp}</span>
+										</div>
+									</div>
+									<div className="col-4">
+										<div className={cx("item-data", "flex")}>
+											<img className={cx("item-icon")} src={DiamondIcon} alt="diamond icon" />
+											<span className={cx("item-value")}>{gameReward.diamondRewardLevelUp}</span>
+										</div>
+									</div>
+								</>
 							)}
 						</div>
 					</div>
