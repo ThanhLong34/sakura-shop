@@ -7,6 +7,7 @@ import cardApi from "@/apis/cardApi";
 import { arrayDestructuringNested } from "@/helpers/destructor";
 import { gameConvention } from "@/constant";
 import { updatePlayerAccountGameData } from "@/store/playerSlice";
+import { arrayShuffledByProbability } from "@/helpers/chatgpt";
 
 import playerApi from "@/apis/playerApi";
 import levelApi from "@/apis/levelApi";
@@ -54,6 +55,8 @@ function Gameplay() {
 			return 0;
 		}
 	}, [selectedLevel]);
+
+	console.log(cardsReal);
 
 	//? Effects
 	useEffect(() => {
@@ -118,7 +121,7 @@ function Gameplay() {
 			}
 
 			const cardsOrigin = arrayDestructuringNested(_cards);
-			const cardsShuffledByOccurrenceRate = getCardsShuffledByOccurrenceRate_ChatGPT(cardsOrigin);
+			const cardsShuffledByOccurrenceRate = arrayShuffledByProbability(cardsOrigin, "occurrenceRate");
 			const cardsToPlay = getCardsShuffled(cardsShuffledByOccurrenceRate);
 
 			setCardsOrigin(cardsOrigin);
@@ -178,29 +181,6 @@ function Gameplay() {
 	}, [cards]);
 
 	//? Handles
-	const getCardsShuffledByOccurrenceRate_ChatGPT = (cards) => {
-		// Clone cards
-		const _cards = [...cards];
-
-		// Sort the _cards based on the occurrenceRate of each card
-		_cards.sort((card1, card2) => card2.occurrenceRate - card1.occurrenceRate);
-
-		// Shuffle the _cards based on the occurrenceRate of each card
-		let remainingProbability = _cards.reduce((sum, card) => sum + card.occurrenceRate, 0);
-		for (let i = 0; i < _cards.length - 1; i++) {
-			const random = Math.floor(Math.random() * remainingProbability);
-			let j = i;
-			let probabilitySum = _cards[i].occurrenceRate;
-			while (random >= probabilitySum && j < _cards.length - 1) {
-				j++;
-				probabilitySum += _cards[j].occurrenceRate;
-			}
-			[_cards[i], _cards[j]] = [_cards[j], _cards[i]];
-			remainingProbability -= _cards[i].occurrenceRate;
-		}
-
-		return _cards;
-	};
 	const getCardsShuffled = (cards) => {
 		const saveCards = [...cards].filter((i, idx) => idx < quantityCardReal);
 		const cardsShuffled = [...saveCards, ...saveCards]
@@ -209,7 +189,7 @@ function Gameplay() {
 		return cardsShuffled;
 	};
 	const resetGame = () => {
-		const cardsShuffledByOccurrenceRate = getCardsShuffledByOccurrenceRate_ChatGPT(cardsOrigin);
+		const cardsShuffledByOccurrenceRate = arrayShuffledByProbability(cardsOrigin, "occurrenceRate");
 		const cardsToPlay = getCardsShuffled(cardsShuffledByOccurrenceRate);
 
 		setCards(cardsToPlay);
