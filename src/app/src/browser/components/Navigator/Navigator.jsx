@@ -74,14 +74,14 @@ function Navigator() {
 			},
 			{
 				label: "Thu thập sức khỏe",
-				icon: () => <img alt="Collect health" src={ChocolateBoxIcon} width="100%" />,
+				icon: () => <img alt="Quiz and Ads" src={ChocolateBoxIcon} width="100%" />,
 				command: (e) => {
 					if (checkChangeRouteFromGameplay()) {
 						confirmChangeRouteFromGameplay(() => {
-							navigateTo("/collect-health");
+							navigateTo("/quiz-and-ads");
 						});
 					} else {
-						navigateTo("/collect-health");
+						navigateTo("/quiz-and-ads");
 					}
 				},
 			},

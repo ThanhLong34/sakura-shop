@@ -20,6 +20,9 @@ import BrowserHome from "@/browser/pages/Home";
 import BrowserDashboard from "@/browser/pages/Dashboard";
 import BrowserClassicMode from "@/browser/pages/ClassicMode";
 import BrowserOptionalMode from "@/browser/pages/OptionalMode";
+import BrowserGift from "@/browser/pages/Gift";
+import BrowserQuizAndAds from "@/browser/pages/QuizAndAds";
+import BrowserProfile from "@/browser/pages/Profile";
 import BrowserGameplay from "@/browser/pages/Gameplay";
 import BrowserNotFound from "@/browser/pages/NotFound";
 import { EmptyLayout as BrowserEmptyLayout } from "@/browser/layouts";
@@ -37,92 +40,92 @@ const adminRoutes = [
 		path: "/admin/dashboard",
 		component: AdminDashboard,
 		metadata: {
-			title: 'Dashboard'
-		}
+			title: "Dashboard",
+		},
 	},
 	{
 		path: "/admin/game-convention",
 		component: AdminGameConventionManagement,
 		metadata: {
-			tConvention: 'Quy ước trò chơi'
-		}
+			tConvention: "Quy ước trò chơi",
+		},
 	},
 	{
 		path: "/admin/image-file",
 		component: AdminImageFileManagement,
 		metadata: {
-			title: 'Tệp hình ảnh'
-		}
+			title: "Tệp hình ảnh",
+		},
 	},
 	{
 		path: "/admin/video-file",
 		component: AdminVideoFileManagement,
 		metadata: {
-			title: 'Tệp video'
-		}
+			title: "Tệp video",
+		},
 	},
 	{
 		path: "/admin/player",
 		component: AdminPlayerManagement,
 		metadata: {
-			title: 'Người chơi'
-		}
+			title: "Người chơi",
+		},
 	},
 	{
 		path: "/admin/level",
 		component: AdminLevelManagement,
 		metadata: {
-			title: 'Cấp độ'
-		}
+			title: "Cấp độ",
+		},
 	},
 	{
 		path: "/admin/gift",
 		component: AdminGiftManagement,
 		metadata: {
-			title: 'Phần thưởng'
-		}
+			title: "Phần thưởng",
+		},
 	},
 	{
 		path: "/admin/topic",
 		component: AdminTopicManagement,
 		metadata: {
-			title: 'Chủ đề'
-		}
+			title: "Chủ đề",
+		},
 	},
 	{
 		path: "/admin/card",
 		component: AdminCardManagement,
 		metadata: {
-			title: 'Thẻ bài'
-		}
+			title: "Thẻ bài",
+		},
 	},
 	{
 		path: "/admin/question",
 		component: AdminQuestionManagement,
 		metadata: {
-			title: 'Câu hỏi'
-		}
+			title: "Câu hỏi",
+		},
 	},
 	{
 		path: "/admin/advertisement-type",
 		component: AdminAdvertisementTypeManagement,
 		metadata: {
-			title: 'Loại quảng cáo'
-		}
+			title: "Loại quảng cáo",
+		},
 	},
 	{
 		path: "/admin/advertisement",
 		component: AdminAdvertisementManagement,
 		metadata: {
-			title: 'Quảng cáo'
-		}
+			title: "Quảng cáo",
+		},
 	},
 	{
 		path: "/admin/profile",
 		component: AdminProfile,
 		metadata: {
-			title: 'Hồ sơ'
-		}
+			title: "Hồ sơ",
+		},
 	},
 	{
 		path: "/*",
@@ -135,39 +138,54 @@ const browserRoutes = [
 		path: "/",
 		component: BrowserHome,
 		layout: BrowserEmptyLayout,
-		access: 'public'
+		access: "public",
 	},
 	{
 		path: "/dashboard",
 		component: BrowserDashboard,
-		access: 'private'
+		access: "private",
 	},
 	{
 		path: "/classic-mode",
 		component: BrowserClassicMode,
-		access: 'private'
+		access: "private",
 	},
 	{
 		path: "/optional-mode",
 		component: BrowserOptionalMode,
-		access: 'private'
+		access: "private",
 	},
 	{
 		path: "/gameplay/:topicId/:selectedLevel",
 		component: BrowserGameplay,
-		access: 'private'
+		access: "private",
+	},
+	{
+		path: "/gift",
+		component: BrowserGift,
+		access: "private",
+	},
+	{
+		path: "/quiz-and-ads",
+		component: BrowserQuizAndAds,
+		access: "private",
+	},
+	{
+		path: "/profile",
+		component: BrowserProfile,
+		access: "private",
 	},
 	{
 		path: "/admin/login",
 		component: AdminLogin,
 		layout: BrowserEmptyLayout,
-		access: 'public'
+		access: "public",
 	},
 	{
 		path: "/*",
 		component: BrowserNotFound,
 		layout: BrowserEmptyLayout,
-		access: 'public'
+		access: "public",
 	},
 ];
 
