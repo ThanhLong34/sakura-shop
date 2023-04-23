@@ -22,6 +22,10 @@ const rewardApi = {
 		};
 		return axiosClient.get(url, { params });
 	},
+	add(data) {
+		const url = `${group}/add.php?`;
+		return axiosClient.post(url, data);
+	},
 };
 
 export default rewardApi;

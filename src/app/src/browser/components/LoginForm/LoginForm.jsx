@@ -88,7 +88,7 @@ function LoginForm({ onGoBack, onShowRegisterForm }) {
 		} else {
 			toastRef.current.show({ severity: "error", summary: "Lỗi", detail: response.message, life: 3000 });
 		}
-	}, [emailRef, toastRef]);
+	}, []);
 	const handleLogin = useCallback(
 		async (e) => {
 			e.preventDefault();
@@ -154,7 +154,7 @@ function LoginForm({ onGoBack, onShowRegisterForm }) {
 				toastRef.current.show({ severity: "error", summary: "Lỗi", detail: response.message, life: 3000 });
 			}
 		},
-		[phoneNumberRef, passwordRef]
+		[]
 	);
 
 	return (

@@ -4,6 +4,7 @@ import { BrowserView, MobileView } from "react-device-detect";
 import Admin from "./admin";
 import Browser from "./browser";
 import Mobile from "./mobile";
+import { ConfirmDialog } from "primereact/confirmdialog";
 
 function App() {
 	const adminAccount = useSelector((state) => state.admin.account);
@@ -17,6 +18,12 @@ function App() {
 
 	return (
 		<div className="App">
+			{/* 
+				Đặt ConfirmDialog ở đây và không gọi lại ở đâu cả
+				Tránh bị xuất hiện dialog 2 lần
+			 */}
+			<ConfirmDialog />
+
 			{/* Browser */}
 			<BrowserView>
 				<BrowserViewRender />

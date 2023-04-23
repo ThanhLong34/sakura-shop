@@ -143,7 +143,7 @@ function TableData({ onOpenDialog }) {
 		(value) => {
 			fillValue.current = value;
 		},
-		[fillValue]
+		[]
 	);
 	const handleApplyFilter = ({ field }) => {
 		setTableParams((prevState) => ({

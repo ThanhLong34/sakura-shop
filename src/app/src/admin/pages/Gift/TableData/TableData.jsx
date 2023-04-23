@@ -150,7 +150,7 @@ const TableData = forwardRef(({ onOpenDialog }, ref) => {
 		(value) => {
 			fillValue.current = value;
 		},
-		[fillValue]
+		[]
 	);
 	const handleApplyFilter = ({ field }) => {
 		setTableParams((prevState) => ({

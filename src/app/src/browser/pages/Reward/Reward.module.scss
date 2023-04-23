@@ -1,0 +1,12 @@
+@use "@/assets/styles/variables.scss" as *;
+
+.heading {
+	font-size: 2rem;
+	color: $bPrimaryColor;
+	text-align: center;
+	margin-bottom: 1rem;
+}
+
+.gift-item {
+	padding: 1rem !important;
+}

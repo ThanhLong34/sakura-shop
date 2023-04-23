@@ -15,9 +15,9 @@ function Dashboard() {
 	const [selectedGift, setSelectedGift] = useState(null);
 	const [viewGiftDialogVisible, setViewGiftDialogVisible] = useState(false);
 
-	const handleOpenViewGiftDialog = useCallback((payload) => {
+	const handleOpenViewGiftDialog = useCallback((gift) => {
 		setViewGiftDialogVisible(true);
-		setSelectedGift(payload);
+		setSelectedGift(gift);
 	}, []);
 
 	return (

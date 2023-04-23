@@ -121,7 +121,7 @@ function RegisterForm({ onGoBack, onShowLoginForm }) {
 				toastRef.current.show({ severity: "error", summary: "Lỗi", detail: response.message, life: 3000 });
 			}
 		},
-		[phoneNumberRef, passwordRef]
+		[]
 	);
 
 	return (

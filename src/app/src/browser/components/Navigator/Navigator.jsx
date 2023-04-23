@@ -1,4 +1,4 @@
-import { useMemo, memo, useEffect, useCallback } from "react";
+import { useMemo, memo, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 import { useLocation } from "react-router-dom";
 
@@ -12,7 +12,7 @@ import GiftBoxIcon from "@/assets/images/dockIcons/GiftBox.png";
 import ChocolateBoxIcon from "@/assets/images/dockIcons/ChocolateBox.png";
 import UserIcon from "@/assets/images/dockIcons/User.png";
 
-import { ConfirmDialog, confirmDialog } from "primereact/confirmdialog";
+import { confirmDialog } from "primereact/confirmdialog";
 
 function Navigator() {
 	const navigate = useNavigate();
@@ -99,7 +99,7 @@ function Navigator() {
 				},
 			},
 		],
-		[location.pathname]
+		[navigateTo, checkChangeRouteFromGameplay, confirmChangeRouteFromGameplay, location.pathname]
 	);
 
 	//? Handles
@@ -111,7 +111,7 @@ function Navigator() {
 				},
 			});
 		},
-		[navigate, location.pathname]
+		[location.pathname]
 	);
 	const checkChangeRouteFromGameplay = useCallback(() => {
 		return location.pathname.includes("/gameplay");
@@ -134,7 +134,6 @@ function Navigator() {
 
 	return (
 		<>
-			<ConfirmDialog />
 			<Tooltip
 				className="dark-tooltip"
 				target=".dock-advanced .p-dock-action"

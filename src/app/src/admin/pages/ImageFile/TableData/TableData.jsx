@@ -124,7 +124,7 @@ const TableData = ({ onOpenDialog }) => {
 		(value) => {
 			fillValue.current = value;
 		},
-		[fillValue]
+		[]
 	);
 	const handleApplyFilter = ({ field }) => {
 		if (field === "status") {
