@@ -5,6 +5,7 @@ import styles from "./Gift.module.scss";
 import { Button } from "primereact/button";
 import StarIcon from "@/assets/images/StarIcon.png";
 import DiamondIcon from "@/assets/images/DiamondIcon.png";
+import { Tag } from "primereact/tag";
 
 const cx = classNames.bind(styles);
 
@@ -39,10 +40,28 @@ function Gift({ gift, onOpenViewGiftDialog, onRewardExchange }) {
 						</div>
 					)}
 				</div>
+				{gift.isSpecial && (
+					<div className={cx("tag")} >
+						<Tag value="Đặc biệt" severity="danger" />
+					</div>
+				)}
 			</div>
 			<div className={cx("action")}>
-				<Button className="block mb-2 w-full" label="Xem chi tiết" icon="pi pi-eye" severity="info" outlined onClick={() => onOpenViewGiftDialog(gift)} />
-				<Button className="block w-full" label="Đổi thưởng" icon="pi pi-shopping-bag" severity="primary" onClick={() => onRewardExchange(gift)} />
+				<Button
+					className="block mb-2 w-full"
+					label="Xem chi tiết"
+					icon="pi pi-eye"
+					severity="info"
+					outlined
+					onClick={() => onOpenViewGiftDialog(gift)}
+				/>
+				<Button
+					className="block w-full"
+					label="Đổi thưởng"
+					icon="pi pi-shopping-bag"
+					severity="primary"
+					onClick={() => onRewardExchange(gift)}
+				/>
 			</div>
 		</div>
 	);

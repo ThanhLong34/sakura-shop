@@ -45,6 +45,7 @@ function ViewGiftDialog({ visible, setVisible, item }) {
 					<div className="mb-3">
 						<p className={cx("gift-description")}>{item.description}</p>
 					</div>
+					{item.isSpecial && <Tag className={cx('gift-tag')} value="Đặc biệt" severity="danger" />}
 					<div className="mb-3 flex align-items-center">
 						<p className={cx("gift-cost-heading")}>Cần có:</p>
 						{item.starCost > 0 && (

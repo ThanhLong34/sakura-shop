@@ -60,18 +60,18 @@ function SpecialGiftCarousel({ onOpenViewGiftDialog }) {
 				<div className={cx("gift-image")}>
 					<img src={gift.imageUrl} alt={gift.name} className="shadow-2" />
 				</div>
-				<div className="mt-4">
-					<h4 className={cx("mb-3", "gift-name")}>{gift.name}</h4>
-					<Tag value="Mới nhất" severity="danger" />
-					<div className="mt-3 flex flex-wrap gap-2 justify-content-center">
-						<Button
-							label="Xem"
-							icon="pi pi-eye"
-							severity="info"
-							outlined
-							onClick={() => onOpenViewGiftDialog(gift)}
-						/>
-					</div>
+				<div className="mt-3">
+					<h4 className={cx("mb-2", "gift-name")}>{gift.name}</h4>
+					{gift.isSpecial && <Tag value="Đặc biệt" severity="danger" />}
+				</div>
+				<div className={cx("mt-3", "gift-action")}>
+					<Button
+						label="Xem"
+						icon="pi pi-eye"
+						severity="info"
+						outlined
+						onClick={() => onOpenViewGiftDialog(gift)}
+					/>
 				</div>
 			</div>
 		);
@@ -79,7 +79,7 @@ function SpecialGiftCarousel({ onOpenViewGiftDialog }) {
 
 	return (
 		<div>
-			<h5 className={cx('title')}>Phần thưởng hấp dẫn</h5>
+			<h5 className={cx("title")}>Phần thưởng hấp dẫn</h5>
 			<Carousel
 				value={gifts}
 				numVisible={3}
