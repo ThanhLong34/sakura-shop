@@ -28,14 +28,14 @@ const rowsPerPageOptions = [10, 20, 30];
 ViewRewardHistoryDialog.propTypes = {
 	visible: PropTypes.bool.isRequired,
 	setVisible: PropTypes.func.isRequired,
-	item: PropTypes.object,
+	playerAccount: PropTypes.object,
 };
 
 ViewRewardHistoryDialog.defaultProps = {
-	item: {},
+	playerAccount: {},
 };
 
-function ViewRewardHistoryDialog({ visible, setVisible, item }) {
+function ViewRewardHistoryDialog({ visible, setVisible, playerAccount }) {
 	//? States
 	const [totalItem, setTotalItem] = useState(0);
 	const [tableData, setTableData] = useState([]);
@@ -62,9 +62,9 @@ function ViewRewardHistoryDialog({ visible, setVisible, item }) {
 		}));
 	};
 	const handleGetTableData = () => {
-		if (item) {
+		if (playerAccount) {
 			(async () => {
-				const response = await rewardApi.getAllByPlayerId(tableParams, item.id);
+				const response = await rewardApi.getAllByPlayerId(tableParams, playerAccount.id);
 				const data = response.data.map((reward) => ({
 					...reward,
 					id: +reward.id,
