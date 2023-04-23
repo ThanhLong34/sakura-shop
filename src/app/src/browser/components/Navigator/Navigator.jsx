@@ -18,6 +18,36 @@ function Navigator() {
 	const navigate = useNavigate();
 	const location = useLocation();
 
+	//? Handles
+	const navigateTo = useCallback(
+		(to) => {
+			navigate(to, {
+				state: {
+					prevRoute: location.pathname,
+				},
+			});
+		},
+		[location.pathname]
+	);
+	const checkChangeRouteFromGameplay = useCallback(() => {
+		return location.pathname.includes("/gameplay");
+	}, [location.pathname]);
+	const confirmChangeRouteFromGameplay = useCallback(
+		(acceptCallback = () => {}, rejectCallback = () => {}) => {
+			confirmDialog({
+				message: "Tất cả phần thưởng trong ván chơi này sẽ bị mất, bạn có muốn thoát không?",
+				header: "Thoát khỏi ván chơi",
+				icon: "pi pi-info-circle",
+				position: "left",
+				acceptLabel: "Đồng ý",
+				rejectLabel: "Hủy",
+				accept: acceptCallback,
+				reject: rejectCallback,
+			});
+		},
+		[location.pathname]
+	);
+
 	const items = useMemo(
 		() => [
 			{
@@ -100,36 +130,6 @@ function Navigator() {
 			},
 		],
 		[navigateTo, checkChangeRouteFromGameplay, confirmChangeRouteFromGameplay, location.pathname]
-	);
-
-	//? Handles
-	const navigateTo = useCallback(
-		(to) => {
-			navigate(to, {
-				state: {
-					prevRoute: location.pathname,
-				},
-			});
-		},
-		[location.pathname]
-	);
-	const checkChangeRouteFromGameplay = useCallback(() => {
-		return location.pathname.includes("/gameplay");
-	}, [location.pathname]);
-	const confirmChangeRouteFromGameplay = useCallback(
-		(acceptCallback = () => {}, rejectCallback = () => {}) => {
-			confirmDialog({
-				message: "Tất cả phần thưởng trong ván chơi này sẽ bị mất, bạn có muốn thoát không?",
-				header: "Thoát khỏi ván chơi",
-				icon: "pi pi-info-circle",
-				position: "left",
-				acceptLabel: "Đồng ý",
-				rejectLabel: "Hủy",
-				accept: acceptCallback,
-				reject: rejectCallback,
-			});
-		},
-		[location.pathname]
 	);
 
 	return (
