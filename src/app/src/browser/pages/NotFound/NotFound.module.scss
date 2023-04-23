@@ -1,0 +1,30 @@
+@use "@/assets/styles/variables.scss" as *;
+
+.wrapper {
+	padding-top: 2rem;
+}
+
+.not-found {
+	color: $bTertiaryColor;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-direction: column;
+	max-width: 850px;
+	margin: 0 auto;
+}
+
+.image {
+	width: 360px;
+	margin-bottom: 1rem;
+}
+
+.heading {
+	margin-bottom: 1.2rem;
+	font-size: 1.4rem;
+	text-align: center;
+
+	span {
+		color: $bPrimaryColor;
+	}
+}

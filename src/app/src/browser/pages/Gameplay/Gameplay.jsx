@@ -19,6 +19,7 @@ import StarIcon from "@/assets/images/StarIcon.png";
 import DiamondIcon from "@/assets/images/DiamondIcon.png";
 
 import EndGameDialog from "@/browser/components/EndGameDialog";
+import NotAllowedToPlay from "@/browser/components/NotAllowedToPlay";
 
 const cx = classNames.bind(styles);
 
@@ -27,8 +28,10 @@ function Gameplay() {
 	const playerAccount = useSelector((state) => state.player.account);
 	const { topicId, selectedLevel } = useParams();
 
+	//? Refs
 	const timeCounterRef = useRef(null);
 
+	//? States
 	const [cards, setCards] = useState([]);
 	const [cardsReal, setCardsReal] = useState([]);
 	const [choiceCardOne, setChoiceCardOne] = useState(null);
@@ -37,6 +40,7 @@ function Gameplay() {
 	const [levels, setLevels] = useState([]);
 	const [gameDataUpdate, setGameDataUpdate] = useState(null);
 	const [endGameDialogVisible, setEndGameDialogVisible] = useState(false);
+	const [allowedToPlayFlag, setAllowedToPlayFlag] = useState(false);
 
 	const quantityCardReal = useMemo(() => {
 		if (selectedLevel === gameConvention.levels.easy.name) {
@@ -124,6 +128,7 @@ function Gameplay() {
 				if (response.code === 1) {
 					const action = updatePlayerAccountGameData({ health: playerAccount.health - 1 });
 					dispatch(action);
+					setAllowedToPlayFlag(true);
 				}
 			})();
 		}
@@ -230,40 +235,52 @@ function Gameplay() {
 		});
 	};
 
-	return (
-		<>
-			<EndGameDialog visible={endGameDialogVisible} setVisible={setEndGameDialogVisible} gameData={gameDataUpdate} />
-			<div className={cx("gameplay")}>
-				<div
-					className={cx("board", {
-						disable: disableClickCard,
-						[selectedLevel]: selectedLevel,
-					})}
-				>
-					{cards && cards.map((card) => <Card key={card.idx} card={card} onClick={handleClickCard} />)}
+	if (playerAccount.health > 0 || allowedToPlayFlag) {
+		return (
+			<>
+				<EndGameDialog
+					visible={endGameDialogVisible}
+					setVisible={setEndGameDialogVisible}
+					gameData={gameDataUpdate}
+				/>
+				<div className={cx("gameplay")}>
+					<div
+						className={cx("board", {
+							disable: disableClickCard,
+							[selectedLevel]: selectedLevel,
+						})}
+					>
+						{cards && cards.map((card) => <Card key={card.idx} card={card} onClick={handleClickCard} />)}
+					</div>
+					<div className={cx("card background-transparent ml-4", "game-data")}>
+						<div className={cx("game-data-item")}>
+							<img src={ClockIcon} alt="clock" />
+							<TimeCounter ref={timeCounterRef} />
+						</div>
+						<div className={cx("game-data-item")}>
+							<img src={HeartIcon} alt="heart" />
+							<span>2</span>
+						</div>
+						<div className={cx("game-data-item")}>
+							<img src={StarIcon} alt="star" />
+							<span>2</span>
+						</div>
+						<div className={cx("game-data-item")}>
+							<img src={DiamondIcon} alt="diamond" />
+							<span>2</span>
+						</div>
+						<button onClick={handleEndGame}>Click</button>
+					</div>
 				</div>
-				<div className={cx("card background-transparent ml-4", "game-data")}>
-					<div className={cx("game-data-item")}>
-						<img src={ClockIcon} alt="clock" />
-						<TimeCounter ref={timeCounterRef} />
-					</div>
-					<div className={cx("game-data-item")}>
-						<img src={HeartIcon} alt="heart" />
-						<span>2</span>
-					</div>
-					<div className={cx("game-data-item")}>
-						<img src={StarIcon} alt="star" />
-						<span>2</span>
-					</div>
-					<div className={cx("game-data-item")}>
-						<img src={DiamondIcon} alt="diamond" />
-						<span>2</span>
-					</div>
-					<button onClick={handleEndGame}>Click</button>
-				</div>
+			</>
+		);
+	} else {
+		return (
+			<div>
+				<NotAllowedToPlay />
 			</div>
-		</>
-	);
+		);
+	}
 }
 
 export default Gameplay;
