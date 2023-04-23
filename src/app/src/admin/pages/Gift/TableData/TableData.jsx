@@ -146,12 +146,9 @@ const TableData = forwardRef(({ onOpenDialog }, ref) => {
 			reverse: sortOrder === -1,
 		}));
 	};
-	const handleChangeFilter = useCallback(
-		(value) => {
-			fillValue.current = value;
-		},
-		[]
-	);
+	const handleChangeFilter = useCallback((value) => {
+		fillValue.current = value;
+	}, []);
 	const handleApplyFilter = ({ field }) => {
 		setTableParams((prevState) => ({
 			...prevState,
@@ -223,13 +220,14 @@ const TableData = forwardRef(({ onOpenDialog }, ref) => {
 		return <span>{rowData.allowToReceiveOnline ? "Có" : "Không"}</span>;
 	};
 	const isSpecialDataTemplate = (rowData) => {
-		return (
-			<span>{rowData.isSpecial ? "Có" : "Không"}</span>
-		);
+		return <span>{rowData.isSpecial ? "Có" : "Không"}</span>;
 	};
 	const isShowDataTemplate = (rowData) => {
 		return (
-			<Tag value={rowData.isShow ? "Hiển thị" : "Ẩn"} severity={getIsShowSeverity(rowData.isShow ? "Hiển thị" : "Ẩn")} />
+			<Tag
+				value={rowData.isShow ? "Hiển thị" : "Ẩn"}
+				severity={getIsShowSeverity(rowData.isShow ? "Hiển thị" : "Ẩn")}
+			/>
 		);
 	};
 	const allowToReceiveOnlineFilterTemplate = (options) => {
@@ -244,12 +242,7 @@ const TableData = forwardRef(({ onOpenDialog }, ref) => {
 	};
 	const isSpecialFilterTemplate = (options) => {
 		return (
-			<TableFilterPopup
-				label="Chọn trạng thái"
-				options={isSpecialOptions}
-				isText
-				onChange={handleChangeFilter}
-			/>
+			<TableFilterPopup label="Chọn trạng thái" options={isSpecialOptions} isText onChange={handleChangeFilter} />
 		);
 	};
 	const isShowFilterTemplate = (options) => {
@@ -330,7 +323,16 @@ const TableData = forwardRef(({ onOpenDialog }, ref) => {
 				tableStyle={{ minWidth: "max-content" }}
 			>
 				<Column field="imageUrl" header="Hình ảnh" body={imageDataTemplate} frozen />
-				<Column field="name" header="Tên phần thưởng" sortable sortFunction={getSortedTableData} frozen />
+				<Column
+					field="name"
+					header="Tên phần thưởng"
+					sortable
+					sortFunction={getSortedTableData}
+					frozen
+					style={{
+						maxWidth: "420px",
+					}}
+				/>
 				<Column field="brand" header="Thương hiệu" sortable sortFunction={getSortedTableData} />
 				<Column
 					field="starCost"

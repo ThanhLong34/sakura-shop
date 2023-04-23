@@ -129,12 +129,9 @@ const TableData = forwardRef(({ onOpenDialog }, ref) => {
 			reverse: sortOrder === -1,
 		}));
 	};
-	const handleChangeFilter = useCallback(
-		(value) => {
-			fillValue.current = value;
-		},
-		[]
-	);
+	const handleChangeFilter = useCallback((value) => {
+		fillValue.current = value;
+	}, []);
 	const handleApplyFilter = ({ field }) => {
 		setTableParams((prevState) => ({
 			...prevState,
@@ -286,7 +283,16 @@ const TableData = forwardRef(({ onOpenDialog }, ref) => {
 				tableStyle={{ minWidth: "max-content" }}
 			>
 				<Column field="imageUrl" header="Hình ảnh" body={imageDataTemplate} frozen />
-				<Column field="title" header="Tiêu đề" sortable sortFunction={getSortedTableData} frozen />
+				<Column
+					field="title"
+					header="Tiêu đề"
+					sortable
+					sortFunction={getSortedTableData}
+					frozen
+					style={{
+						maxWidth: "420px",
+					}}
+				/>
 				<Column field="brand" header="Thương hiệu" sortable sortFunction={getSortedTableData} />
 				<Column
 					field="healthReward"

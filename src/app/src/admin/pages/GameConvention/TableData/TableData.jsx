@@ -199,7 +199,15 @@ const TableData = forwardRef(({ onOpenDialog }, ref) => {
 				emptyMessage="Không có kết quả"
 				tableStyle={{ minWidth: "max-content" }}
 			>
-				<Column field="name" header="Tên quy ước" sortable sortFunction={getSortedTableData} />
+				<Column
+					field="name"
+					header="Tên quy ước"
+					sortable
+					sortFunction={getSortedTableData}
+					style={{
+						maxWidth: "420px",
+					}}
+				/>
 				<Column field="value" header="Giá trị" />
 				<Column
 					headerStyle={{ textAlign: "center" }}
