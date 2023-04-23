@@ -55,3 +55,8 @@
 		grid-template-columns: repeat(5, 1fr);
 	}
 }
+
+.go-back-btn {
+	transform: translateY(-2px);
+	margin-right: 1rem;
+}
