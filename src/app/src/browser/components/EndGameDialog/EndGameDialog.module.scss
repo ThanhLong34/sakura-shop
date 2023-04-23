@@ -1,19 +1,34 @@
-.account-image {
-	max-width: 200px;
-	margin: 0 auto;
+@use "@/assets/styles/variables.scss" as *;
+
+.heading {
+	font-size: 1.2rem;
+	text-align: center;
+	color: $bPrimaryColor;
 }
 
 .item-data {
 	padding: 10px 0 10px 10px;
-}
-
-.item-data-g {
-	padding: 0 10px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
 }
 
 .item-icon {
 	display: inline-block;
-	margin-right: 8px;
+	margin-right: 1rem;
 	font-size: 16px;
-	width: 16px;
+	width: 56px;
+}
+
+.item-value {
+	font-size: 2.4rem;
+	color: $bTertiaryColor;
+	transform: translateY(2px);
+}
+
+.level-up {
+	text-align: left;
+	font-size: 1.4rem;
+	margin-left: 2rem;
+	color: $bSecondaryColor;
 }

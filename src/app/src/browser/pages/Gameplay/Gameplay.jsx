@@ -40,7 +40,7 @@ function Gameplay() {
 	const [choiceCardTwo, setChoiceCardTwo] = useState(null);
 	const [disableClickCard, setDisableClickCard] = useState(false);
 	const [levels, setLevels] = useState([]);
-	const [gameDataUpdate, setGameDataUpdate] = useState(null);
+	const [gameReward, setGameReward] = useState(null);
 	const [endGameDialogVisible, setEndGameDialogVisible] = useState(false);
 	const [allowedToPlayFlag, setAllowedToPlayFlag] = useState(false);
 
@@ -55,8 +55,6 @@ function Gameplay() {
 			return 0;
 		}
 	}, [selectedLevel]);
-
-	console.log(cardsReal);
 
 	//? Effects
 	useEffect(() => {
@@ -127,19 +125,9 @@ function Gameplay() {
 			setCardsOrigin(cardsOrigin);
 			setCards(cardsToPlay);
 			setCardsReal(cardsToPlay.filter((value, index, array) => array.findIndex((m) => m.id === value.id) === index));
-		})();
 
-		// Check health & subtract
-		if (playerAccount.health > 0) {
-			(async () => {
-				const response = await playerApi.updateGameData({ id: playerAccount.id, health: playerAccount.health - 1 });
-				if (response.code === 1) {
-					const action = updatePlayerAccountGameData({ health: playerAccount.health - 1 });
-					dispatch(action);
-					setAllowedToPlayFlag(true);
-				}
-			})();
-		}
+			substractHealth();
+		})();
 	}, []);
 	// Compare 2 selected cards
 	useEffect(() => {
@@ -180,7 +168,7 @@ function Gameplay() {
 		}
 	}, [cards]);
 
-	//? Handles
+	//? Functions
 	const getCardsShuffled = (cards) => {
 		const saveCards = [...cards].filter((i, idx) => idx < quantityCardReal);
 		const cardsShuffled = [...saveCards, ...saveCards]
@@ -188,21 +176,26 @@ function Gameplay() {
 			.map((card, idx) => ({ ...card, idx, flipped: false, matched: false }));
 		return cardsShuffled;
 	};
-	const resetGame = () => {
-		const cardsShuffledByOccurrenceRate = arrayShuffledByProbability(cardsOrigin, "occurrenceRate");
-		const cardsToPlay = getCardsShuffled(cardsShuffledByOccurrenceRate);
-
-		setCards(cardsToPlay);
-		setCardsReal(cardsToPlay.filter((value, index, array) => array.findIndex((m) => m.id === value.id) === index));
-
-		setChoiceCardOne(null);
-		setChoiceCardTwo(null);
-	};
 	const resetTurn = () => {
 		setDisableClickCard(false);
 		setChoiceCardOne(null);
 		setChoiceCardTwo(null);
 	};
+	const substractHealth = () => {
+		// Check health & subtract
+		if (playerAccount.health > 0) {
+			(async () => {
+				const response = await playerApi.updateGameData({ id: playerAccount.id, health: playerAccount.health - 1 });
+				if (response.code === 1) {
+					const action = updatePlayerAccountGameData({ health: playerAccount.health - 1 });
+					dispatch(action);
+					setAllowedToPlayFlag(true);
+				}
+			})();
+		}
+	};
+
+	//? Handles
 	const handleClickCard = (card) => {
 		if (!disableClickCard) {
 			!choiceCardOne ? setChoiceCardOne(card) : setChoiceCardTwo(card);
@@ -215,29 +208,73 @@ function Gameplay() {
 		}
 	};
 	const handleEndGame = () => {
-		// const times = timeCounterRef.current.getTimes();
-		// const gameData = {};
-		// gameData.health = cardsReal.reduce((prevValue, curValue) => {
-		// 	return prevValue + curValue.healthReward;
-		// }, playerAccount.health);
-		// gameData.star = cardsReal.reduce((prevValue, curValue) => {
-		// 	return prevValue + curValue.starReward;
-		// }, playerAccount.star);
-		// gameData.diamond = cardsReal.reduce((prevValue, curValue) => {
-		// 	return prevValue + curValue.diamondReward;
-		// }, playerAccount.diamond);
-		// gameData.experience = playerAccount.experience + Math.ceil(((quantityCardReal * 2) / times.seconds) * 100);
-		// if (levels) {
-		// 	const nextLevel = levels[levels.findIndex((l) => l.id === playerAccount.level) + 1];
-		// 	if (nextLevel && gameData.experience >= nextLevel.experienceRequired) {
-		// 		gameData.level = nextLevel;
-		// 	}
-		// }
-		// playerApi.updateGameData(gameData).then((response) => {
-		// 	if (response.code === 1) {
-		// 		setGameDataUpdate(gameData);
-		// 	}
-		// });
+		const times = timeCounterRef.current.getTimes();
+
+		const gameData = cardsReal.reduce(
+			(prevValue, curValue) => {
+				prevValue.health += curValue.healthReward;
+				prevValue.star += curValue.starReward;
+				prevValue.diamond += curValue.diamondReward;
+
+				return prevValue;
+			},
+			{
+				health: playerAccount.health,
+				star: playerAccount.star,
+				diamond: playerAccount.diamond,
+			}
+		);
+
+		gameData.experience = playerAccount.experience + Math.ceil(((quantityCardReal * 2) / times.seconds) * 100);
+
+		if (levels) {
+			for (let idx = 0; idx < levels.length; idx++) {
+				const level = levels[idx];
+				if (
+					gameData.experience >= level.experienceRequired &&
+					levels[idx + 1] &&
+					gameData.experience < levels[idx + 1].experienceRequired
+				) {
+					gameData.level = level.levelNumber;
+					break;
+				}
+			}
+		}
+
+		playerApi
+			.updateGameData({
+				...gameData,
+				id: playerAccount.id,
+			})
+			.then((response) => {
+				if (response.code === 1) {
+					const action = updatePlayerAccountGameData(gameData);
+					dispatch(action);
+
+					setEndGameDialogVisible(true);
+					const gameReward = {
+						healthReward: gameData.health - playerAccount.health,
+						starReward: gameData.star - playerAccount.star,
+						diamondReward: gameData.diamond - playerAccount.diamond,
+						experienceReward: gameData.experience - playerAccount.experience,
+						levelUp: gameData.level - playerAccount.level > 0 ? gameData.level : null,
+					};
+					setGameReward(gameReward);
+				}
+			});
+	};
+	const handleResetGame = () => {
+		const cardsShuffledByOccurrenceRate = arrayShuffledByProbability(cardsOrigin, "occurrenceRate");
+		const cardsToPlay = getCardsShuffled(cardsShuffledByOccurrenceRate);
+
+		setCards(cardsToPlay);
+		setCardsReal(cardsToPlay.filter((value, index, array) => array.findIndex((m) => m.id === value.id) === index));
+
+		setAllowedToPlayFlag(false);
+		setEndGameDialogVisible(false);
+		resetTurn();
+
+		substractHealth();
 	};
 
 	if (playerAccount.health > 0 || allowedToPlayFlag) {
@@ -246,7 +283,8 @@ function Gameplay() {
 				<EndGameDialog
 					visible={endGameDialogVisible}
 					setVisible={setEndGameDialogVisible}
-					gameData={gameDataUpdate}
+					gameReward={gameReward}
+					onResetGame={handleResetGame}
 				/>
 				<div className={cx("gameplay")}>
 					<div

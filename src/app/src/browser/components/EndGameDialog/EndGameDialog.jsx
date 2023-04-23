@@ -1,3 +1,5 @@
+import { memo } from "react";
+import { useNavigate } from "react-router-dom";
 import PropTypes from "prop-types";
 import classNames from "classnames/bind";
 import styles from "./EndGameDialog.module.scss";
@@ -6,91 +8,97 @@ import styles from "./EndGameDialog.module.scss";
 import HealthIcon from "@/assets/images/HeartIcon.png";
 import StarIcon from "@/assets/images/StarIcon.png";
 import DiamondIcon from "@/assets/images/DiamondIcon.png";
-import ExperienceIcon from "@/assets/images/ExperienceIcon.png";
 import LevelIcon from "@/assets/images/LevelIcon.png";
 
 import { Dialog } from "primereact/dialog";
+import GradientButton from "../GradientButton";
 
 const cx = classNames.bind(styles);
 
 EndGameDialog.propTypes = {
 	visible: PropTypes.bool.isRequired,
 	setVisible: PropTypes.func.isRequired,
-	gameData: PropTypes.object,
+	gameReward: PropTypes.object,
+	onResetGame: PropTypes.func,
 };
 
 EndGameDialog.defaultProps = {
-	gameData: {},
+	gameReward: {},
+	onResetGame: () => {},
 };
 
-function EndGameDialog({ visible, setVisible, gameData }) {
+function EndGameDialog({ visible, setVisible, gameReward, onResetGame }) {
+	const navigate = useNavigate();
+
+	const handleExit = () => {
+		navigate("/dashboard", {
+			state: {
+				prevRoute: "completed-game",
+			},
+		});
+
+		setVisible(false);
+	};
+
 	return (
-		<Dialog header="CHÚC MỪNG BẠN" visible={visible} style={{ width: "650px" }} onHide={() => setVisible(false)}>
-			{gameData && (
+		<Dialog
+			header="CHÚC MỪNG BẠN ĐÃ HOÀN THÀNH LƯỢT CHƠI"
+			headerStyle={{
+				textAlign: "center",
+				paddingBottom: "0.6rem",
+			}}
+			visible={visible}
+			style={{ width: "650px", fontFamily: "Coiny" }}
+			onHide={() => setVisible(false)}
+			closable={false}
+		>
+			{gameReward && (
 				<div className="grid">
-					<div className="col-6">
-						<div className="grid mt-2">
+					<div className="col-12">
+						<h4 className={cx("heading")}>BẠN ĐÃ NHẬN ĐƯỢC</h4>
+					</div>
+					<div className="col-12">
+						<div className="grid mt-2 mb-2">
 							<div className="col-4">
-								<div className={cx("gameData-data-g", "flex")}>
-									<span className="data-template">
-										<img
-											className={cx("gameData-icon", "data-template-icon")}
-											src={HealthIcon}
-											alt="health icon"
-										/>
-										<span className="data-template-value">{gameData.healthReward}</span>
-									</span>
+								<div className={cx("item-data", "flex")}>
+									<img className={cx("item-icon")} src={HealthIcon} alt="health icon" />
+									<span className={cx("item-value")}>{gameReward.healthReward}</span>
 								</div>
 							</div>
 							<div className="col-4">
-								<div className={cx("gameData-data-g", "flex")}>
-									<span className="data-template">
-										<img
-											className={cx("gameData-icon", "data-template-icon")}
-											src={StarIcon}
-											alt="star icon"
-										/>
-										<span className="data-template-value">{gameData.starReward}</span>
-									</span>
+								<div className={cx("item-data", "flex")}>
+									<img className={cx("item-icon")} src={StarIcon} alt="star icon" />
+									<span className={cx("item-value")}>{gameReward.starReward}</span>
 								</div>
 							</div>
 							<div className="col-4">
-								<div className={cx("gameData-data-g", "flex")}>
-									<span className="data-template">
-										<img
-											className={cx("gameData-icon", "data-template-icon")}
-											src={DiamondIcon}
-											alt="diamond icon"
-										/>
-										<span className="data-template-value">{gameData.diamondReward}</span>
-									</span>
+								<div className={cx("item-data", "flex")}>
+									<img className={cx("item-icon")} src={DiamondIcon} alt="diamond icon" />
+									<span className={cx("item-value")}>{gameReward.diamondReward}</span>
 								</div>
 							</div>
-							<div className="col-4">
-								<div className={cx("gameData-data-g", "flex")}>
-									<span className="data-template">
-										<img
-											className={cx("gameData-icon", "data-template-icon")}
-											src={ExperienceIcon}
-											alt="experience icon"
-										/>
-										<span className="data-template-value">{gameData.experienceReward}</span>
-									</span>
+							{gameReward.levelUp && (
+								<div className="col-12">
+									<div className={cx("item-data", "flex")}>
+										<img className={cx("item-icon")} src={LevelIcon} alt="level icon" />
+										<span className={cx("item-value")}>{gameReward.levelUp}</span>
+										<span className={cx("level-up")}>
+											Chúc mừng bạn <br /> Bạn đã lên cấp độ mới
+										</span>
+									</div>
 								</div>
-							</div>
-							<div className="col-4">
-								<div className={cx("gameData-data-g", "flex")}>
-									<span className="data-template">
-										<img
-											className={cx("gameData-icon", "data-template-icon")}
-											src={LevelIcon}
-											alt="level icon"
-										/>
-										<span className="data-template-value">{gameData.levelUp}</span>
-									</span>
-								</div>
-							</div>
+							)}
 						</div>
+					</div>
+					<div className="col-6">
+						<GradientButton type="primary" className="w-full" onClick={onResetGame}>
+							Chơi lại
+						</GradientButton>
+					</div>
+					<div className="col-6">
+						<GradientButton className="w-full" onClick={handleExit}>
+							Thoát
+						</GradientButton>
 					</div>
 				</div>
 			)}
@@ -98,4 +106,4 @@ function EndGameDialog({ visible, setVisible, gameData }) {
 	);
 }
 
-export default EndGameDialog;
+export default memo(EndGameDialog);

@@ -4,6 +4,7 @@
 	position: relative;
 	transition: all ease 0.2s;
 	box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+	user-select: none;
 
 	&:hover {
 		transform: scale(1.03);
