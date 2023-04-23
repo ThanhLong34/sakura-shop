@@ -34,6 +34,7 @@ function Gameplay() {
 	//? States
 	const [cards, setCards] = useState([]);
 	const [cardsReal, setCardsReal] = useState([]);
+	const [cardsOrigin, setCardsOrigin] = useState([]);
 	const [choiceCardOne, setChoiceCardOne] = useState(null);
 	const [choiceCardTwo, setChoiceCardTwo] = useState(null);
 	const [disableClickCard, setDisableClickCard] = useState(false);
@@ -92,6 +93,7 @@ function Gameplay() {
 						healthReward: +card.healthReward,
 						starReward: +card.starReward,
 						diamondReward: +card.diamondReward,
+						occurrenceRate: +card.occurrenceRate,
 					}))
 				);
 			}
@@ -110,15 +112,18 @@ function Gameplay() {
 						healthReward: +card.healthReward,
 						starReward: +card.starReward,
 						diamondReward: +card.diamondReward,
+						occurrenceRate: +card.occurrenceRate,
 					}))
 				);
 			}
 
-			const cardsShuffled = getCardsShuffled(arrayDestructuringNested(_cards));
-			setCards(cardsShuffled);
-			setCardsReal(
-				cardsShuffled.filter((value, index, array) => array.findIndex((m) => m.id === value.id) === index)
-			);
+			const cardsOrigin = arrayDestructuringNested(_cards);
+			const cardsShuffledByOccurrenceRate = getCardsShuffledByOccurrenceRate_ChatGPT(cardsOrigin);
+			const cardsToPlay = getCardsShuffled(cardsShuffledByOccurrenceRate);
+
+			setCardsOrigin(cardsOrigin);
+			setCards(cardsToPlay);
+			setCardsReal(cardsToPlay.filter((value, index, array) => array.findIndex((m) => m.id === value.id) === index));
 		})();
 
 		// Check health & subtract
@@ -173,16 +178,43 @@ function Gameplay() {
 	}, [cards]);
 
 	//? Handles
-	const getCardsShuffled = (_cards) => {
-		const saveCards = [..._cards].filter((i, idx) => idx < quantityCardReal);
+	const getCardsShuffledByOccurrenceRate_ChatGPT = (cards) => {
+		// Clone cards
+		const _cards = [...cards];
+
+		// Sort the _cards based on the occurrenceRate of each card
+		_cards.sort((card1, card2) => card2.occurrenceRate - card1.occurrenceRate);
+
+		// Shuffle the _cards based on the occurrenceRate of each card
+		let remainingProbability = _cards.reduce((sum, card) => sum + card.occurrenceRate, 0);
+		for (let i = 0; i < _cards.length - 1; i++) {
+			const random = Math.floor(Math.random() * remainingProbability);
+			let j = i;
+			let probabilitySum = _cards[i].occurrenceRate;
+			while (random >= probabilitySum && j < _cards.length - 1) {
+				j++;
+				probabilitySum += _cards[j].occurrenceRate;
+			}
+			[_cards[i], _cards[j]] = [_cards[j], _cards[i]];
+			remainingProbability -= _cards[i].occurrenceRate;
+		}
+
+		return _cards;
+	};
+	const getCardsShuffled = (cards) => {
+		const saveCards = [...cards].filter((i, idx) => idx < quantityCardReal);
 		const cardsShuffled = [...saveCards, ...saveCards]
 			.sort(() => Math.random() - 0.5)
 			.map((card, idx) => ({ ...card, idx, flipped: false, matched: false }));
 		return cardsShuffled;
 	};
 	const resetGame = () => {
-		const cardsShuffled = getCardsShuffled(cards);
-		setCards(cardsShuffled);
+		const cardsShuffledByOccurrenceRate = getCardsShuffledByOccurrenceRate_ChatGPT(cardsOrigin);
+		const cardsToPlay = getCardsShuffled(cardsShuffledByOccurrenceRate);
+
+		setCards(cardsToPlay);
+		setCardsReal(cardsToPlay.filter((value, index, array) => array.findIndex((m) => m.id === value.id) === index));
+
 		setChoiceCardOne(null);
 		setChoiceCardTwo(null);
 	};
@@ -203,36 +235,29 @@ function Gameplay() {
 		}
 	};
 	const handleEndGame = () => {
-		const times = timeCounterRef.current.getTimes();
-
-		const gameData = {};
-
-		gameData.health = cardsReal.reduce((prevValue, curValue) => {
-			return prevValue + curValue.healthReward;
-		}, playerAccount.health);
-
-		gameData.star = cardsReal.reduce((prevValue, curValue) => {
-			return prevValue + curValue.starReward;
-		}, playerAccount.star);
-
-		gameData.diamond = cardsReal.reduce((prevValue, curValue) => {
-			return prevValue + curValue.diamondReward;
-		}, playerAccount.diamond);
-
-		gameData.experience = playerAccount.experience + Math.ceil(((quantityCardReal * 2) / times.seconds) * 100);
-
-		if (levels) {
-			const nextLevel = levels[levels.findIndex((l) => l.id === playerAccount.level) + 1];
-			if (nextLevel && gameData.experience >= nextLevel.experienceRequired) {
-				gameData.level = nextLevel;
-			}
-		}
-
-		playerApi.updateGameData(gameData).then((response) => {
-			if (response.code === 1) {
-				setGameDataUpdate(gameData);
-			}
-		});
+		// const times = timeCounterRef.current.getTimes();
+		// const gameData = {};
+		// gameData.health = cardsReal.reduce((prevValue, curValue) => {
+		// 	return prevValue + curValue.healthReward;
+		// }, playerAccount.health);
+		// gameData.star = cardsReal.reduce((prevValue, curValue) => {
+		// 	return prevValue + curValue.starReward;
+		// }, playerAccount.star);
+		// gameData.diamond = cardsReal.reduce((prevValue, curValue) => {
+		// 	return prevValue + curValue.diamondReward;
+		// }, playerAccount.diamond);
+		// gameData.experience = playerAccount.experience + Math.ceil(((quantityCardReal * 2) / times.seconds) * 100);
+		// if (levels) {
+		// 	const nextLevel = levels[levels.findIndex((l) => l.id === playerAccount.level) + 1];
+		// 	if (nextLevel && gameData.experience >= nextLevel.experienceRequired) {
+		// 		gameData.level = nextLevel;
+		// 	}
+		// }
+		// playerApi.updateGameData(gameData).then((response) => {
+		// 	if (response.code === 1) {
+		// 		setGameDataUpdate(gameData);
+		// 	}
+		// });
 	};
 
 	if (playerAccount.health > 0 || allowedToPlayFlag) {
