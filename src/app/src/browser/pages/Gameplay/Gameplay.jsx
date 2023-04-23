@@ -25,6 +25,7 @@ function Gameplay() {
 	const dispatch = useDispatch();
 	const playerAccount = useSelector((state) => state.player.account);
 	const { topicId, selectedLevel } = useParams();
+	const delayClickCard = 1200;
 
 	//? Refs
 	const timeCounterRef = useRef(null);
@@ -35,7 +36,7 @@ function Gameplay() {
 	const [cardsOrigin, setCardsOrigin] = useState([]);
 	const [choiceCardOne, setChoiceCardOne] = useState(null);
 	const [choiceCardTwo, setChoiceCardTwo] = useState(null);
-	const [disableClickCard, setDisableClickCard] = useState(false);
+	const [disableSelectCard, setDisableSelectCard] = useState(false);
 	const [levels, setLevels] = useState([]);
 	const [gameReward, setGameReward] = useState(null);
 	const [endGameDialogVisible, setEndGameDialogVisible] = useState(false);
@@ -129,7 +130,7 @@ function Gameplay() {
 	// Compare 2 selected cards
 	useEffect(() => {
 		if (choiceCardOne && choiceCardTwo) {
-			setDisableClickCard(true);
+			setDisableSelectCard(true);
 
 			if (choiceCardOne.id === choiceCardTwo.id) {
 				setCards((prevCards) =>
@@ -154,7 +155,7 @@ function Gameplay() {
 						})
 					);
 					resetTurn();
-				}, 1200);
+				}, delayClickCard);
 			}
 		}
 	}, [choiceCardOne, choiceCardTwo]);
@@ -174,12 +175,12 @@ function Gameplay() {
 				.map((card, idx) => ({ ...card, idx, flipped: false, matched: false }));
 			return cardsShuffled;
 		}
-		
-		console.error('Không đủ thẻ bài');
+
+		console.error("Không đủ thẻ bài");
 		return [];
 	};
 	const resetTurn = () => {
-		setDisableClickCard(false);
+		setDisableSelectCard(false);
 		setChoiceCardOne(null);
 		setChoiceCardTwo(null);
 	};
@@ -198,8 +199,8 @@ function Gameplay() {
 	};
 
 	//? Handles
-	const handleClickCard = (card) => {
-		if (!disableClickCard) {
+	const handleSelectCard = (card) => {
+		if (!disableSelectCard) {
 			!choiceCardOne ? setChoiceCardOne(card) : setChoiceCardTwo(card);
 			setCards((prevCards) =>
 				prevCards.map((c) => ({
@@ -254,7 +255,7 @@ function Gameplay() {
 		};
 
 		if (gameReward.levelUp) {
-			const levelUpObj = levels.find(l => l.levelNumber === gameReward.levelUp);
+			const levelUpObj = levels.find((l) => l.levelNumber === gameReward.levelUp);
 			if (levelUpObj) {
 				gameReward.healthRewardLevelUp = levelUpObj.healthReward;
 				gameReward.starRewardLevelUp = levelUpObj.starReward;
@@ -308,11 +309,14 @@ function Gameplay() {
 				<div className={cx("gameplay")}>
 					<div
 						className={cx("board", {
-							disable: disableClickCard,
+							disable: disableSelectCard,
 							[selectedLevel]: selectedLevel,
 						})}
 					>
-						{cards && cards.map((card) => <Card key={card.idx} card={card} onClick={handleClickCard} />)}
+						{cards &&
+							cards.map((card) => (
+								<Card key={card.idx} card={card} onClick={handleSelectCard} delayClick={delayClickCard} />
+							))}
 					</div>
 					<div className={cx("card background-transparent mt-4", "game-data")}>
 						<div className={cx("game-data-item")}>
