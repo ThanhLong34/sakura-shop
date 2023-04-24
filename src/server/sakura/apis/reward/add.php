@@ -70,20 +70,8 @@ function add($giftId, $playerId, $playerPhoneNumber, $invoiceRewardCode)
          return;
       }
 
-      if (!checkInvoiceRewardCode($invoiceRewardCode)) {
-         $response = new ResponseAPI(4, "Mã đổi thưởng không hợp lệ");
-         $response->send();
-         return;
-      }
-
-      if (!checkInvoicePhoneNumber($playerPhoneNumber)) {
-         $response = new ResponseAPI(5, "Số điện thoại yêu cầu đổi thưởng không khớp với số điện thoại trong hóa đơn");
-         $response->send();
-         return;
-      }
-
-      if (!checkInvoiceCreatedAt($invoiceRewardCode)) {
-         $response = new ResponseAPI(6, "Hóa đơn đã quá hạn để đổi thưởng");
+      if (!checkInvoice($playerPhoneNumber, $invoiceRewardCode)) {
+         $response = new ResponseAPI(4, "Sai số điện thoại, hoặc sai mã nhận thưởng, hoặc hóa đơn đã quá hạn để đổi thưởng");
          $response->send();
          return;
       }
@@ -98,12 +86,12 @@ function add($giftId, $playerId, $playerPhoneNumber, $invoiceRewardCode)
             VALUES('$createdAt', '$giftId', '$playerId', '$gift->starCost', '$gift->diamondCost', '$invoiceRewardCode')";
          performsQueryAndResponseToClient($query);
       } else {
-         $response = new ResponseAPI(7, "Không thể cập nhật dữ liệu trò chơi của người chơi");
+         $response = new ResponseAPI(5, "Không thể cập nhật dữ liệu trò chơi của người chơi");
          $response->send();
          return;
       }
    } else {
-      $response = new ResponseAPI(8, "Không tìm thấy dữ liệu phần thưởng hoặc người chơi");
+      $response = new ResponseAPI(6, "Không tìm thấy dữ liệu phần thưởng hoặc người chơi");
       $response->send();
       return;
    }
@@ -170,44 +158,19 @@ function updatePlayerGameData($playerId, $star, $diamond)
 }
 
 // Kiểm tra mã đổi thưởng
-function checkInvoiceRewardCode($rewardCode)
-{
-   global $connect;
-
-   $query = "SELECT * FROM `invoice` WHERE `deletedAt` IS NULL AND `rewardCode` = '$rewardCode' LIMIT 1";
-   $result = mysqli_query($connect, $query);
-
-   if ($result && mysqli_num_rows($result) > 0) {
-      return true;
-   }
-
-   return false;
-}
-
-// Kiểm tra số điện thoại đúng với trong invoice
-function checkInvoicePhoneNumber($phoneNumber)
-{
-   global $connect;
-
-   $query = "SELECT * FROM `invoice` WHERE `deletedAt` IS NULL AND `phoneNumber` = '$phoneNumber' LIMIT 1";
-   $result = mysqli_query($connect, $query);
-
-   if ($result && mysqli_num_rows($result) > 0) {
-      return true;
-   }
-
-   return false;
-}
-
-// Kiểm tra thời gian đổi thưởng (chỉ áp dụng trong ngày)
-function checkInvoiceCreatedAt($rewardCode)
+function checkInvoice($phoneNumber, $rewardCode)
 {
    global $connect;
 
    // Get current date
    $currentDate = date("d/m/Y");
 
-   $query = "SELECT * FROM `invoice` WHERE `deletedAt` IS NULL AND `createdAt` LIKE '%$currentDate' AND `rewardCode` = '$rewardCode' LIMIT 1";
+   $query = "SELECT * FROM `invoice` 
+      WHERE `deletedAt` IS NULL 
+      AND `phoneNumber` = '$phoneNumber'
+      AND `rewardCode` = '$rewardCode' 
+      AND `createdAt` LIKE '%$currentDate'
+      LIMIT 1";
    $result = mysqli_query($connect, $query);
 
    if ($result && mysqli_num_rows($result) > 0) {

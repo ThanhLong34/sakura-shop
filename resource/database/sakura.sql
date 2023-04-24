@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 24, 2023 at 06:47 AM
+-- Generation Time: Apr 24, 2023 at 04:17 PM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -73,8 +73,10 @@ CREATE TABLE `advertisement` (
 --
 
 INSERT INTO `advertisement` (`id`, `createdAt`, `updatedAt`, `deletedAt`, `imageId`, `videoId`, `title`, `description`, `duration`, `healthReward`, `starReward`, `diamondReward`, `occurrenceRate`, `advertisementTypeId`) VALUES
-(8, '18:22:12 15/04/2023', '18:22:53 15/04/2023', NULL, 71, 0, 'QC1', '', 32, 2, 0, 0, 100, 1),
-(9, '18:23:22 15/04/2023', '18:24:42 15/04/2023', NULL, 0, 16, 'QC 2', 'video', 20, 3, 2, 1, 50, 3);
+(10, '15:37:46 24/04/2023', NULL, NULL, 108, 0, 'Tròn House Sneaker', '', 15, 3, 2, 0, 85, 1),
+(11, '15:38:31 24/04/2023', NULL, NULL, 109, 0, 'Son lipstick abc', '', 10, 3, 3, 0, 100, 1),
+(12, '15:42:40 24/04/2023', '15:44:43 24/04/2023', NULL, 0, 18, 'Stock clip ads 1', '', 13, 3, 3, 1, 60, 3),
+(13, '15:44:38 24/04/2023', NULL, NULL, 0, 19, 'Stock clip ads 2', '', 28, 3, 3, 2, 70, 3);
 
 -- --------------------------------------------------------
 
@@ -135,7 +137,6 @@ INSERT INTO `answer` (`id`, `createdAt`, `updatedAt`, `deletedAt`, `content`, `i
 (38, '11:06:29 18/04/2023', NULL, NULL, '8 tháng', 0, 9),
 (39, '11:06:34 18/04/2023', NULL, NULL, '12 tháng', 0, 9),
 (40, '11:06:44 18/04/2023', NULL, NULL, '30 tháng', 0, 9),
-(41, '11:07:38 18/04/2023', NULL, NULL, '8 - 12 tháng', 1, 2),
 (42, '11:08:34 18/04/2023', NULL, NULL, '1.8kg - 4kg', 1, 10),
 (43, '11:08:41 18/04/2023', NULL, NULL, '4.5kg - 6kg', 0, 10),
 (44, '11:08:50 18/04/2023', NULL, NULL, '6.5kg - 7.7kg', 0, 10),
@@ -199,16 +200,16 @@ INSERT INTO `answer` (`id`, `createdAt`, `updatedAt`, `deletedAt`, `content`, `i
 (102, '11:20:21 18/04/2023', NULL, NULL, 'Là loại giày này giúp hỗ trợ phần mắt cá chân', 0, 25),
 (103, '11:20:26 18/04/2023', NULL, NULL, 'Là loại giày thể thao cao cổ có độ cao che đi phần mắt cá chân', 0, 25),
 (104, '11:20:32 18/04/2023', NULL, NULL, 'Là loại giày thể thao phổ biến và kinh điển nhất, thường có đế khá thấp', 0, 25),
-(105, '11:20:55 18/04/2023', NULL, '11:21:15 18/04/2023', 'Là giày có độ cao k qua mắt cá chân', 1, 26),
+(105, '11:20:55 18/04/2023', NULL, '11:21:15 18/04/2023', 'Là giày có độ cao không qua mắt cá chân', 1, 26),
 (106, '11:21:02 18/04/2023', NULL, NULL, 'Là loại giày này giúp hỗ trợ phần mắt cá chân', 0, 26),
-(107, '11:21:05 18/04/2023', NULL, NULL, 'Là giày có độ cao k qua mắt cá chân', 0, 26),
+(107, '11:21:05 18/04/2023', NULL, NULL, 'Là giày có độ cao không qua mắt cá chân', 0, 26),
 (108, '11:21:11 18/04/2023', NULL, NULL, 'Là loại giày thể thao cao cổ có độ cao che đi phần mắt cá chân', 0, 26),
 (109, '11:21:20 18/04/2023', NULL, NULL, 'Là loại giày thể thao phổ biến và kinh điển nhất, thường có đế khá thấp', 1, 26),
-(110, '11:21:37 18/04/2023', NULL, NULL, 'Là giày có độ cao k qua mắt cá chân', 0, 27),
+(110, '11:21:37 18/04/2023', NULL, NULL, 'Là giày có độ cao không qua mắt cá chân', 0, 27),
 (111, '11:21:41 18/04/2023', NULL, NULL, 'Là loại giày này giúp hỗ trợ phần mắt cá chân', 1, 27),
 (112, '11:21:47 18/04/2023', NULL, NULL, 'Là loại giày thể thao cao cổ có độ cao che đi phần mắt cá chân', 0, 27),
 (113, '11:21:53 18/04/2023', NULL, NULL, 'Là loại giày thể thao phổ biến và kinh điển nhất, thường có đế khá thấp', 0, 27),
-(114, '11:22:06 18/04/2023', NULL, NULL, 'Là giày có độ cao k qua mắt cá chân', 0, 28),
+(114, '11:22:06 18/04/2023', NULL, NULL, 'Là giày có độ cao không qua mắt cá chân', 0, 28),
 (115, '11:22:11 18/04/2023', NULL, NULL, 'Là loại giày này giúp hỗ trợ phần mắt cá chân', 0, 28),
 (116, '11:22:16 18/04/2023', NULL, NULL, 'Là loại giày thể thao cao cổ có độ cao che đi phần mắt cá chân', 1, 28),
 (117, '11:22:21 18/04/2023', NULL, NULL, 'Là loại giày thể thao phổ biến và kinh điển nhất, thường có đế khá thấp', 0, 28);
@@ -390,7 +391,10 @@ INSERT INTO `image` (`id`, `createdAt`, `updatedAt`, `deletedAt`, `link`, `filen
 (104, '09:47:21 20/04/2023', NULL, NULL, 'http://localhost/projects/sakura/upload/images/imagefile6440a7b954d53.png', 'imagefile6440a7b954d53.png', 459245),
 (105, '09:49:11 20/04/2023', NULL, NULL, 'http://localhost/projects/sakura/upload/images/imagefile6440a827f3577.png', 'imagefile6440a827f3577.png', 185220),
 (106, '09:50:11 20/04/2023', NULL, NULL, 'http://localhost/projects/sakura/upload/images/imagefile6440a863637fe.png', 'imagefile6440a863637fe.png', 271643),
-(107, '09:51:47 20/04/2023', NULL, NULL, 'http://localhost/projects/sakura/upload/images/imagefile6440a8c382b98.png', 'imagefile6440a8c382b98.png', 382981);
+(107, '09:51:47 20/04/2023', NULL, NULL, 'http://localhost/projects/sakura/upload/images/imagefile6440a8c382b98.png', 'imagefile6440a8c382b98.png', 382981),
+(108, '15:37:45 24/04/2023', NULL, NULL, 'http://localhost/projects/sakura/upload/images/imagefile64463fd91ea00.jpg', 'imagefile64463fd91ea00.jpg', 272772),
+(109, '15:38:30 24/04/2023', NULL, NULL, 'http://localhost/projects/sakura/upload/images/imagefile6446400631b46.jpg', 'imagefile6446400631b46.jpg', 157721),
+(110, '15:42:09 24/04/2023', NULL, NULL, 'http://localhost/projects/sakura/upload/images/imagefile644640e1c6451.jpg', 'imagefile644640e1c6451.jpg', 92058);
 
 -- --------------------------------------------------------
 
@@ -479,9 +483,9 @@ CREATE TABLE `player` (
 --
 
 INSERT INTO `player` (`id`, `createdAt`, `updatedAt`, `deletedAt`, `lockedAt`, `phoneNumber`, `password`, `email`, `nickname`, `health`, `star`, `diamond`, `experience`, `level`) VALUES
-(24, '10:39:35 18/04/2023', '20:14:35 23/04/2023', NULL, NULL, '0353292241', '4c79273eed3d095e55d1224f6524ae92', 'thanhlongedu0304@gmail.com', 'player_r3kcxg', 17, 32014, 25, 6514, 10),
-(25, '10:50:26 18/04/2023', '13:50:23 23/04/2023', NULL, NULL, '0336010147', '4c79273eed3d095e55d1224f6524ae92', 'nguyenlong0304tester1@gmail.com', 'player_D9NWE6', 0, 5154, 0, 0, 1),
-(26, '10:50:50 18/04/2023', NULL, NULL, NULL, '0336010149', '4c79273eed3d095e55d1224f6524ae92', 'nguyenlong0304tester2@gmail.com', 'player_TPiyZC', 3, 0, 0, 0, 1);
+(24, '10:39:35 18/04/2023', '21:08:45 24/04/2023', NULL, NULL, '0353292241', '4c79273eed3d095e55d1224f6524ae92', 'thanhlongedu0304@gmail.com', 'Thanh Long', 74, 32071, 40, 6716, 10),
+(25, '10:50:26 18/04/2023', '17:31:23 24/04/2023', NULL, NULL, '0336010147', '4c79273eed3d095e55d1224f6524ae92', 'nguyenlong0304tester1@gmail.com', 'playertester01', 0, 3211, 0, 269, 2),
+(26, '10:50:50 18/04/2023', '18:28:22 24/04/2023', NULL, NULL, '0336010149', '4c79273eed3d095e55d1224f6524ae92', 'nguyenlong0304tester2@gmail.com', 'playertester02', 0, 10, 3, 383, 2);
 
 -- --------------------------------------------------------
 
@@ -555,7 +559,9 @@ INSERT INTO `reward` (`id`, `createdAt`, `updatedAt`, `deletedAt`, `giftId`, `pl
 (39, '11:27:17 24/04/2023', NULL, NULL, 13, 24, 0, 599, 'HDAL17TE78'),
 (40, '11:28:58 24/04/2023', NULL, NULL, 13, 24, 0, 599, 'HDAL17TE78'),
 (50, '11:36:34 23/04/2023', NULL, NULL, 11, 25, 1399, 0, 'HDAOM848YS'),
-(53, '11:45:32 24/04/2023', NULL, NULL, 11, 25, 1399, 0, 'HDAOVLEQKO');
+(53, '11:45:32 24/04/2023', NULL, NULL, 11, 25, 1399, 0, 'HDAOVLEQKO'),
+(54, '17:30:50 24/04/2023', NULL, NULL, 12, 25, 649, 0, 'HDAOVLEQKO'),
+(56, '18:37:37 24/04/2023', NULL, NULL, 12, 25, 649, 0, 'HDAOVLEQKO');
 
 -- --------------------------------------------------------
 
@@ -602,7 +608,10 @@ CREATE TABLE `video` (
 --
 
 INSERT INTO `video` (`id`, `createdAt`, `updatedAt`, `deletedAt`, `link`, `filename`, `size`) VALUES
-(16, '18:24:41 15/04/2023', NULL, NULL, 'http://localhost/projects/sakura/upload/videos/videofile643a897992417.mp4', 'videofile643a897992417.mp4', 1542713);
+(16, '18:24:41 15/04/2023', NULL, NULL, 'http://localhost/projects/sakura/upload/videos/videofile643a897992417.mp4', 'videofile643a897992417.mp4', 1542713),
+(17, '15:43:20 24/04/2023', NULL, NULL, 'http://localhost/projects/sakura/upload/videos/videofile6446412882992.mp4', 'videofile6446412882992.mp4', 1542713),
+(18, '15:43:50 24/04/2023', NULL, NULL, 'http://localhost/projects/sakura/upload/videos/videofile644641467f9f0.mp4', 'videofile644641467f9f0.mp4', 1542713),
+(19, '15:44:37 24/04/2023', NULL, NULL, 'http://localhost/projects/sakura/upload/videos/videofile6446417502a16.mp4', 'videofile6446417502a16.mp4', 2361284);
 
 --
 -- Indexes for dumped tables
@@ -728,7 +737,7 @@ ALTER TABLE `admin`
 -- AUTO_INCREMENT for table `advertisement`
 --
 ALTER TABLE `advertisement`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT for table `advertisementtype`
@@ -764,7 +773,7 @@ ALTER TABLE `gift`
 -- AUTO_INCREMENT for table `image`
 --
 ALTER TABLE `image`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=108;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=111;
 
 --
 -- AUTO_INCREMENT for table `invoice`
@@ -794,7 +803,7 @@ ALTER TABLE `question`
 -- AUTO_INCREMENT for table `reward`
 --
 ALTER TABLE `reward`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=54;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=57;
 
 --
 -- AUTO_INCREMENT for table `topic`
@@ -806,7 +815,7 @@ ALTER TABLE `topic`
 -- AUTO_INCREMENT for table `video`
 --
 ALTER TABLE `video`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 
 --
 -- Constraints for dumped tables
