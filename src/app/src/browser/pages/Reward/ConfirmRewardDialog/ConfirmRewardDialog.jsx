@@ -1,4 +1,4 @@
-import { useState, useRef } from "react";
+import { useState, useRef, memo } from "react";
 import { createPortal } from "react-dom";
 import PropTypes from "prop-types";
 
@@ -37,6 +37,12 @@ function ConfirmRewardDialog({ visible, setVisible, onAccept }) {
 
 		onAccept(_rewardCode);
 	};
+	const handleCloseDialog = () => {
+		setVisible(false);
+	};
+	const handleShowDialog = () => {
+		setRewardCode("");
+	};
 
 	return (
 		<>
@@ -45,7 +51,8 @@ function ConfirmRewardDialog({ visible, setVisible, onAccept }) {
 				header="XÁC NHẬN ĐỔI THƯỞNG"
 				visible={visible}
 				style={{ width: "650px" }}
-				onHide={() => setVisible(false)}
+				onHide={handleCloseDialog}
+				onShow={handleShowDialog}
 			>
 				<p>
 					Để đổi lấy phần thưởng này, bạn phải nhập <span className="text-pink-500">mã đổi thưởng từ hóa đơn</span>{" "}
@@ -58,7 +65,7 @@ function ConfirmRewardDialog({ visible, setVisible, onAccept }) {
 					onChange={(e) => setRewardCode(e.target.value)}
 				/>
 				<div className="flex align-items-center justify-content-end">
-					<Button className="mr-3" label="Hủy" outlined />
+					<Button className="mr-3" label="Hủy" outlined onClick={handleCloseDialog} />
 					<Button label="Xác nhận" onClick={handleAccept} />
 				</div>
 			</Dialog>
@@ -66,4 +73,4 @@ function ConfirmRewardDialog({ visible, setVisible, onAccept }) {
 	);
 }
 
-export default ConfirmRewardDialog;
+export default memo(ConfirmRewardDialog);

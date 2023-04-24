@@ -57,54 +57,60 @@ function Reward() {
 			}
 			case "ConfirmRewardDialogVisible": {
 				setConfirmRewardDialogVisible(true);
+				setSelectedGift(payload);
 				break;
 			}
 			default:
 				break;
 		}
 	}, []);
-	const handleRewardExchange = useCallback(
-		(gift) => {
-			rewardApi
-				.add({
-					giftId: gift.id,
-					playerId: playerAccount.id,
-				})
-				.then((response) => {
-					if (response.code === 1) {
-						confirmDialog({
-							message: "Đổi phần thưởng thành công",
-							header: "THÀNH CÔNG",
-							icon: "pi pi-check",
-							rejectLabel: "Đóng",
-							acceptLabel: "Oke",
-							acceptClassName: "p-button-success",
-							closable: false,
-						});
+	const handleAcceptReward = useCallback(
+		(rewardCode) => {
+			if (selectedGift && rewardCode) {
+				rewardApi
+					.add({
+						giftId: selectedGift.id,
+						playerId: playerAccount.id,
+						playerPhoneNumber: playerAccount.phoneNumber,
+						invoiceRewardCode: rewardCode,
+					})
+					.then((response) => {
+						if (response.code === 1) {
+							setConfirmRewardDialogVisible(false);
+							confirmDialog({
+								message: "Đổi phần thưởng thành công",
+								header: "THÀNH CÔNG",
+								icon: "pi pi-check",
+								rejectLabel: "Đóng",
+								acceptLabel: "Oke",
+								acceptClassName: "p-button-success",
+								closable: false,
+							});
 
-						const gameData = {
-							star: playerAccount.star - gift.starCost,
-							diamond: playerAccount.diamond - gift.diamondCost,
-						};
-						const action = updatePlayerAccountGameData(gameData);
+							const gameData = {
+								star: playerAccount.star - selectedGift.starCost,
+								diamond: playerAccount.diamond - selectedGift.diamondCost,
+							};
+							const action = updatePlayerAccountGameData(gameData);
 
-						dispatch(action);
-					} else {
-						confirmDialog({
-							message: response.message,
-							header: "THẤT BẠI",
-							icon: "pi pi-times",
-							rejectLabel: "Đóng",
-							acceptLabel: "Đã hiểu",
-							acceptClassName: "p-button-danger",
-							closable: false,
-						});
-					}
-				});
+							dispatch(action);
+						} else {
+							confirmDialog({
+								message: response.message,
+								header: "THẤT BẠI",
+								icon: "pi pi-times",
+								rejectLabel: "Đóng",
+								acceptLabel: "Đã hiểu",
+								acceptClassName: "p-button-danger",
+								closable: false,
+							});
+						}
+					});
+			}
 		},
-		[playerAccount]
+		[selectedGift, playerAccount]
 	);
-	const confirmRewardExchange = useCallback(
+	const handleOpenConfirmRewardDialog = useCallback(
 		(gift) => {
 			if (playerAccount.star - gift.starCost < 0 || playerAccount.diamond - gift.diamondCost < 0) {
 				confirmDialog({
@@ -117,10 +123,10 @@ function Reward() {
 					closable: false,
 				});
 			} else {
-				handleOpenDialog("ConfirmRewardDialogVisible");
+				handleOpenDialog("ConfirmRewardDialogVisible", gift);
 			}
 		},
-		[handleRewardExchange, playerAccount]
+		[handleAcceptReward, playerAccount]
 	);
 
 	return (
@@ -133,7 +139,8 @@ function Reward() {
 			/>
 			<ConfirmRewardDialog
 				visible={confirmRewardDialogVisible}
-				setVisible={ setConfirmRewardDialogVisible }
+				setVisible={setConfirmRewardDialogVisible}
+				onAccept={handleAcceptReward}
 			/>
 			<div className={cx("wrapper", "card")}>
 				<div className="flex justify-content-center align-items-center mb-2">
@@ -154,7 +161,7 @@ function Reward() {
 								<Gift
 									gift={gift}
 									onOpenViewGiftDialog={handleOpenDialog}
-									onRewardExchange={confirmRewardExchange}
+									onRewardExchange={handleOpenConfirmRewardDialog}
 								/>
 							</div>
 						))}
