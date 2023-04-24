@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 23, 2023 at 11:04 AM
+-- Generation Time: Apr 24, 2023 at 06:47 AM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -395,6 +395,30 @@ INSERT INTO `image` (`id`, `createdAt`, `updatedAt`, `deletedAt`, `link`, `filen
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `invoice`
+--
+
+CREATE TABLE `invoice` (
+  `id` int(11) NOT NULL,
+  `createdAt` varchar(255) DEFAULT NULL,
+  `updatedAt` varchar(255) DEFAULT NULL,
+  `deletedAt` varchar(255) DEFAULT NULL,
+  `phoneNumber` varchar(255) NOT NULL,
+  `rewardCode` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `invoice`
+--
+
+INSERT INTO `invoice` (`id`, `createdAt`, `updatedAt`, `deletedAt`, `phoneNumber`, `rewardCode`) VALUES
+(7, '09:31:23 24/04/2023', NULL, NULL, '0353292241', 'HDAL17TE78'),
+(11, '11:36:20 23/04/2023', NULL, NULL, '0336010147', 'HDAOM848YS'),
+(12, '11:45:22 24/04/2023', NULL, NULL, '0336010147', 'HDAOVLEQKO');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `level`
 --
 
@@ -455,8 +479,8 @@ CREATE TABLE `player` (
 --
 
 INSERT INTO `player` (`id`, `createdAt`, `updatedAt`, `deletedAt`, `lockedAt`, `phoneNumber`, `password`, `email`, `nickname`, `health`, `star`, `diamond`, `experience`, `level`) VALUES
-(24, '10:39:35 18/04/2023', '16:04:33 23/04/2023', NULL, NULL, '0353292241', '4c79273eed3d095e55d1224f6524ae92', 'thanhlongedu0304@gmail.com', 'player_r3kcxg', 21, 15, 4, 6476, 10),
-(25, '10:50:26 18/04/2023', '13:50:23 23/04/2023', NULL, NULL, '0336010147', '4c79273eed3d095e55d1224f6524ae92', 'nguyenlong0304tester1@gmail.com', 'player_D9NWE6', 0, 0, 0, 0, 1),
+(24, '10:39:35 18/04/2023', '20:14:35 23/04/2023', NULL, NULL, '0353292241', '4c79273eed3d095e55d1224f6524ae92', 'thanhlongedu0304@gmail.com', 'player_r3kcxg', 17, 32014, 25, 6514, 10),
+(25, '10:50:26 18/04/2023', '13:50:23 23/04/2023', NULL, NULL, '0336010147', '4c79273eed3d095e55d1224f6524ae92', 'nguyenlong0304tester1@gmail.com', 'player_D9NWE6', 0, 5154, 0, 0, 1),
 (26, '10:50:50 18/04/2023', NULL, NULL, NULL, '0336010149', '4c79273eed3d095e55d1224f6524ae92', 'nguyenlong0304tester2@gmail.com', 'player_TPiyZC', 3, 0, 0, 0, 1);
 
 -- --------------------------------------------------------
@@ -519,8 +543,19 @@ CREATE TABLE `reward` (
   `giftId` int(11) DEFAULT NULL,
   `playerId` int(11) DEFAULT NULL,
   `starCost` int(11) NOT NULL,
-  `diamondCost` int(11) NOT NULL
+  `diamondCost` int(11) NOT NULL,
+  `invoiceRewardCode` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `reward`
+--
+
+INSERT INTO `reward` (`id`, `createdAt`, `updatedAt`, `deletedAt`, `giftId`, `playerId`, `starCost`, `diamondCost`, `invoiceRewardCode`) VALUES
+(39, '11:27:17 24/04/2023', NULL, NULL, 13, 24, 0, 599, 'HDAL17TE78'),
+(40, '11:28:58 24/04/2023', NULL, NULL, 13, 24, 0, 599, 'HDAL17TE78'),
+(50, '11:36:34 23/04/2023', NULL, NULL, 11, 25, 1399, 0, 'HDAOM848YS'),
+(53, '11:45:32 24/04/2023', NULL, NULL, 11, 25, 1399, 0, 'HDAOVLEQKO');
 
 -- --------------------------------------------------------
 
@@ -630,6 +665,12 @@ ALTER TABLE `image`
   ADD UNIQUE KEY `filename` (`filename`);
 
 --
+-- Indexes for table `invoice`
+--
+ALTER TABLE `invoice`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `level`
 --
 ALTER TABLE `level`
@@ -726,6 +767,12 @@ ALTER TABLE `image`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=108;
 
 --
+-- AUTO_INCREMENT for table `invoice`
+--
+ALTER TABLE `invoice`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+
+--
 -- AUTO_INCREMENT for table `level`
 --
 ALTER TABLE `level`
@@ -747,7 +794,7 @@ ALTER TABLE `question`
 -- AUTO_INCREMENT for table `reward`
 --
 ALTER TABLE `reward`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=54;
 
 --
 -- AUTO_INCREMENT for table `topic`

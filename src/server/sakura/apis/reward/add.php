@@ -31,24 +31,26 @@ $data = getJSONPayloadRequest();
 
 $giftId = $data["giftId"] ?? ""; // int
 $playerId = $data["playerId"] ?? ""; // int
+$playerPhoneNumber = trim($data["playerPhoneNumber"] ?? ""); // string
+$invoiceRewardCode = trim($data["invoiceRewardCode"] ?? ""); // string
 
 
 //? ====================
 //? START
 //? ====================
 // ✅ Thêm record 
-add($giftId, $playerId);
+add($giftId, $playerId, $playerPhoneNumber, $invoiceRewardCode);
 
 
 //? ====================
 //? FUNCTIONS
 //? ====================
-function add($giftId, $playerId)
+function add($giftId, $playerId, $playerPhoneNumber, $invoiceRewardCode)
 {
    global $connect, $tableName;
 
    // Kiểm tra dữ liệu payload
-   if (!is_numeric($giftId) || !is_numeric($playerId)) {
+   if (!is_numeric($giftId) || !is_numeric($playerId) || $playerPhoneNumber === "" || $invoiceRewardCode === "") {
       $response = new ResponseAPI(9, "Không đủ payload để thực hiện");
       $response->send();
       return;
@@ -68,22 +70,40 @@ function add($giftId, $playerId)
          return;
       }
 
+      if (!checkInvoiceRewardCode($invoiceRewardCode)) {
+         $response = new ResponseAPI(4, "Mã đổi thưởng không hợp lệ");
+         $response->send();
+         return;
+      }
+
+      if (!checkInvoicePhoneNumber($playerPhoneNumber)) {
+         $response = new ResponseAPI(5, "Số điện thoại yêu cầu đổi thưởng không khớp với số điện thoại trong hóa đơn");
+         $response->send();
+         return;
+      }
+
+      if (!checkInvoiceCreatedAt($invoiceRewardCode)) {
+         $response = new ResponseAPI(6, "Hóa đơn đã quá hạn để đổi thưởng");
+         $response->send();
+         return;
+      }
+
       // Cập nhật game data cho player
       if (updatePlayerGameData($playerId, $playerStar, $playerDiamond)) {
          // createdAt, updateAt, deletedAt
          $createdAt = getCurrentDatetime();
 
          // Thực thi query
-         $query = "INSERT INTO `$tableName`(`createdAt`, `giftId`, `playerId`, `starCost`, `diamondCost`) 
-            VALUES('$createdAt', '$giftId', '$playerId', '$gift->starCost', '$gift->diamondCost')";
+         $query = "INSERT INTO `$tableName`(`createdAt`, `giftId`, `playerId`, `starCost`, `diamondCost`, `invoiceRewardCode`) 
+            VALUES('$createdAt', '$giftId', '$playerId', '$gift->starCost', '$gift->diamondCost', '$invoiceRewardCode')";
          performsQueryAndResponseToClient($query);
       } else {
-         $response = new ResponseAPI(4, "Không thể cập nhật dữ liệu trò chơi của người chơi");
+         $response = new ResponseAPI(7, "Không thể cập nhật dữ liệu trò chơi của người chơi");
          $response->send();
          return;
       }
    } else {
-      $response = new ResponseAPI(5, "Không tìm thấy dữ liệu phần thưởng hoặc người chơi");
+      $response = new ResponseAPI(8, "Không tìm thấy dữ liệu phần thưởng hoặc người chơi");
       $response->send();
       return;
    }
@@ -147,4 +167,52 @@ function updatePlayerGameData($playerId, $star, $diamond)
    $result = mysqli_query($connect, $query);
 
    return $result;
+}
+
+// Kiểm tra mã đổi thưởng
+function checkInvoiceRewardCode($rewardCode)
+{
+   global $connect;
+
+   $query = "SELECT * FROM `invoice` WHERE `deletedAt` IS NULL AND `rewardCode` = '$rewardCode' LIMIT 1";
+   $result = mysqli_query($connect, $query);
+
+   if ($result && mysqli_num_rows($result) > 0) {
+      return true;
+   }
+
+   return false;
+}
+
+// Kiểm tra số điện thoại đúng với trong invoice
+function checkInvoicePhoneNumber($phoneNumber)
+{
+   global $connect;
+
+   $query = "SELECT * FROM `invoice` WHERE `deletedAt` IS NULL AND `phoneNumber` = '$phoneNumber' LIMIT 1";
+   $result = mysqli_query($connect, $query);
+
+   if ($result && mysqli_num_rows($result) > 0) {
+      return true;
+   }
+
+   return false;
+}
+
+// Kiểm tra thời gian đổi thưởng (chỉ áp dụng trong ngày)
+function checkInvoiceCreatedAt($rewardCode)
+{
+   global $connect;
+
+   // Get current date
+   $currentDate = date("d/m/Y");
+
+   $query = "SELECT * FROM `invoice` WHERE `deletedAt` IS NULL AND `createdAt` LIKE '%$currentDate' AND `rewardCode` = '$rewardCode' LIMIT 1";
+   $result = mysqli_query($connect, $query);
+
+   if ($result && mysqli_num_rows($result) > 0) {
+      return true;
+   }
+
+   return false;
 }
