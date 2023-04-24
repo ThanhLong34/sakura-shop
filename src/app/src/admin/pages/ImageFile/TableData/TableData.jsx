@@ -1,4 +1,5 @@
 import { useState, useRef, useEffect, useCallback, memo } from "react";
+import { createPortal } from "react-dom";
 import PropTypes from "prop-types";
 
 import imageFileApi from "@/apis/imageFileApi";
@@ -248,7 +249,7 @@ const TableData = ({ onOpenDialog }) => {
 
 	return (
 		<div>
-			<Toast ref={toastRef} />
+			{createPortal(<Toast ref={toastRef} />, document.body)}
 			<ConfirmPopup />
 			<div className="grid mb-3">
 				<div className="col-6">

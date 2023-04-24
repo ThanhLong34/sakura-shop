@@ -12,7 +12,7 @@ const Input = forwardRef(({ className, type, label, icon, placeholder, inputType
 		ref,
 		() => ({
 			getValue() {
-				return inputRef.current?.value ?? null;
+				return inputRef.current?.value.trim() ?? null;
 			},
 			reset() {
 				if (inputRef.current) {

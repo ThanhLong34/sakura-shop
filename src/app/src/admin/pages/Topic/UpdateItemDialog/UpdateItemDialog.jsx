@@ -1,4 +1,5 @@
 import { useRef, useState } from "react";
+import { createPortal } from "react-dom";
 import PropTypes from "prop-types";
 import { createImageFileFromUrl } from "@/helpers/converter";
 
@@ -239,7 +240,7 @@ function UpdateItemDialog({ visible, setVisible, item, onSubmitted }) {
 
 	return (
 		<>
-			<Toast ref={toastRef} />
+			{createPortal(<Toast ref={toastRef} />, document.body)}
 			<Dialog
 				header="THAY ĐỔI CHỦ ĐỀ"
 				visible={visible}

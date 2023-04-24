@@ -1,4 +1,5 @@
 import { useState, useRef, useEffect, useCallback, useImperativeHandle, memo, forwardRef } from "react";
+import { createPortal } from "react-dom";
 import PropTypes from "prop-types";
 
 import gameConventionApi from "@/apis/gameConventionApi";
@@ -171,7 +172,7 @@ const TableData = forwardRef(({ onOpenDialog }, ref) => {
 
 	return (
 		<div>
-			<Toast ref={toastRef} />
+			{createPortal(<Toast ref={toastRef} />, document.body)}
 			<ConfirmPopup />
 			<div className="grid mb-3">
 				<div className="col-6">

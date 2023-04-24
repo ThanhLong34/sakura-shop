@@ -1,4 +1,5 @@
 import { useRef, useState } from "react";
+import { createPortal } from "react-dom";
 import PropTypes from "prop-types";
 
 import answerApi from "@/apis/answerApi";
@@ -194,7 +195,7 @@ function AnswerManagementDialog({ visible, setVisible, item, onSubmitted }) {
 
 	return (
 		<>
-			<Toast ref={toastRef} />
+			{createPortal(<Toast ref={toastRef} />, document.body)}
 			<ConfirmPopup />
 			<Dialog
 				header="QUẢN LÝ CÂU TRẢ LỜI"

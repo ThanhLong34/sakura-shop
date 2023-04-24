@@ -1,4 +1,5 @@
 import { useRef } from "react";
+import { createPortal } from "react-dom";
 import PropTypes from "prop-types";
 import classNames from "classnames/bind";
 import styles from "./UpdateItemDialog.module.scss";
@@ -101,7 +102,7 @@ function UpdateItemDialog({ visible, setVisible, item, onSubmitted }) {
 
 	return (
 		<>
-			<Toast ref={toastRef} />
+			{createPortal(<Toast ref={toastRef} />, document.body)}
 			<Dialog
 				header="THAY ĐỔI CÂU HỎI"
 				visible={visible}

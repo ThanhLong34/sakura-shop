@@ -1,4 +1,5 @@
 import { useRef } from "react";
+import { createPortal } from "react-dom";
 import PropTypes from "prop-types";
 
 import advertisementTypeApi from "@/apis/advertisementTypeApi";
@@ -77,7 +78,7 @@ function UpdateItemDialog({ visible, setVisible, item, onSubmitted }) {
 
 	return (
 		<>
-			<Toast ref={toastRef} />
+			{createPortal(<Toast ref={toastRef} />, document.body)}
 			<Dialog
 				header="THAY ĐỔI LOẠI QUẢNG CÁO"
 				visible={visible}

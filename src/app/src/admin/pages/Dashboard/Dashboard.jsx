@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef } from "react";
+import { createPortal } from "react-dom";
 import classNames from "classnames/bind";
 import styles from "./Dashboard.module.scss";
 import dashboardImage from "@/assets/images/Dashboard.png";
@@ -63,7 +64,7 @@ function Dashboard() {
 
 	return (
 		<div>
-			<Toast ref={toastRef} />
+			{createPortal(<Toast ref={toastRef} />, document.body)}
 			<div className="grid">
 				<div className="col-12 md:col-4">
 					<div className={cx("card", "statistical", "player")}>

@@ -1,4 +1,5 @@
 import { useRef, useState } from "react";
+import { createPortal } from "react-dom";
 import PropTypes from "prop-types";
 import classNames from "classnames/bind";
 import styles from "./AddItemDialog.module.scss";
@@ -266,7 +267,7 @@ function AddItemDialog({ visible, setVisible, onSubmitted }) {
 
 	return (
 		<>
-			<Toast ref={toastRef} />
+			{createPortal(<Toast ref={toastRef} />, document.body)}
 			<Dialog
 				header="THÊM THẺ BÀI"
 				visible={visible}

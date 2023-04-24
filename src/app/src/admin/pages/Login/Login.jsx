@@ -1,4 +1,5 @@
 import { useState, useRef } from "react";
+import { createPortal } from "react-dom";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import classNames from "classnames/bind";
@@ -142,7 +143,7 @@ function Login() {
 
 	return (
 		<div className={cx("login")}>
-			<Toast ref={toastRef} position="top-center" />
+			{createPortal(<Toast ref={toastRef} />, document.body)}
 			<Dialog
 				header="Reset mật khẩu"
 				visible={dialogVisible}

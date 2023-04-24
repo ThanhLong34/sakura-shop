@@ -1,4 +1,5 @@
 import { useRef, useState } from "react";
+import { createPortal } from "react-dom";
 import PropTypes from "prop-types";
 
 import gameConventionApi from "@/apis/gameConventionApi";
@@ -88,7 +89,7 @@ function AddItemDialog({ visible, setVisible, onSubmitted }) {
 
 	return (
 		<>
-			<Toast ref={toastRef} />
+			{createPortal(<Toast ref={toastRef} />, document.body)}
 			<Dialog header="THÊM QUY ƯỚC TRÒ CHƠI" visible={visible} style={{ width: "620px" }} onHide={handleCloseDialog}>
 			<div className="mb-4">
 					<span className="block mb-2">

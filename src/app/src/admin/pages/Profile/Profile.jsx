@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from "react";
+import { createPortal } from "react-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { updateAdminAccountEmail, updateAdminAccountPhoneNumber } from "@/store/adminSlice";
 import adminApi from "@/apis/adminApi";
@@ -28,7 +29,7 @@ function Profile() {
 	}, []);
 
 	async function handleUpdatePassword() {
-		const newPassword = newPasswordRef.current?.value;
+		const newPassword = newPasswordRef.current?.value.trim();
 
 		if (!newPassword) {
 			toastRef.current.show({
@@ -51,14 +52,13 @@ function Profile() {
 			});
 
 			setDialogVisible(false);
-
 		} else {
 			toastRef.current.show({ severity: "error", summary: "Lỗi", detail: response.message, life: 3000 });
 		}
 	}
 
 	async function handleUpdateEmail() {
-		const email = emailRef.current?.value;
+		const email = emailRef.current?.value.trim();
 
 		if (!email) {
 			toastRef.current.show({
@@ -82,14 +82,13 @@ function Profile() {
 
 			const action = updateAdminAccountEmail(email);
 			dispatch(action);
-
 		} else {
 			toastRef.current.show({ severity: "error", summary: "Lỗi", detail: response.message, life: 3000 });
 		}
 	}
 
 	async function handleUpdatePhoneNumber() {
-		const phoneNumber = phoneNumberRef.current?.value;
+		const phoneNumber = phoneNumberRef.current?.value.trim();
 
 		if (!phoneNumber) {
 			toastRef.current.show({
@@ -113,7 +112,6 @@ function Profile() {
 
 			const action = updateAdminAccountPhoneNumber(phoneNumber);
 			dispatch(action);
-
 		} else {
 			toastRef.current.show({ severity: "error", summary: "Lỗi", detail: response.message, life: 3000 });
 		}
@@ -121,7 +119,7 @@ function Profile() {
 
 	return (
 		<>
-			<Toast ref={ toastRef } position="top-center" />
+			{createPortal(<Toast ref={toastRef} position="top-center" />, document.body)}
 			<Dialog
 				header="Thay đổi mật khẩu"
 				visible={dialogVisible}
@@ -132,13 +130,7 @@ function Profile() {
 					<i className="pi pi-lock"></i>
 					<InputText ref={newPasswordRef} className="w-full" type="password" placeholder="Nhập mật khẩu mới" />
 				</span>
-				<Button
-					className="w-full"
-					label="Gửi"
-					severity="help"
-					outlined
-					onClick={handleUpdatePassword}
-				/>
+				<Button className="w-full" label="Gửi" severity="help" outlined onClick={handleUpdatePassword} />
 			</Dialog>
 
 			<div className="card">
@@ -164,12 +156,23 @@ function Profile() {
 									placeholder="Nhập số điện thoại"
 								/>
 							</span>
-							<Button className="w-full" label="Thay đổi số điện thoại" outlined onClick={handleUpdatePhoneNumber} />
+							<Button
+								className="w-full"
+								label="Thay đổi số điện thoại"
+								outlined
+								onClick={handleUpdatePhoneNumber}
+							/>
 						</div>
 					</div>
 					<div className="col-12 md:col-6 mt-4">
 						<h4 className="mb-2">Thay đổi mật khẩu</h4>
-						<Button className="w-full" label="Thay đổi mật khẩu" severity="warning" outlined onClick={() => setDialogVisible(true)} />
+						<Button
+							className="w-full"
+							label="Thay đổi mật khẩu"
+							severity="warning"
+							outlined
+							onClick={() => setDialogVisible(true)}
+						/>
 					</div>
 				</div>
 			</div>
