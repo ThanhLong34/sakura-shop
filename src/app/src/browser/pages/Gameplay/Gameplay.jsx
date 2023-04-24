@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState, useMemo } from "react";
+import { useEffect, useRef, useState, useMemo, useCallback } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import classNames from "classnames/bind";
@@ -199,7 +199,7 @@ function Gameplay() {
 	};
 
 	//? Handles
-	const handleSelectCard = (card) => {
+	const handleSelectCard = useCallback((card) => {
 		if (!disableSelectCard) {
 			!choiceCardOne ? setChoiceCardOne(card) : setChoiceCardTwo(card);
 			setCards((prevCards) =>
@@ -209,7 +209,7 @@ function Gameplay() {
 				}))
 			);
 		}
-	};
+	}, [disableSelectCard, choiceCardOne, choiceCardTwo]);
 	const handleEndGame = () => {
 		timeCounterRef.current.pause();
 		const times = timeCounterRef.current.getTimes();
@@ -282,7 +282,7 @@ function Gameplay() {
 				}
 			});
 	};
-	const handleResetGame = () => {
+	const handleResetGame = useCallback(() => {
 		timeCounterRef.current.start();
 		const cardsShuffledByOccurrenceRate = arrayShuffledByProbability(cardsOrigin, "occurrenceRate");
 		const cardsToPlay = getCardsShuffled(cardsShuffledByOccurrenceRate);
@@ -295,7 +295,7 @@ function Gameplay() {
 		resetTurn();
 
 		substractHealth();
-	};
+	}, [cardsOrigin]);
 
 	if (playerAccount.health > 0 || allowedToPlayFlag) {
 		return (
