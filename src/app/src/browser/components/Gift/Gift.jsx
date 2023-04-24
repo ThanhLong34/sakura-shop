@@ -53,7 +53,7 @@ function Gift({ gift, onOpenViewGiftDialog, onRewardExchange }) {
 					icon="pi pi-eye"
 					severity="info"
 					outlined
-					onClick={() => onOpenViewGiftDialog(gift)}
+					onClick={() => onOpenViewGiftDialog("ViewGiftDialog", gift)}
 				/>
 				<Button
 					className="block w-full"

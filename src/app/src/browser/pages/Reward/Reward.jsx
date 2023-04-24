@@ -8,10 +8,12 @@ import giftApi from "@/apis/giftApi";
 import rewardApi from "@/apis/rewardApi";
 
 import ViewGiftDialog from "@/browser/components/ViewGiftDialog";
+import ViewRewardHistoryDialog from "./ViewRewardHistoryDialog";
+import ConfirmRewardDialog from "./ConfirmRewardDialog";
 import Gift from "@/browser/components/Gift";
+
 import { confirmDialog } from "primereact/confirmdialog";
 import { Button } from "primereact/button";
-import ViewRewardHistoryDialog from "./ViewRewardHistoryDialog";
 
 const cx = classNames.bind(styles);
 
@@ -23,6 +25,7 @@ function Reward() {
 	const [selectedGift, setSelectedGift] = useState(null);
 	const [viewGiftDialogVisible, setViewGiftDialogVisible] = useState(false);
 	const [viewRewardHistoryDialogVisible, setViewRewardHistoryDialogVisible] = useState(false);
+	const [confirmRewardDialogVisible, setConfirmRewardDialogVisible] = useState(false);
 
 	useEffect(() => {
 		giftApi.getAll().then((response) => {
@@ -41,9 +44,24 @@ function Reward() {
 	}, []);
 
 	//? Handles
-	const handleOpenViewGiftDialog = useCallback((gift) => {
-		setViewGiftDialogVisible(true);
-		setSelectedGift(gift);
+	const handleOpenDialog = useCallback((type, payload) => {
+		switch (type) {
+			case "ViewGiftDialog": {
+				setViewGiftDialogVisible(true);
+				setSelectedGift(payload);
+				break;
+			}
+			case "ViewRewardHistoryDialog": {
+				setViewRewardHistoryDialogVisible(true);
+				break;
+			}
+			case "ConfirmRewardDialogVisible": {
+				setConfirmRewardDialogVisible(true);
+				break;
+			}
+			default:
+				break;
+		}
 	}, []);
 	const handleRewardExchange = useCallback(
 		(gift) => {
@@ -61,6 +79,7 @@ function Reward() {
 							rejectLabel: "Đóng",
 							acceptLabel: "Oke",
 							acceptClassName: "p-button-success",
+							closable: false,
 						});
 
 						const gameData = {
@@ -78,6 +97,7 @@ function Reward() {
 							rejectLabel: "Đóng",
 							acceptLabel: "Đã hiểu",
 							acceptClassName: "p-button-danger",
+							closable: false,
 						});
 					}
 				});
@@ -94,16 +114,10 @@ function Reward() {
 					rejectLabel: "Đóng",
 					acceptLabel: "Đã hiểu",
 					acceptClassName: "p-button-danger",
+					closable: false,
 				});
 			} else {
-				confirmDialog({
-					message: "Bạn có chắc chắn muốn đổi lấy phần thưởng này?",
-					header: "XÁC NHẬN",
-					icon: "pi pi-info-circle",
-					acceptLabel: "Có",
-					rejectLabel: "Hủy",
-					accept: () => handleRewardExchange(gift),
-				});
+				handleOpenDialog("ConfirmRewardDialogVisible");
 			}
 		},
 		[handleRewardExchange, playerAccount]
@@ -117,6 +131,10 @@ function Reward() {
 				setVisible={setViewRewardHistoryDialogVisible}
 				playerAccount={playerAccount}
 			/>
+			<ConfirmRewardDialog
+				visible={confirmRewardDialogVisible}
+				setVisible={ setConfirmRewardDialogVisible }
+			/>
 			<div className={cx("wrapper", "card")}>
 				<div className="flex justify-content-center align-items-center mb-2">
 					<h5 className={cx("heading", "flex-grow-1")}>Danh sách phần thưởng</h5>
@@ -126,7 +144,7 @@ function Reward() {
 						icon="pi pi-book"
 						severity="info"
 						outlined
-						onClick={() => setViewRewardHistoryDialogVisible(true)}
+						onClick={() => handleOpenDialog("ViewRewardHistoryDialog")}
 					/>
 				</div>
 				<div className={cx("gift-list", "grid")}>
@@ -135,7 +153,7 @@ function Reward() {
 							<div className={cx("gift-item", "col-6 md:col-3")} key={gift.id}>
 								<Gift
 									gift={gift}
-									onOpenViewGiftDialog={handleOpenViewGiftDialog}
+									onOpenViewGiftDialog={handleOpenDialog}
 									onRewardExchange={confirmRewardExchange}
 								/>
 							</div>

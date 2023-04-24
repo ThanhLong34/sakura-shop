@@ -286,7 +286,7 @@ function TableData({ onOpenDialog }) {
 	const actionsTemplate = (rowData) => {
 		const actions = [
 			{
-				label: "Xem chi tiết",
+				label: "Xem thông tin",
 				icon: "pi pi-eye",
 				command: () => {
 					onOpenDialog('ViewItemDialog', rowData);

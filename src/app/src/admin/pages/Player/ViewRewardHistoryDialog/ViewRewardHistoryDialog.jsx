@@ -171,6 +171,7 @@ function ViewRewardHistoryDialog({ visible, setVisible, item }) {
 					sortable
 					sortFunction={getSortedTableData}
 				/>
+				<Column field="createdAt" header="Thời gian nhận" />
 			</DataTable>
 			<Paginator
 				className="mt-4"

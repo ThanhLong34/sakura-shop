@@ -117,7 +117,7 @@ function ViewRewardHistoryDialog({ visible, setVisible, playerAccount }) {
 
 	return (
 		<Dialog
-			header="LỊCH SỬ ĐỔI THƯỞNG CỦA NGƯỜI CHƠI"
+			header="LỊCH SỬ ĐỔI THƯỞNG CỦA BẠN"
 			visible={visible}
 			style={{ width: "1000px" }}
 			onHide={() => setVisible(false)}
@@ -171,6 +171,7 @@ function ViewRewardHistoryDialog({ visible, setVisible, playerAccount }) {
 					sortable
 					sortFunction={getSortedTableData}
 				/>
+				<Column field="createdAt" header="Thời gian nhận" />
 			</DataTable>
 			<Paginator
 				className="mt-4"
