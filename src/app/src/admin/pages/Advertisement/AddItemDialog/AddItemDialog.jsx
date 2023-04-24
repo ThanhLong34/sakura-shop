@@ -387,7 +387,7 @@ function AddItemDialog({ visible, setVisible, onSubmitted }) {
 		<>
 			{createPortal(<Toast ref={toastRef} />, document.body)}
 			<Dialog
-				header="THÊM THẺ BÀI"
+				header="THÊM QUẢNG CÁO"
 				visible={visible}
 				style={{ width: "620px" }}
 				onHide={handleCloseDialog}

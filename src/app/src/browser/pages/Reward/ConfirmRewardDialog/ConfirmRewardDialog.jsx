@@ -40,7 +40,7 @@ function ConfirmRewardDialog({ visible, setVisible, onAccept }) {
 	const handleCloseDialog = () => {
 		setVisible(false);
 	};
-	const handleShowDialog = () => {
+	const handleOpenDialog = () => {
 		setRewardCode("");
 	};
 
@@ -52,7 +52,7 @@ function ConfirmRewardDialog({ visible, setVisible, onAccept }) {
 				visible={visible}
 				style={{ width: "650px" }}
 				onHide={handleCloseDialog}
-				onShow={handleShowDialog}
+				onShow={handleOpenDialog}
 			>
 				<p>
 					Để đổi lấy phần thưởng này, bạn phải nhập <span className="text-pink-500">mã đổi thưởng từ hóa đơn</span>{" "}
