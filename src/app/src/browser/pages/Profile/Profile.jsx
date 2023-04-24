@@ -143,7 +143,7 @@ function Profile() {
 
 			<div className={cx("card", "wrapper")}>
 				<h2 className={cx("text-center", "heading")}>Thông tin tài khoản</h2>
-				<div className="grid mt-4">
+				<div className="grid mt-2">
 					<div className="col-12">
 						<div className="col-12 mb-2">
 							<h4 className="mb-2">Tên người chơi:</h4>

@@ -18,17 +18,17 @@
 
 	&.easy {
 		grid-template-columns: repeat(4, 1fr);
-		width: 110vmin;
+		width: 104vmin;
 	}
 
 	&.normal {
 		grid-template-columns: repeat(4, 1fr);
-		width: 82vmin;
+		width: 78vmin;
 	}
 
 	&.hard {
 		grid-template-columns: repeat(5, 1fr);
-		width: 104vmin;
+		width: 98vmin;
 	}
 }
 
@@ -36,11 +36,12 @@
 	width: 130px;
 	max-width: 130px;
 	height: fit-content;
+	padding: 1rem !important;
 
 	&-item {
 		display: flex;
 		align-items: center;
-		padding-left: 0.6rem;
+		padding-left: 1rem;
 
 		&+& {
 			margin-top: 1.2rem;
@@ -55,7 +56,6 @@
 		span {
 			display: inline-block;
 			font-size: 1.2rem;
-			transform: translateY(2px);
 		}
 	}
 }

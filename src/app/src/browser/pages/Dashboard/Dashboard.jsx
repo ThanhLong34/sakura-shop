@@ -39,7 +39,7 @@ function Dashboard() {
 								<div className={cx("card background-transparent", "note")}>
 									<h6 className={cx("note-title")}>Lưu ý:</h6>
 									<p className={cx("note-text")}>
-										Tất cả phần thưởng từ cửa hàng chỉ được phép đổi thưởng khi bạn mua hàng tại của hàng của
+										Tất cả phần thưởng từ cửa hàng chỉ được phép đổi thưởng khi bạn mua hàng tại cửa hàng của
 										chúng tôi. Bạn cần phải có đủ số sao hoặc kim cương để đổi thưởng.
 									</p>
 								</div>
@@ -56,9 +56,7 @@ function Dashboard() {
 							<h6 className={cx("mode-title")}>Chọn chế độ chơi</h6>
 							<Link to="/classic-mode">
 								<div className={cx("mode-item", "mb-3")}>
-									<div className={cx("mode-image")}>
-										<img src={ConsoleIcon} alt="console" />
-									</div>
+									<img className={cx("mode-image")} src={ConsoleIcon} alt="console" />
 									<div className={cx("mode-info")}>
 										<h6 className={cx("mode-name")}>Chế độ cổ điển</h6>
 										<p className={cx("mode-desc")}>
@@ -74,9 +72,7 @@ function Dashboard() {
 							</Link>
 							<Link to="/optional-mode">
 								<div className={cx("mode-item", "mb-3")}>
-									<div className={cx("mode-image")}>
-										<img src={GameboyIcon} alt="game boy" />
-									</div>
+									<img className={cx("mode-image")} src={GameboyIcon} alt="game boy" />
 									<div className={cx("mode-info")}>
 										<h6 className={cx("mode-name")}>Chế độ tùy chọn</h6>
 										<p className={cx("mode-desc")}>

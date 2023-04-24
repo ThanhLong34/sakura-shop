@@ -23,12 +23,51 @@
 .item-value {
 	font-size: 2.4rem;
 	color: $bTertiaryColor;
-	transform: translateY(2px);
 }
 
 .level-up {
-	text-align: left;
-	font-size: 1.4rem;
-	margin-left: 2rem;
-	color: $bSecondaryColor;
+
+	&-image {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+	}
+
+	&-icon {
+		width: 80px;
+	}
+
+	&-level {
+		font-size: 3rem;
+		margin-left: 0.5rem;
+		color: $bTertiaryColor;
+	}
+
+	&-text {
+		color: $bSecondaryColor;
+		text-align: center;
+		margin-top: 1rem;
+		font-size: 1.2rem;
+	}
+
+	&-heading {
+		color: $bPrimaryColor;
+		margin-bottom: 1.5rem;
+	}
+
+	&-item-data {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+	}
+
+	&-item-icon {
+		width: 32px;
+	}
+
+	&-item-value {
+		margin-left: 0.5rem;
+		font-size: 1.2rem;
+		color: $bTertiaryColor;
+	}
 }
