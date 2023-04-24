@@ -6,6 +6,7 @@ import QuizIcon from "@/assets/images/dockIcons/Quiz.png";
 import AdsIcon from "@/assets/images/dockIcons/Ads.png";
 import { useState } from "react";
 import QuizDialog from "./QuizDialog";
+import AdsDialog from "./AdsDialog";
 
 const cx = classNames.bind(styles);
 
@@ -16,6 +17,7 @@ function QuizAndAds() {
 	return (
 		<>
 			<QuizDialog visible={quizDialogVisible} setVisible={setQuizDialogVisible} />
+			<AdsDialog visible={adsDialogVisible} setVisible={setAdsDialogVisible} />
 			<div className={cx("card", "wrapper")}>
 				<h5 className={cx("heading1")}>Thu thập sức khỏe</h5>
 				<h6 className={cx("heading2", "mt-4")}>
