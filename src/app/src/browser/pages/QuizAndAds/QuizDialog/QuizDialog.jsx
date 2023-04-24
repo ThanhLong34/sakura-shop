@@ -17,6 +17,7 @@ import HealthIcon from "@/assets/images/HeartIcon.png";
 import StarIcon from "@/assets/images/StarIcon.png";
 import DiamondIcon from "@/assets/images/DiamondIcon.png";
 import { Toast } from "primereact/toast";
+import { Messages } from "primereact/messages";
 
 const cx = classNames.bind(styles);
 
@@ -29,7 +30,9 @@ function QuizDialog({ visible, setVisible }) {
 	const dispatch = useDispatch();
 	const playerAccount = useSelector((state) => state.player.account);
 
+	//? Refs
 	const toastRef = useRef(null);
+	const msgs = useRef(null);
 
 	//? States
 	const [questions, setQuestions] = useState([]);
@@ -109,8 +112,18 @@ function QuizDialog({ visible, setVisible }) {
 			setQuestionRandom(questionRandom);
 			setSubmited(false);
 			setAnswerSelected(null);
+			msgs.current.clear();
 		} else {
 			if (answerSelected.isRight) {
+				msgs.current.show([
+					{
+						sticky: true,
+						severity: "success",
+						detail: "Chúc mừng, bạn đã trả lời đúng",
+						closable: false,
+					},
+				]);
+
 				const gameData = {
 					health: playerAccount.health + questionRandom.healthReward,
 					star: playerAccount.star + questionRandom.starReward,
@@ -135,7 +148,17 @@ function QuizDialog({ visible, setVisible }) {
 							dispatch(action);
 						}
 					});
+			} else {
+				msgs.current.show([
+					{
+						sticky: true,
+						severity: "error",
+						detail: "Thật tiếc, bạn đã trả lời sai",
+						closable: false,
+					},
+				]);
 			}
+
 			setSubmited(true);
 		}
 	};
@@ -192,17 +215,9 @@ function QuizDialog({ visible, setVisible }) {
 								)}
 							</div>
 						</div>
-						{submited && answerSelected && (
-							<div className="mt-4">
-								{(() => {
-									if (answerSelected.isRight) {
-										return <h5 className={cx("congratulation")}>Chúc mừng, bạn đã trả lời đúng!</h5>;
-									} else {
-										return <h5 className={cx("solace")}>Ôi không, bạn đã trả lời sai!</h5>;
-									}
-								})()}
-							</div>
-						)}
+						<div className="mt-4">
+							<Messages ref={msgs} />
+						</div>
 					</div>
 				)}
 				<div className="flex align-items-center justify-content-end mt-4">

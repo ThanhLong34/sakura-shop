@@ -155,6 +155,7 @@ function Profile() {
 								className="w-full"
 								label="Thay đổi tên người chơi"
 								outlined
+								icon="pi pi-save"
 								onClick={handleUpdateNickname}
 							/>
 						</div>
@@ -164,20 +165,34 @@ function Profile() {
 								<i className="pi pi-envelope"></i>
 								<InputText ref={emailRef} className="w-full" type="email" placeholder="Nhập email" />
 							</span>
-							<Button className="w-full" label="Thay đổi email" outlined onClick={handleUpdateEmail} />
+							<Button
+								className="w-full"
+								label="Thay đổi email"
+								icon="pi pi-save"
+								outlined
+								onClick={handleUpdateEmail}
+							/>
 						</div>
-						<div className="col-12 mb-2">
+						<div className="col-12 mb-3">
 							<h4 className="mb-2">Thay đổi mật khẩu</h4>
 							<Button
 								className="w-full"
 								label="Thay đổi mật khẩu"
 								severity="warning"
 								outlined
+								icon="pi pi-lock"
 								onClick={() => setDialogVisible(true)}
 							/>
 						</div>
 						<div className="col-12 mb-2">
-							<Button className="w-full" label="ĐĂNG XUẤT" severity="danger" onClick={handleLogout} />
+							<Button
+								className="w-full"
+								label="ĐĂNG XUẤT"
+								severity="danger"
+								icon="pi pi-sign-in"
+								raised
+								onClick={handleLogout}
+							/>
 						</div>
 					</div>
 				</div>

@@ -295,7 +295,7 @@ function Gameplay() {
 		resetTurn();
 
 		substractHealth();
-	}, [cardsOrigin]);
+	}, [cardsOrigin, substractHealth, getCardsShuffled]);
 
 	if (playerAccount.health > 0 || allowedToPlayFlag) {
 		return (
