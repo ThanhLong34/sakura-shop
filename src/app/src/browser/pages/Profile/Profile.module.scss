@@ -1,0 +1,12 @@
+@use "@/assets/styles/variables.scss" as *;
+
+.wrapper {
+	color: $bTertiaryColor;
+	width: 650px;
+	margin: 0 auto;
+}
+
+.heading {
+	color: $bPrimaryColor;
+	font-size: 2rem;
+}

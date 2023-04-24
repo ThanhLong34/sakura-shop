@@ -10,3 +10,24 @@
 .gift-item {
 	padding: 1rem !important;
 }
+
+.note {
+	color: $bTertiaryColor;
+	font-size: 1rem;
+	padding-left: 1rem;
+
+	&-heading {
+		color: $bSecondaryColor;
+		font-size: 1.4rem;
+	}
+
+	&-list {
+		margin: 0.5rem 0;
+		list-style-type: disc;
+		padding-left: 1rem;
+	}
+
+	&-label {
+		margin-top: 1rem;
+	}
+}

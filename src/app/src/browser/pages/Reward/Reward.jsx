@@ -154,6 +154,20 @@ function Reward() {
 						onClick={() => handleOpenDialog("ViewRewardHistoryDialog")}
 					/>
 				</div>
+				<div className={cx('note', 'mb-4')}>
+					<p className={cx('note-heading')}>Lưu ý khi đổi thưởng:</p>
+					<p className={cx('note-label')}>Các yêu cầu khi đổi thưởng:</p>
+					<ul className={cx('note-list')}>
+						<li>Bạn phải có đủ số sao hoặc kim cương</li>
+						<li>Bạn phải mua ít nhất 1 sản phẩm từ cửa hàng để nhận được hóa đơn mua hàng</li>
+						<li>Bạn phải có mã nhận thưởng từ hóa đơn mua hàng trong ngày</li>
+						<li>Chỉ áp dụng đổi thưởng cùng với hóa đơn mua hàng trong ngày</li>
+					</ul>
+					<p className={cx('note-label')}>
+						Đối với các phần thưởng cho phép nhận khi mua hàng online, đơn hàng của bạn phải được duyệt và thanh
+						toán
+					</p>
+				</div>
 				<div className={cx("gift-list", "grid")}>
 					{gifts &&
 						gifts.map((gift) => (
