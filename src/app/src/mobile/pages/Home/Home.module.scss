@@ -24,7 +24,6 @@
 	display: grid;
 	grid-template-columns: repeat(3, 1fr);
 	gap: 6px;
-	margin: 1.2rem 0 1.5rem;
 
 	img {
 		width: 100%;
@@ -38,11 +37,10 @@
 
 .title {
 	color: $mPrimaryColor;
-	font-size: 1rem;
+	font-size: 1.2rem;
 }
 
 .desc {
-	margin-bottom: 1rem;
 	font-size: 0.8rem;
 }
 

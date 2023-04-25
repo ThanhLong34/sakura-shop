@@ -70,7 +70,7 @@ function Reward() {
 				rewardApi
 					.add({
 						giftId: selectedGift.id,
-						playerId: playerAccount.id,
+						playerId: +playerAccount.id,
 						playerPhoneNumber: playerAccount.phoneNumber,
 						invoiceRewardCode: rewardCode,
 					})
@@ -88,8 +88,8 @@ function Reward() {
 							});
 
 							const gameData = {
-								star: playerAccount.star - selectedGift.starCost,
-								diamond: playerAccount.diamond - selectedGift.diamondCost,
+								star: +playerAccount.star - selectedGift.starCost,
+								diamond: +playerAccount.diamond - selectedGift.diamondCost,
 							};
 							const action = updatePlayerAccountGameData(gameData);
 
@@ -112,7 +112,7 @@ function Reward() {
 	);
 	const handleOpenConfirmRewardDialog = useCallback(
 		(gift) => {
-			if (playerAccount.star - gift.starCost < 0 || playerAccount.diamond - gift.diamondCost < 0) {
+			if (+playerAccount.star - gift.starCost < 0 || +playerAccount.diamond - gift.diamondCost < 0) {
 				confirmDialog({
 					message: "Bạn không đủ sao hoặc kim cương để đổi lấy phần thưởng này",
 					header: "ÔI KHÔNG",

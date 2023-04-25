@@ -186,11 +186,14 @@ function Gameplay() {
 	};
 	const substractHealth = () => {
 		// Check health & subtract
-		if (playerAccount.health > 0) {
+		if (+playerAccount.health > 0) {
 			(async () => {
-				const response = await playerApi.updateGameData({ id: playerAccount.id, health: playerAccount.health - 1 });
+				const response = await playerApi.updateGameData({
+					id: +playerAccount.id,
+					health: +playerAccount.health - 1,
+				});
 				if (response.code === 1) {
-					const action = updatePlayerAccountGameData({ health: playerAccount.health - 1 });
+					const action = updatePlayerAccountGameData({ health: +playerAccount.health - 1 });
 					dispatch(action);
 					setAllowedToPlayFlag(true);
 				}
@@ -199,17 +202,21 @@ function Gameplay() {
 	};
 
 	//? Handles
-	const handleSelectCard = useCallback((card) => {
-		if (!disableSelectCard) {
-			!choiceCardOne ? setChoiceCardOne(card) : setChoiceCardTwo(card);
-			setCards((prevCards) =>
-				prevCards.map((c) => ({
-					...c,
-					flipped: c.idx === card.idx || c.idx === choiceCardOne?.idx || c.idx === choiceCardTwo?.idx || c.matched,
-				}))
-			);
-		}
-	}, [disableSelectCard, choiceCardOne, choiceCardTwo]);
+	const handleSelectCard = useCallback(
+		(card) => {
+			if (!disableSelectCard) {
+				!choiceCardOne ? setChoiceCardOne(card) : setChoiceCardTwo(card);
+				setCards((prevCards) =>
+					prevCards.map((c) => ({
+						...c,
+						flipped:
+							c.idx === card.idx || c.idx === choiceCardOne?.idx || c.idx === choiceCardTwo?.idx || c.matched,
+					}))
+				);
+			}
+		},
+		[disableSelectCard, choiceCardOne, choiceCardTwo]
+	);
 	const handleEndGame = () => {
 		timeCounterRef.current.pause();
 		const times = timeCounterRef.current.getTimes();
@@ -223,13 +230,13 @@ function Gameplay() {
 				return prevValue;
 			},
 			{
-				health: playerAccount.health,
-				star: playerAccount.star,
-				diamond: playerAccount.diamond,
+				health: +playerAccount.health,
+				star: +playerAccount.star,
+				diamond: +playerAccount.diamond,
 			}
 		);
 
-		gameData.experience = playerAccount.experience + Math.ceil(((quantityCardReal * 2) / times.seconds) * 100);
+		gameData.experience = +playerAccount.experience + Math.ceil(((quantityCardReal * 2) / times.seconds) * 100);
 
 		if (levels) {
 			for (let idx = 0; idx < levels.length; idx++) {
@@ -247,11 +254,11 @@ function Gameplay() {
 		}
 
 		const gameReward = {
-			healthReward: gameData.health - playerAccount.health,
-			starReward: gameData.star - playerAccount.star,
-			diamondReward: gameData.diamond - playerAccount.diamond,
-			experienceReward: gameData.experience - playerAccount.experience,
-			levelUp: gameData.level - playerAccount.level > 0 ? gameData.level : null,
+			healthReward: gameData.health - parseInt(playerAccount.health),
+			starReward: gameData.star - parseInt(playerAccount.star),
+			diamondReward: gameData.diamond - parseInt(playerAccount.diamond),
+			experienceReward: gameData.experience - parseInt(playerAccount.experience),
+			levelUp: gameData.level - parseInt(playerAccount.level) > 0 ? gameData.level : null,
 		};
 
 		if (gameReward.levelUp) {
@@ -270,7 +277,7 @@ function Gameplay() {
 		playerApi
 			.updateGameData({
 				...gameData,
-				id: playerAccount.id,
+				id: +playerAccount.id,
 			})
 			.then((response) => {
 				if (response.code === 1) {
@@ -297,7 +304,7 @@ function Gameplay() {
 		substractHealth();
 	}, [cardsOrigin, substractHealth, getCardsShuffled]);
 
-	if (playerAccount.health > 0 || allowedToPlayFlag) {
+	if (+playerAccount.health > 0 || allowedToPlayFlag) {
 		return (
 			<>
 				<EndGameDialog

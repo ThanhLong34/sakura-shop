@@ -31,13 +31,13 @@ function Home() {
 	}, []);
 
 	const handleGoBack = useCallback(() => {
-		setAction(null);
-	}, []);
-	const handleShowRegisterForm = useCallback(() => {
-		setAction("ShowRegisterForm");
+		setAction('');
 	}, []);
 	const handleShowLoginForm = useCallback(() => {
 		setAction("ShowLoginForm");
+	}, []);
+	const handleShowRegisterForm = useCallback(() => {
+		setAction("ShowRegisterForm");
 	}, []);
 
 	return (

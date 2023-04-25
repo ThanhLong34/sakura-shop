@@ -47,7 +47,7 @@ function Profile() {
 			return;
 		}
 
-		const response = await playerApi.updatePassword({ id: playerAccount.id, newPassword });
+		const response = await playerApi.updatePassword({ id: +playerAccount.id, newPassword });
 
 		if (response.code === 1) {
 			toastRef.current.show({
@@ -75,7 +75,7 @@ function Profile() {
 			return;
 		}
 
-		const response = await playerApi.updateEmail({ id: playerAccount.id, email });
+		const response = await playerApi.updateEmail({ id: +playerAccount.id, email });
 
 		if (response.code === 1) {
 			toastRef.current.show({
@@ -104,7 +104,7 @@ function Profile() {
 			return;
 		}
 
-		const response = await playerApi.updateNickname({ id: playerAccount.id, nickname: nickname });
+		const response = await playerApi.updateNickname({ id: +playerAccount.id, nickname: nickname });
 
 		if (response.code === 1) {
 			toastRef.current.show({

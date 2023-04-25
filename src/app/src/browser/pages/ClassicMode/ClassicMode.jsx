@@ -8,7 +8,7 @@ function ClassicMode() {
 	// Default is lipstick topic
 	const lipstickTopicId = 3;
 
-	if (playerAccount.health > 0) {
+	if (+playerAccount.health > 0) {
 		return (
 			<div>
 				<SelectLevel topicId={lipstickTopicId} />

@@ -91,15 +91,19 @@ function AdsDialog({ visible, setVisible }) {
 		if (currentAds) {
 			timer.current = setTimeout(() => {
 				const gameData = {
-					health: playerAccount.health + currentAds.healthReward,
-					star: playerAccount.star + currentAds.starReward,
-					diamond: playerAccount.diamond + currentAds.diamondReward,
+					health: currentAds.healthReward
+						? parseInt(playerAccount.health) + parseInt(currentAds.healthReward)
+						: null,
+					star: currentAds.starReward ? parseInt(playerAccount.star) + parseInt(currentAds.starReward) : null,
+					diamond: currentAds.diamondReward
+						? parseInt(playerAccount.diamond) + parseInt(currentAds.diamondReward)
+						: null,
 				};
 
 				playerApi
 					.updateGameData({
 						...gameData,
-						id: playerAccount.id,
+						id: +playerAccount.id,
 					})
 					.then((response) => {
 						if (response.code === 1) {

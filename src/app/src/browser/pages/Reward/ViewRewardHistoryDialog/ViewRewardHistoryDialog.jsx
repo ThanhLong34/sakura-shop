@@ -64,7 +64,7 @@ function ViewRewardHistoryDialog({ visible, setVisible, playerAccount }) {
 	const handleGetTableData = () => {
 		if (playerAccount) {
 			(async () => {
-				const response = await rewardApi.getAllByPlayerId(tableParams, playerAccount.id);
+				const response = await rewardApi.getAllByPlayerId(tableParams, +playerAccount.id);
 				const data = response.data.map((reward) => ({
 					...reward,
 					id: +reward.id,

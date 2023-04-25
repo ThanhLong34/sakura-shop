@@ -1,0 +1,10 @@
+@use "@/assets/styles/variables.scss" as *;
+
+.title {
+	color: $mPrimaryColor;
+	font-size: 1.2rem;
+}
+
+.forgot-password-text {
+	font-size: 0.8rem;
+}

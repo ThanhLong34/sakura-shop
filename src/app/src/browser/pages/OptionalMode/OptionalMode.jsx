@@ -35,7 +35,7 @@ function OptionalMode() {
 		setTopicSelected(null);
 	};
 
-	if (playerAccount.level < levelRequire) {
+	if (+playerAccount.level < levelRequire) {
 		return (
 			<div>
 				<LockedMode levelRequire={levelRequire} />
@@ -43,7 +43,7 @@ function OptionalMode() {
 		);
 	}
 
-	if (playerAccount.health > 0) {
+	if (+playerAccount.health > 0) {
 		if (topicSelected) {
 			return (
 				<div>

@@ -125,15 +125,21 @@ function QuizDialog({ visible, setVisible }) {
 				]);
 
 				const gameData = {
-					health: playerAccount.health + questionRandom.healthReward,
-					star: playerAccount.star + questionRandom.starReward,
-					diamond: playerAccount.diamond + questionRandom.diamondReward,
+					health: questionRandom.healthReward
+						? parseInt(playerAccount.health) + parseInt(questionRandom.healthReward)
+						: null,
+					star: questionRandom.starReward
+						? parseInt(playerAccount.star) + parseInt(questionRandom.starReward)
+						: null,
+					diamond: questionRandom.diamondReward
+						? parseInt(playerAccount.diamond) + parseInt(questionRandom.diamondReward)
+						: null,
 				};
 
 				playerApi
 					.updateGameData({
 						...gameData,
-						id: playerAccount.id,
+						id: +playerAccount.id,
 					})
 					.then((response) => {
 						if (response.code === 1) {

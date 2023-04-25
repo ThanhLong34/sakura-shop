@@ -30,13 +30,13 @@ const player = createSlice({
 
 			state.account = {
 				...state.account,
-				health: payload.health ?? state.account.health,
-				star: payload.star ?? state.account.star,
-				diamond: payload.diamond ?? state.account.diamond,
-				experience: payload.experience ?? state.account.experience,
-				level: payload.level ?? state.account.level,
+				health: payload.health ? +payload.health : +state.account.health,
+				star: payload.star ? +payload.star : +state.account.star,
+				diamond: payload.diamond ? +payload.diamond : +state.account.diamond,
+				experience: payload.experience ? +payload.experience : +state.account.experience,
+				level: payload.level ? +payload.level : +state.account.level,
 			};
-			
+
 			SessionStorage.setPlayerAccount(state.account);
 		},
 	},
