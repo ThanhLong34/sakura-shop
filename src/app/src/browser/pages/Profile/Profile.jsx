@@ -153,7 +153,7 @@ function Profile() {
 							</span>
 							<Button
 								className="w-full"
-								label="Thay đổi tên người chơi"
+								label="Lưu tên người chơi"
 								outlined
 								icon="pi pi-save"
 								onClick={handleUpdateNickname}
@@ -167,7 +167,7 @@ function Profile() {
 							</span>
 							<Button
 								className="w-full"
-								label="Thay đổi email"
+								label="Lưu email"
 								icon="pi pi-save"
 								outlined
 								onClick={handleUpdateEmail}

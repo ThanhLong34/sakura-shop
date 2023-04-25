@@ -40,8 +40,8 @@ function RegisterForm({ onGoBack }) {
 		e.preventDefault();
 
 		const phoneNumber = phoneNumberRef.current?.value;
-		const password = passwordRef.current?.getValue();
-		const email = emailRef.current?.getValue();
+		const password = passwordRef.current?.value;
+		const email = emailRef.current?.value;
 
 		if (!phoneNumber) {
 			toastRef.current.show({
@@ -119,7 +119,7 @@ function RegisterForm({ onGoBack }) {
 
 	return (
 		<form className={cx("wrapper")} onSubmit={handleRegister}>
-			{createPortal(<Toast ref={toastRef} position="top-right" />, document.body)}
+			{createPortal(<Toast ref={toastRef} position="top-center" />, document.body)}
 
 			<h3 className={cx("title", "mb-3")}>ĐĂNG KÝ TÀI KHOẢN</h3>
 

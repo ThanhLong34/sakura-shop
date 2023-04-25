@@ -86,8 +86,8 @@ function LoginForm({ onGoBack }) {
 	const handleLogin = useCallback(async (e) => {
 		e.preventDefault();
 
-		const phoneNumber = phoneNumberRef.current?.getValue();
-		const password = passwordRef.current?.getValue();
+		const phoneNumber = phoneNumberRef.current?.value;
+		const password = passwordRef.current?.value;
 
 		if (!phoneNumber) {
 			toastRef.current.show({
@@ -150,7 +150,7 @@ function LoginForm({ onGoBack }) {
 
 	return (
 		<form className={cx("wrapper")} onSubmit={handleLogin}>
-			{createPortal(<Toast ref={toastRef} position="top-right" />, document.body)}
+			{createPortal(<Toast ref={toastRef} position="top-center" />, document.body)}
 
 			<Dialog
 				header="Lấy lại mật khẩu"
@@ -189,12 +189,21 @@ function LoginForm({ onGoBack }) {
 				<InputText ref={passwordRef} className="w-full" type="password" placeholder="Hãy nhập mật khẩu" />
 			</span>
 
-			<div className={cx("text-left mb-3", 'forgot-password-text')} onClick={() => setResetPasswordDialogVisible(true)}>
+			<div
+				className={cx("text-left mb-3", "forgot-password-text")}
+				onClick={() => setResetPasswordDialogVisible(true)}
+			>
 				Nhấn vào đây nếu bạn quên mật khẩu!
 			</div>
 
 			<Button label="VÀO CHƠI THÔI NÀO" className={cx("login-button", "mb-3 w-full")} type="submit" />
-			<Button label="QUAY LẠI" className={cx("login-button", "w-full")} onClick={onGoBack} severity="info" outlined />
+			<Button
+				label="QUAY LẠI"
+				className={cx("login-button", "w-full")}
+				onClick={onGoBack}
+				severity="info"
+				outlined
+			/>
 		</form>
 	);
 }

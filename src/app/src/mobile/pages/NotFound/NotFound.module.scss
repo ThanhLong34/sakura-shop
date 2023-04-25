@@ -1,0 +1,19 @@
+@use "@/assets/styles/variables.scss" as *;
+
+.not-found {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-direction: column;
+	max-width: 550px;
+	margin: 0 auto;
+}
+
+.image {
+	width: 240px;
+}
+
+.heading {
+	font-size: 1rem;
+	text-align: center;
+}
