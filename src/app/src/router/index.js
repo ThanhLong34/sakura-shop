@@ -30,6 +30,7 @@ import { EmptyLayout as BrowserEmptyLayout } from "@/browser/layouts";
 // Mobile pages
 import MobileHome from "@/mobile/pages/Home";
 import MobileDashboard from "@/mobile/pages/Dashboard";
+import MobileProfile from "@/mobile/pages/Profile";
 import MobileNotFound from "@/mobile/pages/NotFound";
 import { EmptyLayout as MobileEmptyLayout } from "@/mobile/layouts";
 
@@ -228,11 +229,11 @@ const mobileRoutes = [
 	// 	component: BrowserQuizAndAds,
 	// 	access: "private",
 	// },
-	// {
-	// 	path: "/profile",
-	// 	component: BrowserProfile,
-	// 	access: "private",
-	// },
+	{
+		path: "/profile",
+		component: MobileProfile,
+		access: "private",
+	},
 	{
 		path: "/*",
 		component: MobileNotFound,

@@ -1,0 +1,41 @@
+@use "@/assets/styles/variables.scss" as *;
+
+.heading {
+	padding-left: 1rem;
+}
+
+.divider {
+	margin: 0.4rem 0 0;
+	display: block;
+	padding: 0 1rem;
+
+	span {
+		display: block;
+		background-color: #dadada;
+		height: 1px;
+		width: 100%;
+	}
+}
+
+.menu-list {
+	padding-top: 1rem;
+	padding-bottom: 1rem;
+}
+
+.menu-item {
+	padding: 1rem;
+	border-radius: 0.5rem;
+
+	& + & {
+		margin-top: 0.3rem;
+	}
+
+	i {
+		margin-right: 0.6rem;
+	}
+
+	&.active {
+		background-color: rgba($mPrimaryColor, 0.6);
+		color: white;
+	}
+}
