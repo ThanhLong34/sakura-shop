@@ -129,72 +129,69 @@ function Profile() {
 
 	return (
 		<>
-			{createPortal(<Toast ref={toastRef} position="top-right" />, document.body)}
+			{createPortal(<Toast ref={toastRef} position="top-center" />, document.body)}
 			<Dialog
 				header="Thay đổi mật khẩu"
 				visible={dialogVisible}
-				style={{ width: "320px" }}
+				style={{ width: "330px" }}
 				onHide={() => setDialogVisible(false)}
 			>
-				<span className="p-input-icon-left w-full mb-4">
+				<span className="p-input-icon-left w-full mb-3">
 					<i className="pi pi-lock"></i>
 					<InputText ref={newPasswordRef} className="w-full" type="password" placeholder="Nhập mật khẩu mới" />
 				</span>
-				<Button className="w-full" label="Gửi" severity="help" outlined onClick={handleUpdatePassword} />
+				<Button className="w-full" label="GỬI" severity="help" outlined onClick={handleUpdatePassword} />
 			</Dialog>
 
-			<div className={cx("card", "wrapper")}>
-				<img className={cx('profile-icon')} src={AccountIcon} alt="profile" />
-				<div className="grid mt-2">
-					<div className="col-12">
-						<div className="col-12 mb-2">
-							<h4 className="mb-2">Tên người chơi:</h4>
-							<span className="p-input-icon-left w-full mb-3">
-								<i className="pi pi-user"></i>
-								<InputText ref={nicknameRef} className="w-full" type="text" placeholder="Nhập tên người chơi" />
-							</span>
-							<Button
-								className="w-full"
-								label="Lưu tên người chơi"
-								outlined
-								icon="pi pi-save"
-								onClick={handleUpdateNickname}
-							/>
-						</div>
-						<div className="col-12 mb-2">
-							<h4 className="mb-2">Email:</h4>
-							<span className="p-input-icon-left w-full mb-3">
-								<i className="pi pi-envelope"></i>
-								<InputText ref={emailRef} className="w-full" type="email" placeholder="Nhập email" />
-							</span>
-							<Button
-								className="w-full"
-								label="Lưu email"
-								icon="pi pi-save"
-								outlined
-								onClick={handleUpdateEmail}
-							/>
-						</div>
-						<div className="col-12 mb-3">
-							<h4 className="mb-2">Thay đổi mật khẩu</h4>
-							<Button
-								className="w-full"
-								label="Thay đổi mật khẩu"
-								severity="warning"
-								outlined
-								icon="pi pi-lock"
-								onClick={() => setDialogVisible(true)}
-							/>
-						</div>
-						<div className="col-12 mb-2">
-							<Button
-								className="w-full"
-								label="ĐĂNG XUẤT"
-								severity="danger"
-								icon="pi pi-sign-in"
-								raised
-								onClick={handleLogout}
-							/>
+			<div className={cx("profile")}>
+				<div className="card">
+					<img className={cx("profile-icon")} src={AccountIcon} alt="profile" />
+					<div className="grid mt-2">
+						<div className="col-12">
+							<div className="col-12 mb-2">
+								<h4 className="mb-2">Tên người chơi:</h4>
+								<span className="p-input-icon-left w-full mb-3">
+									<i className="pi pi-user"></i>
+									<InputText
+										ref={nicknameRef}
+										className="w-full"
+										type="text"
+										placeholder="Nhập tên người chơi"
+									/>
+								</span>
+								<Button
+									className="w-full"
+									label="LƯU TÊN NGƯỜI CHƠI"
+									outlined
+									icon="pi pi-save"
+									onClick={handleUpdateNickname}
+								/>
+							</div>
+							<div className="col-12 mb-2">
+								<h4 className="mb-2">Email:</h4>
+								<span className="p-input-icon-left w-full mb-3">
+									<i className="pi pi-envelope"></i>
+									<InputText ref={emailRef} className="w-full" type="email" placeholder="Nhập email" />
+								</span>
+								<Button
+									className="w-full"
+									label="LƯU EMAIL"
+									icon="pi pi-save"
+									outlined
+									onClick={handleUpdateEmail}
+								/>
+							</div>
+							<div className="col-12 mb-3">
+								<h4 className="mb-2">Thay đổi mật khẩu</h4>
+								<Button
+									className="w-full"
+									label="THAY ĐỔI MẬT KHẨU"
+									severity="warning"
+									outlined
+									icon="pi pi-lock"
+									onClick={() => setDialogVisible(true)}
+								/>
+							</div>
 						</div>
 					</div>
 				</div>

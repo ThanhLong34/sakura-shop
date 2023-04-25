@@ -155,7 +155,7 @@ function LoginForm({ onGoBack }) {
 			<Dialog
 				header="Lấy lại mật khẩu"
 				visible={resetPasswordDialogVisible}
-				style={{ maxWidth: "500px" }}
+				style={{ maxWidth: "330px" }}
 				onHide={() => setResetPasswordDialogVisible(false)}
 			>
 				<p className="mt-2 mb-3">Chúng tôi sẽ gửi mật khẩu mới về địa chỉ Email của bạn</p>
