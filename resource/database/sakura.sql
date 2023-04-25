@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 24, 2023 at 04:17 PM
+-- Generation Time: Apr 25, 2023 at 04:35 PM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -418,7 +418,8 @@ CREATE TABLE `invoice` (
 INSERT INTO `invoice` (`id`, `createdAt`, `updatedAt`, `deletedAt`, `phoneNumber`, `rewardCode`) VALUES
 (7, '09:31:23 24/04/2023', NULL, NULL, '0353292241', 'HDAL17TE78'),
 (11, '11:36:20 23/04/2023', NULL, NULL, '0336010147', 'HDAOM848YS'),
-(12, '11:45:22 24/04/2023', NULL, NULL, '0336010147', 'HDAOVLEQKO');
+(12, '11:45:22 24/04/2023', NULL, NULL, '0336010147', 'HDAOVLEQKO'),
+(13, '21:34:28 25/04/2023', NULL, NULL, '0353292241', 'HDCBIUUOYY');
 
 -- --------------------------------------------------------
 
@@ -483,9 +484,10 @@ CREATE TABLE `player` (
 --
 
 INSERT INTO `player` (`id`, `createdAt`, `updatedAt`, `deletedAt`, `lockedAt`, `phoneNumber`, `password`, `email`, `nickname`, `health`, `star`, `diamond`, `experience`, `level`) VALUES
-(24, '10:39:35 18/04/2023', '21:08:45 24/04/2023', NULL, NULL, '0353292241', '4c79273eed3d095e55d1224f6524ae92', 'thanhlongedu0304@gmail.com', 'Thanh Long', 74, 32071, 40, 6716, 10),
+(24, '10:39:35 18/04/2023', '20:30:03 25/04/2023', NULL, NULL, '0353292241', '4c79273eed3d095e55d1224f6524ae92', 'thanhlongedu0304@gmail.com', 'Thanh Long', 85, 30033, 44, 6716, 10),
 (25, '10:50:26 18/04/2023', '17:31:23 24/04/2023', NULL, NULL, '0336010147', '4c79273eed3d095e55d1224f6524ae92', 'nguyenlong0304tester1@gmail.com', 'playertester01', 0, 3211, 0, 269, 2),
-(26, '10:50:50 18/04/2023', '18:28:22 24/04/2023', NULL, NULL, '0336010149', '4c79273eed3d095e55d1224f6524ae92', 'nguyenlong0304tester2@gmail.com', 'playertester02', 0, 10, 3, 383, 2);
+(26, '10:50:50 18/04/2023', '18:28:22 24/04/2023', NULL, NULL, '0336010149', '4c79273eed3d095e55d1224f6524ae92', 'nguyenlong0304tester2@gmail.com', 'playertester02', 0, 10, 3, 383, 2),
+(30, '18:01:18 25/04/2023', '18:02:06 25/04/2023', NULL, NULL, '0353292242', '530c3817fd40f798556007a1d62bb9b8', '2014468@dlu.edu.vn', 'player_EZZL4k', 3, 0, 0, 0, 1);
 
 -- --------------------------------------------------------
 
@@ -561,7 +563,9 @@ INSERT INTO `reward` (`id`, `createdAt`, `updatedAt`, `deletedAt`, `giftId`, `pl
 (50, '11:36:34 23/04/2023', NULL, NULL, 11, 25, 1399, 0, 'HDAOM848YS'),
 (53, '11:45:32 24/04/2023', NULL, NULL, 11, 25, 1399, 0, 'HDAOVLEQKO'),
 (54, '17:30:50 24/04/2023', NULL, NULL, 12, 25, 649, 0, 'HDAOVLEQKO'),
-(56, '18:37:37 24/04/2023', NULL, NULL, 12, 25, 649, 0, 'HDAOVLEQKO');
+(56, '18:37:37 24/04/2023', NULL, NULL, 12, 25, 649, 0, 'HDAOVLEQKO'),
+(57, '21:34:41 25/04/2023', NULL, NULL, 12, 24, 649, 0, 'HDCBIUUOYY'),
+(58, '21:34:49 25/04/2023', NULL, NULL, 11, 24, 1399, 0, 'HDCBIUUOYY');
 
 -- --------------------------------------------------------
 
@@ -779,7 +783,7 @@ ALTER TABLE `image`
 -- AUTO_INCREMENT for table `invoice`
 --
 ALTER TABLE `invoice`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT for table `level`
@@ -791,7 +795,7 @@ ALTER TABLE `level`
 -- AUTO_INCREMENT for table `player`
 --
 ALTER TABLE `player`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
 
 --
 -- AUTO_INCREMENT for table `question`
@@ -803,7 +807,7 @@ ALTER TABLE `question`
 -- AUTO_INCREMENT for table `reward`
 --
 ALTER TABLE `reward`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=57;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=59;
 
 --
 -- AUTO_INCREMENT for table `topic`
