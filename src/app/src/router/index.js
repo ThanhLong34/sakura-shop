@@ -28,8 +28,10 @@ import BrowserNotFound from "@/browser/pages/NotFound";
 import { EmptyLayout as BrowserEmptyLayout } from "@/browser/layouts";
 
 // Mobile pages
+import MobileHome from "@/mobile/pages/Home";
 import MobileDashboard from "@/mobile/pages/Dashboard";
 import MobileNotFound from "@/mobile/pages/NotFound";
+import { EmptyLayout as MobileEmptyLayout } from "@/mobile/layouts";
 
 const adminRoutes = [
 	{
@@ -192,11 +194,50 @@ const browserRoutes = [
 const mobileRoutes = [
 	{
 		path: "/",
-		component: MobileDashboard,
+		component: MobileHome,
+		layout: MobileEmptyLayout,
+		access: "public",
 	},
+	{
+		path: "/dashboard",
+		component: MobileDashboard,
+		access: "private",
+	},
+	// {
+	// 	path: "/classic-mode",
+	// 	component: BrowserClassicMode,
+	// 	access: "private",
+	// },
+	// {
+	// 	path: "/optional-mode",
+	// 	component: BrowserOptionalMode,
+	// 	access: "private",
+	// },
+	// {
+	// 	path: "/gameplay/:topicId/:selectedLevel",
+	// 	component: BrowserGameplay,
+	// 	access: "private",
+	// },
+	// {
+	// 	path: "/reward",
+	// 	component: BrowserReward,
+	// 	access: "private",
+	// },
+	// {
+	// 	path: "/quiz-and-ads",
+	// 	component: BrowserQuizAndAds,
+	// 	access: "private",
+	// },
+	// {
+	// 	path: "/profile",
+	// 	component: BrowserProfile,
+	// 	access: "private",
+	// },
 	{
 		path: "/*",
 		component: MobileNotFound,
+		layout: MobileEmptyLayout,
+		access: "public",
 	},
 ];
 
