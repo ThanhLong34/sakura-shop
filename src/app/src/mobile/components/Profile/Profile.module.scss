@@ -1,0 +1,30 @@
+@use "@/assets/styles/variables.scss" as *;
+
+.profile {
+	display: flex;
+	align-items: center;
+	font-size: 0.8rem;
+	color: white;
+}
+
+.game-data {
+	display: flex;
+	align-items: center;
+}
+
+.game-data-item {
+	display: flex;
+	align-items: center;
+
+	& + & {
+		margin-left: 1rem;
+	}
+}
+
+.game-data-image {
+	width: 12px;
+}
+
+.game-data-value {
+	margin-left: 0.6rem;
+}
