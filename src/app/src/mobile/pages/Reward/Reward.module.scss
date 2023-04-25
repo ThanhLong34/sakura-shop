@@ -1,0 +1,38 @@
+@use "@/assets/styles/variables.scss" as *;
+
+.wrapper {
+	padding: 1rem;
+}
+
+.heading {
+	font-size: 1rem;
+	color: $bPrimaryColor;
+	text-align: center;
+}
+
+.gift-item {
+	padding: 0.4rem !important;
+}
+
+.note {
+	color: $bTertiaryColor;
+	font-weight: bold;
+	font-size: 1rem;
+
+	&-heading {
+		color: $bSecondaryColor;
+		font-weight: bold;
+	}
+
+	&-list {
+		font-size: 0.8rem;
+		font-weight: bold;
+		margin: 0.5rem 0;
+		list-style-type: disc;
+		padding-left: 1.2rem;
+	}
+
+	&-label {
+		font-size: 0.8rem;
+	}
+}
