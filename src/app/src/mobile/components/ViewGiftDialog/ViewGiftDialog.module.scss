@@ -1,0 +1,53 @@
+@use "@/assets/styles/variables.scss" as *;
+
+.gift {
+	&-name {
+		color: $bTertiaryColor;
+		font-size: 1rem;
+		font-weight: bold;
+	}
+
+	&-brand {
+		text-align: center;
+		color: $bPrimaryColor;
+		font-size: 1rem;
+	}
+
+	&-description {
+		color: #5b5b5b;
+		font-size: 0.8rem;
+	}
+
+	&-tag {
+		font-size: 1rem;
+	}
+
+	&-cost-heading {
+		color: $bPrimaryColor;
+		margin-right: 2rem;
+		font-weight: bold;
+		font-size: 1rem;
+	}
+
+	&-cost-item {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		font-size: 1rem;
+
+		&+& {
+			margin-left: 2rem;
+		}
+	}
+
+	&-cost-value {
+		color: $bTertiaryColor;
+		font-weight: bold;
+		transform: translateY(2px);
+	}
+
+	&-cost-image {
+		width: 25px;
+		margin-right: 0.5rem;
+	}
+}

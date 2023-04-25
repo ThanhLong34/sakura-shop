@@ -146,6 +146,23 @@ function Sidebar({ visible, setVisible }) {
 				</li>
 				<li
 					className={cx("menu-item", {
+						active: location.pathname === "/reward-history",
+					})}
+					onClick={() => {
+						if (checkChangeRouteFromGameplay()) {
+							confirmChangeRouteFromGameplay(() => {
+								navigateTo("/reward-history");
+							});
+						} else {
+							navigateTo("/reward-history");
+						}
+					}}
+				>
+					<i className="pi pi-book"></i>
+					<span>Lịch sử đổi thưởng</span>
+				</li>
+				<li
+					className={cx("menu-item", {
 						active: location.pathname === "/quiz-and-ads",
 					})}
 					onClick={() => {

@@ -225,6 +225,11 @@ const mobileRoutes = [
 	// 	access: "private",
 	// },
 	// {
+	// 	path: "/reward-history",
+	// 	component: BrowserRewardHistory,
+	// 	access: "private",
+	// },
+	// {
 	// 	path: "/quiz-and-ads",
 	// 	component: BrowserQuizAndAds,
 	// 	access: "private",
