@@ -145,7 +145,7 @@ function AdsDialog({ visible, setVisible }) {
 			<Dialog
 				header="XEM QUẢNG CÁO"
 				visible={visible}
-				style={{ width: "650px" }}
+				style={{ width: "800px" }}
 				onHide={handleCloseDialog}
 				onShow={handleOpenDialog}
 				closable={false}
