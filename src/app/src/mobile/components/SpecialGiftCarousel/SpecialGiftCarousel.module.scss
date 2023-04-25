@@ -1,0 +1,36 @@
+@use "@/assets/styles/variables.scss" as *;
+
+.title {
+	text-align: center;
+	color: $bPrimaryColor;
+	font-size: 1rem;
+}
+
+.gift {
+	height: 96%;
+	display: flex;
+	flex-direction: column;
+
+	&-image {
+		width: 100%;
+		height: 120px;
+		img {
+			width: 100%;
+			height: 100%;
+			object-fit: contain;
+			object-position: center;
+		}
+	}
+
+	&-name {
+		font-size: 0.8rem;
+		color: $bTertiaryColor;
+	}
+
+	&-action {
+		flex: 1;
+		display: flex;
+		justify-content: center;
+		align-items: end;
+	}
+}

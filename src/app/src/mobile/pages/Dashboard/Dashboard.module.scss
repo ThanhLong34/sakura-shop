@@ -1,0 +1,71 @@
+@use "@/assets/styles/variables.scss" as *;
+
+.dashboard {
+	padding: 1rem;
+}
+
+.heading {
+	text-align: center;
+	font-size: 1rem;
+
+	span {
+		display: block;
+		font-size: 1.4rem;
+		color: $mPrimaryColor;
+	}
+}
+
+.note {
+	&-title {
+		font-size: 1rem;
+		color: $mSecondaryColor;
+	}
+	&-text {
+		font-size: 0.8rem;
+		font-weight: bold;
+	}
+}
+
+.mode {
+	color: $bTertiaryColor;
+
+	&-title {
+		text-align: center;
+		color: $bPrimaryColor;
+		font-size: 1rem;
+	}
+
+	&-item {
+		border-radius: 12px;
+		display: flex;
+		align-items: start;
+	}
+
+	&-image {
+		max-width: 56px;
+		margin-right: 1rem;
+	}
+
+	&-name {
+		color: $bSecondaryColor;
+		font-size: 0.9rem;
+		margin-bottom: 0.6rem;
+	}
+
+	&-desc {
+		font-weight: bold;
+		font-size: 0.8rem;
+		margin-bottom: 0.6rem;
+		color: $bTertiaryColor;
+	}
+
+	ul {
+		font-weight: bold;
+		list-style: circle;
+		font-size: 0.8rem;
+		padding-left: 1.2rem;
+		li {
+			color: $bTertiaryColor;
+		}
+	}
+}
