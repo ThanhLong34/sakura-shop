@@ -15,17 +15,20 @@ Table "advertisement" {
   "createdAt" varchar(255) [default: NULL]
   "updatedAt" varchar(255) [default: NULL]
   "deletedAt" varchar(255) [default: NULL]
-  "title" varchar(1000) [default: NULL]
+  "imageId" int(11) [default: NULL]
+  "videoId" int(11) [default: NULL]
+  "title" varchar(1000) [not null]
   "description" text [default: NULL]
   "duration" int(11) [not null]
   "healthReward" int(11) [default: 0]
   "starReward" int(11) [default: 0]
   "diamondReward" int(11) [default: 0]
+  "occurrenceRate" int(11) [not null, default: 100]
   "advertisementTypeId" int(11) [default: NULL]
 }
 
 Table "advertisementtype" {
-  "id" int(11) [pk, not null]
+  "id" int(11) [not null]
   "createdAt" varchar(255) [default: NULL]
   "updatedAt" varchar(255) [default: NULL]
   "deletedAt" varchar(255) [default: NULL]
@@ -37,7 +40,8 @@ Table "answer" {
   "createdAt" varchar(255) [default: NULL]
   "updatedAt" varchar(255) [default: NULL]
   "deletedAt" varchar(255) [default: NULL]
-  "title" varchar(1000) [not null]
+  "content" varchar(1000) [not null]
+  "isRight" tinyint(1) [not null, default: 0]
   "questionId" int(11) [default: NULL]
 }
 
@@ -52,7 +56,17 @@ Table "card" {
   "healthReward" int(11) [default: 0]
   "starReward" int(11) [default: 0]
   "diamondReward" int(11) [default: 0]
+  "occurrenceRate" int(11) [not null, default: 100]
   "topicId" int(11) [default: NULL]
+}
+
+Table "gameconvention" {
+  "id" int(11) [not null]
+  "createdAt" varchar(255) [default: NULL]
+  "updatedAt" varchar(255) [default: NULL]
+  "deletedAt" varchar(255) [default: NULL]
+  "name" varchar(255) [default: NULL]
+  "value" varchar(255) [default: NULL]
 }
 
 Table "gift" {
@@ -61,12 +75,13 @@ Table "gift" {
   "updatedAt" varchar(255) [default: NULL]
   "deletedAt" varchar(255) [default: NULL]
   "imageId" int(11) [default: NULL]
-  "name" varchar(255) [default: NULL]
+  "name" varchar(255) [not null]
   "brand" varchar(255) [default: NULL]
   "description" text [default: NULL]
   "starCost" int(11) [default: 0]
   "diamondCost" int(11) [default: 0]
   "allowToReceiveOnline" tinyint(1) [default: 0]
+  "isSpecial" tinyint(1) [not null, default: 0]
   "isShow" tinyint(1) [default: 1]
 }
 
@@ -78,6 +93,15 @@ Table "image" {
   "link" varchar(255) [not null]
   "filename" varchar(255) [not null]
   "size" int(11) [not null]
+}
+
+Table "invoice" {
+  "id" int(11) [pk, not null]
+  "createdAt" varchar(255) [default: NULL]
+  "updatedAt" varchar(255) [default: NULL]
+  "deletedAt" varchar(255) [default: NULL]
+  "phoneNumber" varchar(255) [not null]
+  "rewardCode" varchar(255) [not null]
 }
 
 Table "level" {
@@ -107,37 +131,48 @@ Table "player" {
   "diamond" int(11) [default: 0]
   "experience" int(11) [default: 0]
   "level" int(11) [default: 1]
-  "activeOptionMode" tinyint(1) [default: 0]
 }
 
 Table "question" {
-  "id" int(11) [not null]
+  "id" int(11) [pk, not null]
   "createdAt" varchar(255) [default: NULL]
   "updatedAt" varchar(255) [default: NULL]
   "deletedAt" varchar(255) [default: NULL]
-  "title" varchar(1000) [not null]
-  "rightAnswerId" int(11) [default: NULL]
+  "content" varchar(1000) [not null]
   "healthReward" int(11) [default: 0]
   "starReward" int(11) [default: 0]
   "diamondReward" int(11) [default: 0]
 }
 
-Table "rewardhistory" {
+Table "reward" {
   "id" int(11) [not null]
   "createdAt" varchar(255) [default: NULL]
   "updatedAt" varchar(255) [default: NULL]
   "deletedAt" varchar(255) [default: NULL]
-  "giftId" int(11) [default: NULL, ref: > gift.id]
-  "playerId" int(11) [default: NULL, ref: > player.id]
+  "giftId" int(11) [default: NULL]
+  "playerId" int(11) [default: NULL]
+  "starCost" int(11) [not null]
+  "diamondCost" int(11) [not null]
+  "invoiceRewardCode" varchar(255) [not null]
 }
 
 Table "topic" {
-  "id" int(11) [pk, not null]
+  "id" int(11) [not null]
   "createdAt" varchar(255) [default: NULL]
   "updatedAt" varchar(255) [default: NULL]
   "deletedAt" varchar(255) [default: NULL]
   "imageId" int(11) [default: NULL]
-  "name" varchar(255) [default: NULL]
+  "name" varchar(255) [not null]
+}
+
+Table "video" {
+  "id" int(11) [not null]
+  "createdAt" varchar(255) [default: NULL]
+  "updatedAt" varchar(255) [default: NULL]
+  "deletedAt" varchar(255) [default: NULL]
+  "link" varchar(255) [not null]
+  "filename" varchar(255) [not null]
+  "size" int(11) [not null]
 }
 
 Ref:"advertisementtype"."id" < "advertisement"."advertisementTypeId"
@@ -145,5 +180,3 @@ Ref:"advertisementtype"."id" < "advertisement"."advertisementTypeId"
 Ref:"question"."id" < "answer"."questionId"
 
 Ref:"topic"."id" < "card"."topicId"
-
-Ref:"answer"."id" < "question"."rightAnswerId"
