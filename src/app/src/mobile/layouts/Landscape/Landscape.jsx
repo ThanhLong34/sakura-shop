@@ -6,7 +6,6 @@ const cx = classNames.bind(styles);
 function Landscape({ children }) {
 	return (
 		<div className={cx("wrapper")}>
-			<h1>Landscape layout</h1>
 			{children}
 		</div>
 	);

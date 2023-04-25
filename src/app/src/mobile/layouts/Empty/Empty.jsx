@@ -5,7 +5,7 @@ const cx = classNames.bind(styles);
 
 function Empty({children}) {
 	return (
-		<div className={cx("wrapper")}>
+		<div className={ cx("wrapper") }>
 			{children}
 		</div>
 	);

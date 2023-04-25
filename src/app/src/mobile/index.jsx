@@ -1,19 +1,22 @@
 import { Routes, Route } from "react-router-dom";
-import { useMobileOrientation } from "react-device-detect";
+import { useSelector } from "react-redux";
 import { mobileRoutes } from "@/router";
-import { PortraitLayout, LandscapeLayout } from "./layouts";
-import { useMemo } from "react";
+import { PortraitLayout } from "./layouts";
 
-function renderRoutes(predicate) {
+function renderRoutes(playerAccount) {
 	if (mobileRoutes) {
-		return mobileRoutes.map((route, idx) => {
+		let routes = mobileRoutes;
+
+		if (!playerAccount) {
+			routes = routes.filter((route) => route.access === "public");
+		}
+
+		return routes.map((route, idx) => {
 			const Page = route.component;
 			let Layout = PortraitLayout;
 
-			if (typeof predicate === "function") {
-				if (predicate()) {
-					Layout = LandscapeLayout;
-				}
+			if (route.layout) {
+				Layout = route.layout;
 			}
 
 			return (
@@ -32,12 +35,12 @@ function renderRoutes(predicate) {
 }
 
 function Mobile() {
-	const { isLandscape } = useMobileOrientation();
-	const routesRendered = useMemo(() => renderRoutes(() => isLandscape), [isLandscape]);
+	const playerAccount = useSelector((state) => state.player.account);
+	// const routesRendered = useMemo(() => renderRoutes(playerAccount, isLandscape), [isLandscape]);
 
 	return (
 		<div className="mobile">
-			<Routes>{routesRendered}</Routes>
+			<Routes>{renderRoutes(playerAccount)}</Routes>
 		</div>
 	);
 }
