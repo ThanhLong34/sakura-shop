@@ -15,7 +15,7 @@ import BrandLogo from "@/browser/components/BrandLogo";
 const cx = classNames.bind(styles);
 
 function Home() {
-	const [action, setAction] = useState(0);
+	const [action, setAction] = useState('');
 	const [gifts, setGifts] = useState([]);
 
 	useEffect(() => {
