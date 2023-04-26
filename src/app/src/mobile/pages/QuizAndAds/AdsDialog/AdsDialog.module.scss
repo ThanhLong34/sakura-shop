@@ -1,37 +1,7 @@
 @use "@/assets/styles/variables.scss" as *;
 
-.question-content {
-	font-size: 1rem;
-	color: $bSecondaryColor;
-	margin-bottom: 1rem;
-}
-
-.answers {
-	list-style: upper-alpha;
-	padding-left: 1.2rem;
-}
-
-.answer {
-	margin: 0.5rem 0;
-	color: $bTertiaryColor;
-	padding: 1rem 0.8rem;
-	border-radius: 0.5rem;
-	transition: all ease 0.2s;
-	cursor: pointer;
-
-	&:hover {
-		background-color: rgb(255, 217, 168);
-		box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
-	}
-
-	&.selected {
-		background-color: rgb(255, 217, 168);
-		box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
-	}
-}
-
 .heading {
-	font-size: 1rem;
+	font-size: 0.8rem;
 	color: $bPrimaryColor;
 }
 
@@ -51,20 +21,13 @@
 .reward-icon {
 	display: inline-block;
 	margin-right: 0.6rem;
-	font-size: 16px;
-	width: 34px;
+	width: 20px;
 }
 
 .reward-value {
-	font-size: 2rem;
+	font-size: 1rem;
 	color: $bTertiaryColor;
 	transform: translateY(1px);
-}
-
-.congratulation,
-.solace {
-	color: #00c7ff;
-	font-size: 1.4rem;
 }
 
 .ads-wrapper {

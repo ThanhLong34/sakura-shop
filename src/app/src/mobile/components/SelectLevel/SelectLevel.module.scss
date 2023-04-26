@@ -1,0 +1,42 @@
+@use "@/assets/styles/variables.scss" as *;
+
+.heading {
+	font-size: 1rem;
+	text-align: center;
+	color: $mPrimaryColor;
+}
+
+.level-item {
+	color: $bTertiaryColor;
+	padding: 0.6rem;
+	border-radius: 0.5rem;
+	box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
+
+	&-image {
+		img {
+			margin: 0 auto;
+			width: 100px;
+			height: 100px;
+			object-fit: contain;
+			object-position: center;
+		}
+	}
+
+	&-heading {
+		text-align: center;
+		color: $bPrimaryColor;
+		font-size: 1rem;
+		font-weight: bold;
+	}
+
+	&-quantity-card {
+		text-align: center;
+		font-size: 0.8rem;
+		font-weight: bold;
+	}
+}
+
+.go-back-btn {
+	transform: translateY(-2px);
+	margin-right: 1rem;
+}

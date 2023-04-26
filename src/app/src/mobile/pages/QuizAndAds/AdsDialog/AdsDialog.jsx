@@ -145,7 +145,7 @@ function AdsDialog({ visible, setVisible }) {
 
 	return (
 		<>
-			{createPortal(<Toast ref={toastRef} position="top-right" />, document.body)}
+			{createPortal(<Toast ref={toastRef} position="top-center" />, document.body)}
 			<Dialog
 				header="XEM QUẢNG CÁO"
 				visible={visible}
@@ -163,8 +163,8 @@ function AdsDialog({ visible, setVisible }) {
 									duration={currentAds.duration}
 									colors={["#004777", "#F7B801", "#A30000", "#A30000"]}
 									colorsTime={[7, 5, 2, 0]}
-									size={40}
-									strokeWidth={5}
+									size={28}
+									strokeWidth={3}
 								>
 									{({ remainingTime }) => remainingTime}
 								</CountdownCircleTimer>

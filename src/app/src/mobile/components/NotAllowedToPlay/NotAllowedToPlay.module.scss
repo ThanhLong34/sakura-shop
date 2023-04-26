@@ -1,0 +1,24 @@
+@use "@/assets/styles/variables.scss" as *;
+
+.wrapper {
+	color: $bTertiaryColor;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-direction: column;
+	max-width: 500px;
+	margin: 0 auto;
+}
+
+.image {
+	width: 150px;
+}
+
+.heading {
+	font-size: 1rem;
+	text-align: center;
+
+	span {
+		color: $bPrimaryColor;
+	}
+}

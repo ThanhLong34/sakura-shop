@@ -30,6 +30,7 @@ import { EmptyLayout as BrowserEmptyLayout } from "@/browser/layouts";
 // Mobile pages
 import MobileHome from "@/mobile/pages/Home";
 import MobileDashboard from "@/mobile/pages/Dashboard";
+import MobileClassicMode from "@/mobile/pages/ClassicMode";
 import MobileReward from "@/mobile/pages/Reward";
 import MobileRewardHistory from "@/mobile/pages/RewardHistory";
 import MobileQuizAndAds from "@/mobile/pages/QuizAndAds";
@@ -207,11 +208,11 @@ const mobileRoutes = [
 		component: MobileDashboard,
 		access: "private",
 	},
-	// {
-	// 	path: "/classic-mode",
-	// 	component: BrowserClassicMode,
-	// 	access: "private",
-	// },
+	{
+		path: "/classic-mode",
+		component: MobileClassicMode,
+		access: "private",
+	},
 	// {
 	// 	path: "/optional-mode",
 	// 	component: BrowserOptionalMode,
