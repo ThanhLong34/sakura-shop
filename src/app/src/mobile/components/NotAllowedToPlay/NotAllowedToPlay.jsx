@@ -10,7 +10,7 @@ function NotAllowedToPlay() {
 	const navigate = useNavigate();
 
 	return (
-		<div className="wrapper">
+		<div className={cx("wrapper")}>
 			<div className={cx("card", "content")}>
 				<img className={cx("image", "mb-2")} src={ExhaustedImage} alt="exhausted" />
 				<h6 className={cx("heading", "mb-3")}>

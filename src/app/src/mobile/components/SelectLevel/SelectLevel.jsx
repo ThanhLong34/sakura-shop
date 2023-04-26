@@ -42,48 +42,51 @@ function SelectLevel({ topicId, showGoBackButton, onGoBack }) {
 			</div>
 			<div className="grid">
 				<div className="col-12">
-					<div
-						className={cx("level-item")}
-						onClick={() => handlePlayGame(gameConvention.levels.easy.name)}
-					>
-						<div className={cx("level-item-image", 'mb-2')}>
+					<div className={cx("level-item")}>
+						<div className={cx("level-item-image", "mb-2")}>
 							<img src={EasyLevelImage} alt="easy level" />
 						</div>
 						<div className={cx("level-item-heading")}>Dễ</div>
-						<div className={cx("level-item-quantity-card", 'mb-3')}>
+						<div className={cx("level-item-quantity-card", "mb-3")}>
 							{gameConvention.levels.easy.quantityCard} thẻ bài
 						</div>
-						<Button label="Chọn dễ" className="w-full" />
+						<Button
+							label="Chọn dễ"
+							className="w-full"
+							onClick={() => handlePlayGame(gameConvention.levels.easy.name)}
+						/>
 					</div>
 				</div>
 				<div className="col-12">
-					<div
-						className={cx("level-item")}
-						onClick={() => handlePlayGame(gameConvention.levels.normal.name)}
-					>
-						<div className={cx("level-item-image", 'mb-2')}>
+					<div className={cx("level-item")}>
+						<div className={cx("level-item-image", "mb-2")}>
 							<img src={NormalLevelImage} alt="normal level" />
 						</div>
 						<div className={cx("level-item-heading")}>Trung bình</div>
-						<div className={cx("level-item-quantity-card", 'mb-3')}>
+						<div className={cx("level-item-quantity-card", "mb-3")}>
 							{gameConvention.levels.normal.quantityCard} thẻ bài
 						</div>
-						<Button label="Chọn trung bình" className="w-full" />
+						<Button
+							label="Chọn trung bình"
+							className="w-full"
+							onClick={() => handlePlayGame(gameConvention.levels.normal.name)}
+						/>
 					</div>
 				</div>
 				<div className="col-12">
-					<div
-						className={cx("level-item")}
-						onClick={() => handlePlayGame(gameConvention.levels.hard.name)}
-					>
-						<div className={cx("level-item-image", 'mb-2')}>
+					<div className={cx("level-item")}>
+						<div className={cx("level-item-image", "mb-2")}>
 							<img src={HardLevelImage} alt="hard level" />
 						</div>
 						<div className={cx("level-item-heading")}>Khó</div>
-						<div className={cx("level-item-quantity-card", 'mb-3')}>
+						<div className={cx("level-item-quantity-card", "mb-3")}>
 							{gameConvention.levels.hard.quantityCard} thẻ bài
 						</div>
-						<Button label="Chọn khó" className="w-full" />
+						<Button
+							label="Chọn khó"
+							className="w-full"
+							onClick={() => handlePlayGame(gameConvention.levels.hard.name)}
+						/>
 					</div>
 				</div>
 			</div>

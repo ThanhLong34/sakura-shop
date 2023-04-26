@@ -1,33 +1,36 @@
 @use "@/assets/styles/variables.scss" as *;
 
+.wrapper {
+	max-width: 500px;
+	margin: 0 auto;
+	padding: 1rem;
+}
+
 .heading {
-	font-size: 2rem;
+	font-size: 1rem;
 	text-align: center;
-	color: #ffd968;
+	color: $mPrimaryColor;
 }
 
 .topic {
-	transition: all ease 0.2s;
-	cursor: pointer;
-
-	&:hover {
-		background-color: #fff7df;
-		transform: scale(1.03);
-	}
+	border-radius: 0.5rem;
+	box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
+	padding: 0.5rem;
 
 	&-image {
+		width: 100%;
 		padding: 1rem;
 		margin: 0 auto;
 	}
 
 	&-info {
-		padding: 1.4rem 0;
+		padding: 0.5rem 0;
 	}
 
 	&-name {
 		text-align: center;
-		font-size: 2rem;
-		color: $bPrimaryColor;
+		font-size: 1rem;
+		color: $bSecondaryColor;
 		font-weight: bold;
 	}
 }

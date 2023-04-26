@@ -7,6 +7,7 @@ import NotAllowedToPlay from "@/mobile/components/NotAllowedToPlay";
 import LockedMode from "@/mobile/components/LockedMode";
 import SelectLevel from "@/mobile/components/SelectLevel";
 import topicApi from "@/apis/topicApi";
+import { Button } from "primereact/button";
 
 const cx = classNames.bind(styles);
 
@@ -37,7 +38,7 @@ function OptionalMode() {
 
 	if (+playerAccount.level < levelRequire) {
 		return (
-			<div>
+			<div className={cx("wrapper")}>
 				<LockedMode levelRequire={levelRequire} />
 			</div>
 		);
@@ -46,40 +47,47 @@ function OptionalMode() {
 	if (+playerAccount.health > 0) {
 		if (topicSelected) {
 			return (
-				<div>
+				<div className={cx("wrapper")}>
 					<SelectLevel topicId={topicSelected} showGoBackButton onGoBack={handleResetTopicSelected} />;
 				</div>
 			);
 		} else {
 			return (
-				<div>
-					<h5 className={cx("heading", "mb-3")}>CHỌN CHỦ ĐỀ</h5>
-					<div
-						className="grid"
-						style={{
-							justifyContent: "center",
-						}}
-					>
-						{topics &&
-							topics
-								.filter((topic) => topic.id !== 1)
-								.map((topic) => (
-									<div key={topic.id} className="col-3">
-										<div className={cx("card", "topic")} onClick={() => setTopicSelected(topic.id)}>
-											<img className={cx("topic-image")} src={topic.imageUrl} alt="topic" />
-											<div className={cx("topic-info")}>
-												<div className={cx("topic-name")}>{topic.name}</div>
+				<div className={cx("wrapper")}>
+					<div className="card">
+						<h5 className={cx("heading", "mb-3")}>CHỌN CHỦ ĐỀ</h5>
+						<div
+							className="grid"
+							style={{
+								justifyContent: "center",
+							}}
+						>
+							{topics &&
+								topics
+									.filter((topic) => topic.id !== 1)
+									.map((topic) => (
+										<div key={topic.id} className="col-6">
+											<div className={cx("topic")}>
+												<img className={cx("topic-image")} src={topic.imageUrl} alt="topic" />
+												<div className={cx("topic-info")}>
+													<div className={cx("topic-name")}>{topic.name}</div>
+												</div>
+												<Button
+													className="w-full mt-2"
+													label="Chọn"
+													onClick={() => setTopicSelected(topic.id)}
+												/>
 											</div>
 										</div>
-									</div>
-								))}
+									))}
+						</div>
 					</div>
 				</div>
 			);
 		}
 	} else {
 		return (
-			<div>
+			<div className={cx("wrapper")}>
 				<NotAllowedToPlay />
 			</div>
 		);
