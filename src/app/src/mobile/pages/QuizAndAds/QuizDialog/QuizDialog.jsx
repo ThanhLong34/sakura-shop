@@ -171,7 +171,7 @@ function QuizDialog({ visible, setVisible }) {
 
 	return (
 		<>
-			{createPortal(<Toast ref={toastRef} position="top-right" />, document.body)}
+			{createPortal(<Toast ref={toastRef} position="top-center" />, document.body)}
 			<Dialog
 				header="TRẢ LỜI CÂU HỎI TRẮC NGHIỆM"
 				visible={visible}
