@@ -1,0 +1,62 @@
+.gameplay {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	padding: 1rem;
+	padding-top: 3rem;
+}
+
+.board {
+	display: grid;
+	grid-template-columns: repeat(4, 1fr);
+	gap: 5px;
+	width: 90vmin;
+	user-select: none;
+	margin: 0 auto;
+
+	&.disable {
+		pointer-events: none;
+	}
+
+	// &.easy {
+	// 	width: 90vmin;
+	// }
+
+	// &.normal {
+	// 	width: 90vmin;
+	// }
+
+	// &.hard {
+	// 	width: 90vmin;
+	// }
+}
+
+.game-data {
+	width: 100px;
+	max-width: 100px;
+	height: fit-content;
+	padding: 0.6rem 1rem !important;
+
+	&-item {
+		display: flex;
+		align-items: center;
+		padding-left: 0.4rem;
+
+		& + & {
+			margin-top: 1.2rem;
+		}
+
+		img {
+			width: 1.5rem;
+			max-width: 100%;
+			margin-right: 0.4rem;
+		}
+
+		span {
+			display: inline-block;
+			font-size: 1rem;
+			transform: translateY(1px);
+		}
+	}
+}

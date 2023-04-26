@@ -32,6 +32,7 @@ import MobileHome from "@/mobile/pages/Home";
 import MobileDashboard from "@/mobile/pages/Dashboard";
 import MobileClassicMode from "@/mobile/pages/ClassicMode";
 import MobileOptionalMode from "@/mobile/pages/OptionalMode";
+import MobileGameplay from "@/mobile/pages/Gameplay";
 import MobileReward from "@/mobile/pages/Reward";
 import MobileRewardHistory from "@/mobile/pages/RewardHistory";
 import MobileQuizAndAds from "@/mobile/pages/QuizAndAds";
@@ -219,11 +220,11 @@ const mobileRoutes = [
 		component: MobileOptionalMode,
 		access: "private",
 	},
-	// {
-	// 	path: "/gameplay/:topicId/:selectedLevel",
-	// 	component: BrowserGameplay,
-	// 	access: "private",
-	// },
+	{
+		path: "/gameplay/:topicId/:selectedLevel",
+		component: MobileGameplay,
+		access: "private",
+	},
 	{
 		path: "/reward",
 		component: MobileReward,

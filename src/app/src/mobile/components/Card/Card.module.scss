@@ -1,0 +1,38 @@
+@use "@/assets/styles/variables.scss" as *;
+
+.card {
+	position: relative;
+	transition: all ease 0.2s;
+	user-select: none;
+}
+
+.front,
+.back {
+	border: 2px solid white;
+	border-radius: 6px;
+}
+
+.front {
+	position: absolute;
+	transform: rotateY(90deg);
+	transition: transform 0.2s ease-in 0s, border-color 0.3s;
+	background-color: white;
+	padding: 1rem;
+}
+
+.back {
+	cursor: pointer;
+	transition: transform 0.2s ease-in 0.2s, border-color 0.3s;
+}
+
+.flipped {
+	& .front {
+		transform: rotateY(0deg);
+		transition-delay: 0.2s;
+	}
+
+	& .back {
+		transform: rotateY(90deg);
+		transition-delay: 0s;
+	}
+}
