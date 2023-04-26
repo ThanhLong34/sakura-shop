@@ -180,7 +180,7 @@ function QuizDialog({ visible, setVisible }) {
 				closable={false}
 			>
 				{questionRandom && (
-					<div>
+					<div className="mt-3">
 						<div>
 							<h4 className={cx("question-content")}>{questionRandom.content}</h4>
 							<ul className={cx("answers")}>

@@ -31,7 +31,7 @@ function ViewGiftDialog({ visible, setVisible, item }) {
 			blockScroll
 		>
 			{item && (
-				<div>
+				<div className="mt-3">
 					<div className="mb-3">
 						<img src={item.imageUrl} alt="gift" />
 					</div>

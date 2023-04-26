@@ -155,7 +155,7 @@ function AdsDialog({ visible, setVisible }) {
 				closable={false}
 			>
 				{currentAds && (
-					<div>
+					<div className="mt-3">
 						<div className={cx("ads-wrapper")}>
 							<span className={cx("ads-duration")}>
 								<CountdownCircleTimer
