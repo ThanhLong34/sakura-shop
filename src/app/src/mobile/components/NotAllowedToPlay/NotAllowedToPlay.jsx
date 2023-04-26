@@ -10,14 +10,16 @@ function NotAllowedToPlay() {
 	const navigate = useNavigate();
 
 	return (
-		<div className={cx("card mt-2", "wrapper")}>
-			<img className={cx("image", "mb-3")} src={ExhaustedImage} alt="exhausted" />
-			<h6 className={cx("heading", "mb-3")}>
-				Ôi không, bạn đã hết sức khỏe rồi
-				<br />
-				Hãy đi thu thập sức khỏe bằng cách <br /> <span>trả lời câu hỏi</span> hoặc <span>xem quảng cáo</span>
-			</h6>
-			<Button className="" label="Đi thu thập sức khỏe thôi nào" onClick={() => navigate("/quiz-and-ads")} />
+		<div className="wrapper">
+			<div className={cx("card", "content")}>
+				<img className={cx("image", "mb-2")} src={ExhaustedImage} alt="exhausted" />
+				<h6 className={cx("heading", "mb-3")}>
+					Ôi không, bạn đã hết sức khỏe rồi
+					<br />
+					Hãy đi thu thập sức khỏe bằng cách <br /> <span>trả lời câu hỏi</span> hoặc <span>xem quảng cáo</span>
+				</h6>
+				<Button label="Đi thu thập sức khỏe thôi nào" onClick={() => navigate("/quiz-and-ads")} />
+			</div>
 		</div>
 	);
 }

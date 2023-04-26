@@ -4,7 +4,7 @@ import PropTypes from "prop-types";
 import classNames from "classnames/bind";
 import styles from "./LockedMode.module.scss";
 import LockIcon from "@/assets/images/LockIcon.png";
-import GradientButton from "../GradientButton";
+import { Button } from "primereact/button";
 
 const cx = classNames.bind(styles);
 
@@ -21,16 +21,14 @@ function LockedMode({ levelRequire }) {
 
 	return (
 		<div className={cx("wrapper")}>
-			<div className={cx("card", "not-found")}>
-				<img className={cx("image")} src={LockIcon} alt="lock mode" />
-				<h6 className={cx("heading")}>
+			<div className={cx("card", "content")}>
+				<img className={cx("image", 'mb-2')} src={LockIcon} alt="lock mode" />
+				<h6 className={cx("heading", 'mb-3')}>
 					Hmmm, bạn chưa đủ cấp độ để chơi chế độ này
 					<br />
 					Chế độ này yêu cầu bạn phải đạt <span>cấp {levelRequire}</span> trở lên
 				</h6>
-				<GradientButton className="mb-2" type="secondary" onClick={() => navigate("/dashboard")}>
-					Quay lại trang chủ
-				</GradientButton>
+				<Button label="Quay lại trang chủ" onClick={() => navigate("/dashboard")} />
 			</div>
 		</div>
 	);

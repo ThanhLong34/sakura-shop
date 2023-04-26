@@ -31,6 +31,7 @@ import { EmptyLayout as BrowserEmptyLayout } from "@/browser/layouts";
 import MobileHome from "@/mobile/pages/Home";
 import MobileDashboard from "@/mobile/pages/Dashboard";
 import MobileClassicMode from "@/mobile/pages/ClassicMode";
+import MobileOptionalMode from "@/mobile/pages/OptionalMode";
 import MobileReward from "@/mobile/pages/Reward";
 import MobileRewardHistory from "@/mobile/pages/RewardHistory";
 import MobileQuizAndAds from "@/mobile/pages/QuizAndAds";
@@ -213,11 +214,11 @@ const mobileRoutes = [
 		component: MobileClassicMode,
 		access: "private",
 	},
-	// {
-	// 	path: "/optional-mode",
-	// 	component: BrowserOptionalMode,
-	// 	access: "private",
-	// },
+	{
+		path: "/optional-mode",
+		component: MobileOptionalMode,
+		access: "private",
+	},
 	// {
 	// 	path: "/gameplay/:topicId/:selectedLevel",
 	// 	component: BrowserGameplay,

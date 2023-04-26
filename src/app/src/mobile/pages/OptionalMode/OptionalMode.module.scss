@@ -1,0 +1,33 @@
+@use "@/assets/styles/variables.scss" as *;
+
+.heading {
+	font-size: 2rem;
+	text-align: center;
+	color: #ffd968;
+}
+
+.topic {
+	transition: all ease 0.2s;
+	cursor: pointer;
+
+	&:hover {
+		background-color: #fff7df;
+		transform: scale(1.03);
+	}
+
+	&-image {
+		padding: 1rem;
+		margin: 0 auto;
+	}
+
+	&-info {
+		padding: 1.4rem 0;
+	}
+
+	&-name {
+		text-align: center;
+		font-size: 2rem;
+		color: $bPrimaryColor;
+		font-weight: bold;
+	}
+}
