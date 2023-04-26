@@ -1,5 +1,7 @@
 import { useState, useEffect } from "react";
-import PropTypes from "prop-types";
+import { useSelector } from "react-redux";
+import classNames from "classnames/bind";
+import styles from "./RewardHistory.module.scss";
 
 import rewardApi from "@/apis/rewardApi";
 
@@ -7,14 +9,15 @@ import rewardApi from "@/apis/rewardApi";
 import StarIcon from "@/assets/images/StarIcon.png";
 import DiamondIcon from "@/assets/images/DiamondIcon.png";
 
-import { Dialog } from "primereact/dialog";
 import { DataTable } from "primereact/datatable";
 import { Column } from "primereact/column";
 import { Paginator } from "primereact/paginator";
 
+const cx = classNames.bind(styles);
+
 //? Variables
 const initialTableParams = {
-	limit: 10,
+	limit: 5,
 	offset: 0,
 	searchType: null,
 	searchValue: null,
@@ -23,19 +26,11 @@ const initialTableParams = {
 	orderby: null,
 	reverse: null,
 };
-const rowsPerPageOptions = [10, 20, 30];
+const rowsPerPageOptions = [5, 10, 15];
 
-ViewRewardHistoryDialog.propTypes = {
-	visible: PropTypes.bool.isRequired,
-	setVisible: PropTypes.func.isRequired,
-	playerAccount: PropTypes.object,
-};
+function RewardHistory() {
+	const playerAccount = useSelector((state) => state.player.account);
 
-ViewRewardHistoryDialog.defaultProps = {
-	playerAccount: {},
-};
-
-function ViewRewardHistoryDialog({ visible, setVisible, playerAccount }) {
 	//? States
 	const [totalItem, setTotalItem] = useState(0);
 	const [tableData, setTableData] = useState([]);
@@ -79,9 +74,6 @@ function ViewRewardHistoryDialog({ visible, setVisible, playerAccount }) {
 			})();
 		}
 	};
-	const handleBeforeShowDialog = () => {
-		handleGetTableData();
-	};
 	const handleChangePage = (e) => {
 		setTableParams((prevState) => ({
 			...prevState,
@@ -116,73 +108,82 @@ function ViewRewardHistoryDialog({ visible, setVisible, playerAccount }) {
 	};
 
 	return (
-		<Dialog
-			header="LỊCH SỬ ĐỔI THƯỞNG CỦA BẠN"
-			visible={visible}
-			style={{ width: "1000px" }}
-			onHide={() => setVisible(false)}
-			onShow={handleBeforeShowDialog}
-		>
-			<div className="grid mb-3">
-				<div className="col-6">
-					<h3 className="">DANH SÁCH ĐỔI THƯỞNG</h3>
-				</div>
-				<div className="col-6 text-right">
-					<h3 className="text-400 text-sm">{`(${tableData.length} trên tổng ${totalItem})`}</h3>
-				</div>
+		<div className={cx("wrapper")}>
+			<div className="card">
+				<h3 className={cx("heading")}>LỊCH SỬ ĐỔI THƯỞNG</h3>
+				<h3 className={cx('total-text', 'mb-3')}>{`(${tableData.length} trên tổng ${totalItem})`}</h3>
+				<DataTable
+					value={tableData}
+					rows={5}
+					stripedRows
+					showGridlines
+					scrollable
+					selection={selectedItem}
+					onSelectionChange={(e) => setSelectedItem(e.value)}
+					selectionMode="single"
+					dataKey="id"
+					removableSort
+					sortField={tableParams.orderby}
+					sortOrder={tableParams.reverse ? -1 : 1}
+					onSort={handleSort}
+					emptyMessage="Không có kết quả"
+					tableStyle={{ minWidth: "max-content" }}
+				>
+					<Column
+						field="giftImageUrl"
+						header="Hình ảnh phần thưởng"
+						body={imageDataTemplate}
+						style={{
+							fontSize: "0.6rem",
+						}}
+					/>
+					<Column
+						field="giftName"
+						header="Tên phần thưởng"
+						style={{
+							maxWidth: "150px",
+							fontSize: "0.6rem",
+						}}
+					/>
+					<Column
+						field="starCost"
+						header="Chi phí sao"
+						body={starCostDataTemplate}
+						sortable
+						sortFunction={getSortedTableData}
+						style={{
+							fontSize: "0.6rem",
+						}}
+					/>
+					<Column
+						field="diamondCost"
+						header="Chi phí kim cương"
+						body={diamondCostDataTemplate}
+						sortable
+						sortFunction={getSortedTableData}
+						style={{
+							fontSize: "0.6rem",
+						}}
+					/>
+					<Column
+						field="createdAt"
+						header="Thời gian nhận"
+						style={{
+							fontSize: "0.6rem",
+						}}
+					/>
+				</DataTable>
+				<Paginator
+					className="mt-4"
+					first={tableParams.offset}
+					rows={tableParams.limit}
+					totalRecords={totalItem}
+					rowsPerPageOptions={rowsPerPageOptions}
+					onPageChange={handleChangePage}
+				/>
 			</div>
-			<DataTable
-				value={tableData}
-				rows={10}
-				stripedRows
-				showGridlines
-				scrollable
-				selection={selectedItem}
-				onSelectionChange={(e) => setSelectedItem(e.value)}
-				selectionMode="single"
-				dataKey="id"
-				removableSort
-				sortField={tableParams.orderby}
-				sortOrder={tableParams.reverse ? -1 : 1}
-				onSort={handleSort}
-				emptyMessage="Không có kết quả"
-				tableStyle={{ minWidth: "max-content" }}
-			>
-				<Column field="giftImageUrl" header="Hình ảnh phần thưởng" body={imageDataTemplate} frozen />
-				<Column
-					field="giftName"
-					header="Tên phần thưởng"
-					frozen
-					style={{
-						maxWidth: "420px",
-					}}
-				/>
-				<Column
-					field="starCost"
-					header="Chi phí sao"
-					body={starCostDataTemplate}
-					sortable
-					sortFunction={getSortedTableData}
-				/>
-				<Column
-					field="diamondCost"
-					header="Chi phí kim cương"
-					body={diamondCostDataTemplate}
-					sortable
-					sortFunction={getSortedTableData}
-				/>
-				<Column field="createdAt" header="Thời gian nhận" />
-			</DataTable>
-			<Paginator
-				className="mt-4"
-				first={tableParams.offset}
-				rows={tableParams.limit}
-				totalRecords={totalItem}
-				rowsPerPageOptions={rowsPerPageOptions}
-				onPageChange={handleChangePage}
-			/>
-		</Dialog>
+		</div>
 	);
 }
 
-export default ViewRewardHistoryDialog;
+export default RewardHistory;

@@ -125,7 +125,7 @@ function ViewRewardHistoryDialog({ visible, setVisible, playerAccount }) {
 		>
 			<div className="grid mb-3">
 				<div className="col-6">
-					<h3 className="">DANH SÁCH ĐỔI THƯỞNG</h3>
+					<h3 className="">LỊCH SỬ ĐỔI THƯỞNG</h3>
 				</div>
 				<div className="col-6 text-right">
 					<h3 className="text-400 text-sm">{`(${tableData.length} trên tổng ${totalItem})`}</h3>

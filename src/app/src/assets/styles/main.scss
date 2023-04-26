@@ -105,6 +105,15 @@ aside {
 }
 
 .mobile {
+	body,
+	div,
+	aside {
+		&::-webkit-scrollbar {
+			width: 3px;
+			height: 4px;
+		}
+	}
+
 	.card {
 		background: white;
 		padding: 1rem;
@@ -114,4 +123,9 @@ aside {
 	}
 
 	color: $mTextColor;
+
+	.p-dropdown.p-component.p-inputwrapper.p-inputwrapper-filled {
+		width: 100%;
+		margin-top: 1rem;
+	}
 }
