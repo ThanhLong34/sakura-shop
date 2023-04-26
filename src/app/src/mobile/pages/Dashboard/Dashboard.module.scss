@@ -1,7 +1,9 @@
 @use "@/assets/styles/variables.scss" as *;
 
-.dashboard {
+.wrapper {
+	max-width: 500px;
 	padding: 1rem;
+	margin: 0 auto;
 }
 
 .heading {

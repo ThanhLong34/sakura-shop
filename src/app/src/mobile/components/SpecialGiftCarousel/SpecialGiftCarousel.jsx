@@ -66,7 +66,7 @@ function SpecialGiftCarousel({ onOpenViewGiftDialog }) {
 				</div>
 				<div className={cx("mt-3", "gift-action")}>
 					<Button
-						label="XEM"
+						label="Xem"
 						icon="pi pi-eye"
 						severity="info"
 						outlined

@@ -49,7 +49,7 @@ function Gift({ gift, onOpenViewGiftDialog, onRewardExchange }) {
 			<div className={cx("action")}>
 				<Button
 					className="block mb-2 w-full"
-					label="XEM CHI TIẾT"
+					label="Xem chi tiết"
 					icon="pi pi-eye"
 					severity="info"
 					outlined
@@ -57,7 +57,7 @@ function Gift({ gift, onOpenViewGiftDialog, onRewardExchange }) {
 				/>
 				<Button
 					className="block w-full"
-					label="ĐỔI THƯỞNG"
+					label="Đổi thưởng"
 					icon="pi pi-shopping-bag"
 					severity="primary"
 					onClick={() => onRewardExchange(gift)}

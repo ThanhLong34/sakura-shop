@@ -1,5 +1,11 @@
 @use "@/assets/styles/variables.scss" as *;
 
+.wrapper {
+	max-width: 500px;
+	padding: 1rem;
+	margin: 0 auto;
+}
+
 .logo-brand {
 	padding: 0.6rem;
 	background-color: white;

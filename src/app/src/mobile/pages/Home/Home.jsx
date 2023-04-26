@@ -59,14 +59,14 @@ function Home() {
 						</h3>
 						<Button
 							className="block w-full mb-2"
-							label="ĐĂNG NHẬP"
+							label="Đăng nhập"
 							severity="primary"
 							onClick={handleShowLoginForm}
 						/>
 						<span className={cx("block w-full", "text-divider")}>hoặc</span>
 						<Button
 							className="block w-full mt-2"
-							label="ĐĂNG KÝ"
+							label="Đăng ký"
 							severity="warning"
 							onClick={handleShowRegisterForm}
 						/>

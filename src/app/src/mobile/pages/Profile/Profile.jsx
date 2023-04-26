@@ -140,10 +140,10 @@ function Profile() {
 					<i className="pi pi-lock"></i>
 					<InputText ref={newPasswordRef} className="w-full" type="password" placeholder="Nhập mật khẩu mới" />
 				</span>
-				<Button className="w-full" label="GỬI" severity="help" outlined onClick={handleUpdatePassword} />
+				<Button className="w-full" label="Lưu mật khẩu" severity="help" outlined onClick={handleUpdatePassword} />
 			</Dialog>
 
-			<div className={cx("profile")}>
+			<div className={cx("wrapper")}>
 				<div className="card">
 					<img className={cx("profile-icon")} src={AccountIcon} alt="profile" />
 					<div className="grid mt-2">
@@ -161,7 +161,7 @@ function Profile() {
 								</span>
 								<Button
 									className="w-full"
-									label="LƯU TÊN NGƯỜI CHƠI"
+									label="Lưu tên người chơi"
 									outlined
 									icon="pi pi-save"
 									onClick={handleUpdateNickname}
@@ -175,7 +175,7 @@ function Profile() {
 								</span>
 								<Button
 									className="w-full"
-									label="LƯU EMAIL"
+									label="Lưu Email"
 									icon="pi pi-save"
 									outlined
 									onClick={handleUpdateEmail}
@@ -185,7 +185,7 @@ function Profile() {
 								<h4 className="mb-2">Thay đổi mật khẩu</h4>
 								<Button
 									className="w-full"
-									label="THAY ĐỔI MẬT KHẨU"
+									label="Thay đổi mật khẩu"
 									severity="warning"
 									outlined
 									icon="pi pi-lock"

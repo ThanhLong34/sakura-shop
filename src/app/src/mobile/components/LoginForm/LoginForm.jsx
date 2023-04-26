@@ -170,7 +170,7 @@ function LoginForm({ onGoBack }) {
 				</span>
 				<Button
 					className="w-full"
-					label="XÁC NHẬN LẤY LẠI MẬT KHẨU"
+					label="Xác nhận lấy lại mật khẩu"
 					severity="help"
 					outlined
 					loading={resetPasswordLoading}
@@ -196,9 +196,9 @@ function LoginForm({ onGoBack }) {
 				Nhấn vào đây nếu bạn quên mật khẩu!
 			</div>
 
-			<Button label="VÀO CHƠI THÔI NÀO" className={cx("login-button", "mb-3 w-full")} type="submit" />
+			<Button label="Vào chơi thôi nào" className={cx("login-button", "mb-3 w-full")} type="submit" />
 			<Button
-				label="QUAY LẠI"
+				label="Quay lại"
 				className={cx("login-button", "w-full")}
 				onClick={onGoBack}
 				severity="info"

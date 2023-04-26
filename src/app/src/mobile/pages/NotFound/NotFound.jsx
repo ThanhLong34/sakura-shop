@@ -18,7 +18,7 @@ function NotFound() {
 					<br />
 					Trang mà bạn muốn tới không tồn tại
 				</h6>
-				<Button label="QUAY LẠI TRANG CHỦ" severity="danger" outlined onClick={() => navigate("/")} />
+				<Button label="Quay lại trang chủ" severity="danger" outlined onClick={() => navigate("/")} />
 			</div>
 		</div>
 	);

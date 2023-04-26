@@ -21,7 +21,7 @@ function Dashboard() {
 	return (
 		<>
 			<ViewGiftDialog visible={viewGiftDialogVisible} setVisible={setViewGiftDialogVisible} item={selectedGift} />
-			<div className={cx("dashboard")}>
+			<div className={cx("wrapper")}>
 				<div className="card">
 					<h1 className={cx("heading")}>
 						Chào mừng bạn đến với trò chơi <br /> <span>Lật Thẻ Tìm Son</span>

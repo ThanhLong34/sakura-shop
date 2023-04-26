@@ -137,13 +137,13 @@ function RegisterForm({ onGoBack }) {
 			</span>
 
 			<Button
-				label="XÁC NHẬN ĐĂNG KÝ"
+				label="Xác nhận đăng ký"
 				className={cx("login-button", "mb-3 w-full")}
 				type="submit"
 				severity="warning"
 			/>
 			<Button
-				label="QUAY LẠI"
+				label="Quay lại"
 				className={cx("login-button", "mb-3 w-full")}
 				onClick={onGoBack}
 				severity="info"
