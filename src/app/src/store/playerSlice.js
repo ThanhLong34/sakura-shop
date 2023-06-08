@@ -35,6 +35,8 @@ const player = createSlice({
 				diamond: (payload.diamond || payload.diamond === 0) ? +payload.diamond : +state.account.diamond,
 				experience: (payload.experience || payload.experience === 0) ? +payload.experience : +state.account.experience,
 				level: (payload.level || payload.level === 0) ? +payload.level : +state.account.level,
+				remainingQuestions: (payload.remainingQuestions || payload.remainingQuestions === 0) ? +payload.remainingQuestions : +state.account.remainingQuestions,
+				remainingAdvertisements: (payload.remainingAdvertisements || payload.remainingAdvertisements === 0) ? +payload.remainingAdvertisements : +state.account.remainingAdvertisements,
 			};
 
 			SessionStorage.setPlayerAccount(state.account);

@@ -18,6 +18,7 @@ import StarIcon from "@/assets/images/StarIcon.png";
 import DiamondIcon from "@/assets/images/DiamondIcon.png";
 import { Toast } from "primereact/toast";
 import { Messages } from "primereact/messages";
+import limitedNumbersApi from "@/apis/limitedNumbersApi";
 
 const cx = classNames.bind(styles);
 
@@ -107,12 +108,20 @@ function QuizDialog({ visible, setVisible }) {
 		}
 
 		if (submited) {
-			const questionRandom = getQuestionRandom(questions);
-			setQuestionsAppeared((prevState) => [...prevState, questionRandom]);
-			setQuestionRandom(questionRandom);
-			setSubmited(false);
-			setAnswerSelected(null);
-			msgs.current.clear();
+			limitedNumbersApi.substractRemainingQuestions(playerAccount.id).then((res) => {
+				if (res.code === 1) {
+					const questionRandom = getQuestionRandom(questions);
+					setQuestionsAppeared((prevState) => [...prevState, questionRandom]);
+					setQuestionRandom(questionRandom);
+					setSubmited(false);
+					setAnswerSelected(null);
+					msgs.current.clear();
+
+					const gameData = { remainingQuestions: playerAccount.remainingQuestions - 1 };
+					const action = updatePlayerAccountGameData(gameData);
+					dispatch(action);
+				}
+			});
 		} else {
 			if (answerSelected.isRight) {
 				msgs.current.show([
@@ -179,7 +188,7 @@ function QuizDialog({ visible, setVisible }) {
 				onHide={handleCloseDialog}
 				closable={false}
 			>
-				{questionRandom && (
+				{questionRandom && playerAccount.remainingQuestions >= 0 ? (
 					<div>
 						<div>
 							<h4 className={cx("question-content")}>{questionRandom.content}</h4>
@@ -225,6 +234,11 @@ function QuizDialog({ visible, setVisible }) {
 							<Messages ref={msgs} />
 						</div>
 					</div>
+				) : (
+					<p className={cx("limited-message")}>
+						Bạn đã hết lượt trả lời câu hỏi trắc nghiệm <br />
+						Hãy quay lại vào ngày mai bạn nhé!
+					</p>
 				)}
 				<div className="flex align-items-center justify-content-end mt-4">
 					<Button className="mr-3" label="Đóng" severity="danger" outlined onClick={handleCloseDialog} />

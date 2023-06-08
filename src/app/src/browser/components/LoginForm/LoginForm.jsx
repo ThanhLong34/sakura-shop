@@ -7,6 +7,7 @@ import classNames from "classnames/bind";
 import styles from "./LoginForm.module.scss";
 
 import playerApi from "@/apis/playerApi";
+import limitedNumbersApi from "@/apis/limitedNumbersApi";
 import { validateEmail, validatePhoneNumber } from "@/helpers/validator";
 import { loginPlayerAccount } from "@/store/playerSlice";
 
@@ -126,9 +127,11 @@ function LoginForm({ onGoBack, onShowRegisterForm }) {
 				return;
 			}
 
-			const response = await playerApi.login({ phoneNumber, password });
+			const loginResponse = await playerApi.login({ phoneNumber, password });
+			const getLimitedNumbersResponse = await limitedNumbersApi.login({ playerId: +loginResponse.data.id });
+			const errorMessage = loginResponse.message || getLimitedNumbersResponse.message;
 
-			if (response.code === 1) {
+			if (loginResponse.code === 1) {
 				toastRef.current.show({
 					severity: "success",
 					summary: "Thành công",
@@ -137,13 +140,15 @@ function LoginForm({ onGoBack, onShowRegisterForm }) {
 				});
 
 				const account = {
-					...response.data,
-					id: +response.data.id,
-					health: +response.data.health,
-					star: +response.data.star,
-					diamond: +response.data.diamond,
-					experience: +response.data.experience,
-					level: +response.data.level,
+					...loginResponse.data,
+					id: +loginResponse.data.id,
+					health: +loginResponse.data.health,
+					star: +loginResponse.data.star,
+					diamond: +loginResponse.data.diamond,
+					experience: +loginResponse.data.experience,
+					level: +loginResponse.data.level,
+					remainingQuestions: +getLimitedNumbersResponse.data.remainingQuestions,
+					remainingAdvertisements: +getLimitedNumbersResponse.data.remainingAdvertisements,
 				};	
 
 				const loginPlayerAccountAction = loginPlayerAccount(account);
@@ -151,7 +156,7 @@ function LoginForm({ onGoBack, onShowRegisterForm }) {
 
 				navigate("/dashboard");
 			} else {
-				toastRef.current.show({ severity: "error", summary: "Lỗi", detail: response.message, life: 3000 });
+				toastRef.current.show({ severity: "error", summary: "Lỗi", detail: errorMessage, life: 3000 });
 			}
 		},
 		[]

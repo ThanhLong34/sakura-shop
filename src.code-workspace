@@ -20,6 +20,9 @@
 		},
 		{
 			"path": "src/app/src/apis"
+		},
+		{
+			"path": "C:/xampp/htdocs/projects/sakura"
 		}
 	],
 	"settings": {}
