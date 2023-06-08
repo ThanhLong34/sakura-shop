@@ -6,12 +6,45 @@ import AdsIcon from "@/assets/images/dockIcons/Ads.png";
 import QuizDialog from "./QuizDialog";
 import AdsDialog from "./AdsDialog";
 import { Button } from "primereact/button";
+import limitedNumbersApi from "@/apis/limitedNumbersApi";
+import { useDispatch, useSelector } from "react-redux";
+import { updatePlayerAccountGameData } from "@/store/playerSlice";
 
 const cx = classNames.bind(styles);
 
 function QuizAndAds() {
+	const dispatch = useDispatch();
+	const playerAccount = useSelector((state) => state.player.account);
+
 	const [quizDialogVisible, setQuizDialogVisible] = useState(false);
 	const [adsDialogVisible, setAdsDialogVisible] = useState(false);
+
+	const handleOpenQuizDialog = () => {
+		if (playerAccount.remainingQuestions <= 0) return;
+
+		limitedNumbersApi.substractRemainingQuestions(playerAccount.id).then((res) => {
+			if (res.code === 1) {
+				const gameData = { remainingQuestions: playerAccount.remainingQuestions - 1 };
+				const action = updatePlayerAccountGameData(gameData);
+				dispatch(action);
+
+				setQuizDialogVisible(true);
+			}
+		});
+	};
+	const handleOpenAdsDialog = () => {
+		if (playerAccount.remainingAdvertisements <= 0) return;
+
+		limitedNumbersApi.substractRemainingAdvertisements(playerAccount.id).then((res) => {
+			if (res.code === 1) {
+				const gameData = { remainingAdvertisements: playerAccount.remainingAdvertisements - 1 };
+				const action = updatePlayerAccountGameData(gameData);
+				dispatch(action);
+
+				setAdsDialogVisible(true);
+			}
+		});
+	};
 
 	return (
 		<>
@@ -32,12 +65,19 @@ function QuizAndAds() {
 								<p className={cx("item-title")}>
 									Trả lời câu hỏi trắc nghiệm để nhận sức khỏe, sao và kim cương
 								</p>
+								<p className={cx("item-subtitle")}>
+									Bạn còn {playerAccount.remainingQuestions <= 0 ? 0 : playerAccount.remainingQuestions} lượt
+									trả lời câu hỏi
+									<br />
+									{playerAccount.remainingQuestions <= 0 && <span>Hãy quay lại vào ngày mai bạn nhé!</span>}
+								</p>
 								<div className={cx("item-action")}>
 									<Button
 										className="w-full"
 										label="Trả lời câu hỏi"
 										severity="primary"
-										onClick={() => setQuizDialogVisible(true)}
+										disabled={playerAccount.remainingQuestions <= 0}
+										onClick={handleOpenQuizDialog}
 									/>
 								</div>
 							</div>
@@ -46,12 +86,20 @@ function QuizAndAds() {
 							<div className={cx("item")}>
 								<img className={cx("item-image")} src={AdsIcon} alt="ads" />
 								<p className={cx("item-title")}>Xem quảng cáo để nhận sức khỏe, sao và kim cương</p>
+								<p className={cx("item-subtitle")}>
+									Bạn còn {playerAccount.remainingAdvertisements} lượt xem quảng cáo
+									<br />
+									{playerAccount.remainingAdvertisements <= 0 && (
+										<span>Hãy quay lại vào ngày mai bạn nhé!</span>
+									)}
+								</p>
 								<div className={cx("item-action")}>
 									<Button
 										className="w-full"
 										label="Xem quảng cáo"
 										severity="primary"
-										onClick={() => setAdsDialogVisible(true)}
+										disabled={playerAccount.remainingAdvertisements <= 0}
+										onClick={handleOpenAdsDialog}
 									/>
 								</div>
 							</div>
