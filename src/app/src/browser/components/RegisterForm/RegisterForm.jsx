@@ -7,6 +7,7 @@ import classNames from "classnames/bind";
 import styles from "./RegisterForm.module.scss";
 
 import playerApi from "@/apis/playerApi";
+import limitedNumbersApi from "@/apis/limitedNumbersApi";
 import { validateEmail, validatePhoneNumber } from "@/helpers/validator";
 import { loginPlayerAccount } from "@/store/playerSlice";
 
@@ -15,7 +16,6 @@ import TextButton from "../TextButton";
 import IconButton from "../IconButton";
 import Input from "../Input";
 import { Toast } from "primereact/toast";
-import limitedNumbersApi from "@/apis/limitedNumbersApi";
 
 const cx = classNames.bind(styles);
 

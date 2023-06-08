@@ -7,6 +7,7 @@ import classNames from "classnames/bind";
 import styles from "./RegisterForm.module.scss";
 
 import playerApi from "@/apis/playerApi";
+import limitedNumbersApi from "@/apis/limitedNumbersApi";
 import { validateEmail, validatePhoneNumber } from "@/helpers/validator";
 import { loginPlayerAccount } from "@/store/playerSlice";
 
@@ -93,29 +94,35 @@ function RegisterForm({ onGoBack }) {
 			return;
 		}
 
-		const response = await playerApi.register({ phoneNumber, password, email });
+			const registerResponse = await playerApi.register({ phoneNumber, password, email });
+			const getLimitedNumbersResponse = await limitedNumbersApi.login({ playerId: +registerResponse.data.id });
+			const errorMessage = registerResponse.message || getLimitedNumbersResponse.message;
 
-		if (response.code === 1) {
-			toastRef.current.show({
-				severity: "success",
-				summary: "Thành công",
-				detail: "Chúc mừng bạn, đăng ký thành công",
-				life: 5000,
-			});
+			if (registerResponse.code === 1) {
+				toastRef.current.show({
+					severity: "success",
+					summary: "Thành công",
+					detail: "Chúc mừng bạn, đăng ký thành công",
+					life: 5000,
+				});
 
-			const account = {
-				...response.data,
-				id: +response.data.id,
-			};
+				const account = {
+					...registerResponse.data,
+					id: +registerResponse.data.id,
+					remainingQuestions: +getLimitedNumbersResponse.data.remainingQuestions,
+					remainingAdvertisements: +getLimitedNumbersResponse.data.remainingAdvertisements,
+				};
 
-			const action = loginPlayerAccount(account);
-			dispatch(action);
+				const action = loginPlayerAccount(account);
+				dispatch(action);
 
-			navigate("/dashboard");
-		} else {
-			toastRef.current.show({ severity: "error", summary: "Lỗi", detail: response.message, life: 3000 });
-		}
-	}, []);
+				navigate("/dashboard");
+			} else {
+				toastRef.current.show({ severity: "error", summary: "Lỗi", detail: errorMessage, life: 3000 });
+			}
+		},
+		[]
+	);
 
 	return (
 		<form className={cx("wrapper")} onSubmit={handleRegister}>
