@@ -63,8 +63,10 @@ function QuizAndAds() {
 							<img className={cx("item-image")} src={QuizIcon} alt="quiz" />
 							<p className={cx("item-title")}>Trả lời câu hỏi trắc nghiệm để nhận sức khỏe, sao và kim cương</p>
 							<p className={cx("item-subtitle")}>
-								Bạn còn { playerAccount.remainingQuestions <= 0 ? 0 : playerAccount.remainingQuestions } lượt trả lời câu hỏi
-								{playerAccount.remainingQuestions <= 0 && <p>Hãy quay lại vào ngày mai bạn nhé!</p>}
+								Bạn còn {playerAccount.remainingQuestions <= 0 ? 0 : playerAccount.remainingQuestions} lượt trả
+								lời câu hỏi
+								<br />
+								{playerAccount.remainingQuestions <= 0 && <span>Hãy quay lại vào ngày mai bạn nhé!</span>}
 							</p>
 							<div className={cx("item-action")}>
 								<Button
@@ -82,8 +84,9 @@ function QuizAndAds() {
 							<img className={cx("item-image")} src={AdsIcon} alt="ads" />
 							<p className={cx("item-title")}>Xem quảng cáo để nhận sức khỏe, sao và kim cương</p>
 							<p className={cx("item-subtitle")}>
-								Bạn còn { playerAccount.remainingAdvertisements } lượt xem quảng cáo
-								{playerAccount.remainingAdvertisements <= 0 && <p>Hãy quay lại vào ngày mai bạn nhé!</p>}
+								Bạn còn {playerAccount.remainingAdvertisements} lượt xem quảng cáo
+								<br />
+								{playerAccount.remainingAdvertisements <= 0 && <span>Hãy quay lại vào ngày mai bạn nhé!</span>}
 							</p>
 							<div className={cx("item-action")}>
 								<Button

@@ -15,6 +15,7 @@ import TextButton from "../TextButton";
 import IconButton from "../IconButton";
 import Input from "../Input";
 import { Toast } from "primereact/toast";
+import limitedNumbersApi from "@/apis/limitedNumbersApi";
 
 const cx = classNames.bind(styles);
 
@@ -98,9 +99,11 @@ function RegisterForm({ onGoBack, onShowLoginForm }) {
 				return;
 			}
 
-			const response = await playerApi.register({ phoneNumber, password, email });
+			const registerResponse = await playerApi.register({ phoneNumber, password, email });
+			const getLimitedNumbersResponse = await limitedNumbersApi.login({ playerId: +registerResponse.data.id });
+			const errorMessage = registerResponse.message || getLimitedNumbersResponse.message;
 
-			if (response.code === 1) {
+			if (registerResponse.code === 1) {
 				toastRef.current.show({
 					severity: "success",
 					summary: "Thành công",
@@ -109,8 +112,10 @@ function RegisterForm({ onGoBack, onShowLoginForm }) {
 				});
 
 				const account = {
-					...response.data,
-					id: +response.data.id,
+					...registerResponse.data,
+					id: +registerResponse.data.id,
+					remainingQuestions: +getLimitedNumbersResponse.data.remainingQuestions,
+					remainingAdvertisements: +getLimitedNumbersResponse.data.remainingAdvertisements,
 				};
 
 				const action = loginPlayerAccount(account);
@@ -118,7 +123,7 @@ function RegisterForm({ onGoBack, onShowLoginForm }) {
 
 				navigate("/dashboard");
 			} else {
-				toastRef.current.show({ severity: "error", summary: "Lỗi", detail: response.message, life: 3000 });
+				toastRef.current.show({ severity: "error", summary: "Lỗi", detail: errorMessage, life: 3000 });
 			}
 		},
 		[]
