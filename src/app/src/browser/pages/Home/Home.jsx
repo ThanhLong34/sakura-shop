@@ -15,7 +15,7 @@ import BrandLogo from "@/browser/components/BrandLogo";
 const cx = classNames.bind(styles);
 
 function Home() {
-	const [action, setAction] = useState('');
+	const [action, setAction] = useState("");
 	const [gifts, setGifts] = useState([]);
 
 	useEffect(() => {
@@ -31,7 +31,7 @@ function Home() {
 	}, []);
 
 	const handleGoBack = useCallback(() => {
-		setAction('');
+		setAction("");
 	}, []);
 	const handleShowLoginForm = useCallback(() => {
 		setAction("ShowLoginForm");
