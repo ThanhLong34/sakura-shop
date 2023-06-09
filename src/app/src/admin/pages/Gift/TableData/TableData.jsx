@@ -108,7 +108,7 @@ const TableData = forwardRef(({ onOpenDialog }, ref) => {
 				imageId: +gift.imageId,
 				starCost: +gift.starCost,
 				diamondCost: +gift.diamondCost,
-				allowToReceiveOnline: +gift.allowToReceiveOnline === 1,
+				isPurchaseRequired: +gift.isPurchaseRequired === 1,
 				isSpecial: +gift.isSpecial === 1,
 				isShow: +gift.isShow === 1,
 			}));
@@ -218,7 +218,7 @@ const TableData = forwardRef(({ onOpenDialog }, ref) => {
 		);
 	};
 	const allowToReceiveOnlineDataTemplate = (rowData) => {
-		return <span>{rowData.allowToReceiveOnline ? "Có" : "Không"}</span>;
+		return <span>{rowData.isPurchaseRequired ? "Có" : "Không"}</span>;
 	};
 	const isSpecialDataTemplate = (rowData) => {
 		return <span>{rowData.isSpecial ? "Có" : "Không"}</span>;
@@ -350,8 +350,8 @@ const TableData = forwardRef(({ onOpenDialog }, ref) => {
 					sortFunction={getSortedTableData}
 				/>
 				<Column
-					field="allowToReceiveOnline"
-					header="Nhận online"
+					field="isPurchaseRequired"
+					header="Yêu cầu mua hàng"
 					body={allowToReceiveOnlineDataTemplate}
 					filter
 					filterElement={allowToReceiveOnlineFilterTemplate}

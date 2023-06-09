@@ -12,12 +12,13 @@
 }
 
 .image {
-	max-width: 85px;
-	max-height: 85px;
+	width: 100%;
+	max-width: 100px;
+	height: 85px;
 }
 
 .info {
-	padding: 0.5rem 0.5rem 1.2rem;
+	padding: 0.5rem 0.5rem 1rem;
 	font-size: 0.7rem;
 }
 
@@ -79,4 +80,10 @@
 	margin-left: 0.6rem;
 	font-weight: bold;
 	font-size: 0.7rem;
+}
+
+.purchase-required {
+	margin-top: 0.5rem;
+	text-align: center;
+	color: orange;
 }

@@ -41,10 +41,11 @@ function Gift({ gift, onOpenViewGiftDialog, onRewardExchange }) {
 					)}
 				</div>
 				{gift.isSpecial && (
-					<div className={cx("tag")} >
+					<div className={cx("tag")}>
 						<Tag value="Đặc biệt" severity="danger" />
 					</div>
 				)}
+				{gift.isPurchaseRequired && <p className={cx("purchase-required")}>Yêu cầu mua hàng</p>}
 			</div>
 			<div className={cx("action")}>
 				<Button

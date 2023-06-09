@@ -71,7 +71,7 @@ function UpdateItemDialog({ visible, setVisible, item, onSubmitted }) {
 
 	//? States
 	const [totalSize, setTotalSize] = useState(0);
-	const [allowToReceiveOnline, setAllowToReceiveOnline] = useState(false);
+	const [isPurchaseRequired, setAllowToReceiveOnline] = useState(false);
 	const [isSpecial, setIsSpecial] = useState(false);
 	const [isShow, setIsShow] = useState(true);
 
@@ -136,7 +136,7 @@ function UpdateItemDialog({ visible, setVisible, item, onSubmitted }) {
 				setTotalSize(file.size);
 			});
 
-			setAllowToReceiveOnline(item.allowToReceiveOnline);
+			setAllowToReceiveOnline(item.isPurchaseRequired);
 			setIsSpecial(item.isSpecial);
 			setIsShow(item.isShow);
 		}
@@ -186,7 +186,7 @@ function UpdateItemDialog({ visible, setVisible, item, onSubmitted }) {
 			name: name !== item.name ? name : null,
 			brand: brandRef.current?.value.trim(),
 			description: descriptionRef.current?.value.trim(),
-			allowToReceiveOnline,
+			isPurchaseRequired,
 			isSpecial,
 			isShow,
 			starCost: getInputNumberValue(starCostRef.current.getInput().value),
@@ -306,8 +306,8 @@ function UpdateItemDialog({ visible, setVisible, item, onSubmitted }) {
 				<div className="grid">
 					<div className="col-12 md:col-4">
 						<div className="mb-4">
-							<span className="block mb-2">Có thể nhận Online</span>
-							<InputSwitch checked={allowToReceiveOnline} onChange={(e) => setAllowToReceiveOnline(e.value)} />
+							<span className="block mb-2">Yêu cầu mua hàng</span>
+							<InputSwitch checked={isPurchaseRequired} onChange={(e) => setAllowToReceiveOnline(e.value)} />
 						</div>
 					</div>
 					<div className="col-12 md:col-4">

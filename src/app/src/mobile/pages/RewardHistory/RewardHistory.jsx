@@ -181,6 +181,7 @@ function RewardHistory() {
 					rowsPerPageOptions={rowsPerPageOptions}
 					onPageChange={handleChangePage}
 				/>
+				<p className={cx('text-center')}>Số phần thưởng trên mỗi trang</p>
 			</div>
 		</div>
 	);

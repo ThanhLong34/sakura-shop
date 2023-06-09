@@ -39,8 +39,8 @@ function Dashboard() {
 								<div className={cx("card background-transparent", "note")}>
 									<h6 className={cx("note-title")}>Lưu ý:</h6>
 									<p className={cx("note-text")}>
-										Tất cả phần thưởng từ cửa hàng chỉ được phép đổi thưởng khi bạn mua hàng tại cửa hàng của
-										chúng tôi. Bạn cần phải có đủ số sao hoặc kim cương để đổi thưởng.
+										Có một số phần thưởng yêu cầu bạn phải mua hàng tại cửa hàng của
+										chúng tôi và bạn cần phải có đủ số sao hoặc kim cương để đổi thưởng.
 									</p>
 								</div>
 							</div>

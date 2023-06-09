@@ -68,7 +68,7 @@ function AddItemDialog({ visible, setVisible, onSubmitted }) {
 
 	//? States
 	const [totalSize, setTotalSize] = useState(0);
-	const [allowToReceiveOnline, setAllowToReceiveOnline] = useState(false);
+	const [isPurchaseRequired, setAllowToReceiveOnline] = useState(false);
 	const [isSpecial, setIsSpecial] = useState(false);
 	const [isShow, setIsShow] = useState(true);
 
@@ -140,7 +140,7 @@ function AddItemDialog({ visible, setVisible, onSubmitted }) {
 			name: nameRef.current?.value.trim(),
 			brand: brandRef.current?.value.trim(),
 			description: descriptionRef.current?.value.trim(),
-			allowToReceiveOnline,
+			isPurchaseRequired,
 			isSpecial,
 			isShow,
 			starCost: getInputNumberValue(starCostRef.current.getInput().value),
@@ -274,8 +274,8 @@ function AddItemDialog({ visible, setVisible, onSubmitted }) {
 				<div className="grid">
 					<div className="col-12 md:col-4">
 						<div className="mb-4">
-							<span className="block mb-2">Có thể nhận Online</span>
-							<InputSwitch checked={allowToReceiveOnline} onChange={(e) => setAllowToReceiveOnline(e.value)} />
+							<span className="block mb-2">Yêu cầu mua hàng</span>
+							<InputSwitch checked={isPurchaseRequired} onChange={(e) => setAllowToReceiveOnline(e.value)} />
 						</div>
 					</div>
 					<div className="col-12 md:col-4">
