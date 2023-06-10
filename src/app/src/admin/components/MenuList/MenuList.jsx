@@ -26,6 +26,7 @@ function MenuList() {
 					<MenuItem icon="pi pi-fw pi-question-circle" label="Câu hỏi" redirectTo="/admin/question" />
 					<MenuItem icon="pi pi-fw pi-bolt" label="Loại quảng cáo" redirectTo="/admin/advertisement-type" />
 					<MenuItem icon="pi pi-fw pi-verified" label="Quảng cáo" redirectTo="/admin/advertisement" />
+					<MenuItem icon="pi pi-fw pi-file" label="Khảo sát" redirectTo="/admin/survey" />
 				</ul>
 			</li>
 			<li className="layout-root-menuitem active-menuitem">
