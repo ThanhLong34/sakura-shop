@@ -9,7 +9,6 @@ import IconButton from "@/browser/components/IconButton";
 import GradientButton from "@/browser/components/GradientButton";
 import LoginForm from "@/browser/components/LoginForm";
 import RegisterForm from "@/browser/components/RegisterForm";
-
 import BrandLogo from "@/browser/components/BrandLogo";
 
 const cx = classNames.bind(styles);
