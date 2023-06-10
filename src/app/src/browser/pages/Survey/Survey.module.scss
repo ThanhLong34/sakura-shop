@@ -1,0 +1,44 @@
+@use "@/assets/styles/variables.scss" as *;
+
+.wrapper {
+	margin: 0 auto;
+	color: $bTertiaryColor;
+	max-width: 800px;
+	padding-top: 2.2rem;
+	padding-bottom: 2.2rem;
+}
+
+.heading1 {
+	font-size: 2rem;
+	text-align: center;
+	color: $bPrimaryColor;
+}
+
+.heading2 {
+	text-align: center;
+	font-size: 1.2rem;
+
+	span {
+		color: $bSecondaryColor;
+	}
+}
+
+.item {
+	padding: 2rem;
+	box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
+	border-radius: 12px;
+
+	&-image {
+		max-width: 200px;
+		margin: 0 auto;
+	}
+
+	&-title {
+		margin: 2rem 0 0.5rem;
+	}
+
+	&-subtitle {
+		color: orangered;
+		margin-bottom: 1.5rem;
+	}
+}

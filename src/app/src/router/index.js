@@ -23,6 +23,7 @@ import BrowserClassicMode from "@/browser/pages/ClassicMode";
 import BrowserOptionalMode from "@/browser/pages/OptionalMode";
 import BrowserReward from "@/browser/pages/Reward";
 import BrowserQuizAndAds from "@/browser/pages/QuizAndAds";
+import BrowserSurvey from "@/browser/pages/Survey";
 import BrowserProfile from "@/browser/pages/Profile";
 import BrowserGameplay from "@/browser/pages/Gameplay";
 import BrowserNotFound from "@/browser/pages/NotFound";
@@ -185,6 +186,11 @@ const browserRoutes = [
 	{
 		path: "/quiz-and-ads",
 		component: BrowserQuizAndAds,
+		access: "private",
+	},
+	{
+		path: "/survey",
+		component: BrowserSurvey,
 		access: "private",
 	},
 	{

@@ -1,13 +1,22 @@
 import { useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import PropTypes from "prop-types";
+import classNames from "classnames/bind";
+import styles from "./AddItemDialog.module.scss";
 
 import surveyApi from "@/apis/surveyApi";
+import { getInputNumberValue } from "@/helpers/converter";
+
+// Icons
+import HealthIcon from "@/assets/images/HeartIcon.png";
+import StarIcon from "@/assets/images/StarIcon.png";
+import DiamondIcon from "@/assets/images/DiamondIcon.png";
 
 import { Dialog } from "primereact/dialog";
 import { Button } from "primereact/button";
 import { Toast } from "primereact/toast";
 import { InputText } from "primereact/inputtext";
+import { InputNumber } from "primereact/inputnumber";
 
 AddItemDialog.propTypes = {
 	visible: PropTypes.bool.isRequired,
@@ -19,6 +28,8 @@ AddItemDialog.defaultProps = {
 	onSubmitted: () => {},
 };
 
+const cx = classNames.bind(styles);
+
 function AddItemDialog({ visible, setVisible, onSubmitted }) {
 	//? Refs
 	const toastRef = useRef(null);
@@ -26,6 +37,9 @@ function AddItemDialog({ visible, setVisible, onSubmitted }) {
 	const formLinkRef = useRef(null);
 	const spreadsheetLinkRef = useRef(null);
 	const getListPhoneNumberApiRef = useRef(null);
+	const healthRewardRef = useRef(null);
+	const starRewardRef = useRef(null);
+	const diamondRewardRef = useRef(null);
 
 	//? Handles
 	const handleCloseDialog = () => {
@@ -33,6 +47,9 @@ function AddItemDialog({ visible, setVisible, onSubmitted }) {
 		formLinkRef.current.value = null;
 		spreadsheetLinkRef.current.value = null;
 		getListPhoneNumberApiRef.current.value = null;
+		healthRewardRef.current.getInput().value = null;
+		starRewardRef.current.getInput().value = null;
+		diamondRewardRef.current.getInput().value = null;
 
 		setVisible(false);
 	};
@@ -42,6 +59,9 @@ function AddItemDialog({ visible, setVisible, onSubmitted }) {
 			formLink: formLinkRef.current?.value.trim(),
 			spreadsheetLink: spreadsheetLinkRef.current?.value.trim(),
 			getListPhoneNumberApi: getListPhoneNumberApiRef.current?.value.trim(),
+			healthReward: getInputNumberValue(healthRewardRef.current.getInput().value),
+			starReward: getInputNumberValue(starRewardRef.current.getInput().value),
+			diamondReward: getInputNumberValue(diamondRewardRef.current.getInput().value),
 		};
 
 		if (!data.title) {
@@ -104,6 +124,45 @@ function AddItemDialog({ visible, setVisible, onSubmitted }) {
 						ref={getListPhoneNumberApiRef}
 						className="w-full"
 						placeholder="Nhập API lấy danh sách số điện thoại"
+					/>
+				</div>
+				<div className="mb-4 flex">
+					<span className={cx("item-icon")}>
+						<img src={HealthIcon} alt="health icon" />
+					</span>
+					<InputNumber
+						ref={healthRewardRef}
+						className="w-full"
+						mode="decimal"
+						placeholder="Nhập thưởng sức khỏe"
+						showButtons
+						min={0}
+					/>
+				</div>
+				<div className="mb-4 flex">
+					<span className={cx("item-icon")}>
+						<img src={StarIcon} alt="start icon" />
+					</span>
+					<InputNumber
+						ref={starRewardRef}
+						className="w-full"
+						mode="decimal"
+						placeholder="Nhập thưởng sao"
+						showButtons
+						min={0}
+					/>
+				</div>
+				<div className="mb-4 flex">
+					<span className={cx("item-icon")}>
+						<img src={DiamondIcon} alt="diamond icon" />
+					</span>
+					<InputNumber
+						ref={diamondRewardRef}
+						className="w-full"
+						mode="decimal"
+						placeholder="Nhập thưởng kim cương"
+						showButtons
+						min={0}
 					/>
 				</div>
 				<div className="flex justify-content-end pt-2">

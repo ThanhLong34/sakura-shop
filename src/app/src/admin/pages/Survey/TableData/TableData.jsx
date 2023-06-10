@@ -7,6 +7,11 @@ import surveyApi from "@/apis/surveyApi";
 import TableHeader from "@/admin/components/TableHeader";
 import TableSearch from "@/admin/components/TableSearch";
 
+// Icons
+import HealthIcon from "@/assets/images/HeartIcon.png";
+import StarIcon from "@/assets/images/StarIcon.png";
+import DiamondIcon from "@/assets/images/DiamondIcon.png";
+
 import { DataTable } from "primereact/datatable";
 import { Column } from "primereact/column";
 import { SplitButton } from "primereact/splitbutton";
@@ -139,6 +144,30 @@ const TableData = forwardRef(({ onOpenDialog }, ref) => {
 			</div>
 		);
 	};
+	const healthRewardDataTemplate = (rowData) => {
+		return (
+			<span className="data-template">
+				<span className="data-template-value">{rowData.healthReward}</span>
+				<img className="data-template-icon" src={HealthIcon} alt="health icon" />
+			</span>
+		);
+	};
+	const starRewardDataTemplate = (rowData) => {
+		return (
+			<span className="data-template">
+				<span className="data-template-value">{rowData.starReward}</span>
+				<img className="data-template-icon" src={StarIcon} alt="star icon" />
+			</span>
+		);
+	};
+	const diamondRewardDataTemplate = (rowData) => {
+		return (
+			<span className="data-template">
+				<span className="data-template-value">{rowData.diamondReward}</span>
+				<img className="data-template-icon" src={DiamondIcon} alt="diamond icon" />
+			</span>
+		);
+	};
 	const actionsTemplate = (rowData) => {
 		const actions = [
 			{
@@ -200,7 +229,28 @@ const TableData = forwardRef(({ onOpenDialog }, ref) => {
 				emptyMessage="Không có kết quả"
 				tableStyle={{ minWidth: "max-content" }}
 			>
-				<Column field="title" header="Tiêu đề khảo sát" sortable sortFunction={getSortedTableData} />
+				<Column field="title" header="Tiêu đề khảo sát" sortable sortFunction={ getSortedTableData } />
+				<Column
+					field="healthReward"
+					header="Thưởng sức khỏe"
+					body={healthRewardDataTemplate}
+					sortable
+					sortFunction={getSortedTableData}
+				/>
+				<Column
+					field="starReward"
+					header="Thưởng sao"
+					body={starRewardDataTemplate}
+					sortable
+					sortFunction={getSortedTableData}
+				/>
+				<Column
+					field="diamondReward"
+					header="Thưởng kim cương"
+					body={diamondRewardDataTemplate}
+					sortable
+					sortFunction={getSortedTableData}
+				/>
 				<Column
 					headerStyle={{ textAlign: "center" }}
 					bodyStyle={{ textAlign: "center", overflow: "visible" }}

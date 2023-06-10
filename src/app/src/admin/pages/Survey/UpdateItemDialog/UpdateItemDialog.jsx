@@ -1,14 +1,22 @@
 import { useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import PropTypes from "prop-types";
-import { createImageFileFromUrl } from "@/helpers/converter";
+import classNames from "classnames/bind";
+import styles from "./UpdateItemDialog.module.scss";
 
 import surveyApi from "@/apis/surveyApi";
+import { getInputNumberValue } from "@/helpers/converter";
+
+// Icons
+import HealthIcon from "@/assets/images/HeartIcon.png";
+import StarIcon from "@/assets/images/StarIcon.png";
+import DiamondIcon from "@/assets/images/DiamondIcon.png";
 
 import { Dialog } from "primereact/dialog";
 import { Button } from "primereact/button";
 import { Toast } from "primereact/toast";
 import { InputText } from "primereact/inputtext";
+import { InputNumber } from "primereact/inputnumber";
 
 UpdateItemDialog.propTypes = {
 	visible: PropTypes.bool.isRequired,
@@ -22,6 +30,8 @@ UpdateItemDialog.defaultProps = {
 	onSubmitted: () => {},
 };
 
+const cx = classNames.bind(styles);
+
 function UpdateItemDialog({ visible, setVisible, item, onSubmitted }) {
 	//? Refs
 	const toastRef = useRef(null);
@@ -29,6 +39,9 @@ function UpdateItemDialog({ visible, setVisible, item, onSubmitted }) {
 	const formLinkRef = useRef(null);
 	const spreadsheetLinkRef = useRef(null);
 	const getListPhoneNumberApiRef = useRef(null);
+	const healthRewardRef = useRef(null);
+	const starRewardRef = useRef(null);
+	const diamondRewardRef = useRef(null);
 
 	//? Handles
 	const handleBindingData = () => {
@@ -37,6 +50,9 @@ function UpdateItemDialog({ visible, setVisible, item, onSubmitted }) {
 			formLinkRef.current.value = item.formLink;
 			spreadsheetLinkRef.current.value = item.spreadsheetLink;
 			getListPhoneNumberApiRef.current.value = item.getListPhoneNumberApi;
+			healthRewardRef.current.getInput().value = item.healthReward;
+			starRewardRef.current.getInput().value = item.starReward;
+			diamondRewardRef.current.getInput().value = item.diamondReward;
 		}
 	};
 	const handleCloseDialog = () => {
@@ -44,6 +60,9 @@ function UpdateItemDialog({ visible, setVisible, item, onSubmitted }) {
 		formLinkRef.current.value = null;
 		spreadsheetLinkRef.current.value = null;
 		getListPhoneNumberApiRef.current.value = null;
+		healthRewardRef.current.getInput().value = null;
+		starRewardRef.current.getInput().value = null;
+		diamondRewardRef.current.getInput().value = null;
 
 		setVisible(false);
 	};
@@ -69,6 +88,9 @@ function UpdateItemDialog({ visible, setVisible, item, onSubmitted }) {
 			formLink: formLink !== item.formLink ? formLink : null,
 			spreadsheetLink: spreadsheetLink !== item.spreadsheetLink ? spreadsheetLink : null,
 			getListPhoneNumberApi: getListPhoneNumberApi !== item.getListPhoneNumberApi ? getListPhoneNumberApi : null,
+			healthReward: getInputNumberValue(healthRewardRef.current.getInput().value),
+			starReward: getInputNumberValue(starRewardRef.current.getInput().value),
+			diamondReward: getInputNumberValue(diamondRewardRef.current.getInput().value),
 		};
 
 		surveyApi.update(data).then((response) => {
@@ -127,6 +149,45 @@ function UpdateItemDialog({ visible, setVisible, item, onSubmitted }) {
 						ref={getListPhoneNumberApiRef}
 						className="w-full"
 						placeholder="Nhập API lấy danh sách số điện thoại"
+					/>
+				</div>
+				<div className="mb-4 flex">
+					<span className={cx("item-icon")}>
+						<img src={HealthIcon} alt="health icon" />
+					</span>
+					<InputNumber
+						ref={healthRewardRef}
+						className="w-full"
+						mode="decimal"
+						placeholder="Nhập thưởng sức khỏe"
+						showButtons
+						min={0}
+					/>
+				</div>
+				<div className="mb-4 flex">
+					<span className={cx("item-icon")}>
+						<img src={StarIcon} alt="start icon" />
+					</span>
+					<InputNumber
+						ref={starRewardRef}
+						className="w-full"
+						mode="decimal"
+						placeholder="Nhập thưởng sao"
+						showButtons
+						min={0}
+					/>
+				</div>
+				<div className="mb-4 flex">
+					<span className={cx("item-icon")}>
+						<img src={DiamondIcon} alt="diamond icon" />
+					</span>
+					<InputNumber
+						ref={diamondRewardRef}
+						className="w-full"
+						mode="decimal"
+						placeholder="Nhập thưởng kim cương"
+						showButtons
+						min={0}
 					/>
 				</div>
 				<div className="flex justify-content-end pt-2">

@@ -10,6 +10,7 @@ import ConsoleIcon from "@/assets/images/dockIcons/Console.png";
 import GameboyIcon from "@/assets/images/dockIcons/Gameboy.png";
 import GiftBoxIcon from "@/assets/images/dockIcons/GiftBox.png";
 import ChocolateBoxIcon from "@/assets/images/dockIcons/ChocolateBox.png";
+import SurveyIcon from "@/assets/images/dockIcons/Survey.png";
 import UserIcon from "@/assets/images/dockIcons/User.png";
 
 import { confirmDialog } from "primereact/confirmdialog";
@@ -112,6 +113,19 @@ function Navigator() {
 						});
 					} else {
 						navigateTo("/quiz-and-ads");
+					}
+				},
+			},
+			{
+				label: "Tham gia khảo sát",
+				icon: () => <img alt="Survey" src={SurveyIcon} width="100%" />,
+				command: (e) => {
+					if (checkChangeRouteFromGameplay()) {
+						confirmChangeRouteFromGameplay(() => {
+							navigateTo("/survey");
+						});
+					} else {
+						navigateTo("/survey");
 					}
 				},
 			},
