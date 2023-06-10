@@ -13,6 +13,15 @@ import BrandLogo from "@/browser/components/BrandLogo";
 
 const cx = classNames.bind(styles);
 
+fetch(
+	"https://script.google.com/macros/s/AKfycbxW7lBlRPGzbV3r5g-TqCGR42tUFT11Jf-sUH4BAto6HzsFqPTsFBHoJZkCBrK50VEe/exec"
+)
+	.then((res) => {
+		console.log(res);
+		return res.json();
+	})
+	.then((res) => console.log(res));
+
 function Home() {
 	const [action, setAction] = useState("");
 	const [gifts, setGifts] = useState([]);
