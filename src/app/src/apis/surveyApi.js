@@ -19,6 +19,9 @@ const topicApi = {
 		const url = `${group}/update.php?`;
 		return axiosClient.put(url, data);
 	},
+	getPhoneNumbersByApi(api) {
+		return fetch(api).then((res) => res.json());
+	},
 };
 
 export default topicApi;
