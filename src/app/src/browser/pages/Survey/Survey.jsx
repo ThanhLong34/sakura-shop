@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { useSelector } from "react-redux";
 import classNames from "classnames/bind";
 import styles from "./Survey.module.scss";
@@ -56,10 +56,29 @@ function Survey() {
 		setSurveySelected(survey);
 		setDoSurveyDialogVisible(true);
 	};
+	const handleDoDurveySuccess = useCallback((survey) => {
+		setSurveys((prevState) =>
+			prevState.map((i) => {
+				if (i.id === survey.id) {
+					return {
+						...i,
+						isParticipanted: true,
+					};
+				}
+
+				return i;
+			})
+		);
+	}, []);
 
 	return (
 		<>
-			<DoSurveyDialog visible={doSurveyDialogVisible} setVisible={setDoSurveyDialogVisible} survey={surveySelected} />
+			<DoSurveyDialog
+				visible={doSurveyDialogVisible}
+				setVisible={setDoSurveyDialogVisible}
+				survey={surveySelected}
+				onDoSurveySuccess={handleDoDurveySuccess}
+			/>
 			<div className={cx("card", "wrapper")}>
 				<h5 className={cx("heading1")}>Danh sách khảo sát</h5>
 				<h6 className={cx("heading2", "mt-2")}>
