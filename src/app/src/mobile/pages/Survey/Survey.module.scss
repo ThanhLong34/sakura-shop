@@ -1,0 +1,79 @@
+@use "@/assets/styles/variables.scss" as *;
+
+.wrapper {
+	color: $bTertiaryColor;
+	max-width: 500px;
+	padding: 1rem;
+	margin: 0 auto;
+}
+
+.heading1 {
+	font-size: 1rem;
+	text-align: center;
+	color: $bPrimaryColor;
+}
+
+.heading2 {
+	text-align: center;
+	font-size: 0.8rem;
+
+	span {
+		color: $bSecondaryColor;
+	}
+}
+
+.loading {
+	text-align: center;
+	display: block;
+	font-size: 1rem;
+}
+
+.survey {
+	&-item {
+		display: flex;
+	}
+
+	&-icon-wrapper {
+		max-width: 120px;
+	}
+
+	&-title {
+		color: $bPrimaryColor;
+		font-size: 0.9rem;
+	}
+
+	&-info {
+		display: flex;
+		flex-direction: column;
+		align-items: flex-start;
+		justify-content: space-between;
+	}
+}
+
+.reward-heading {
+	font-size: 0.8rem;
+}
+
+.rewards {
+	display: flex;
+	align-items: center;
+}
+
+.reward-data {
+	margin-right: 1.5rem;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.reward-icon {
+	display: inline-block;
+	margin-right: 0.6rem;
+	width: 20px;
+}
+
+.reward-value {
+	font-size: 0.9rem;
+	color: $bTertiaryColor;
+	transform: translateY(1px);
+}

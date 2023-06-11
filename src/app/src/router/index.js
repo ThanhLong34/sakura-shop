@@ -38,6 +38,7 @@ import MobileGameplay from "@/mobile/pages/Gameplay";
 import MobileReward from "@/mobile/pages/Reward";
 import MobileRewardHistory from "@/mobile/pages/RewardHistory";
 import MobileQuizAndAds from "@/mobile/pages/QuizAndAds";
+import MobileSurvey from "@/mobile/pages/Survey";
 import MobileProfile from "@/mobile/pages/Profile";
 import MobileNotFound from "@/mobile/pages/NotFound";
 import { EmptyLayout as MobileEmptyLayout } from "@/mobile/layouts";
@@ -252,6 +253,11 @@ const mobileRoutes = [
 	{
 		path: "/quiz-and-ads",
 		component: MobileQuizAndAds,
+		access: "private",
+	},
+	{
+		path: "/survey",
+		component: MobileSurvey,
 		access: "private",
 	},
 	{

@@ -180,6 +180,23 @@ function Sidebar({ visible, setVisible }) {
 				</li>
 				<li
 					className={cx("menu-item", {
+						active: location.pathname === "/survey",
+					})}
+					onClick={() => {
+						if (checkChangeRouteFromGameplay()) {
+							confirmChangeRouteFromGameplay(() => {
+								navigateTo("/survey");
+							});
+						} else {
+							navigateTo("/survey");
+						}
+					}}
+				>
+					<i className="pi pi-file"></i>
+					<span>Tham gia khảo sát</span>
+				</li>
+				<li
+					className={cx("menu-item", {
 						active: location.pathname === "/profile",
 					})}
 					onClick={() => {
