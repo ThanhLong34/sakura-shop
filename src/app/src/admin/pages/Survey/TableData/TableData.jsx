@@ -54,6 +54,7 @@ const TableData = forwardRef(({ onOpenDialog }, ref) => {
 	//? Refs
 	const tableSearchRef = useRef(null);
 	const toastRef = useRef(null);
+	const formLinkElementRef = useRef(null);
 
 	//? States
 	const [totalItem, setTotalItem] = useState(0);
@@ -171,6 +172,14 @@ const TableData = forwardRef(({ onOpenDialog }, ref) => {
 	const actionsTemplate = (rowData) => {
 		const actions = [
 			{
+				label: "Mở biểu mẫu",
+				icon: "pi pi-eye",
+				command: () => {
+					formLinkElementRef.current.href = rowData.formLink;
+					formLinkElementRef.current.click();
+				},
+			},
+			{
 				label: "Thay đổi",
 				icon: "pi pi-file-edit",
 				command: () => {
@@ -201,6 +210,7 @@ const TableData = forwardRef(({ onOpenDialog }, ref) => {
 
 	return (
 		<div>
+			<a ref={formLinkElementRef} href="#" target="_blank"></a>
 			{createPortal(<Toast ref={toastRef} />, document.body)}
 			<ConfirmPopup />
 			<div className="grid mb-3">
@@ -229,7 +239,7 @@ const TableData = forwardRef(({ onOpenDialog }, ref) => {
 				emptyMessage="Không có kết quả"
 				tableStyle={{ minWidth: "max-content" }}
 			>
-				<Column field="title" header="Tiêu đề khảo sát" sortable sortFunction={ getSortedTableData } />
+				<Column field="title" header="Tiêu đề khảo sát" sortable sortFunction={getSortedTableData} />
 				<Column
 					field="healthReward"
 					header="Thưởng sức khỏe"

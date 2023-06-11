@@ -16,29 +16,64 @@
 
 .heading2 {
 	text-align: center;
-	font-size: 1.2rem;
+	font-size: 1rem;
 
 	span {
 		color: $bSecondaryColor;
 	}
 }
 
-.item {
-	padding: 2rem;
-	box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
-	border-radius: 12px;
+.loading {
+	text-align: center;
+	display: block;
+}
 
-	&-image {
-		max-width: 200px;
-		margin: 0 auto;
+.survey {
+	&-item {
+		display: flex;
+	}
+
+	&-icon-wrapper {
+		max-width: 165px;
 	}
 
 	&-title {
-		margin: 2rem 0 0.5rem;
+		color: $bPrimaryColor;
+		font-size: 1rem;
 	}
 
-	&-subtitle {
-		color: orangered;
-		margin-bottom: 1.5rem;
+	&-info {
+		display: flex;
+		flex-direction: column;
+		align-items: flex-start;
+		justify-content: space-between;
 	}
+}
+
+.reward-heading {
+	font-size: 1rem;
+}
+
+.rewards {
+	display: flex;
+	align-items: center;
+}
+
+.reward-data {
+	margin-right: 1.5rem;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.reward-icon {
+	display: inline-block;
+	margin-right: 0.6rem;
+	width: 25px;
+}
+
+.reward-value {
+	font-size: 1.2rem;
+	color: $bTertiaryColor;
+	transform: translateY(1px);
 }

@@ -37,6 +37,7 @@ function AddItemDialog({ visible, setVisible, onSubmitted }) {
 	const formLinkRef = useRef(null);
 	const spreadsheetLinkRef = useRef(null);
 	const getListPhoneNumberApiRef = useRef(null);
+	const iframeSourceRef = useRef(null);
 	const healthRewardRef = useRef(null);
 	const starRewardRef = useRef(null);
 	const diamondRewardRef = useRef(null);
@@ -47,6 +48,7 @@ function AddItemDialog({ visible, setVisible, onSubmitted }) {
 		formLinkRef.current.value = null;
 		spreadsheetLinkRef.current.value = null;
 		getListPhoneNumberApiRef.current.value = null;
+		iframeSourceRef.current.value = null;
 		healthRewardRef.current.getInput().value = null;
 		starRewardRef.current.getInput().value = null;
 		diamondRewardRef.current.getInput().value = null;
@@ -59,6 +61,7 @@ function AddItemDialog({ visible, setVisible, onSubmitted }) {
 			formLink: formLinkRef.current?.value.trim(),
 			spreadsheetLink: spreadsheetLinkRef.current?.value.trim(),
 			getListPhoneNumberApi: getListPhoneNumberApiRef.current?.value.trim(),
+			iframeSource: iframeSourceRef.current?.value.trim(),
 			healthReward: getInputNumberValue(healthRewardRef.current.getInput().value),
 			starReward: getInputNumberValue(starRewardRef.current.getInput().value),
 			diamondReward: getInputNumberValue(diamondRewardRef.current.getInput().value),
@@ -125,6 +128,10 @@ function AddItemDialog({ visible, setVisible, onSubmitted }) {
 						className="w-full"
 						placeholder="Nhập API lấy danh sách số điện thoại"
 					/>
+				</div>
+				<div className="mb-4">
+					<span className="block mb-2">Liên kết thẻ iframe</span>
+					<InputText ref={iframeSourceRef} className="w-full" placeholder="Nhập liên kết thẻ iframe" />
 				</div>
 				<div className="mb-4 flex">
 					<span className={cx("item-icon")}>

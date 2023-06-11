@@ -39,6 +39,7 @@ function UpdateItemDialog({ visible, setVisible, item, onSubmitted }) {
 	const formLinkRef = useRef(null);
 	const spreadsheetLinkRef = useRef(null);
 	const getListPhoneNumberApiRef = useRef(null);
+	const iframeSourceRef = useRef(null);
 	const healthRewardRef = useRef(null);
 	const starRewardRef = useRef(null);
 	const diamondRewardRef = useRef(null);
@@ -50,6 +51,7 @@ function UpdateItemDialog({ visible, setVisible, item, onSubmitted }) {
 			formLinkRef.current.value = item.formLink;
 			spreadsheetLinkRef.current.value = item.spreadsheetLink;
 			getListPhoneNumberApiRef.current.value = item.getListPhoneNumberApi;
+			iframeSourceRef.current.value = item.iframeSource;
 			healthRewardRef.current.getInput().value = item.healthReward;
 			starRewardRef.current.getInput().value = item.starReward;
 			diamondRewardRef.current.getInput().value = item.diamondReward;
@@ -60,6 +62,7 @@ function UpdateItemDialog({ visible, setVisible, item, onSubmitted }) {
 		formLinkRef.current.value = null;
 		spreadsheetLinkRef.current.value = null;
 		getListPhoneNumberApiRef.current.value = null;
+		iframeSourceRef.current.value = null;
 		healthRewardRef.current.getInput().value = null;
 		starRewardRef.current.getInput().value = null;
 		diamondRewardRef.current.getInput().value = null;
@@ -71,6 +74,7 @@ function UpdateItemDialog({ visible, setVisible, item, onSubmitted }) {
 		const formLink = formLinkRef.current?.value.trim();
 		const spreadsheetLink = spreadsheetLinkRef.current?.value.trim();
 		const getListPhoneNumberApi = getListPhoneNumberApiRef.current?.value.trim();
+		const iframeSource = iframeSourceRef.current?.value.trim();
 
 		if (!title) {
 			toastRef.current.show({
@@ -88,6 +92,7 @@ function UpdateItemDialog({ visible, setVisible, item, onSubmitted }) {
 			formLink: formLink !== item.formLink ? formLink : null,
 			spreadsheetLink: spreadsheetLink !== item.spreadsheetLink ? spreadsheetLink : null,
 			getListPhoneNumberApi: getListPhoneNumberApi !== item.getListPhoneNumberApi ? getListPhoneNumberApi : null,
+			iframeSource: iframeSource !== item.iframeSource ? iframeSource : null,
 			healthReward: getInputNumberValue(healthRewardRef.current.getInput().value),
 			starReward: getInputNumberValue(starRewardRef.current.getInput().value),
 			diamondReward: getInputNumberValue(diamondRewardRef.current.getInput().value),
@@ -150,6 +155,10 @@ function UpdateItemDialog({ visible, setVisible, item, onSubmitted }) {
 						className="w-full"
 						placeholder="Nhập API lấy danh sách số điện thoại"
 					/>
+				</div>
+				<div className="mb-4">
+					<span className="block mb-2">Liên kết thẻ iframe</span>
+					<InputText ref={iframeSourceRef} className="w-full" placeholder="Nhập liên kết thẻ iframe" />
 				</div>
 				<div className="mb-4 flex">
 					<span className={cx("item-icon")}>
