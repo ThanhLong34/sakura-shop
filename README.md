@@ -1,4 +1,5 @@
 # 🐧 SAKURA SHOP 🐧
+[Video Demo Here](https://drive.google.com/file/d/1-j8MXev7yumJ1_cZ7fL7FLeOEKG-ibXh/view?usp=sharing)
 
 ## 🤖 Author
 
